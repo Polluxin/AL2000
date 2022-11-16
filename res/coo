@@ -68,7 +68,7 @@ end note
 class Compte {
 + inscrire(f:Formulaire) : bool
 + connexion(c:CarteAbo, mdp:String) : bool
-+ vérifier_fonds(c:Carte) : bool
++ vérifier_fonds(c:Carte, l:List<Location>) : bool
 + réglerPréférences(p:Préférences)
 + compteConnecté() : Abonné
 + deconnexion()
@@ -78,7 +78,7 @@ note right of Compte::connexion
 end note
 
 abstract class Client {
-vérifier_fonds(carte)
+vérifier_fonds(c:Carte, m:int)
 }
 
 class Abonné {

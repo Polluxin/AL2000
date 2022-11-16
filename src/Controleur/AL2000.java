@@ -10,7 +10,7 @@ import java.util.prefs.Preferences;
 /**
  * Contrôleur de l'application, tout passe par ici.
  * @author Geoffrey DAVID
- * @version 1
+ * @version 0
  */
 public class AL2000 {
 
