@@ -2,6 +2,16 @@
 ## Conventions de code
 - Commentaires et code en français
 - Javadoc pour toutes les classes avec nom(s) de(s) auteur(s)
+## Structure générale
+```puml
+@startuml
+[IHM] - InterfaceU
+InterfaceU - [AL2000]
+[AL2000] - DAO
+DAO - [BaseDeDonnées]
+@enduml
+```
+
 ## Comment écrire de la doc java ?
 Un exemple :
 ```java
