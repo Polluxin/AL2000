@@ -4,7 +4,16 @@ AL2000 "1" --> "1" Panier : possède
 AL2000 "1" --> "1" HistoLoc : consulte
 AL2000 "1" --> "1" Catalogue : consulte
 AL2000 "1" --> "1" Signalement: interagit
-AL2000 "1" --> "1" Machine : opère
+AL2000 "1" -r-> "1" Distributeur : opère
+AL2000 "1" -r-> "0..1" Technicien : authentifie
+
+Technicien "1" --> "1" Maintenance : opère
+
+Machine "1" --> "1" Statistiques : met à jour
+Machine "1" -r-> "1" Inventaire : met à jour
+Machine -u-|> Distributeur
+Machine -u-|> Maintenance
+
 
 Compte "0..*" --> "0..1" Client : associe
 
@@ -14,11 +23,8 @@ HistoLoc "1" <-- "1" Police : analyse
 
 Catalogue "*" --> "1" FiltreTri : utilise
 
-Machine "1" --> "1" Statistiques : possède
-Machine "1" --> "1" Inventaire : possède
-
 Client "1" --> "1" Carte : possède
-Client "0..*" --> "0..*" Genre : interdit
+Client "0..*" -r-> "0..*" Genre : interdit
 Client <|-- Abonné
 Client <|-- Anonyme
 
@@ -32,10 +38,6 @@ Location .. Etat
 Support "1..*" --> "1" Film : possède
 Support <|-- "QR Code"
 Support <|-- "BluRay"
-
-Film .. Genre
-
-
 
 class AL2000 {
 - initialisation()
@@ -71,8 +73,7 @@ class Compte {
 + compteConnecté() : Abonné
 + deconnexion()
 }
-
-note left of Compte::connexion
+note right of Compte::connexion
   Interrogation de la BD
 end note
 
@@ -101,15 +102,6 @@ class Panier {
 + valider() : Liste<Location>
 }
 
-class HistoLoc {
-+ voirHistorique() : Liste<Location>
-+ voirHistoriqueClient(a:Abonné) : Liste<Location>
-+ ajouterLocations(l:Liste<Location>)
-+ rendreBluRay(b:BluRay) : bool
-+ rendreBluRay(lb:Liste<BluRay>) : bool
-- calculerMontant(b:BlueRay) : float
-}
-
 class Catalogue {
 liste_films : List<Films>
 inv : Inventaire
@@ -125,14 +117,43 @@ class Signalement {
 note bottom of Signalement : Un signalement envoyé à CyberVidéo.
 
 class Machine {
-+ ouvrir()
-+ fermer()
-+ lire_cb() : CB
-+ livrerFilms(liste_films:List<Films>) : bool
-+ avalerBluRays()
++ inv : Inventaire
++ stat : Statistiques
+}
+
+class HistoLoc {
++ voirHistorique() : Liste<Location>
++ voirHistoriqueClient(a:Abonné) : Liste<Location>
++ ajouterLocations(l:Liste<Location>)
++ rendreBluRay(b:BluRay) : bool
++ rendreBluRay(lb:Liste<BluRay>) : bool
+- calculerMontant(b:BlueRay) : float
+}
+
+class Technicien {
+id : int
+histo : HistoLoc
++ voirHistorique(h:HistoLoc) : Liste<Location>
++ ouvrirMachine()
++ fermerMachine()
 + voirStatistiques() : Statistiques
 + donnerInventaire() : Inventaire
 }
+
+interface Distributeur {
++ lireCB() : CB
++ lireCTechnicien() : Technicien
++ livrerFilms(liste_films:Liste<Films>) : bool
++ avalerBluRays()
+}
+
+interface Maintenance {
++ ouvrir()
++ fermer()
++ voirStatistiques() : Statistiques
++ donnerInventaire() : Inventaire
+}
+
 
 class Inventaire {
 - liste_BluRays : Liste<BluRay>
@@ -149,7 +170,6 @@ nbOuvertures : int
 class Location {
 dateLocation : Date
 etatLocation : Etat
-client : Client
 }
 
 abstract class Carte {
@@ -199,7 +219,14 @@ enum Etat {
 }
 
 enum Genre {
-
+ WESTERN
+ ACTION
+ FANTAISIE
+ ANIME
+ HORREUR
+ SF
+ SUSPENSE
+ ROMANCE
 }
 
 class FiltreTri {

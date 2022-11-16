@@ -24,7 +24,7 @@ public class AL2000 {
 
     private Signalement signalement;
 
-    private Machine machine;
+    private Distributeur machine;
 
     AL2000() {
 
