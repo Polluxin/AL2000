@@ -13,6 +13,19 @@ import java.util.prefs.Preferences;
  * @version 1
  */
 public class AL2000 {
+
+    private Compte compte;
+
+    private Panier panier;
+
+    private HistoLoc histo;
+
+    private Catalogue catalogue;
+
+    private Signalement signalement;
+
+    private Machine machine;
+
     AL2000() {
 
     }
