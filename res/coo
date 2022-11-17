@@ -15,7 +15,7 @@ Machine .u.|> Distributeur
 Machine .u.|> Maintenance
 
 
-Compte "0..*" --> "0..1" Client : associe
+Compte "0..*" --> "1" Client : associe
 
 Panier "1" --> "0..*" Location : contient
 
@@ -143,8 +143,9 @@ histo : HistoLoc
 
 interface Distributeur {
 + lireCB() : CB
++ lireCarteAbo() : CarteAbo
 + lireCTechnicien() : Technicien
-+ livrerFilms(liste_films:Liste<Films>) : bool
++ livrerFilms(liste_films:Liste<FilmFormat>) : bool
 + avalerBluRays()
 }
 
