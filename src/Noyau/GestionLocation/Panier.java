@@ -5,4 +5,7 @@ package Noyau.GestionLocation;
  * @version
  */
 public class Panier {
+
+    Location[] locations;
+
 }
