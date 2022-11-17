@@ -1,4 +1,192 @@
 package Controleur;
 
+import Noyau.GestionClient.Compte;
+import Noyau.GestionLocation.*;
+import Noyau.GestionMachine.Distributeur;
+import Noyau.GestionMachine.FormulaireSignalement;
+import Noyau.GestionMachine.Signalement;
+import Noyau.GestionMachine.Statistiques;
+
+import java.util.List;
+import java.util.prefs.Preferences;
+
+/**
+ * Contrôleur de l'application, tout passe par ici.
+ * @author Geoffrey DAVID
+ * @version 0
+ */
 public class AL2000 {
+
+    private Compte compte;
+
+    private Panier panier;
+
+    private HistoLoc histo;
+
+    private Catalogue catalogue;
+
+    private Signalement signalement;
+
+    private Distributeur machine;
+
+    private Police police;
+
+    AL2000() {
+
+    }
+
+    /**
+     * Initialise le logiciel à partir de certains paramètres.
+     */
+    private void initialisation() {
+
+    }
+
+    /**
+     * Initialise le logiciel à partir de certains paramètres.
+     *
+     * @return vrai si la location s'est bien déroulée
+     */
+    public boolean louerFilms() {
+        return true;
+    }
+
+    /**
+     * Initialise le logiciel à partir de certains paramètres.
+     *
+     * @return vrai si les films ont bien été rendu
+     */
+    public boolean rendreFilms() {
+        return true;
+    }
+
+    /**
+     * Donne la liste des films, et leur disponibilité en BluRay grâce au type couple FilmFormat.
+     *
+     * @param filtre le filtre utilisé
+     * @return la liste des films et leur disponibilité
+     */
+    public List<FilmFormat> donnerCatalogue(FiltreTri filtre) {
+        return null;
+    }
+
+    /**
+     * Tente de connecter l'abonné grâce au mot de passe (lié à la classe Compte).
+     *
+     * @param mdp le mot de passe de connexion
+     * @return vrai si la connexion est réussie
+     */
+    public boolean connexion(String mdp) {
+        return true;
+    }
+
+    /**
+     * Déconnecte l'abonné du logciel (lié à la classe Compte).
+     */
+    public void deconnexion() {
+
+    }
+
+    /**
+     * Ajoute le film s au panier (lié à la classe Panier).
+     *
+     * @param s le film à ajouter
+     */
+    public void ajouterPanier(Support s) {
+
+    }
+
+    /**
+     * Change le support du film lié à la location l du panier (lié à Panier).
+     *
+     * @param l la location à modifier
+     */
+    public void changerSupportPanier(Location l) {
+
+    }
+
+    /**
+     * Donne la liste des locations présentes dans le panier.
+     *
+     * @return la liste des locations
+     */
+    public List<Location> consulterPanier() {
+        return null;
+    }
+
+    /**
+     * Valide le panier courant, en ajoutant toutes les locations à l'historique client et/ou machine.
+     *
+     * @return vrai si le panier est bien validé
+     */
+    public boolean validerPanier() {
+        return true;
+    }
+
+    /**
+     * Renvoie la liste des locations effectuées sur la machine.
+     *
+     * @return liste de locations
+     */
+    public List<Location> voirHistoMachine() {
+        return null;
+    }
+
+    /**
+     * Renvoie la liste des locations effectuées par un client abonné actuellement connecté.
+     *
+     * @return liste de locations
+     */
+    public List<Location> voirHistoClient() {
+        return null;
+    }
+
+    /**
+     * Donne les statistiques de la machine (fonctionnalité du technicien).
+     *
+     * @return les statistiques
+     */
+    public Statistiques voirStatistiques() {
+        return null;
+    }
+
+    /**
+     * Ouvre la trappe physique de la machine (fonctionnalité du technicien).
+     */
+    public void ouvrirMachine() {
+
+    }
+
+    /**
+     * Ferme la trappe physique de la machine (fonctionnalité du technicien).
+     */
+    public void fermerMachine() {
+
+    }
+
+    /**
+     * Crédite le compte du client courant en lisant une CB dans le lecteur (lié à la machine).
+     * @param montant la somme à créditer
+     * @return vrai si le compte est bien crédité
+     */
+    public boolean crediter(float montant){
+        return true;
+    }
+
+    /**
+     * Envoie à CyberVidéo un formulaire décrivant un bug, une réclamation, etc...
+     * @param f le formulaire de signalement
+     */
+    public void signalerProbleme(FormulaireSignalement f){
+
+    }
+
+    /**
+     * Permet de modifier les préférences du compte connecté.
+     * @param p les préférences du compte
+     */
+    public void reglerPreferences(Preferences p){
+
+    }
+
 }

@@ -1,0 +1,236 @@
+@startuml
+AL2000 "0..1" --> "1" Compte : interagit
+AL2000 "1" --> "1" Panier : possède
+AL2000 "1" --> "1" HistoLoc : consulte
+AL2000 "1" --> "1" Catalogue : consulte
+AL2000 "1" --> "1" Signalement: interagit
+AL2000 "1" -r-> "1" Distributeur : opère
+AL2000 "1" -r-> "0..1" Technicien : authentifie
+
+Technicien "1" --> "1" Maintenance : opère
+
+Machine "1" --> "1" Statistiques : met à jour
+Machine "1" -r-> "1" Inventaire : met à jour
+Machine .u.|> Distributeur
+Machine .u.|> Maintenance
+
+
+Compte "0..*" --> "0..1" Client : associe
+
+Panier "1" --> "0..*" Location : contient
+
+HistoLoc "1" <-- "1" Police : analyse
+
+Catalogue "*" --> "1" FiltreTri : utilise
+
+Client "1" --> "1" Carte : possède
+Client "0..*" -r-> "0..*" Genre : interdit
+Client <|-- Abonné
+Client <|-- Anonyme
+
+Carte <|-- CB
+Carte <|-- CarteAbo
+
+Location "0..*" --> "1" Support : contient
+Location "0..*" --o "1" Client
+Location .. Etat
+
+Support "1..*" --> "1" Film : possède
+Support <|-- "QR Code"
+Support <|-- "BluRay"
+
+class AL2000 {
+- initialisation()
++ louerFilms() : bool
++ rendreFilms() : bool
++ donnerCatalogue(f:Filtre) : Liste<Films, bool>
++ inscription(f:Formulaire) : bool
++ connexion(mdp:String) : bool
++ deconnexion()
++ ajouterPanier(s:Support)
++ changerSupportPanier(l:Location)
++ consulterPanier() : Liste<Location>
++ validerPanier() : bool
++ voirHistoMachine() : Liste<Location>
++ voirHistoClient() : Liste<Location>
++ voirStatistiques() : Statistiques
++ ouvrirMachine()
++ fermerMachine()
++ créditer(montant) : bool
++ signalerProblème(f:FormulaireSignalement)
++ réglerPréférences(p:Préférences)
+}
+note right of AL2000::validerPanier
+  h.ajouterLocations(p.valider())
+end note
+
+
+class Compte {
++ inscrire(f:Formulaire) : bool
++ connexion(c:CarteAbo, mdp:String) : bool
++ vérifier_fonds(c:Carte, l:List<Location>) : bool
++ réglerPréférences(p:Préférences)
++ compteConnecté() : Abonné
++ deconnexion()
+}
+note right of Compte::connexion
+  Interrogation de la BD
+end note
+
+abstract class Client {
+vérifier_fonds(c:Carte, m:int)
+}
+
+class Abonné {
++ nom: String
++ prenom : String
++ adresseMail : String
++ adpostale : String
+réglerPréférences(préférences)
+}
+
+class Anonyme{
+
+}
+
+class Panier {
++ ajouter(s:Support, c:Carte)
++ supprimer(l:location)
++ modifier(l:Location)
++ vérifier() : bool
++ consulter() : Liste<Location>
++ valider() : Liste<Location>
+}
+
+class Catalogue {
+liste_films : List<Films>
+inv : Inventaire
++ donnerFilms(a:Abonné, f:FiltreTri) : Liste<Films,bool>
+- récupérerPréférences(a:Abonné) : Préférences
+- récupérerFilmsBD() : Liste<Films>
+}
+
+class Signalement {
++ envoyer(FormulaireSignalement)
+}
+note bottom of Signalement : Un signalement envoyé à CyberVidéo.
+
+class Machine {
++ inv : Inventaire
++ stat : Statistiques
+}
+
+class HistoLoc {
++ voirHistorique() : Liste<Location>
++ voirHistoriqueClient(a:Abonné) : Liste<Location>
++ ajouterLocations(l:Liste<Location>, a:Abonne)
++ rendreBluRay(b:BluRay) : bool
++ rendreBluRay(lb:Liste<BluRay>) : bool
++ calculerMontant(b:BlueRay) : float
+}
+
+class Technicien {
+id : int
+histo : HistoLoc
++ voirHistorique(h:HistoLoc) : Liste<Location>
++ ouvrirMachine()
++ fermerMachine()
++ voirStatistiques() : Statistiques
++ donnerInventaire() : Inventaire
+}
+
+interface Distributeur {
++ lireCB() : CB
++ lireCTechnicien() : Technicien
++ livrerFilms(liste_films:Liste<Films>) : bool
++ avalerBluRays()
+}
+
+interface Maintenance {
++ ouvrir()
++ fermer()
++ voirStatistiques() : Statistiques
++ donnerInventaire() : Inventaire
+}
+
+
+class Inventaire {
+- liste_BluRays : Liste<BluRay>
++ ajouterBluRays(b:BluRay)
++ ajouterBluRays(lb:Liste<BluRay>)
++ supprimerBluRay(b:BluRay)
+}
+
+class Statistiques {
+nbLocations : int
+nbOuvertures : int
+}
+
+class Location {
+dateLocation : Date
+etatLocation : Etat
+}
+
+abstract class Carte {
++ payer(montant:float)
++ vérifier_fonds() : bool
++ créditer(montant:float) : bool
+}
+
+class CB {
+
+}
+
+class CarteAbo {
+
+}
+
+abstract class Support {
+id : int
+}
+
+class "QR Code" {
+
+}
+
+class BluRay {
+
+}
+
+class Film {
+titre : String
+date : String
+réalisateur : String
+durée : String
+genre : Genre
+}
+
+class Police {
+- t:Timer
+##TODO
+}
+
+note right of Police : Vérifie périodiquement s'il y a des locations\nnon rendues depuis plus de 5 jours.
+
+enum Etat {
+ ENCOURS
+ TERMINEE
+}
+
+enum Genre {
+ WESTERN
+ ACTION
+ FANTAISIE
+ ANIME
+ HORREUR
+ SF
+ SUSPENSE
+ ROMANCE
+}
+
+class FiltreTri {
++ t:Tri
++ valeur:String
+}
+
+@enduml

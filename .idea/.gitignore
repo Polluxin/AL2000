@@ -7,6 +7,30 @@
 /dataSources/
 /dataSources.local.xml
 
+# Out
+out/production/*
+
 # Ajouts
 # tous les .xml
 *.xml
+
+##############################
+## Java
+##############################
+.mtj.tmp/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+
+##############################
+## IntelliJ
+##############################
+out/
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws
