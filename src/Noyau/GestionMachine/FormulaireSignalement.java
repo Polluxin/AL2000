@@ -1,4 +1,4 @@
 package Noyau.GestionMachine;
 
-public class FormulaireSignalement {
+public class FormulaireSignalement implements Formulaire{
 }
