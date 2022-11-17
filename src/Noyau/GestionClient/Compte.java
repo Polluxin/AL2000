@@ -22,20 +22,17 @@ public class Compte {
      * Grâce au formulaire f, tente d'inscrire le client en consultant la base de données.
      *
      * @param f le forumlaire d'inscription
-     * @return vrai si l'inscription est effectué (le client est alors connecté)
      */
-    public boolean inscrire(Formulaire f) {
-        return true;
+    public void inscrire(Formulaire f) {
+
     }
 
     /**
      * Grâce à la carte c et le mot de passe mdp, tente de connecter l'abonné à la machine.
      * @param c la carte de l'abonné
      * @param mdp le mot de passe entré
-     * @return vrai si le client est bien connecté
      */
-    public boolean connexion(CarteAbo c, String mdp){
-        return true;
+    public void connexion(CarteAbo c, String mdp){
     }
 
     /**
@@ -59,18 +56,14 @@ public class Compte {
      * Crédite le compte du client courant grâce à une CB.
      * @param montant la somme à créditer
      * @param cb la carte à débiter
-     * @return vrai si le compte est bien crédité
      */
-    public boolean recharger(float montant, CB cb){
-        return true;
+    public void recharger(float montant, CB cb){
     }
 
     /**
      * Vide le compte du client courant en créditant la cb.
-     * @return vrai si le compte est bien crédité et le solde vidé
      */
-    public boolean retirerSolde(CB cb){
-        return true;
+    public void retirerSolde(CB cb){
     }
 
     /**

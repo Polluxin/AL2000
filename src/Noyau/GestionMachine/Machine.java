@@ -44,4 +44,24 @@ public class Machine implements Distributeur, Maintenance {
     public boolean avalerBluRays(Inventaire i) {
         return false;
     }
+
+    @Override
+    public void ouvrir() {
+
+    }
+
+    @Override
+    public void fermer() {
+
+    }
+
+    @Override
+    public Statistiques voirStatistiques() {
+        return null;
+    }
+
+    @Override
+    public Inventaire donnerInventaire() {
+        return null;
+    }
 }
