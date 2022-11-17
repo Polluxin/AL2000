@@ -12,10 +12,16 @@ public class CarteAbo extends Carte {
 
     float solde;
 
+    /**
+     *
+     * @param montant
+     * expliquer exception
+     */
     @Override
     void payer(float montant) {
         solde -= montant;
         if (solde < 0) {
+            //TODO
             throw new IllegalStateException("le Solde est négatif");
         }
     }
