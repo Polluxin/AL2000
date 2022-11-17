@@ -8,11 +8,12 @@ import Noyau.GestionLocation.FilmFormat;
 import java.util.List;
 
 /**
- *
- * @author
- * @version
+ * Infrastructure physique du distributeur de films.
+ * @author Geoffrey DAVID
+ * @version 0
  */
 public class Machine implements Distributeur, Maintenance {
+
     Inventaire inventaire;
 
     Statistiques statistiques;
