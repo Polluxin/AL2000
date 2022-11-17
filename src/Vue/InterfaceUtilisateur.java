@@ -1,7 +1,5 @@
 package Vue;
 
-import Test.Main;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
