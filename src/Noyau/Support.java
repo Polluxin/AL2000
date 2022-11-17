@@ -7,4 +7,6 @@ public abstract class Support {
      */
 
     int id;
+    Film film;
+
 }
