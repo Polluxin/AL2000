@@ -1,4 +1,6 @@
-package Noyau;
+package Noyau.GestionLocation;
+
+import Noyau.GestionClient.Abonne;
 
 import java.util.List;
 

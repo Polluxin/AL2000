@@ -1,4 +1,7 @@
-package Noyau;
+package Noyau.GestionClient;
+
+import Noyau.GestionMachine.Formulaire;
+import Noyau.GestionLocation.Location;
 
 import java.util.List;
 import java.util.prefs.Preferences;

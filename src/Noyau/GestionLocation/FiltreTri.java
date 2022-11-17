@@ -1,4 +1,6 @@
-package Noyau;
+package Noyau.GestionLocation;
+
+import Noyau.GestionLocation.Tri;
 
 /**
  *

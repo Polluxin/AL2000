@@ -1,9 +1,12 @@
 package Controleur;
 
-import Noyau.*;
-import Vue.InterfaceUtilisateur;
+import Noyau.GestionClient.Compte;
+import Noyau.GestionLocation.*;
+import Noyau.GestionMachine.Distributeur;
+import Noyau.GestionMachine.FormulaireSignalement;
+import Noyau.GestionMachine.Signalement;
+import Noyau.GestionMachine.Statistiques;
 
-import java.awt.*;
 import java.util.List;
 import java.util.prefs.Preferences;
 

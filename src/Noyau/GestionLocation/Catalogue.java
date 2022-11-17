@@ -1,6 +1,7 @@
-package Noyau;
+package Noyau.GestionLocation;
 
-import Vue.InterfaceUtilisateur;
+import Noyau.GestionClient.Abonne;
+import Noyau.GestionMachine.Inventaire;
 
 import java.util.List;
 import java.util.prefs.Preferences;

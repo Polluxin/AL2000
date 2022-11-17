@@ -1,4 +1,4 @@
-package Noyau;
+package Noyau.GestionLocation;
 /**
  *
  * @author

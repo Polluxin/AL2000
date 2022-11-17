@@ -1,4 +1,4 @@
-package Noyau;
+package Noyau.GestionClient;
 /**
  *
  * @author
