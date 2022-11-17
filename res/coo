@@ -11,8 +11,8 @@ Technicien "1" --> "1" Maintenance : opère
 
 Machine "1" --> "1" Statistiques : met à jour
 Machine "1" -r-> "1" Inventaire : met à jour
-Machine -u-|> Distributeur
-Machine -u-|> Maintenance
+Machine .u.|> Distributeur
+Machine .u.|> Maintenance
 
 
 Compte "0..*" --> "0..1" Client : associe
@@ -124,10 +124,10 @@ class Machine {
 class HistoLoc {
 + voirHistorique() : Liste<Location>
 + voirHistoriqueClient(a:Abonné) : Liste<Location>
-+ ajouterLocations(l:Liste<Location>)
++ ajouterLocations(l:Liste<Location>, a:Abonne)
 + rendreBluRay(b:BluRay) : bool
 + rendreBluRay(lb:Liste<BluRay>) : bool
-- calculerMontant(b:BlueRay) : float
++ calculerMontant(b:BlueRay) : float
 }
 
 class Technicien {
