@@ -26,6 +26,8 @@ public class AL2000 {
 
     private Distributeur machine;
 
+    private Police police;
+
     AL2000() {
 
     }

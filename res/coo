@@ -108,7 +108,6 @@ inv : Inventaire
 + donnerFilms(a:Abonné, f:FiltreTri) : Liste<Films,bool>
 - récupérerPréférences(a:Abonné) : Préférences
 - récupérerFilmsBD() : Liste<Films>
-- getFiltreTri() : FiltreTri
 }
 
 class Signalement {
