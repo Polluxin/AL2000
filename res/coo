@@ -56,9 +56,10 @@ class AL2000 {
 + voirStatistiques() : Statistiques
 + ouvrirMachine()
 + fermerMachine()
-+ créditer(montant) : bool
++ recharger(m:float) : bool
++ retirerSolde(cb: CB) : bool
 + signalerProblème(f:FormulaireSignalement)
-+ réglerPréférences(p:Préférences)
++ réglerInterdits(li: Liste<Genre>)
 }
 note right of AL2000::validerPanier
   h.ajouterLocations(p.valider())
@@ -69,8 +70,10 @@ class Compte {
 + inscrire(f:Formulaire) : bool
 + connexion(c:CarteAbo, mdp:String) : bool
 + vérifier_fonds(c:Carte, l:List<Location>) : bool
-+ réglerPréférences(p:Préférences)
++ réglerInterdits(li: Liste<Genre>)
 + compteConnecté() : Abonné
++ recharger(m:float, cb: CB)
++ retirerSolde(cb:CB) : bool
 + deconnexion()
 }
 note right of Compte::connexion
@@ -78,19 +81,17 @@ note right of Compte::connexion
 end note
 
 abstract class Client {
-vérifier_fonds(c:Carte, m:int)
++ vérifier_fonds(c:Carte, m:float)
 }
 
 class Abonné {
 + nom: String
 + prenom : String
 + adresseMail : String
-+ adpostale : String
-réglerPréférences(préférences)
-}
-
-class Anonyme{
-
++ adressePostale : String
++ réglerInterdits(li: Liste<Genre>)
++ recharger(m:float, cb:CB)
++ retirerSolde(cb: CB) : bool
 }
 
 class Panier {
@@ -123,6 +124,7 @@ class Machine {
 class HistoLoc {
 + voirHistorique() : Liste<Location>
 + voirHistoriqueClient(a:Abonné) : Liste<Location>
++ aLocationEnCours(a:Abonné) : bool
 + ajouterLocations(l:Liste<Location>, a:Abonne)
 + rendreBluRay(b:BluRay) : bool
 + rendreBluRay(lb:Liste<BluRay>) : bool
@@ -167,14 +169,13 @@ nbOuvertures : int
 }
 
 class Location {
-dateLocation : Date
+dateLocatin : Date
 etatLocation : Etat
 }
 
 abstract class Carte {
 + payer(montant:float)
-+ vérifier_fonds() : bool
-+ créditer(montant:float) : bool
++ vérifier_fonds(m:float) : bool
 }
 
 class CB {
@@ -182,7 +183,9 @@ class CB {
 }
 
 class CarteAbo {
-
+- solde : float
++ recharger(montant:float, cb:CB) : bool
++ retirerSolde(cb: CB) : bool
 }
 
 abstract class Support {

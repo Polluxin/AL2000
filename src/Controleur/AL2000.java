@@ -1,11 +1,8 @@
 package Controleur;
 
-import Noyau.GestionClient.Compte;
+import Noyau.GestionClient.*;
 import Noyau.GestionLocation.*;
-import Noyau.GestionMachine.Distributeur;
-import Noyau.GestionMachine.FormulaireSignalement;
-import Noyau.GestionMachine.Signalement;
-import Noyau.GestionMachine.Statistiques;
+import Noyau.GestionMachine.*;
 
 import java.util.List;
 import java.util.prefs.Preferences;
@@ -169,7 +166,16 @@ public class AL2000 {
      * @param montant la somme à créditer
      * @return vrai si le compte est bien crédité
      */
-    public boolean crediter(float montant){
+    public boolean recharger(float montant){
+        return true;
+    }
+
+    /**
+     * Vide le compte du client courant en créditant la CB dans le lecteur (lié à la machine).
+     * Si le client n'a pas de location en cours (lié à HistoLoc).
+     * @return vrai si le compte est bien crédité et le solde vidé
+     */
+    public boolean retirerSolde(){
         return true;
     }
 

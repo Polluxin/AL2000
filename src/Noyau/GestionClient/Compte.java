@@ -56,6 +56,24 @@ public class Compte {
     }
 
     /**
+     * Crédite le compte du client courant grâce à une CB.
+     * @param montant la somme à créditer
+     * @param cb la carte à débiter
+     * @return vrai si le compte est bien crédité
+     */
+    public boolean recharger(float montant, CB cb){
+        return true;
+    }
+
+    /**
+     * Vide le compte du client courant en créditant la cb.
+     * @return vrai si le compte est bien crédité et le solde vidé
+     */
+    public boolean retirerSolde(CB cb){
+        return true;
+    }
+
+    /**
      * Modifie les préférences liées au compte du client actuellement connecté
      * @param p les préférences
      */
