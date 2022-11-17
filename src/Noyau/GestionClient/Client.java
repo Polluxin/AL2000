@@ -4,13 +4,10 @@ import Noyau.GestionLocation.Genre;
 
 /**
  *
- * @author
- * @version
+ * @author Armand GRENIER
+ * @version 0.0
  */
 public abstract class Client {
-    /**
-     *
-     */
 
     Genre[] interdits;
     Carte carte;

@@ -2,7 +2,11 @@ package Noyau.GestionClient;
 
 import Noyau.GestionLocation.Genre;
 
-
+/**
+ *
+ * @author Armand GRENIER
+ * @version 0.0
+ */
 public class Abonne extends Client {
     /**
      * la carte d'un Abonne est une CarteAbo.

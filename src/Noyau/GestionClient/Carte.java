@@ -1,5 +1,10 @@
 package Noyau.GestionClient;
 
+/**
+ *
+ * @author Armand GRENIER
+ * @version 0.0
+ */
 public abstract class Carte {
     /**
      * paye le montant avec la carte
