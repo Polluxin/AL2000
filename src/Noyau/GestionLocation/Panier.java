@@ -1,8 +1,9 @@
 package Noyau.GestionLocation;
+
 /**
  *
- * @author
- * @version
+ * @author Armand GRENIER
+ * @version 0.0
  */
 public class Panier {
 
