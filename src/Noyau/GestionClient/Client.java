@@ -1,5 +1,6 @@
 package Noyau.GestionClient;
 
+import Noyau.Exception.PaiementRefuse;
 import Noyau.GestionLocation.Genre;
 
 /**
@@ -15,5 +16,23 @@ public abstract class Client {
     public Client(Genre[] interdits, Carte carte) {
         this.interdits = interdits;
         this.carte = carte;
+    }
+
+    //<editor-fold desc="Setter/Getter">
+    public Genre[] getInterdits() {
+        return interdits;
+    }
+
+    public void reglerInterdits(Genre[] interdits) {
+        this.interdits = interdits;
+    }
+    //</editor-fold>
+
+    void recharger(float montant) throws PaiementRefuse {
+        carte.recharger(montant);
+    }
+
+    void payer(float montant) throws PaiementRefuse {
+        carte.recharger(montant);
     }
 }

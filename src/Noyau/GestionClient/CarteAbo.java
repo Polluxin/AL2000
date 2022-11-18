@@ -1,16 +1,24 @@
 package Noyau.GestionClient;
 
+import Noyau.Exception.PaiementRefuse;
+
 /**
  *
  * @author Armand GRENIER
  * @version 0.0
  */
 public class CarteAbo extends Carte {
-    /**
-     *
-     */
 
-    float solde;
+
+    private float solde;
+
+    public float getSolde() {
+        return solde;
+    }
+
+    public void setSolde(float solde) {
+        this.solde = solde;
+    }
 
     /**
      *
@@ -19,7 +27,7 @@ public class CarteAbo extends Carte {
      */
     @Override
     void payer(float montant) {
-        solde -= montant;
+        this.solde -= montant;
         if (solde < 0) {
             //TODO
             throw new IllegalStateException("le Solde est négatif");
@@ -31,20 +39,8 @@ public class CarteAbo extends Carte {
         return solde >= montant;
     }
 
-    /**
-     * Le montant est viré de la cb vers le solde de la carte abonnée
-     * @param montant
-     * @param cb
-     */
-    void recharger(float montant, CB cb) {
-        //TODO
+    void recharger(float montant) {
+        solde += montant;
     }
 
-    /**
-     * vire tout le solde sur une CB (! ne doit pas avoir de locations en cours)
-     * @param cb
-     */
-    void retirer_solde(CB cb){
-        //TODO
-    }
 }
