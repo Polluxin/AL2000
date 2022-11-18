@@ -16,4 +16,12 @@ public abstract class Client {
         this.interdits = interdits;
         this.carte = carte;
     }
+
+    public Genre[] getInterdits() {
+        return interdits;
+    }
+
+    public void setInterdits(Genre[] interdits) {
+        this.interdits = interdits;
+    }
 }

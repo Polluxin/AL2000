@@ -1,16 +1,24 @@
 package Noyau.GestionClient;
 
+import Noyau.Exception.PaiementRefuse;
+
 /**
  *
  * @author Armand GRENIER
  * @version 0.0
  */
 public class CarteAbo extends Carte {
-    /**
-     *
-     */
+
 
     float solde;
+
+    public float getSolde() {
+        return solde;
+    }
+
+    public void setSolde(float solde) {
+        this.solde = solde;
+    }
 
     /**
      *
@@ -34,10 +42,9 @@ public class CarteAbo extends Carte {
     /**
      * Le montant est viré de la cb vers le solde de la carte abonnée
      * @param montant
-     * @param cb
      */
-    void recharger(float montant, CB cb) {
-        //TODO
+    void recharger(float montant) {
+        solde += montant;
     }
 
     /**

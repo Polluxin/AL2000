@@ -69,7 +69,7 @@ end note
 class Compte {
 + inscrire(f:Formulaire)
 + connexion(c:CarteAbo, mdp:String)
-+ vérifier_fonds(c:Carte, l:List<Location>) : bool
++ vérifier_fonds(m:float) : bool
 + réglerInterdits(li: Liste<Genre>)
 + compteConnecté() : Abonné
 + recharger(m:float, cb: CB)

@@ -1,7 +1,9 @@
 package Noyau.GestionClient;
 
 import Noyau.Exception.MauvaisMotDePasse;
-import Noyau.GestionMachine.Formulaire;
+import Noyau.Exception.PaiementRefuse;
+import Noyau.GestionLocation.Genre;
+import Noyau.GestionMachine.FormulaireInscription;
 import Noyau.GestionLocation.Location;
 
 import java.util.List;
@@ -28,7 +30,7 @@ public class Compte {
      * @param f le forumlaire d'inscription
      *          préciser l'exception
      */
-    public void inscrire(Formulaire f) {
+    public void inscrire(FormulaireInscription f) {
         //TODO
         //appel vers la bd pour creer un compte
         // propager exception si besoin
@@ -61,43 +63,48 @@ public class Compte {
     }
 
     /**
-     * Teste si la carte d'un abonné c contient un solde suffisant pour effectuer la commande l.
+     * Teste si la carte de l'abonné connecté dispose du montant nécéssaire
      *
-     * @param c la carte à vérifier
-     * @param montant la liste des locations
+     * @param montant le montant nécéssaire
      * @return vrai si la carte contient les fonds suffisants
      */
-    public boolean verifier_fonds(Carte c, float montant) {
-        return false;
+    public boolean verifier_fonds(float montant) {
+        return client.carte.verifier_fonds(montant);
     }
 
     /**
-     * Crédite le compte du client courant grâce à une CB.
+     * Recharge le solde du compte du client courant grâce à une CB.
      *
      * @param montant la somme à créditer
      * @param cb      la carte à débiter
-     * @return vrai si le compte est bien crédité
      */
-    public boolean recharger(float montant, CB cb) {
-        return true;
+    public void rechargerSolde(float montant, CB cb) throws PaiementRefuse {
+        // payer avec carte
+        cb.payer(montant);
+        // augmenter le solde
+        ((Abonne) client).recharger(montant);
     }
 
     /**
      * Vide le compte du client courant en créditant la cb.
      *
-     * @return vrai si le compte est bien crédité et le solde vidé
      */
-    public boolean retirerSolde(CB cb) {
-        return true;
+    public void retirerSolde(CB cb) throws PaiementRefuse {
+        CarteAbo cA = ((Abonne) client).carte;
+        float montant = cA.getSolde();
+        // recharger carte
+        cb.recharger(montant);
+        // vider compte
+        cA.setSolde(0.F);
     }
 
     /**
      * Modifie les préférences liées au compte du client actuellement connecté
      *
-     * @param p les préférences
+     * @param L La nouvelle liste de genres interdits
      */
-    public void reglerPreferences(Preferences p) {
-
+    public void reglerInterdits(Genre[] L) {
+        client.setInterdits(L);
     }
 
     /**

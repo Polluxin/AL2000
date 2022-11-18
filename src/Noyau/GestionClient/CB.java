@@ -1,5 +1,7 @@
 package Noyau.GestionClient;
 
+import Noyau.Exception.PaiementRefuse;
+
 /**
  *
  * @author Armand GRENIER
@@ -7,13 +9,20 @@ package Noyau.GestionClient;
  */
 public class CB extends Carte {
     @Override
-    void payer(float montant) {
-        super.payer(montant);
+    void payer(float montant) throws PaiementRefuse {
+        // TODO
+        throw new PaiementRefuse();
+    }
+
+    @Override
+    void recharger(float montant) throws PaiementRefuse {
+        // TODO
+        throw new PaiementRefuse();
     }
 
     @Override
     boolean verifier_fonds(float montant) {
-        //TODO
+        // TODO
         return false;
     }
 }

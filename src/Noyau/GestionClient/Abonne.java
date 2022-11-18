@@ -1,5 +1,6 @@
 package Noyau.GestionClient;
 
+import Noyau.Exception.PaiementRefuse;
 import Noyau.GestionLocation.Genre;
 
 /**
@@ -91,8 +92,8 @@ public class Abonne extends Client {
         this.interdits = newInterdits;
     }
 
-    void recharger(float montant, CB cb){
-        carte.recharger(montant, cb);
+    void recharger(float montant) {
+        carte.recharger(montant);
     }
 
     void retirer_solde(CB cb){

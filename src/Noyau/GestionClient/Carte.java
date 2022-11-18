@@ -1,5 +1,7 @@
 package Noyau.GestionClient;
 
+import Noyau.Exception.PaiementRefuse;
+
 /**
  *
  * @author Armand GRENIER
@@ -10,7 +12,9 @@ public abstract class Carte {
      * paye le montant avec la carte
      * @param montant
      */
-    void payer(float montant) {}
+    void payer(float montant) throws PaiementRefuse {}
+
+    void recharger(float montant) throws PaiementRefuse {}
 
     /**
      * verifie que la carte peut payer le montant
