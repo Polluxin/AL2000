@@ -1,7 +1,6 @@
 package Noyau.GestionClient;
 
 import Noyau.Exception.MauvaisMotDePasse;
-import Noyau.GestionMachine.Formulaire;
 import Noyau.GestionLocation.Location;
 
 import java.util.List;
@@ -27,13 +26,13 @@ public class Compte {
      *
      * @param f le forumlaire d'inscription
      *          préciser l'exception
-     */
-    public void inscrire(Formulaire f) {
-        //TODO
-        //appel vers la bd pour creer un compte
-        // propager exception si besoin
-        // connexion à faire
-    }
+//     */
+//    public void inscrire(Formulaire f) {
+//        //TODO
+//        //appel vers la bd pour creer un compte
+//        // propager exception si besoin
+//        // connexion à faire
+//    }
 
     /**
      * Grâce à la carte c et le mot de passe mdp, tente de connecter l'abonné à la machine.
