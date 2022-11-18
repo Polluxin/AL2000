@@ -46,6 +46,7 @@ class AL2000 {
 + donnerCatalogue(f:Filtre) : Liste<FilmFormat>
 + inscription(f:Formulaire)
 + connexion(mdp:String)
++ connexionTechnicien()
 + deconnexion()
 + ajouterPanier(s:Support)
 + changerSupportPanier(l:Location)
@@ -62,7 +63,9 @@ class AL2000 {
 + réglerInterdits(li: Liste<Genre>)
 }
 note right of AL2000::validerPanier
-  h.ajouterLocations(p.valider())
+  - si Anonyme alors lireCB().verifier_fonds(montant)
+    sinon compte.verifier_fonds(montant)
+  - h.ajouterLocations(p.valider())
 end note
 
 

@@ -1,0 +1,9 @@
+drop table LESCARTESBANCAIRES;
+drop table LESLOCATIONS;
+drop table LESBLURAYS;
+drop table LESMACHINES;
+drop table LESFILMS;
+drop table LESCARTESABONNES;
+drop table LESINTERDITS;
+drop table LESTECHNICIENS;
+drop table LESSTATISTIQUES;
