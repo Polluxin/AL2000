@@ -1,5 +1,6 @@
 package Noyau.GestionClient;
 
+import Noyau.Exception.MauvaisMotDePasse;
 import Noyau.GestionMachine.Formulaire;
 import Noyau.GestionLocation.Location;
 
@@ -14,7 +15,8 @@ import java.util.prefs.Preferences;
  * @version 0
  */
 public class Compte {
-    Abonne abo;
+
+    Client client;
 
     Compte() {
 
@@ -30,6 +32,7 @@ public class Compte {
         //TODO
         //appel vers la bd pour creer un compte
         // propager exception si besoin
+        // connexion à faire
     }
 
     /**
@@ -38,31 +41,34 @@ public class Compte {
      * @param c   la carte de l'abonné
      * @param mdp le mot de passe entré
      */
-    public void connexion(CarteAbo c, String mdp) {
+    public void connexion(CarteAbo c, String mdp) throws MauvaisMotDePasse {
         Abonne abo = null;
         //TODO
-        //lire abo dans la bd avec la carteAbo c
+        //lire abo dans la bd avec la carteAbo c Throw exception depuis le DAO !
         if (mdp.compareTo(abo.getMotDePasse()) != 0) {
-            throw new RuntimeException("mauvais mdp");
+            throw new MauvaisMotDePasse();
         }
+        // tout s'est bien passé, le client est connecté
+        this.client = abo;
     }
+
 
     /**
      * Déconnecte le client de la machine (Compte.abo vaut alors null)
      */
     public void deconnexion() {
-
+        this.client = null;
     }
 
     /**
-     * Teste si la carte c contient un solde suffisant pour effectuer la commande l.
+     * Teste si la carte d'un abonné c contient un solde suffisant pour effectuer la commande l.
      *
      * @param c la carte à vérifier
-     * @param l la liste des locations
+     * @param montant la liste des locations
      * @return vrai si la carte contient les fonds suffisants
      */
-    public boolean verifier_fonds(Carte c, List<Location> l) {
-        return true;
+    public boolean verifier_fonds(Carte c, float montant) {
+        return false;
     }
 
     /**

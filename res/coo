@@ -81,7 +81,6 @@ note right of Compte::connexion
 end note
 
 abstract class Client {
-+ vérifier_fonds(c:Carte, m:float)
 }
 
 class Abonné {

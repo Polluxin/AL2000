@@ -5,7 +5,8 @@ import java.sql.Connection;
  * Classe abstraite mettant en œuvre toutes les méthodes CRUD :
  *
  * @author Geoffrey DAVID
- * @version 1
+ * @author Armand GRENIER
+ * @version 0
  */
 public abstract class DAO<T> {
     protected Connection connect = null;
@@ -18,4 +19,5 @@ public abstract class DAO<T> {
     public abstract boolean modifier(T obj);
 
     public abstract boolean supprimer(T obj);
+
 }
