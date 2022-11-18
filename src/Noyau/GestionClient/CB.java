@@ -8,6 +8,8 @@ import Noyau.Exception.PaiementRefuse;
  * @version 0.0
  */
 public class CB extends Carte {
+
+    String informationBanquaires;
     @Override
     void payer(float montant) throws PaiementRefuse {
         // TODO

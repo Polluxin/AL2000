@@ -7,6 +7,9 @@ import Noyau.GestionLocation.Genre;
  * @version 0.0
  */
 public class Anonyme extends Client{
+
+    CB carte;
+
     /**
      *
      * @param interdits

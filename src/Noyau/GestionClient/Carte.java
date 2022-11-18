@@ -9,15 +9,21 @@ import Noyau.Exception.PaiementRefuse;
  */
 public abstract class Carte {
     /**
-     * paye le montant avec la carte
+     * Paye le montant indiqué en utilisant la carte
      * @param montant
+     * @throws PaiementRefuse
      */
     void payer(float montant) throws PaiementRefuse {}
 
+    /**
+     * Recharge la carte d'un certain montant.
+     * @param montant
+     * @throws PaiementRefuse
+     */
     void recharger(float montant) throws PaiementRefuse {}
 
     /**
-     * verifie que la carte peut payer le montant
+     * Verifie que la carte peut payer le montant
      * @param montant
      * @return
      */

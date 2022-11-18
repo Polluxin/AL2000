@@ -24,7 +24,7 @@ HistoLoc "1" <-- "1" Police : analyse
 Catalogue "*" --> "1" FiltreTri : utilise
 
 Client "1" --> "1" Carte : possède
-Client "0..*" -r-> "0..*" Genre : interdit
+Client "*" -r-> "*" Genre : interdit
 Client <|-- Abonné
 Client <|-- Anonyme
 
@@ -67,20 +67,24 @@ end note
 
 
 class Compte {
-+ inscrire(f:Formulaire)
-+ connexion(c:CarteAbo, mdp:String)
-+ vérifier_fonds(m:float) : bool
-+ réglerInterdits(li: Liste<Genre>)
-+ compteConnecté() : Abonné
-+ recharger(m:float, cb: CB)
-+ retirerSolde(cb:CB)
++ inscrire(f: FormulaireInscription)
++ connexion(c: CarteAbo, mdp: String)
 + deconnexion()
++ vérifier_fonds(m: float) : bool
++ rechargerSolde(montant: float, cb: CB)
++ retirerSolde(cb: CB)
++ réglerInterdits(L: Liste<Genre>)
++ AnonymeSetCB(cb: CB)
+
 }
 note right of Compte::connexion
   Interrogation de la BD
 end note
 
 abstract class Client {
++ payer(montant: float)
++ recharger(montant: float)
++ réglerInterdits(L: Liste<Genre>)
 }
 
 class Abonné {
@@ -88,9 +92,6 @@ class Abonné {
 + prenom : String
 + adresseMail : String
 + adressePostale : String
-+ réglerInterdits(li: Liste<Genre>)
-+ recharger(m:float, cb:CB)
-+ retirerSolde(cb: CB)
 }
 
 class Panier {
@@ -174,18 +175,17 @@ etatLocation : Etat
 }
 
 abstract class Carte {
-+ payer(montant:float)
-+ vérifier_fonds(m:float) : bool
++ payer(montant: float)
++ recharger(montant: float)
++ vérifier_fonds(m: float) : bool
 }
 
 class CB {
-
+- informationBanquaires: String
 }
 
 class CarteAbo {
 - solde : float
-+ recharger(montant:float, cb:CB)
-+ retirerSolde(cb: CB)
 }
 
 abstract class Support {

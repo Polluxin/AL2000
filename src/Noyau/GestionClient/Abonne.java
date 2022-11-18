@@ -9,20 +9,12 @@ import Noyau.GestionLocation.Genre;
  * @version 0.0
  */
 public class Abonne extends Client {
-    /**
-     * la carte d'un Abonne est une CarteAbo.
-     * En plus des methodes d'un client, il peut recharger et retirer le solde
-     * de sa carte.
-     */
+
     CarteAbo carte;
 
     String nom, prenom, addresseMail, adressePostale, motDePasse;
 
     //<editor-fold desc="Constructor">
-    public Abonne(Genre[] interdits, Carte carte) {
-        super(interdits, carte);
-    }
-
     public Abonne(Genre[] interdits, Carte carte, CarteAbo carte1, String nom, String prenom, String addresseMail, String adressePostale, String motDePasse) {
         super(interdits, carte);
         this.carte = carte1;
@@ -84,19 +76,6 @@ public class Abonne extends Client {
     }
     //</editor-fold>
 
-    /**
-     * newInterdits devient la liste des interdits.
-     * @param newInterdits
-     */
-    void reglerInterdits(Genre[] newInterdits){
-        this.interdits = newInterdits;
-    }
 
-    void recharger(float montant) {
-        carte.recharger(montant);
-    }
 
-    void retirer_solde(CB cb){
-        carte.retirer_solde(cb);
-    }
 }

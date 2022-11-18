@@ -10,7 +10,7 @@ import Noyau.Exception.PaiementRefuse;
 public class CarteAbo extends Carte {
 
 
-    float solde;
+    private float solde;
 
     public float getSolde() {
         return solde;
@@ -27,7 +27,7 @@ public class CarteAbo extends Carte {
      */
     @Override
     void payer(float montant) {
-        solde -= montant;
+        this.solde -= montant;
         if (solde < 0) {
             //TODO
             throw new IllegalStateException("le Solde est négatif");
@@ -39,19 +39,8 @@ public class CarteAbo extends Carte {
         return solde >= montant;
     }
 
-    /**
-     * Le montant est viré de la cb vers le solde de la carte abonnée
-     * @param montant
-     */
     void recharger(float montant) {
         solde += montant;
     }
 
-    /**
-     * vire tout le solde sur une CB (! ne doit pas avoir de locations en cours)
-     * @param cb
-     */
-    void retirer_solde(CB cb){
-        //TODO
-    }
 }
