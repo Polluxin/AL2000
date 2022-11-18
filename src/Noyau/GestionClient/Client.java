@@ -26,7 +26,12 @@ public abstract class Client {
     public void reglerInterdits(Genre[] interdits) {
         this.interdits = interdits;
     }
-    //</editor-fold>
+
+    public Carte getCarte() {
+        return carte;
+    }
+
+//</editor-fold>
 
     void recharger(float montant) throws PaiementRefuse {
         carte.recharger(montant);

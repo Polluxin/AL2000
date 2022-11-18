@@ -1,18 +1,23 @@
 package Noyau.GestionLocation;
 
+import java.sql.Date;
+import java.sql.Time;
+
 /**
  *
  * @author Armand GRENIER
  * @version 0.0
  */
 public class Film {
-    String titre, date, realisateur, duree;
+    String titre, realisateur;
+    Date date;
+    Time duree;
     Genre genre;
 
-    public Film(String titre, String date, String realisateur, String duree, Genre genre) {
+    public Film(String titre, String realisateur, Date date, Time duree, Genre genre) {
         this.titre = titre;
-        this.date = date;
         this.realisateur = realisateur;
+        this.date = date;
         this.duree = duree;
         this.genre = genre;
     }

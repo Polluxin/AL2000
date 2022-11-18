@@ -98,7 +98,7 @@ class Abonné {
 }
 
 class Panier {
-+ ajouter(s:Support, c:Carte)
++ ajouter(s: Support, c: Client)
 + supprimer(l:location)
 + modifier(l:Location)
 + vérifier() : bool
@@ -173,14 +173,17 @@ nbOuvertures : int
 }
 
 class Location {
-dateLocatin : Date
-etatLocation : Etat
+- dateLocatin: Date
+- etatLocation: Etat
++ {Static} fondsNecessaire(l: location, promo: bool)
++ {Static} fondsNecessaire(L: Liste<location>, promo: bool)
 }
 
 abstract class Carte {
+- id: int
 + payer(montant: float)
 + recharger(montant: float)
-+ vérifier_fonds(m: float) : bool
++ vérifier_fonds(m: float): bool
 }
 
 class CB {
@@ -188,11 +191,11 @@ class CB {
 }
 
 class CarteAbo {
-- solde : float
+- solde: float
 }
 
 abstract class Support {
-id : int
+id: int
 }
 
 class "QR Code" {
@@ -204,11 +207,11 @@ class BluRay {
 }
 
 class Film {
-titre : String
-date : String
-réalisateur : String
-durée : String
-genre : Genre
+titre: String
+date: String
+réalisateur: String
+durée: String
+genre: Genre
 }
 
 class Police {

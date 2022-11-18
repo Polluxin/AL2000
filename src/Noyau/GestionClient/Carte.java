@@ -8,6 +8,16 @@ import Noyau.Exception.PaiementRefuse;
  * @version 0.0
  */
 public abstract class Carte {
+    int id = 0;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     /**
      * Paye le montant indiqué en utilisant la carte
      * @param montant
