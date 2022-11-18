@@ -45,14 +45,12 @@ public class HistoLoc {
     /**
      * Met à jour la base de données : la location associée au BluRay b passe dans l'état TERMINEE.
      * @param b le BluRay rendu
-     * @return vrai si la location est bien terminée
      */
-    public boolean rendreBluRay(BluRay b){
-        return true;
+    public void rendreBluRay(BluRay b){
+
     }
 
-    public boolean rendreBluRay(List<BluRay> lb){
-        return true;
+    public void rendreBluRay(List<BluRay> lb){
     }
 
     /**
@@ -62,5 +60,14 @@ public class HistoLoc {
      */
     public float calculerMontant(BluRay b){
         return 0;
+    }
+
+    /**
+     * Vérifie si l'abonné a a une location non rendue (utilisé pour retirer le solde de son compte).
+     * @param a l'abonné
+     * @return vrai s'il y a des locations en cours
+     */
+    public boolean aLocationEnCours(Abonne a){
+        return false;
     }
 }

@@ -8,11 +8,12 @@ import Noyau.GestionLocation.FilmFormat;
 import java.util.List;
 
 /**
- *
- * @author
- * @version
+ * Infrastructure physique du distributeur de films.
+ * @author Geoffrey DAVID
+ * @version 0
  */
 public class Machine implements Distributeur, Maintenance {
+
     Inventaire inventaire;
 
     Statistiques statistiques;
@@ -43,5 +44,25 @@ public class Machine implements Distributeur, Maintenance {
     @Override
     public boolean avalerBluRays(Inventaire i) {
         return false;
+    }
+
+    @Override
+    public void ouvrir() {
+
+    }
+
+    @Override
+    public void fermer() {
+
+    }
+
+    @Override
+    public Statistiques voirStatistiques() {
+        return null;
+    }
+
+    @Override
+    public Inventaire donnerInventaire() {
+        return null;
     }
 }

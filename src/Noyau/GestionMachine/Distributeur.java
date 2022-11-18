@@ -8,7 +8,8 @@ import Noyau.GestionLocation.FilmFormat;
 import java.util.List;
 
 /**
- *
+ * Opérations de la machine que le logiciel AL2000 a à sa disposition pour
+ * distribuer/récupérer physiquement les BluRays lors des locations.
  * @author Geoffrey DAVID
  * @version 0
  */

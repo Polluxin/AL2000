@@ -42,19 +42,15 @@ public class AL2000 {
     /**
      * Initialise le logiciel à partir de certains paramètres.
      *
-     * @return vrai si la location s'est bien déroulée
      */
-    public boolean louerFilms() {
-        return true;
+    public void louerFilms() {
     }
 
     /**
      * Initialise le logiciel à partir de certains paramètres.
      *
-     * @return vrai si les films ont bien été rendu
      */
-    public boolean rendreFilms() {
-        return true;
+    public void rendreFilms() {
     }
 
     /**
@@ -71,10 +67,15 @@ public class AL2000 {
      * Tente de connecter l'abonné grâce au mot de passe (lié à la classe Compte).
      *
      * @param mdp le mot de passe de connexion
-     * @return vrai si la connexion est réussie
      */
-    public boolean connexion(String mdp) {
-        return true;
+    public void connexion(String mdp) {
+    }
+
+    /**
+     * Authentifie le technicien grâce à une carte lue dans le
+     * lecteur de la machine.
+     */
+    public void connexionTechnicien() {
     }
 
     /**
@@ -114,10 +115,8 @@ public class AL2000 {
     /**
      * Valide le panier courant, en ajoutant toutes les locations à l'historique client et/ou machine.
      *
-     * @return vrai si le panier est bien validé
      */
-    public boolean validerPanier() {
-        return true;
+    public void validerPanier() {
     }
 
     /**
@@ -164,19 +163,15 @@ public class AL2000 {
     /**
      * Crédite le compte du client courant en lisant une CB dans le lecteur (lié à la machine).
      * @param montant la somme à créditer
-     * @return vrai si le compte est bien crédité
      */
-    public boolean recharger(float montant){
-        return true;
+    public void recharger(float montant){
     }
 
     /**
      * Vide le compte du client courant en créditant la CB dans le lecteur (lié à la machine).
      * Si le client n'a pas de location en cours (lié à HistoLoc).
-     * @return vrai si le compte est bien crédité et le solde vidé
      */
-    public boolean retirerSolde(){
-        return true;
+    public void retirerSolde(){
     }
 
     /**

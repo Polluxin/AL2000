@@ -12,7 +12,7 @@ public abstract class DAO<T> {
     protected Connection connect = null;
     public DAO(Connection conn){ this.connect = conn; }
 
-    public abstract boolean crer(T obj);
+    public abstract boolean creer(T obj);
 
     public abstract T lire(int id);
 
