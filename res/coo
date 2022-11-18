@@ -85,7 +85,6 @@ note right of Compte::connexion
 end note
 
 abstract class Client {
-- id: int
 + payer(montant: float)
 + recharger(montant: float)
 + réglerInterdits(L: Liste<Genre>)
@@ -181,6 +180,7 @@ class Location {
 }
 
 abstract class Carte {
+- id: int
 + payer(montant: float)
 + recharger(montant: float)
 + vérifier_fonds(m: float): bool
