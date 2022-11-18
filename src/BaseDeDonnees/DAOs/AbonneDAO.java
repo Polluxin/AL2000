@@ -1,10 +1,10 @@
-package BaseDeDonnees;
+package BaseDeDonnees.DAOs;
 
 import Noyau.GestionClient.Abonne;
 
 import java.sql.Connection;
 
-public class AbonneDAO extends DAO<Abonne>{
+public class AbonneDAO extends DAO<Abonne> {
     public AbonneDAO(Connection conn) {
         super(conn);
     }

@@ -1,4 +1,4 @@
-package BaseDeDonnees;
+package BaseDeDonnees.DAOs;
 
 import Noyau.GestionClient.CB;
 

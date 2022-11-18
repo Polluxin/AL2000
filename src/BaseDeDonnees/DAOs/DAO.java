@@ -1,4 +1,4 @@
-package BaseDeDonnees;
+package BaseDeDonnees.DAOs;
 
 import java.sql.Connection;
 /**
@@ -9,7 +9,7 @@ import java.sql.Connection;
  * @version 0
  */
 public abstract class DAO<T> {
-    protected Connection connect = null;
+    protected Connection connect;
     public DAO(Connection conn){ this.connect = conn; }
 
     public abstract boolean creer(T obj);
