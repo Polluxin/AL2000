@@ -1,6 +1,6 @@
 package BaseDeDonnees.DAOs;
 
-import Noyau.GestionMachine.Technicien;
+import Metier.GestionMachine.Technicien;
 
 import java.sql.Connection;
 

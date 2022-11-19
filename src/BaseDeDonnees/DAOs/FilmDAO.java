@@ -1,6 +1,6 @@
 package BaseDeDonnees.DAOs;
 
-import Noyau.GestionLocation.Film;
+import Metier.GestionLocation.Film;
 
 import java.sql.Connection;
 

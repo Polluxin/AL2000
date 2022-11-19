@@ -1,6 +1,6 @@
 package BaseDeDonnees.DAOs;
 
-import Noyau.GestionLocation.Location;
+import Metier.GestionLocation.Location;
 
 import java.sql.Connection;
 

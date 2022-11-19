@@ -1,6 +1,6 @@
 package BaseDeDonnees.DAOs;
 
-import Noyau.GestionClient.CarteAbo;
+import Metier.GestionClient.CarteAbo;
 
 import java.sql.Connection;
 

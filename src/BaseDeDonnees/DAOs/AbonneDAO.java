@@ -1,6 +1,6 @@
 package BaseDeDonnees.DAOs;
 
-import Noyau.GestionClient.Abonne;
+import Metier.GestionClient.Abonne;
 
 import java.sql.Connection;
 

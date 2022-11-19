@@ -1,8 +1,8 @@
 package Controleur;
 
-import Noyau.GestionClient.*;
-import Noyau.GestionLocation.*;
-import Noyau.GestionMachine.*;
+import Metier.GestionClient.*;
+import Metier.GestionLocation.*;
+import Metier.GestionMachine.*;
 
 import java.util.List;
 import java.util.prefs.Preferences;
@@ -13,6 +13,8 @@ import java.util.prefs.Preferences;
  * @version 0
  */
 public class AL2000 {
+
+    private final int idMachineAssociee = 1;
 
     private Compte compte;
 
