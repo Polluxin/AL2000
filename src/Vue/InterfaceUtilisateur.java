@@ -1,113 +1,97 @@
 package Vue;
 
-import Test.Main;
-
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.MatteBorder;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
 
-public class InterfaceUtilisateur extends JFrame{
+import static java.awt.Font.createFont;
+
+
+public class InterfaceUtilisateur {
+
+    JFrame ecran;
+    NavigationBar navBar;
+    backgroundPanel fondDEcran;
+    Dimension tailleEcran;
+    Bienvenue ecranDeBienvenue;
+    Inscription inscription;
+    InscriptionReussie inscriptionReussie;
+    ETAT_IU etatCourant;
+    JPanel panneauCourant;
+
+    JPanel panneau_inscription = new JPanel();
+
     public InterfaceUtilisateur(){
-        this.setLocationRelativeTo(null);
-        this.setResizable(true);
+        ourTools.setFont();
+
+        // Initialisations
+        ecran = new JFrame();
+        navBar = new NavigationBar(this);
+        fondDEcran = new backgroundPanel();
+        tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
+        etatCourant = ETAT_IU.AUCUN;
+
+        ecranDeBienvenue = new Bienvenue();
+        inscription = new Inscription();
+        inscriptionReussie = new InscriptionReussie();
+
+        inscription.setVisible(true);
+        inscriptionReussie.setVisible(true);
+
+        panneauCourant = ecranDeBienvenue;
+        navBar.ajouterEtat(ETAT_IU.BIENVENUE);
+
+        // Taille de l'ecran de l'utilisateur :
+        double LARGEUR = tailleEcran.getWidth()/3;
+        double HAUTEUR = tailleEcran.getHeight()/3;
+
+        // Parametrage
+        ecran.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ecran.setMinimumSize(new Dimension(900, 500));
+        ecran.setPreferredSize(new Dimension((int)LARGEUR,(int)HAUTEUR));
+        ecran.setContentPane(fondDEcran);
+        ecran.setResizable(true);
+
+        ecran.setLayout(new BorderLayout());
+        ecran.add(navBar, BorderLayout.NORTH);
+
+        ecran.add(panneauCourant);
+
+        changerEtat(ETAT_IU.INSCRIPTION_VALIDE);
+
+        ecran.pack();
+        ecran.setVisible(true);
+        ecran.setLocationRelativeTo(null);
     }
 
-    Dimension scaleDimRatio(Dimension in, double maxWidth){
-        /**
-         *  Get in a dimension and an expected width and outputs a dimension with the expected width and the new height.
-         */
-        double width = in.getWidth();
-        System.out.println("Current Dimensions = W:"+in.getWidth()+", H:"+in.getHeight()+"\nNext Dimensions = W:"+maxWidth+", H:"+(maxWidth*in.getHeight())/in.getWidth());
-        return new Dimension((int)maxWidth, (int)((maxWidth*in.getHeight())/in.getWidth()));
-    }
-
-    JButton transparentButtonWithIcon(String imageRef){
-        /**
-         * Creates a JButton that does not appear but has an icon set.
-         */
-
-        // Create the Icon
-        ImageIcon ii = new StretchIcon(imageRef); // load image
-
-        // Create the button and initialise it
-        JButton jb = new JButton();
-        jb.setIcon(ii);
-
-        // Debug parameters
-        jb.addActionListener(e -> System.out.println("Hello"));
-
-        // Makes the button disappear
-        jb.setBorderPainted(false);
-        jb.setContentAreaFilled(false);
-        jb.setFocusPainted(false);
-        jb.setOpaque(false); // <-- https://stackoverflow.com/a/8367524
-
-        return jb;
-    }
-
-    void resizeButtons(JButton[] lis, Dimension newDim){
-        for(int i=0; i<lis.length; i++){
-            System.out.println("kek");
+    public void changerEtat(ETAT_IU nouvelEtat) {
+        ecran.remove(panneauCourant);
+        if (nouvelEtat != etatCourant) {
+            switch (nouvelEtat) {
+                case BIENVENUE -> {
+                    navBar.cacher();
+                    panneauCourant = ecranDeBienvenue;
+                }
+                case INSCRIPTION -> {
+                    navBar.retourSeulement(true);
+                    panneauCourant = inscription;
+                }
+                case INSCRIPTION_VALIDE -> {
+                    navBar.retourSeulement(true);
+                    panneauCourant = inscriptionReussie;
+                }
+            }
+            ecran.add(panneauCourant);
+            etatCourant = nouvelEtat;
+            navBar.ajouterEtat(nouvelEtat);
+            ecran.pack();
         }
-
     }
+
 
     public static void main(String[] args) {
-        InterfaceUtilisateur iu = new InterfaceUtilisateur();
-        // Starting code from :  https://www.guru99.com/java-swing-gui.html
-        // Taille de l'ecran de l'utilisateur :
-        Dimension tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
-        double LARGEUR = tailleEcran.getWidth()/5;
-        double HAUTEUR = tailleEcran.getHeight()/5;
-
-        // Princi
-        iu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        iu.setSize((int)LARGEUR,(int)HAUTEUR);
-
-        // Content Pane
-        JPanel panneauPrincipal = new JPanel();
-        panneauPrincipal.setBackground(Color.GREEN);
-        panneauPrincipal.setLayout(new GridBagLayout());
-        iu.setContentPane(panneauPrincipal);
-
-        // GridBagConstraint
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridwidth = gbc.REMAINDER;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-
-        // Panneau contenant tous les boutons
-        JPanel boutons = new JPanel(); // Panel containing all the buttons
-        boutons.setLayout(new GridLayout(4,3));
-        boutons.setBorder(BorderFactory.createLineBorder(Color.BLACK, 10));
-
-        boutons.setOpaque(false); // make it transparent to see the background
-
-        // Liste de tous les boutons et creation des boutons
-        JButton listeBoutons[] = new JButton[4];
-        for(int i=0; i<4; i++){
-            int tailleBorder = 10;
-            listeBoutons[i] = iu.transparentButtonWithIcon("/home/matvei/Documents/GitHub/AL2000/src/ressources/button.png");
-        }
-
-        // Ajouter tous les boutons dans leur panneau
-        boutons.add(new JLabel(""));
-        for(int i=0; i<3;i++){
-            boutons.add(listeBoutons[i]);
-            boutons.add(new JLabel(""));
-            boutons.add(new JLabel(""));
-        }
-        boutons.add(listeBoutons[3]);
-        boutons.add(new JLabel(""));
-
-        // Ajouter le panneau des boutons au panneau principal
-        //panneauPrincipal.add(boutons);
-
-        iu.add(boutons, gbc);
-
-        iu.setVisible(true);
+        InterfaceUtilisateur UI = new InterfaceUtilisateur();
     }
-
 }

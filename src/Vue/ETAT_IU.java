@@ -1,0 +1,5 @@
+package Vue;
+
+public enum ETAT_IU {
+    BIENVENUE, INSCRIPTION, INSCRIPTION_VALIDE, AUCUN
+}
