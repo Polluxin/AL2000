@@ -1,0 +1,9 @@
+truncate table LESBLURAYS;
+truncate table LESCARTESABONNES;
+truncate table LESCARTESBANCAIRES;
+truncate table LESFILMS;
+truncate table LESINTERDITS;
+truncate table LESLOCATIONS;
+truncate table LESSTATISTIQUES;
+truncate table LESTECHNICIENS;
+truncate table LESMACHINES;

@@ -11,11 +11,11 @@ Technicien "1" --> "1" Maintenance : opère
 
 Machine "1" --> "1" Statistiques : met à jour
 Machine "1" -r-> "1" Inventaire : met à jour
-Machine -u-|> Distributeur
-Machine -u-|> Maintenance
+Machine .u.|> Distributeur
+Machine .u.|> Maintenance
 
 
-Compte "0..*" --> "0..1" Client : associe
+Compte "0..*" --> "1" Client : associe
 
 Panier "1" --> "0..*" Location : contient
 
@@ -24,7 +24,7 @@ HistoLoc "1" <-- "1" Police : analyse
 Catalogue "*" --> "1" FiltreTri : utilise
 
 Client "1" --> "1" Carte : possède
-Client "0..*" -r-> "0..*" Genre : interdit
+Client "*" -r-> "*" Genre : interdit
 Client <|-- Abonné
 Client <|-- Anonyme
 
@@ -41,60 +41,64 @@ Support <|-- "BluRay"
 
 class AL2000 {
 - initialisation()
-+ louerFilms() : bool
-+ rendreFilms() : bool
-+ donnerCatalogue(f:Filtre) : Liste<Films, bool>
-+ inscription(f:Formulaire) : bool
-+ connexion(mdp:String) : bool
++ louerFilms()
++ rendreFilms()
++ donnerCatalogue(f:Filtre) : Liste<FilmFormat>
++ inscription(f:Formulaire)
++ connexion(mdp:String)
++ connexionTechnicien()
 + deconnexion()
 + ajouterPanier(s:Support)
 + changerSupportPanier(l:Location)
 + consulterPanier() : Liste<Location>
-+ validerPanier() : bool
++ validerPanier()
 + voirHistoMachine() : Liste<Location>
 + voirHistoClient() : Liste<Location>
 + voirStatistiques() : Statistiques
 + ouvrirMachine()
 + fermerMachine()
-+ créditer(montant) : bool
++ recharger(m:float)
++ retirerSolde(cb: CB)
 + signalerProblème(f:FormulaireSignalement)
-+ réglerPréférences(p:Préférences)
++ réglerInterdits(li: Liste<Genre>)
 }
 note right of AL2000::validerPanier
-  h.ajouterLocations(p.valider())
+  - si Anonyme alors lireCB().verifier_fonds(montant)
+    sinon compte.verifier_fonds(montant)
+  - h.ajouterLocations(p.valider())
 end note
 
 
 class Compte {
-+ inscrire(f:Formulaire) : bool
-+ connexion(c:CarteAbo, mdp:String) : bool
-+ vérifier_fonds(c:Carte) : bool
-+ réglerPréférences(p:Préférences)
-+ compteConnecté() : Abonné
++ inscrire(f: FormulaireInscription)
++ connexion(c: CarteAbo, mdp: String)
 + deconnexion()
++ vérifier_fonds(m: float) : bool
++ rechargerSolde(montant: float, cb: CB)
++ retirerSolde(cb: CB)
++ réglerInterdits(L: Liste<Genre>)
++ AnonymeSetCB(cb: CB)
+
 }
 note right of Compte::connexion
   Interrogation de la BD
 end note
 
 abstract class Client {
-vérifier_fonds(carte)
++ payer(montant: float)
++ recharger(montant: float)
++ réglerInterdits(L: Liste<Genre>)
 }
 
 class Abonné {
 + nom: String
 + prenom : String
 + adresseMail : String
-+ adpostale : String
-réglerPréférences(préférences)
-}
-
-class Anonyme{
-
++ adressePostale : String
 }
 
 class Panier {
-+ ajouter(s:Support, c:Carte)
++ ajouter(s: Support, c: Client)
 + supprimer(l:location)
 + modifier(l:Location)
 + vérifier() : bool
@@ -108,7 +112,6 @@ inv : Inventaire
 + donnerFilms(a:Abonné, f:FiltreTri) : Liste<Films,bool>
 - récupérerPréférences(a:Abonné) : Préférences
 - récupérerFilmsBD() : Liste<Films>
-- getFiltreTri() : FiltreTri
 }
 
 class Signalement {
@@ -124,16 +127,17 @@ class Machine {
 class HistoLoc {
 + voirHistorique() : Liste<Location>
 + voirHistoriqueClient(a:Abonné) : Liste<Location>
-+ ajouterLocations(l:Liste<Location>)
-+ rendreBluRay(b:BluRay) : bool
-+ rendreBluRay(lb:Liste<BluRay>) : bool
-- calculerMontant(b:BlueRay) : float
++ aLocationEnCours(a:Abonné) : bool
++ ajouterLocations(l:Liste<Location>, a:Abonne)
++ rendreBluRay(b:BluRay)
++ rendreBluRay(lb:Liste<BluRay>)
++ calculerMontant(b:BlueRay) : float
 }
 
 class Technicien {
 id : int
 histo : HistoLoc
-+ voirHistorique(h:HistoLoc) : Liste<Location>
++ voirHistorique() : Liste<Location>
 + ouvrirMachine()
 + fermerMachine()
 + voirStatistiques() : Statistiques
@@ -142,8 +146,9 @@ histo : HistoLoc
 
 interface Distributeur {
 + lireCB() : CB
++ lireCarteAbo() : CarteAbo
 + lireCTechnicien() : Technicien
-+ livrerFilms(liste_films:Liste<Films>) : bool
++ livrerFilms(liste_films:Liste<FilmFormat>) : bool
 + avalerBluRays()
 }
 
@@ -168,26 +173,29 @@ nbOuvertures : int
 }
 
 class Location {
-dateLocation : Date
-etatLocation : Etat
+- dateLocatin: Date
+- etatLocation: Etat
++ {Static} fondsNecessaire(l: location, promo: bool)
++ {Static} fondsNecessaire(L: Liste<location>, promo: bool)
 }
 
 abstract class Carte {
-+ payer(montant:float)
-+ vérifier_fonds() : bool
-+ créditer(montant:float) : bool
+- id: int
++ payer(montant: float)
++ recharger(montant: float)
++ vérifier_fonds(m: float): bool
 }
 
 class CB {
-
+- informationBanquaires: String
 }
 
 class CarteAbo {
-
+- solde: float
 }
 
 abstract class Support {
-id : int
+id: int
 }
 
 class "QR Code" {
@@ -199,11 +207,11 @@ class BluRay {
 }
 
 class Film {
-titre : String
-date : String
-réalisateur : String
-durée : String
-genre : Genre
+titre: String
+date: String
+réalisateur: String
+durée: String
+genre: Genre
 }
 
 class Police {
@@ -227,6 +235,7 @@ enum Genre {
  SF
  SUSPENSE
  ROMANCE
+ COMEDIE
 }
 
 class FiltreTri {
