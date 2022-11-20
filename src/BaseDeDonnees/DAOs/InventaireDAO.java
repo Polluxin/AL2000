@@ -4,6 +4,8 @@ import Metier.GestionMachine.Inventaire;
 
 import java.sql.Connection;
 
+// TODO
+
 public class InventaireDAO extends DAO<Inventaire>{
     public InventaireDAO(Connection conn) {
         super(conn);

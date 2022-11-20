@@ -4,6 +4,8 @@ import Metier.GestionLocation.Location;
 
 import java.sql.Connection;
 
+// TODO
+
 public class LocationAboDAO extends DAO<Location>{
 
     public LocationAboDAO(Connection conn) {

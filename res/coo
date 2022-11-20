@@ -137,7 +137,7 @@ class HistoLoc {
 class Technicien {
 id : int
 histo : HistoLoc
-+ voirHistorique(h:HistoLoc) : Liste<Location>
++ voirHistorique() : Liste<Location>
 + ouvrirMachine()
 + fermerMachine()
 + voirStatistiques() : Statistiques

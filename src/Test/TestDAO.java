@@ -1,22 +1,43 @@
 package Test;
 
 import BaseDeDonnees.DAOs.StatistiquesDAO;
+import BaseDeDonnees.DAOs.TechnicienDAO;
+import BaseDeDonnees.FabriqueDAO;
 import BaseDeDonnees.Session;
 import Metier.GestionMachine.Statistiques;
-
-import java.sql.Connection;
+import Metier.GestionMachine.Technicien;
 
 // Programme de test du fonctionnement du DAO
 public class TestDAO {
+
+    static Session s;
+    static FabriqueDAO fabriqueDAO;
+
     public static void main(String[] args) {
         System.out.println("--- Test des DAO ---");
-        Session s = new Session();
-
+        s = new Session();
+        s.open();
+        fabriqueDAO = new FabriqueDAO(s.getSession());
 
         System.out.println("-- Statistiques --");
-        s.open();
-        Connection connection = s.getSession();
-        StatistiquesDAO dao = new StatistiquesDAO(connection);
+        testStatistiques();
+        System.out.println("-- Technicien --");
+        testTechnicien();
+
+        s.close();
+        System.out.println("-------------------");
+
+    }
+
+    public static void testTechnicien(){
+        TechnicienDAO dao = fabriqueDAO.getTechnicienDAO();
+        System.out.println("- Lecture d'un objet : -");
+        Technicien recu = dao.lire(1);
+        System.out.println(recu);
+    }
+
+    public static void testStatistiques(){
+        StatistiquesDAO dao = fabriqueDAO.getStatistiquesDAO();
         System.out.println("- Lecture d'un objet : -");
         Statistiques recues = dao.lire(2);
         System.out.println(recues);
@@ -26,11 +47,5 @@ public class TestDAO {
         dao.modifier(modif);
         recues = dao.lire(1);
         System.out.println(recues);
-
-        
-        s.close();
-        System.out.println("-------------------");
-
-
     }
 }
