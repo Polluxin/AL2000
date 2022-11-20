@@ -2,13 +2,17 @@ package Metier.GestionMachine;
 
 import Metier.GestionLocation.BluRay;
 
+import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Implémenter avec BluRayDAO et Session
+
+@SuppressWarnings("unused")
 public class Inventaire {
-    private List<BluRay> liste_BluRays = null;
+    private List<BluRay> liste_BluRays;
 
-    Inventaire(){
-
+    public Inventaire(){
+        liste_BluRays = new ArrayList<>();
     }
 
     public void ajouterBlueRays(BluRay b){
