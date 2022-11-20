@@ -9,8 +9,7 @@
 
 # Out
 out/production/*
-out/*
-/out/*
+out/
 
 # Ajouts
 # tous les .xml
