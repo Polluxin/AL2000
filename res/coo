@@ -235,6 +235,7 @@ enum Genre {
  SF
  SUSPENSE
  ROMANCE
+ COMEDIE
 }
 
 class FiltreTri {
