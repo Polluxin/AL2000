@@ -3,6 +3,7 @@ package Metier.GestionLocation;
 import Metier.GestionClient.Client;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  *
@@ -21,6 +22,7 @@ public class Location {
         this.support = support;
         this.client = client;
     }
+
 
     public Support getSupport() {
         return support;
@@ -63,6 +65,11 @@ public class Location {
         }
         return sum;
     }
+
+    public static float fondsNecessaire(List<Location> locations, boolean promo) {
+        return fondsNecessaire((Location[]) locations.toArray(), promo);
+    }
+
 
 
 }
