@@ -8,6 +8,7 @@ import java.sql.Time;
  * @author Armand GRENIER
  * @version 0.0
  */
+@SuppressWarnings("unused")
 public class Film {
     String titre, realisateur;
     Date date;
@@ -20,5 +21,25 @@ public class Film {
         this.date = date;
         this.duree = duree;
         this.genre = genre;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public String getRealisateur() {
+        return realisateur;
+    }
+
+    public Time getDuree() {
+        return duree;
     }
 }

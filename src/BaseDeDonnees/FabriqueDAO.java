@@ -25,6 +25,6 @@ public class FabriqueDAO {
 
     public StatistiquesDAO getStatistiquesDAO(){ return new StatistiquesDAO(conn); }
 
-    public InventaireDAO getInventaireDAO(){ return new InventaireDAO(conn); }
+    public BluRayDAO getBluRayDAO(){ return new BluRayDAO(conn); }
 
 }

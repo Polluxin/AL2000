@@ -18,7 +18,7 @@ public class Compte {
 
     Client client = null;
 
-    Compte() {
+    public Compte() {
     }
 
     /**

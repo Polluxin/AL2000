@@ -33,7 +33,7 @@ public class CarteAbo extends Carte {
     }
 
     @Override
-    boolean verifier_fonds(float montant) {
+    public boolean verifier_fonds(float montant) {
         return solde >= montant;
     }
 
