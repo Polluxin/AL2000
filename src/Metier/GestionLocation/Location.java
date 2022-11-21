@@ -1,5 +1,6 @@
 package Metier.GestionLocation;
 
+import Metier.Exception.PaiementRefuse;
 import Metier.GestionClient.Client;
 
 import java.sql.Date;
@@ -60,8 +61,28 @@ public class Location {
         return sum;
     }
 
+    /**
+     * Calcul les fonds nécéssaire pour pouvoir louer toutes les locations de la liste.
+     *
+     * @param locations
+     * @return
+     */
     public static float fondsNecessaire(List<Location> locations) {
         return fondsNecessaire((Location[]) locations.toArray());
+    }
+
+    public void payer(){
+        int joursAPayer;
+        // TODO
+        Date sqlDate = new Date(System.currentTimeMillis());
+        joursAPayer = 2;
+        try {
+            client.payer(support, joursAPayer);
+        } catch (PaiementRefuse e) {
+            // le paiement est refusé
+            throw new RuntimeException(e);
+        }
+
     }
 
 

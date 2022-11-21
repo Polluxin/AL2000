@@ -28,4 +28,12 @@ public abstract class Support {
     public Film getFilm() {
         return film;
     }
+
+    public float getPrixAboJour() {
+        return prixAboJour;
+    }
+
+    public float getPrixBaseJour() {
+        return prixBaseJour;
+    }
 }

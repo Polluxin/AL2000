@@ -1,6 +1,8 @@
 package Metier.GestionClient;
 
+import Metier.Exception.PaiementRefuse;
 import Metier.GestionLocation.Genre;
+import Metier.GestionLocation.Support;
 
 /**
  *
@@ -74,6 +76,12 @@ public class Abonne extends Client {
         this.motDePasse = motDePasse;
     }
     //</editor-fold>
+
+
+    public void payer(Support s, int jours) throws PaiementRefuse {
+        float prix = s.getPrixAboJour() * jours;
+        carte.payer(prix);
+    }
 
 
 

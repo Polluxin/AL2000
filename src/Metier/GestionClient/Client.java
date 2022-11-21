@@ -2,6 +2,7 @@ package Metier.GestionClient;
 
 import Metier.Exception.PaiementRefuse;
 import Metier.GestionLocation.Genre;
+import Metier.GestionLocation.Support;
 
 /**
  *
@@ -37,7 +38,13 @@ public abstract class Client {
         carte.recharger(montant);
     }
 
-    void payer(float montant) throws PaiementRefuse {
-        carte.recharger(montant);
+    /**
+     * Fait payer un support à un client
+     *
+     * @param s le support rendu
+     * @param jours le nombre de jours à payer
+     * @throws PaiementRefuse
+     */
+    public void payer(Support s, int jours) throws PaiementRefuse {
     }
 }

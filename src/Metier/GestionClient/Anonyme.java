@@ -1,6 +1,9 @@
 package Metier.GestionClient;
 
+import Metier.Exception.PaiementRefuse;
 import Metier.GestionLocation.Genre;
+import Metier.GestionLocation.Support;
+
 /**
  *
  * @author Armand GRENIER
@@ -22,6 +25,9 @@ public class Anonyme extends Client{
         super(interdits, carte);
     }
 
-
+    public void payer(Support s, int jours) throws PaiementRefuse {
+        float prix = s.getPrixBaseJour() * jours;
+        carte.payer(prix);
+    }
 }
 

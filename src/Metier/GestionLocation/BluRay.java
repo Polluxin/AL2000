@@ -20,18 +20,6 @@ public class BluRay extends Support {
         this.film = film;
     }
 
-    public float getPrixMax() {
-        return prixMax;
-    }
-
-    public float getPrixAboJour() {
-        return prixAboJour;
-    }
-
-    public float getPrixBaseJour() {
-        return prixBaseJour;
-    }
-
     public Film getFilm() {
         return film;
     }
