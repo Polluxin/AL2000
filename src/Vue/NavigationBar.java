@@ -21,6 +21,7 @@ public class NavigationBar extends JPanel {
     JButton parametres;
     JButton parametreAdmin;
     JButton deconnexion;
+    JButton panier;
     Color navColor;
     int borderSize;
     LinkedList<ETAT_IU> fifo = new LinkedList<ETAT_IU>();
@@ -45,12 +46,12 @@ public class NavigationBar extends JPanel {
         retour = bouton("src/ressources/retour.png");
         this.setRetour();
         aide = bouton("src/ressources/signalerProbleme.png");
-
         connexion = bouton("src/ressources/connexion.png");
         compte = bouton("src/ressources/compte.png");
         parametres = bouton("src/ressources/parametres.png");
         parametreAdmin = bouton("src/ressources/admin.png");
         deconnexion = bouton("src/ressources/disconnect.png");
+        panier = bouton("src/ressources/panier.png");
 
         gaucheNav.add(retour, BorderLayout.WEST);
         gaucheNav.add(aide);
@@ -59,6 +60,7 @@ public class NavigationBar extends JPanel {
         droiteNav.add(parametres);
         droiteNav.add(parametreAdmin);
         droiteNav.add(deconnexion);
+        droiteNav.add(panier);
 
         droiteNavOut = new JPanel();
         droiteNavOut.setLayout(new BorderLayout());
@@ -193,7 +195,6 @@ public class NavigationBar extends JPanel {
         this.retour.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Oy !");
                 fifo.pop(); //supprimer l'etat courant
                 ETAT_IU nouveau = fifo.pop(); // recuperer l'etat precedent
                 System.out.println("Retour --> Nouvel etat = "+nouveau+" .. reste des etats = "+fifo.toString());
@@ -212,6 +213,41 @@ public class NavigationBar extends JPanel {
         this.setThisBorder(true);
     }
 
+    public void setCompte(boolean active) {
+        this.compte.setVisible(active);
+        this.compte.setEnabled(active);
+    }
 
+    public void setRetour(boolean active) {
+        this.retour.setVisible(active);
+        this.retour.setEnabled(active);
+    }
+
+    public void setAide(boolean active) {
+        this.aide.setVisible(active);
+        this.aide.setEnabled(active);
+    }
+
+    public void setConnexion(boolean active) {
+        this.connexion.setVisible(active);
+        this.connexion.setEnabled(active);
+    }
+    public void setParametres(boolean active) {
+        this.parametres.setVisible(active);
+        this.parametres.setEnabled(active);
+    }
+
+    public void setParametresAdmin(boolean active) {
+        this.parametreAdmin.setVisible(active);
+        this.parametreAdmin.setEnabled(active);
+    }
+    public void setDeconnexion(boolean active) {
+        this.deconnexion.setVisible(active);
+        this.deconnexion.setEnabled(active);
+    }
+    public void setPanier(boolean active) {
+        this.panier.setVisible(active);
+        this.panier.setEnabled(active);
+    }
 
 }

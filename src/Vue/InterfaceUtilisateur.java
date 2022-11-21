@@ -35,7 +35,7 @@ public class InterfaceUtilisateur {
         tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
         etatCourant = ETAT_IU.AUCUN;
 
-        ecranDeBienvenue = new Bienvenue();
+        ecranDeBienvenue = new Bienvenue(this);
         inscription = new Inscription();
         inscriptionReussie = new InscriptionReussie();
         connexion = new Connexion();

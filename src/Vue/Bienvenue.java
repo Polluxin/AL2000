@@ -6,10 +6,11 @@ public class Bienvenue extends JPanel{
     JPanel panneauPrincipal;
     JPanel boutons;
     JButton[] listeBoutons;
-    NavigationBar navigationBar;
+    InterfaceUtilisateur iu;
 
-    public Bienvenue(){
-        // Content Pane
+    public Bienvenue(InterfaceUtilisateur iu){
+        this.iu = iu;
+
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
 
