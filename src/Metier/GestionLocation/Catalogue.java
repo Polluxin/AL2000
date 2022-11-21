@@ -11,6 +11,7 @@ import java.util.prefs.Preferences;
  * @author Geoffrey DAVID
  * @version 0
  */
+@SuppressWarnings("unused")
 public class Catalogue {
 
     List<Film> liste_films;
@@ -32,7 +33,7 @@ public class Catalogue {
      * @param f le filtre à appliquer
      * @return la liste des films du catalogue
      */
-    public List<FilmFormat> donnerFilms(Abonne a, FiltreTri f){
+    public List<Support> donnerFilms(Abonne a, FiltreTri f){
         return null;
     }
 
@@ -50,7 +51,7 @@ public class Catalogue {
      * disponibles, et recoupe avec l'inventaire en attribut.
      * @return la liste des films disponibles
      */
-    private List<FilmFormat> recupererFilmsBD(){
+    private List<Support> recupererFilmsBD(){
         return null;
     }
 }

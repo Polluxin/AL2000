@@ -12,6 +12,7 @@ import static java.awt.Font.createFont;
 public class InterfaceUtilisateur {
 
     JFrame ecran;
+    boolean utilisateurConnecte;
     NavigationBar navBar;
     backgroundPanel fondDEcran;
     Dimension tailleEcran;
@@ -20,10 +21,10 @@ public class InterfaceUtilisateur {
     InscriptionReussie inscriptionReussie;
     Connexion connexion;
     rendreDVD rendreDvd;
+    voirFilms voir_films;
     ETAT_IU etatCourant;
     JPanel panneauCourant;
 
-    JPanel panneau_inscription = new JPanel();
 
     public InterfaceUtilisateur(){
         ourTools.setFont();
@@ -40,6 +41,7 @@ public class InterfaceUtilisateur {
         inscriptionReussie = new InscriptionReussie();
         connexion = new Connexion();
         rendreDvd = new rendreDVD();
+        voir_films = new voirFilms();
 
         inscription.setVisible(true);
         inscriptionReussie.setVisible(true);
@@ -53,7 +55,7 @@ public class InterfaceUtilisateur {
 
         // Parametrage
         ecran.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ecran.setMinimumSize(new Dimension(900, 500));
+        ecran.setMinimumSize(new Dimension(1000, 500));
         ecran.setPreferredSize(new Dimension((int)LARGEUR,(int)HAUTEUR));
         ecran.setContentPane(fondDEcran);
         ecran.setResizable(true);
@@ -63,7 +65,7 @@ public class InterfaceUtilisateur {
 
         ecran.add(panneauCourant);
 
-        changerEtat(ETAT_IU.RENDRE_DVD);
+        changerEtat(ETAT_IU.VOIR_FILMS);
 
         ecran.pack();
         ecran.setVisible(true);
@@ -95,12 +97,31 @@ public class InterfaceUtilisateur {
                     navBar.retourSeulement(true);
                     panneauCourant = rendreDvd;
                 }
+                case VOIR_FILMS -> {
+                    panneauCourant = voir_films;
+                }
+                default -> {
+                    System.out.println("ERROR -- Unknown new state !");
+                }
             }
             ecran.add(panneauCourant);
             etatCourant = nouvelEtat;
             navBar.ajouterEtat(nouvelEtat);
             ecran.pack();
+            ecran.repaint();
         }
+    }
+
+    public void connexion(){
+        this.utilisateurConnecte = true;
+    }
+
+    public void deconnexion(){
+        this.utilisateurConnecte = false;
+    }
+
+    public boolean estConnecte(){
+        return this.utilisateurConnecte;
     }
 
 

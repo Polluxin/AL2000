@@ -1,6 +1,8 @@
 package Metier.GestionLocation;
 
 
+import Metier.GestionMachine.Distributeur;
+
 /**
  *
  * @author Armand GRENIER
@@ -16,14 +18,17 @@ public class QrCode extends Support {
             this.film = film;
         }
 
-
-
     public float getPrixAboJour() {
         return prixAboJour;
     }
 
     public float getPrixBaseJour() {
         return prixBaseJour;
+    }
+
+    @Override
+    public void sortirFilm(Distributeur distributeur) {
+        distributeur.imprimerQRCode(this);
     }
 }
 

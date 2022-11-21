@@ -9,34 +9,59 @@ import java.util.Map;
 
 /**
  * ourPictures loads all the pictures used in the program to avoid having to load them multiple times.
+ *
+ * This is very bulky and repetitive because it's intended to be used in static.
  */
 public final class ourPictures {
-    private static StretchIcon admin = loadPicture("src/ressources/admin.png");
-    private static StretchIcon afficherHistorique = loadPicture("src/ressources/afficherHistorique.png");
-    private static StretchIcon afficherStatistiques = loadPicture("src/ressources/afficherStatistiques.png");
-    private static StretchIcon ajouterPanier = loadPicture("src/ressources/ajouterPanier.png");
-    private static StretchIcon Background = loadPicture("src/ressources/Background.png");
-    private static StretchIcon bluray = loadPicture("src/ressources/bluray.png");
-    private static StretchIcon button = loadPicture("src/ressources/button.png");
-    private static StretchIcon compte = loadPicture("src/ressources/compte.png");
-    private static StretchIcon connexion = loadPicture("src/ressources/connexion.png");
-    private static StretchIcon disconnect = loadPicture("src/ressources/disconnect.png");
-    private static StretchIcon inscription = loadPicture("src/ressources/inscription.png");
-    private static StretchIcon inscriptionpayer = loadPicture("src/ressources/inscriptionpayer.png");
-    private static StretchIcon ouvrirAL2000 = loadPicture("src/ressources/ouvrirAL2000.png");
-    private static StretchIcon panier = loadPicture("src/ressources/panier.png");
-    private static StretchIcon parametres = loadPicture("src/ressources/parametres.png");
-    private static StretchIcon QRCode = loadPicture("src/ressources/QRCode.png");
-    private static StretchIcon recharger = loadPicture("src/ressources/recharger.png");
-    private static StretchIcon rendredvd = loadPicture("src/ressources/rendredvd.png");
-    private static StretchIcon rendrefilms = loadPicture("src/ressources/rendrefilms.png");
-    private static StretchIcon retirer = loadPicture("src/ressources/retirer.png");
-    private static StretchIcon retour = loadPicture("src/ressources/retour.png");
-    private static StretchIcon search = loadPicture("src/ressources/search.png");
-    private static StretchIcon signalerProbleme = loadPicture("src/ressources/signalerProbleme.png");
-    private static StretchIcon voirfilms = loadPicture("src/ressources/voirfilms.png");
-
-    private static Map<String, StretchIcon> map = hashMapCreate();
+    private static final StretchIcon admin = loadPicture("src/ressources/admin.png");
+    private static final StretchIcon afficherHistorique = loadPicture("src/ressources/afficherHistorique.png");
+    private static final StretchIcon afficherStatistiques = loadPicture("src/ressources/afficherStatistiques.png");
+    private static final StretchIcon ajouterPanier = loadPicture("src/ressources/ajouterPanier.png");
+    private static final StretchIcon Background = loadPicture("src/ressources/Background.png");
+    private static final StretchIcon bluray = loadPicture("src/ressources/bluray.png");
+    private static final StretchIcon button = loadPicture("src/ressources/button.png");
+    private static final StretchIcon compte = loadPicture("src/ressources/compte.png");
+    private static final StretchIcon connexion = loadPicture("src/ressources/connexion.png");
+    private static final StretchIcon disconnect = loadPicture("src/ressources/disconnect.png");
+    private static final StretchIcon inscription = loadPicture("src/ressources/inscription.png");
+    private static final StretchIcon inscriptionpayer = loadPicture("src/ressources/inscriptionpayer.png");
+    private static final StretchIcon ouvrirAL2000 = loadPicture("src/ressources/ouvrirAL2000.png");
+    private static final StretchIcon panier = loadPicture("src/ressources/panier.png");
+    private static final StretchIcon parametres = loadPicture("src/ressources/parametres.png");
+    private static final StretchIcon QRCode = loadPicture("src/ressources/QRCode.png");
+    private static final StretchIcon recharger = loadPicture("src/ressources/recharger.png");
+    private static final StretchIcon rendredvd = loadPicture("src/ressources/rendredvd.png");
+    private static final StretchIcon rendrefilms = loadPicture("src/ressources/rendrefilms.png");
+    private static final StretchIcon retirer = loadPicture("src/ressources/retirer.png");
+    private static final StretchIcon retour = loadPicture("src/ressources/retour.png");
+    private static final StretchIcon search = loadPicture("src/ressources/search.png");
+    private static final StretchIcon signalerProbleme = loadPicture("src/ressources/signalerProbleme.png");
+    private static final StretchIcon voirfilms = loadPicture("src/ressources/voirfilms.png");
+    private static final StretchIcon admin_pressed = loadPicture("src/ressources/admin.png_pressed.png");
+    private static final StretchIcon afficherHistorique_pressed = loadPicture("src/ressources/afficherHistorique.png_pressed.png");
+    private static final StretchIcon afficherStatistiques_pressed = loadPicture("src/ressources/afficherStatistiques.png_pressed.png");
+    private static final StretchIcon ajouterPanier_pressed = loadPicture("src/ressources/ajouterPanier.png_pressed.png");
+    private static final StretchIcon Background_pressed = loadPicture("src/ressources/Background.png_pressed.png");
+    private static final StretchIcon bluray_pressed = loadPicture("src/ressources/bluray.png_pressed.png");
+    private static final StretchIcon button_pressed = loadPicture("src/ressources/button.png_pressed.png");
+    private static final StretchIcon compte_pressed = loadPicture("src/ressources/compte.png_pressed.png");
+    private static final StretchIcon connexion_pressed = loadPicture("src/ressources/connexion.png_pressed.png");
+    private static final StretchIcon disconnect_pressed = loadPicture("src/ressources/disconnect.png_pressed.png");
+    private static final StretchIcon inscription_pressed = loadPicture("src/ressources/inscription.png_pressed.png");
+    private static final StretchIcon inscriptionpayer_pressed = loadPicture("src/ressources/inscriptionpayer.png_pressed.png");
+    private static final StretchIcon ouvrirAL2000_pressed = loadPicture("src/ressources/ouvrirAL2000.png_pressed.png");
+    private static final StretchIcon panier_pressed = loadPicture("src/ressources/panier.png_pressed.png");
+    private static final StretchIcon parametres_pressed = loadPicture("src/ressources/parametres.png_pressed.png");
+    private static final StretchIcon QRCode_pressed = loadPicture("src/ressources/QRCode.png_pressed.png");
+    private static final StretchIcon recharger_pressed = loadPicture("src/ressources/recharger.png_pressed.png");
+    private static final StretchIcon rendredvd_pressed = loadPicture("src/ressources/rendredvd.png_pressed.png");
+    private static final StretchIcon rendrefilms_pressed = loadPicture("src/ressources/rendrefilms.png_pressed.png");
+    private static final StretchIcon retirer_pressed = loadPicture("src/ressources/retirer.png_pressed.png");
+    private static final StretchIcon retour_pressed = loadPicture("src/ressources/retour.png_pressed.png");
+    private static final StretchIcon search_pressed = loadPicture("src/ressources/search.png_pressed.png");
+    private static final StretchIcon signalerProbleme_pressed = loadPicture("src/ressources/signalerProbleme.png_pressed.png");
+    private static final StretchIcon voirfilms_pressed = loadPicture("src/ressources/voirfilms.png_pressed.png");
+    private static final Map<String, StretchIcon> map = hashMapCreate();
 
     private static Map<String, StretchIcon> hashMapCreate(){
         Map<String, StretchIcon> out = new HashMap<String, StretchIcon>();
@@ -64,6 +89,30 @@ public final class ourPictures {
         out.put("src/ressources/search.png", search);
         out.put("src/ressources/signalerProbleme.png", signalerProbleme);
         out.put("src/ressources/voirfilms.png", voirfilms);
+        out.put("src/ressources/admin.png_pressed.png", admin_pressed);
+        out.put("src/ressources/afficherHistorique.png_pressed.png", afficherHistorique_pressed);
+        out.put("src/ressources/afficherStatistiques.png_pressed.png", afficherStatistiques_pressed);
+        out.put("src/ressources/ajouterPanier.png_pressed.png", ajouterPanier_pressed);
+        out.put("src/ressources/Background.png_pressed.png", Background_pressed);
+        out.put("src/ressources/bluray.png_pressed.png", bluray_pressed);
+        out.put("src/ressources/button.png_pressed.png", button_pressed);
+        out.put("src/ressources/compte.png_pressed.png", compte_pressed);
+        out.put("src/ressources/connexion.png_pressed.png", connexion_pressed);
+        out.put("src/ressources/disconnect.png_pressed.png", disconnect_pressed);
+        out.put("src/ressources/inscription.png_pressed.png", inscription_pressed);
+        out.put("src/ressources/inscriptionpayer.png_pressed.png", inscriptionpayer_pressed);
+        out.put("src/ressources/ouvrirAL2000.png_pressed.png", ouvrirAL2000_pressed);
+        out.put("src/ressources/panier.png_pressed.png", panier_pressed);
+        out.put("src/ressources/parametres.png_pressed.png", parametres_pressed);
+        out.put("src/ressources/QRCode.png_pressed.png", QRCode_pressed);
+        out.put("src/ressources/recharger.png_pressed.png", recharger_pressed);
+        out.put("src/ressources/rendredvd.png_pressed.png", rendredvd_pressed);
+        out.put("src/ressources/rendrefilms.png_pressed.png", rendrefilms_pressed);
+        out.put("src/ressources/retirer.png_pressed.png", retirer_pressed);
+        out.put("src/ressources/retour.png_pressed.png", retour_pressed);
+        out.put("src/ressources/search.png_pressed.png", search_pressed);
+        out.put("src/ressources/signalerProbleme.png_pressed.png", signalerProbleme_pressed);
+        out.put("src/ressources/voirfilms.png_pressed.png", voirfilms_pressed);
         return out;
     }
     public static StretchIcon loadPicture(String path){

@@ -1,4 +1,7 @@
 package Metier.GestionLocation;
+
+import Metier.GestionMachine.Distributeur;
+
 /**
  *
  * @author Armand GRENIER
@@ -35,5 +38,10 @@ public class BluRay extends Support {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public void sortirFilm(Distributeur distributeur) {
+        distributeur.livrerBluRay(this);
     }
 }

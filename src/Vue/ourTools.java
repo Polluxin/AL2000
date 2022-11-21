@@ -14,12 +14,15 @@ public class ourTools {
      * @return A JButton with an icon.
      */
     public static JButton transparentButtonWithIcon(String rss){
-
+        String pressedName = rss+"_pressed.png";
         // Create the button and initialise it
         JButton jb = new JButton();
         StretchIcon icon = ourPictures.getPicture(rss);
+        StretchIcon pressed = ourPictures.getPicture(pressedName);
+
         //System.out.println(icon.getDescription());
         jb.setIcon(icon);
+        jb.setPressedIcon(pressed);
 
         // Makes the button disappear
         jb.setBorderPainted(false);

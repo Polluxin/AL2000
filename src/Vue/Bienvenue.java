@@ -2,6 +2,10 @@ package Vue;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Objects;
+
 public class Bienvenue extends JPanel{
     JPanel panneauPrincipal;
     JPanel boutons;
@@ -27,10 +31,11 @@ public class Bienvenue extends JPanel{
         // Liste de tous les boutons
         listeBoutons = new JButton[4];
 
+        String[] refs = {"src/ressources/connexion.png", "src/ressources/rendrefilms.png", "src/ressources/inscription.png", "src/ressources/voirfilms.png"};
         // Ajouter tous les boutons dans leur panneau
         for(int i=0; i<4;i++){
-            listeBoutons[i] = this.transparentButtonWithIcon(i);
-            listeBoutons[i].addActionListener(e -> panneauPrincipal.setVisible(false));
+            listeBoutons[i] = ourTools.transparentButtonWithIcon(refs[i]);
+            //listeBoutons[i].addActionListener(e -> panneauPrincipal.setVisible(false));
             boutons.add(new JLabel(""));
             boutons.add(listeBoutons[i]);
             boutons.add(new JLabel(""));
@@ -52,47 +57,54 @@ public class Bienvenue extends JPanel{
         panneauPrincipal.add(boutons, BorderLayout.CENTER);
         panneauPrincipal.add(titlePanel, BorderLayout.NORTH);
 
+        this.setActions();
         this.add(panneauPrincipal, BorderLayout.CENTER);
 
     }
 
-    JButton transparentButtonWithIcon(int i){
-        /**
-         * Creates a JButton that does not appear but has an icon set.
-         */
-
-        String[] refs = {"src/ressources/connexion.png", "src/ressources/rendrefilms.png", "src/ressources/inscription.png", "src/ressources/voirfilms.png"};
-
-        // Create the button and initialise it
-        JButton jb = new JButton();
-        StretchIcon icon = ourPictures.getPicture(refs[i]);
-        System.out.println(icon.getDescription());
-        jb.setIcon(icon);
-
-        // Debug parameters
-        jb.addActionListener(e -> System.out.println("Hello"));
-
-        // Makes the button disappear
-        jb.setBorderPainted(false);
-        jb.setContentAreaFilled(false);
-        jb.setFocusPainted(false);
-        jb.setOpaque(false); // <-- https://stackoverflow.com/a/8367524
-
-        return jb;
-    }
-
     public JButton getBouton(String name){
-        if(name == "connexion"){
+        if(Objects.equals(name, "connexion")){
             return this.listeBoutons[0];
-        } else if (name == "rendre films"){
+        } else if (Objects.equals(name, "rendre films")){
             return this.listeBoutons[1];
-        } else if (name == "inscription"){
+        } else if (Objects.equals(name, "inscription")){
             return this.listeBoutons[2];
-        } else if (name == "voir films"){
+        } else if (Objects.equals(name, "voir films")){
             return this.listeBoutons[3];
         }
         else return null;
     }
+
+    private void setActions(){
+        listeBoutons[0].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iu.changerEtat(ETAT_IU.CONNEXION);
+            }
+        });
+
+        listeBoutons[1].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iu.changerEtat(ETAT_IU.RENDRE_DVD);
+            }
+        });
+
+        listeBoutons[2].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iu.changerEtat(ETAT_IU.INSCRIPTION);
+            }
+        });
+
+        listeBoutons[3].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iu.changerEtat(ETAT_IU.VOIR_FILMS);
+            }
+        });
+    }
+
 
 
 }
