@@ -1,5 +1,6 @@
 package Controleur;
 
+import Metier.Exception.MauvaisMotDePasse;
 import Metier.GestionClient.*;
 import Metier.GestionLocation.*;
 import Metier.GestionMachine.*;
@@ -38,7 +39,7 @@ public class AL2000 {
      * Initialise le logiciel à partir de certains paramètres.
      */
     private void initialisation() {
-
+        compte = new Compte();
     }
 
     /**
@@ -56,7 +57,7 @@ public class AL2000 {
     }
 
     /**
-     * Donne la liste des films, et leur disponibilité en BluRay grâce au type couple FilmFormat.
+     * Donne la liste des films et leur disponibilité en BluRay grâce au type couple FilmFormat.
      *
      * @param filtre le filtre utilisé
      * @return la liste des films et leur disponibilité
@@ -71,12 +72,23 @@ public class AL2000 {
      * @param mdp le mot de passe de connexion
      */
     public void connexion(String mdp) {
+        // lecture de carte
+        // TODO
+        CarteAbo c = null;
+        // connexion
+        try {
+            compte.connexion(c, mdp);
+        } catch (MauvaisMotDePasse e) {
+            // mauvais mdp
+            // TODO
+        }
     }
 
     /**
      * Authentifie le technicien grâce à une carte lue dans le
      * lecteur de la machine.
      */
+
     public void connexionTechnicien() {
     }
 
@@ -119,6 +131,7 @@ public class AL2000 {
      *
      */
     public void validerPanier() {
+
     }
 
     /**

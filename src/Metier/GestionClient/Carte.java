@@ -37,6 +37,9 @@ public abstract class Carte {
      * @param montant
      * @return
      */
-    boolean verifier_fonds(float montant) { return false;}
+    public boolean verifier_fonds(float montant) { return false;}
 
+    public void valider(){
+        // TODO
+    }
 }

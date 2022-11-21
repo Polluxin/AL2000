@@ -98,10 +98,10 @@ class Abonné {
 }
 
 class Panier {
-+ ajouter(s: Support, c: Client)
++ ajouter(f: Film, c: Client; physique: bool)
 + supprimer(l:location)
-+ modifier(l:Location)
-+ vérifier() : bool
++ changerSupport(l:Location)
++ verifier() : bool
 + consulter() : Liste<Location>
 + valider() : Liste<Location>
 }
@@ -182,7 +182,7 @@ abstract class Carte {
 - id: int
 + payer(montant: float)
 + recharger(montant: float)
-+ vérifier_fonds(m: float): bool
++ verifier_fonds(m: float): bool
 }
 
 class CB {
