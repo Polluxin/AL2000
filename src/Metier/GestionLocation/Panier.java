@@ -39,9 +39,13 @@ public class Panier {
             if (locations[i] == l) break;
             i++;
         }
+        // test location non trouvé
         if  (i == locations.length) return;
         // retirer l de la liste
-
+        while (i < locations.length - 1){
+            locations[i] = locations[i+1];
+            i++;
+        }
     }
 
 
