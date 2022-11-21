@@ -2,6 +2,7 @@ package Metier.GestionClient;
 
 import Metier.Exception.PaiementRefuse;
 import Metier.GestionLocation.Genre;
+import Metier.GestionLocation.HistoLoc;
 import Metier.GestionLocation.Support;
 
 /**
@@ -82,7 +83,4 @@ public class Abonne extends Client {
         float prix = s.getPrixAboJour() * jours;
         carte.payer(prix);
     }
-
-
-
 }

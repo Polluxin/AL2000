@@ -39,7 +39,4 @@ public abstract class Carte {
      */
     public boolean verifier_fonds(float montant) { return false;}
 
-    public void valider(){
-        // TODO
-    }
 }

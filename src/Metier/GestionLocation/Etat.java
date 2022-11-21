@@ -7,6 +7,7 @@ package Metier.GestionLocation;
  */
 public enum Etat {
     ENCOURS,
+    APAYER,
     TERMINEE
 }
 

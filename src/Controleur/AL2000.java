@@ -101,7 +101,7 @@ public class AL2000 {
     }
 
     /**
-     * Ajoute le film s au panier (lié à la classe Panier).
+     * Ajoute le film au panier (lié à la classe Panier).
      *
      * @param s le film à ajouter
      */
@@ -134,13 +134,13 @@ public class AL2000 {
     public void validerPanier() {
         // Vérifier les fonds
         float fondMin = panier.evaluerPrix();
-        // Histloc . get montant
-        // fondMin += Histloc.getFondReserve(client)
+        fondMin += compte.getClient().fondsReserves(histo);
         if (compte.getClient().getCarte().verifier_fonds(fondMin)) {
             // ajouter le panier dans histoLoc
             panier.viderPanier();
         } else {
             // ne peut pas payer
+            // Renvoyer une exception ?
         }
 
     }

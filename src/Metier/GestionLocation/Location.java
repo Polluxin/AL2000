@@ -71,18 +71,21 @@ public class Location {
         return fondsNecessaire((Location[]) locations.toArray());
     }
 
-    public void payer(){
+    /**
+     * Fait payer la location au client en fonction du nombre
+     * de jours depuis le début de la location.
+     */
+    public void payer() throws PaiementRefuse {
         int joursAPayer;
         // TODO
         Date sqlDate = new Date(System.currentTimeMillis());
         joursAPayer = 2;
-        try {
-            client.payer(support, joursAPayer);
-        } catch (PaiementRefuse e) {
-            // le paiement est refusé
-            throw new RuntimeException(e);
-        }
+        client.payer(support, joursAPayer);
 
+    }
+
+    public void payerRetard() throws PaiementRefuse {
+        client.payerRetard(support);
     }
 
 

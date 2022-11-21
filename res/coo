@@ -85,8 +85,10 @@ note right of Compte::connexion
 end note
 
 abstract class Client {
-+ payer(montant: float)
++ payer(s: Support, nbJours: int)
++ payerRetard(s: Support)
 + recharger(montant: float)
++ fondsReserves(h: HistoLoc): float
 + réglerInterdits(L: Liste<Genre>)
 }
 
@@ -102,8 +104,7 @@ class Panier {
 + supprimer(l:location)
 + changerSupport(l:Location)
 + verifier() : bool
-+ consulter() : Liste<Location>
-+ valider() : Liste<Location>
++ viderPanier()
 }
 
 class Catalogue {
@@ -126,12 +127,10 @@ class Machine {
 
 class HistoLoc {
 + voirHistorique() : Liste<Location>
-+ voirHistoriqueClient(a:Abonné) : Liste<Location>
-+ aLocationEnCours(a:Abonné) : bool
-+ ajouterLocations(l:Liste<Location>, a:Abonne)
++ voirHistoriqueClient(a:Abonne) : Liste<Location>
++ voirLocationEnCours(a:Abonne) : Liste<Location>
++ ajouterLocations(l:Liste<Location>)
 + rendreBluRay(b:BluRay)
-+ rendreBluRay(lb:Liste<BluRay>)
-+ calculerMontant(b:BlueRay) : float
 }
 
 class Technicien {
@@ -174,6 +173,7 @@ nbOuvertures : int
 class Location {
 - dateLocatin: Date
 - etatLocation: Etat
++ payer()
 + {Static} fondsNecessaire(l: location, promo: bool)
 + {Static} fondsNecessaire(L: Liste<location>, promo: bool)
 }
