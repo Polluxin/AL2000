@@ -1,4 +1,4 @@
-package Controleur;
+package Controle;
 
 import Metier.Exception.MauvaisMotDePasse;
 import Metier.GestionClient.*;
@@ -32,7 +32,6 @@ public class AL2000 {
     private Police police;
 
     AL2000() {
-
     }
 
     /**
@@ -61,7 +60,6 @@ public class AL2000 {
      * Donne la liste des films et leur disponibilité en BluRay grâce au type couple FilmFormat.
      *
      * @param filtre le filtre utilisé
-     * @return la liste des films et leur disponibilité
      */
     public void donnerCatalogue(FiltreTri filtre) {
         //return null;

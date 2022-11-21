@@ -41,7 +41,7 @@ public class Inventaire {
         return session;
     }
 
-    public void ajouterBlueRays(List<BluRay> b){
+    public void ajouterBluRays(List<BluRay> b){
         BluRayDAO dao = new BluRayDAO(getSession().getSession());
         dao.setIdMachineAssocie(idMachineAssocie);
         for (BluRay br: b){

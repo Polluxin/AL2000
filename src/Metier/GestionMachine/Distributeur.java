@@ -1,5 +1,6 @@
 package Metier.GestionMachine;
 
+import Metier.Exception.BluRayInvalide;
 import Metier.Exception.CarteIllisible;
 import Metier.GestionClient.CB;
 import Metier.GestionClient.CarteAbo;
@@ -48,10 +49,11 @@ public interface Distributeur {
 
     void imprimerQRCode(QrCode qr);
 
-                        /**
-     * Met à jour l'inventaire des films grâce aux films ingurgités.
-     * @param i l'inventaire
+    /**
+     * Tente d'identifier le BluRay inséré. Si bien un BluRay, l'inventaire est mis à jour et la transaction relative
+     * est conclue.
+     * @param id l'identifiant lu sur le BluRay
      */
-    void avalerBluRays(Inventaire i);
+    void avalerBluRay(String id) throws BluRayInvalide;
 
 }

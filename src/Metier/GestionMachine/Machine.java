@@ -1,5 +1,8 @@
 package Metier.GestionMachine;
 
+import BaseDeDonnees.DAOs.BluRayDAO;
+import BaseDeDonnees.Session;
+import Metier.Exception.BluRayInvalide;
 import Metier.Exception.CarteIllisible;
 import Metier.GestionClient.CB;
 import Metier.GestionClient.CarteAbo;
@@ -7,6 +10,7 @@ import Metier.GestionLocation.BluRay;
 import Metier.GestionLocation.QrCode;
 import Metier.GestionLocation.Support;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,8 +62,15 @@ public class Machine implements Distributeur, Maintenance {
     }
 
     @Override
-    public void avalerBluRays(Inventaire i) {
-        System.out.println("-> Rendu de BluRays");
+    public void avalerBluRay(String id) throws BluRayInvalide {
+        System.out.print("-> Authentification du BluRay ");
+        try {
+            int lu = Integer.parseInt(id);
+            if (lu == 0) throw new BluRayInvalide();
+            System.out.println("numéro "+lu+" OK");
+        } catch (Exception e) {
+            throw new BluRayInvalide();
+        }
     }
 
     @Override
