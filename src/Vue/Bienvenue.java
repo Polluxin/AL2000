@@ -31,9 +31,10 @@ public class Bienvenue extends JPanel{
         // Liste de tous les boutons
         listeBoutons = new JButton[4];
 
+        String[] refs = {"src/ressources/connexion.png", "src/ressources/rendrefilms.png", "src/ressources/inscription.png", "src/ressources/voirfilms.png"};
         // Ajouter tous les boutons dans leur panneau
         for(int i=0; i<4;i++){
-            listeBoutons[i] = this.transparentButtonWithIcon(i);
+            listeBoutons[i] = ourTools.transparentButtonWithIcon(refs[i]);
             //listeBoutons[i].addActionListener(e -> panneauPrincipal.setVisible(false));
             boutons.add(new JLabel(""));
             boutons.add(listeBoutons[i]);
@@ -59,28 +60,6 @@ public class Bienvenue extends JPanel{
         this.setActions();
         this.add(panneauPrincipal, BorderLayout.CENTER);
 
-    }
-
-    JButton transparentButtonWithIcon(int i){
-        /**
-         * Creates a JButton that does not appear but has an icon set.
-         */
-
-        String[] refs = {"src/ressources/connexion.png", "src/ressources/rendrefilms.png", "src/ressources/inscription.png", "src/ressources/voirfilms.png"};
-
-        // Create the button and initialise it
-        JButton jb = new JButton();
-        StretchIcon icon = ourPictures.getPicture(refs[i]);
-        System.out.println(icon.getDescription());
-        jb.setIcon(icon);
-
-        // Makes the button disappear
-        jb.setBorderPainted(false);
-        jb.setContentAreaFilled(false);
-        jb.setFocusPainted(false);
-        jb.setOpaque(false); // <-- https://stackoverflow.com/a/8367524
-
-        return jb;
     }
 
     public JButton getBouton(String name){

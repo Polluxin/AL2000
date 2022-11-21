@@ -32,7 +32,7 @@ public class NavigationBar extends JPanel {
         //this.setBackground(Color.GREEN);
         this.setOpaque(false);
 
-        navColor = ourColors.fond2();
+        navColor = ourColors.fond();
 
         droiteNav = new JPanel();
         droiteNav.setBackground(navColor);
@@ -70,7 +70,7 @@ public class NavigationBar extends JPanel {
         this.add(gaucheNav, BorderLayout.WEST);
         this.add(droiteNavOut);
 
-        borderSize = 7;
+        borderSize = 10;
 
         this.setThisBorder(true);
         this.setMinimumSize(new Dimension(856, 100));
@@ -79,11 +79,13 @@ public class NavigationBar extends JPanel {
     JButton bouton(String imageRef){
         // Create the Icon
         StretchIcon ii = ourPictures.getPicture(imageRef);// load image
+        StretchIcon pressed = ourPictures.getPicture(imageRef+"_pressed.png");// load image
         //testDialog(ii);
 
         // Create the button and initialise it
         JButton jb = new JButton();
         jb.setIcon(ii);
+        jb.setPressedIcon(pressed);
 
         Dimension defaultImageDimension = ourPictures.getDimensions(ii);
         jb.setPreferredSize(ourPictures.scaleDimensionByHeight(defaultImageDimension, 100));
