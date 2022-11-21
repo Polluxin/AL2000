@@ -7,15 +7,18 @@ import java.io.IOException;
 
 public class ourTools {
 
+    /**
+     * > transparentButtonWithIcon creates a button with an icon, and makes it transparent to only show the icon
+     *
+     * @param rss the name of the image file in the resources folder
+     * @return A JButton with an icon.
+     */
     public static JButton transparentButtonWithIcon(String rss){
-        /**
-         * Creates a JButton that does not appear but has an icon set.
-         */
 
         // Create the button and initialise it
         JButton jb = new JButton();
         StretchIcon icon = ourPictures.getPicture(rss);
-        System.out.println(icon.getDescription());
+        //System.out.println(icon.getDescription());
         jb.setIcon(icon);
 
         // Makes the button disappear
@@ -28,6 +31,10 @@ public class ourTools {
         return jb;
     }
 
+    /**
+     * setFont loads a font from a file and sets it as the default font for all text fields, check boxes, password fields and
+     * text areas
+     */
     public static void setFont(){
         Font font;
         try {

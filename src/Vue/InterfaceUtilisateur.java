@@ -19,6 +19,7 @@ public class InterfaceUtilisateur {
     Inscription inscription;
     InscriptionReussie inscriptionReussie;
     Connexion connexion;
+    rendreDVD rendreDvd;
     ETAT_IU etatCourant;
     JPanel panneauCourant;
 
@@ -38,6 +39,7 @@ public class InterfaceUtilisateur {
         inscription = new Inscription();
         inscriptionReussie = new InscriptionReussie();
         connexion = new Connexion();
+        rendreDvd = new rendreDVD();
 
         inscription.setVisible(true);
         inscriptionReussie.setVisible(true);
@@ -61,7 +63,7 @@ public class InterfaceUtilisateur {
 
         ecran.add(panneauCourant);
 
-        changerEtat(ETAT_IU.CONNEXION);
+        changerEtat(ETAT_IU.RENDRE_DVD);
 
         ecran.pack();
         ecran.setVisible(true);
@@ -88,6 +90,10 @@ public class InterfaceUtilisateur {
                 case CONNEXION -> {
                     navBar.retourSeulement(true);
                     panneauCourant = connexion;
+                }
+                case RENDRE_DVD -> {
+                    navBar.retourSeulement(true);
+                    panneauCourant = rendreDvd;
                 }
             }
             ecran.add(panneauCourant);
