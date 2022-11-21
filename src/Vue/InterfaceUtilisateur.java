@@ -12,6 +12,7 @@ import static java.awt.Font.createFont;
 public class InterfaceUtilisateur {
 
     JFrame ecran;
+    boolean utilisateurConnecte;
     NavigationBar navBar;
     backgroundPanel fondDEcran;
     Dimension tailleEcran;
@@ -23,7 +24,6 @@ public class InterfaceUtilisateur {
     ETAT_IU etatCourant;
     JPanel panneauCourant;
 
-    JPanel panneau_inscription = new JPanel();
 
     public InterfaceUtilisateur(){
         ourTools.setFont();
@@ -95,12 +95,31 @@ public class InterfaceUtilisateur {
                     navBar.retourSeulement(true);
                     panneauCourant = rendreDvd;
                 }
+                case VOIR_FILMS -> {
+                    System.out.println("Voir films !");
+                }
+                default -> {
+                    System.out.println("ERROR -- Unknown new state !");
+                }
             }
             ecran.add(panneauCourant);
             etatCourant = nouvelEtat;
             navBar.ajouterEtat(nouvelEtat);
             ecran.pack();
+            ecran.repaint();
         }
+    }
+
+    public void connexion(){
+        this.utilisateurConnecte = true;
+    }
+
+    public void deconnexion(){
+        this.utilisateurConnecte = false;
+    }
+
+    public boolean estConnecte(){
+        return this.utilisateurConnecte;
     }
 
 

@@ -2,6 +2,10 @@ package Vue;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Objects;
+
 public class Bienvenue extends JPanel{
     JPanel panneauPrincipal;
     JPanel boutons;
@@ -30,7 +34,7 @@ public class Bienvenue extends JPanel{
         // Ajouter tous les boutons dans leur panneau
         for(int i=0; i<4;i++){
             listeBoutons[i] = this.transparentButtonWithIcon(i);
-            listeBoutons[i].addActionListener(e -> panneauPrincipal.setVisible(false));
+            //listeBoutons[i].addActionListener(e -> panneauPrincipal.setVisible(false));
             boutons.add(new JLabel(""));
             boutons.add(listeBoutons[i]);
             boutons.add(new JLabel(""));
@@ -52,6 +56,7 @@ public class Bienvenue extends JPanel{
         panneauPrincipal.add(boutons, BorderLayout.CENTER);
         panneauPrincipal.add(titlePanel, BorderLayout.NORTH);
 
+        this.setActions();
         this.add(panneauPrincipal, BorderLayout.CENTER);
 
     }
@@ -69,9 +74,6 @@ public class Bienvenue extends JPanel{
         System.out.println(icon.getDescription());
         jb.setIcon(icon);
 
-        // Debug parameters
-        jb.addActionListener(e -> System.out.println("Hello"));
-
         // Makes the button disappear
         jb.setBorderPainted(false);
         jb.setContentAreaFilled(false);
@@ -82,17 +84,48 @@ public class Bienvenue extends JPanel{
     }
 
     public JButton getBouton(String name){
-        if(name == "connexion"){
+        if(Objects.equals(name, "connexion")){
             return this.listeBoutons[0];
-        } else if (name == "rendre films"){
+        } else if (Objects.equals(name, "rendre films")){
             return this.listeBoutons[1];
-        } else if (name == "inscription"){
+        } else if (Objects.equals(name, "inscription")){
             return this.listeBoutons[2];
-        } else if (name == "voir films"){
+        } else if (Objects.equals(name, "voir films")){
             return this.listeBoutons[3];
         }
         else return null;
     }
+
+    private void setActions(){
+        listeBoutons[0].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iu.changerEtat(ETAT_IU.CONNEXION);
+            }
+        });
+
+        listeBoutons[1].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iu.changerEtat(ETAT_IU.RENDRE_DVD);
+            }
+        });
+
+        listeBoutons[2].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iu.changerEtat(ETAT_IU.INSCRIPTION);
+            }
+        });
+
+        listeBoutons[3].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iu.changerEtat(ETAT_IU.VOIR_FILMS);
+            }
+        });
+    }
+
 
 
 }
