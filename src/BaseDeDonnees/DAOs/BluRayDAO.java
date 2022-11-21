@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-// TODO: Tester cette classe
+// TODO: Tester
 
 @SuppressWarnings("unused")
 public class BluRayDAO extends DAO<BluRay>{
