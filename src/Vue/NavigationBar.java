@@ -202,6 +202,16 @@ public class NavigationBar extends JPanel {
         });
     }
 
+    public void reset(){
+        this.setVisible(true);
+        this.droiteNav.setVisible(true);
+        this.droiteNavOut.setVisible(true);
+        this.gaucheNav.setOpaque(true);
+        this.setOpaque(true);
+        this.aide.setVisible(true);
+        this.setThisBorder(true);
+    }
+
 
 
 }

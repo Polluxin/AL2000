@@ -18,6 +18,7 @@ public class InterfaceUtilisateur {
     Bienvenue ecranDeBienvenue;
     Inscription inscription;
     InscriptionReussie inscriptionReussie;
+    Connexion connexion;
     ETAT_IU etatCourant;
     JPanel panneauCourant;
 
@@ -36,6 +37,7 @@ public class InterfaceUtilisateur {
         ecranDeBienvenue = new Bienvenue();
         inscription = new Inscription();
         inscriptionReussie = new InscriptionReussie();
+        connexion = new Connexion();
 
         inscription.setVisible(true);
         inscriptionReussie.setVisible(true);
@@ -59,7 +61,7 @@ public class InterfaceUtilisateur {
 
         ecran.add(panneauCourant);
 
-        changerEtat(ETAT_IU.INSCRIPTION_VALIDE);
+        changerEtat(ETAT_IU.CONNEXION);
 
         ecran.pack();
         ecran.setVisible(true);
@@ -68,6 +70,7 @@ public class InterfaceUtilisateur {
 
     public void changerEtat(ETAT_IU nouvelEtat) {
         ecran.remove(panneauCourant);
+        navBar.reset();
         if (nouvelEtat != etatCourant) {
             switch (nouvelEtat) {
                 case BIENVENUE -> {
@@ -81,6 +84,10 @@ public class InterfaceUtilisateur {
                 case INSCRIPTION_VALIDE -> {
                     navBar.retourSeulement(true);
                     panneauCourant = inscriptionReussie;
+                }
+                case CONNEXION -> {
+                    navBar.retourSeulement(true);
+                    panneauCourant = connexion;
                 }
             }
             ecran.add(panneauCourant);
