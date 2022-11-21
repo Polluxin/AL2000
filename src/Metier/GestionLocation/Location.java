@@ -26,6 +26,10 @@ public class Location {
         return support;
     }
 
+    public void setSupport(Support support) {
+        this.support = support;
+    }
+
     public Client getClient() {
         return client;
     }
@@ -59,4 +63,6 @@ public class Location {
         }
         return sum;
     }
+
+
 }
