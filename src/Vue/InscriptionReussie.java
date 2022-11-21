@@ -10,6 +10,7 @@ public class InscriptionReussie extends JPanel {
         texte.setLineWrap(true);
         texte.setWrapStyleWord(true);
         texte.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        texte.setEditable(false);
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
         this.add(texte);

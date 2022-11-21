@@ -18,6 +18,8 @@ public class InterfaceUtilisateur {
     Bienvenue ecranDeBienvenue;
     Inscription inscription;
     InscriptionReussie inscriptionReussie;
+    Connexion connexion;
+    rendreDVD rendreDvd;
     ETAT_IU etatCourant;
     JPanel panneauCourant;
 
@@ -33,9 +35,11 @@ public class InterfaceUtilisateur {
         tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
         etatCourant = ETAT_IU.AUCUN;
 
-        ecranDeBienvenue = new Bienvenue();
+        ecranDeBienvenue = new Bienvenue(this);
         inscription = new Inscription();
         inscriptionReussie = new InscriptionReussie();
+        connexion = new Connexion();
+        rendreDvd = new rendreDVD();
 
         inscription.setVisible(true);
         inscriptionReussie.setVisible(true);
@@ -59,7 +63,7 @@ public class InterfaceUtilisateur {
 
         ecran.add(panneauCourant);
 
-        changerEtat(ETAT_IU.INSCRIPTION_VALIDE);
+        changerEtat(ETAT_IU.RENDRE_DVD);
 
         ecran.pack();
         ecran.setVisible(true);
@@ -68,6 +72,7 @@ public class InterfaceUtilisateur {
 
     public void changerEtat(ETAT_IU nouvelEtat) {
         ecran.remove(panneauCourant);
+        navBar.reset();
         if (nouvelEtat != etatCourant) {
             switch (nouvelEtat) {
                 case BIENVENUE -> {
@@ -81,6 +86,14 @@ public class InterfaceUtilisateur {
                 case INSCRIPTION_VALIDE -> {
                     navBar.retourSeulement(true);
                     panneauCourant = inscriptionReussie;
+                }
+                case CONNEXION -> {
+                    navBar.retourSeulement(true);
+                    panneauCourant = connexion;
+                }
+                case RENDRE_DVD -> {
+                    navBar.retourSeulement(true);
+                    panneauCourant = rendreDvd;
                 }
             }
             ecran.add(panneauCourant);

@@ -162,7 +162,6 @@ interface Maintenance {
 
 class Inventaire {
 - liste_BluRays : Liste<BluRay>
-+ ajouterBluRays(b:BluRay)
 + ajouterBluRays(lb:Liste<BluRay>)
 + supprimerBluRay(b:BluRay)
 }
