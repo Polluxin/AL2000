@@ -40,6 +40,7 @@ public class AL2000 {
      */
     private void initialisation() {
         compte = new Compte();
+        panier = new Panier();
     }
 
     /**
@@ -131,8 +132,19 @@ public class AL2000 {
      *
      */
     public void validerPanier() {
+        // Vérifier les fonds
+        float fondMin = panier.evaluerPrix();
+        // Histloc . get montant
+        // fondMin += Histloc.getFondReserve(client)
+        if (compte.getClient().getCarte().verifier_fonds(fondMin)) {
+            // ajouter le panier dans histoLoc
+            panier.viderPanier();
+        } else {
+            // ne peut pas payer
+        }
 
     }
+
 
     /**
      * Renvoie la liste des locations effectuées sur la machine.

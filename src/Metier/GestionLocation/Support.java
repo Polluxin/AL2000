@@ -7,6 +7,14 @@ public abstract class Support {
      */
 
     int id;
+
+    float prixMax;
+    float prixAboJour;
+    float prixBaseJour;
     Film film;
+
+    public float getPrixMax() {
+        return prixMax;
+    }
 
 }

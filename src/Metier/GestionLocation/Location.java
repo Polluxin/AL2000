@@ -38,36 +38,30 @@ public class Location {
 
     /**
      * Calcul les fonds nécéssaire pour pouvoir payer une location.
-     * Si promo est vraie alors les tarifs de compte abonné sont appliqués
      *
      * @param l liste de locations
-     * @param promo vrai si prix abonné
      * @return les fonds minimum pour la location
      */
-    public static float fondsNecessaire(Location l, boolean promo){
-        if (l.support instanceof BluRay) return 15.F;
-        else if (promo) return 4;
-        return 5;
+    public static float fondsNecessaire(Location l){
+        return l.support.getPrixMax();
     }
 
     /**
      * Calcul les fonds nécéssaire pour pouvoir louer toutes les locations de la liste.
-     * Si promo est vraie alors les tarifs de compte abonné sont appliqués
      *
      * @param L liste de locations
-     * @param promo vrai si prix abonné
      * @return les fonds minimum pour les locations
      */
-    public static float fondsNecessaire(Location[] L, boolean promo){
+    public static float fondsNecessaire(Location[] L){
         float sum = 0.F;
         for (Location loc : L) {
-            sum += fondsNecessaire(loc, promo);
+            sum += fondsNecessaire(loc);
         }
         return sum;
     }
 
-    public static float fondsNecessaire(List<Location> locations, boolean promo) {
-        return fondsNecessaire((Location[]) locations.toArray(), promo);
+    public static float fondsNecessaire(List<Location> locations) {
+        return fondsNecessaire((Location[]) locations.toArray());
     }
 
 

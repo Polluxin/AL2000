@@ -4,6 +4,7 @@ import Metier.GestionClient.Carte;
 import Metier.GestionClient.Client;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +15,10 @@ import java.util.List;
 public class Panier {
 
     List<Location> locations;
+
+    public Panier() {
+        locations = new ArrayList<>();
+    }
 
     /**
      * Ajoute une nouvelle location dans la liste des locations. La nouvelle
@@ -56,13 +61,12 @@ public class Panier {
         l.support = new QrCode(-1, l.support.film);
     }
 
-    public boolean verifier(boolean promo, Carte c){
-        float fond = Location.fondsNecessaire(locations, promo);
-        return c.verifier_fonds(fond);
+    public float evaluerPrix(){
+        return Location.fondsNecessaire(locations);
     }
 
     public void viderPanier(){
-
+        locations = new ArrayList<>();
     }
 
 

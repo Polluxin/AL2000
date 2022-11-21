@@ -195,6 +195,9 @@ class CarteAbo {
 
 abstract class Support {
 id: int
+prixMax: float
+prixAboJour: float
+prixBaseJour: float
 }
 
 class "QR Code" {

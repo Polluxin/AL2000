@@ -21,6 +21,10 @@ public class Compte {
     public Compte() {
     }
 
+    public Client getClient() {
+        return client;
+    }
+
     /**
      * Grâce au formulaire f, tente d'inscrire le client en consultant la base de données.
      * si la création de compte se passe bien, le compte est connecté
