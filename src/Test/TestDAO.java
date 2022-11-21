@@ -7,6 +7,7 @@ import BaseDeDonnees.Session;
 import Metier.GestionMachine.Statistiques;
 import Metier.GestionMachine.Technicien;
 
+
 // Programme de test du fonctionnement du DAO
 public class TestDAO {
 
@@ -47,5 +48,12 @@ public class TestDAO {
         dao.modifier(modif);
         recues = dao.lire(1);
         System.out.println(recues);
+    }
+
+    public static void testInventaire(){
+//        Inventaire inventaire = new Inventaire(1);
+//        List<BluRay> liste = new ArrayList<>();
+//        liste.add(new BluRay(42, new Film))
+//        inventaire.ajouterBlueRays();
     }
 }

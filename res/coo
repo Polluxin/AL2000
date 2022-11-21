@@ -148,7 +148,7 @@ interface Distributeur {
 + lireCB() : CB
 + lireCarteAbo() : CarteAbo
 + lireCTechnicien() : Technicien
-+ livrerFilms(liste_films:Liste<FilmFormat>) : bool
++ livrerFilms(liste_films:Liste<Support>)
 + avalerBluRays()
 }
 
