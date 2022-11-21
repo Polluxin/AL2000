@@ -3,7 +3,9 @@ package Metier.GestionMachine;
 import Metier.Exception.CarteIllisible;
 import Metier.GestionClient.CB;
 import Metier.GestionClient.CarteAbo;
-import Metier.GestionLocation.FilmFormat;
+import Metier.GestionLocation.BluRay;
+import Metier.GestionLocation.QrCode;
+import Metier.GestionLocation.Support;
 
 import java.util.List;
 
@@ -13,6 +15,7 @@ import java.util.List;
  * @author Geoffrey DAVID
  * @version 0
  */
+@SuppressWarnings("unused")
 public interface Distributeur {
     /**
      * Crée un objet CB à partir d'une carte bancaire insérée dans le lecteur.
@@ -39,12 +42,16 @@ public interface Distributeur {
      * QR Code.
      * @param l la liste des films
      */
-    boolean livrerFilms(List<FilmFormat> l);
+    void livrerFilms(List<Support> l);
 
-    /**
+    void livrerBluRay(BluRay b);
+
+    void imprimerQRCode(QrCode qr);
+
+                        /**
      * Met à jour l'inventaire des films grâce aux films ingurgités.
      * @param i l'inventaire
      */
-    boolean avalerBluRays(Inventaire i);
+    void avalerBluRays(Inventaire i);
 
 }
