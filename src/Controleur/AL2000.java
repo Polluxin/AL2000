@@ -63,8 +63,8 @@ public class AL2000 {
      * @param filtre le filtre utilisé
      * @return la liste des films et leur disponibilité
      */
-    public List<FilmFormat> donnerCatalogue(FiltreTri filtre) {
-        return null;
+    public void donnerCatalogue(FiltreTri filtre) {
+        //return null;
     }
 
     /**

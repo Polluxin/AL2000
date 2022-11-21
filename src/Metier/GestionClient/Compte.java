@@ -27,7 +27,7 @@ public class Compte {
 
     /**
      * Grâce au formulaire f, tente d'inscrire le client en consultant la base de données.
-     * si la création de compte se passe bien, le compte est connecté
+     * Si la création de compte se passe bien, le compte est connecté
      *
      * @param f le forumlaire d'inscription
      *          préciser l'exception
@@ -48,7 +48,7 @@ public class Compte {
      */
 
     /**
-     * Essaie de connecter l'abonné un abonné identifier par sa carte avec son mot de passe.
+     * Essaie de connecter l'abonné un abonné identifié par sa carte avec son mot de passe.
      *
      * @param c carte de l'abonnée
      * @param mdp mot de passe
@@ -67,7 +67,7 @@ public class Compte {
 
 
     /**
-     * Déconnecte le client de la machine (Compte.client vaut alors null)
+     * Déconnecte le client de la machine (client vaut alors null)
      */
     public void deconnexion() {
         this.client = null;
