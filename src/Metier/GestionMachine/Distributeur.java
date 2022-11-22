@@ -37,10 +37,11 @@ public interface Distributeur {
 
     /**
      * Crée un objet CarteAbo à partir d'une carte d'abonné insérée dans
-     * le lecteur.
+     * le lecteur, en consultant la base de données pour l'identifier.
+     * @param id le numéro lu sur la carte insérée
      * @return l'objet CarteAbo créé
      */
-    CarteAbo lireCarteAbo() throws CarteIllisible;
+    CarteAbo lireCarteAbo(String id) throws CarteIllisible, ConnexionImpossible;
 
     /**
      * Ouvre la trappe et livre les films BLuRay et imprime les codes des films

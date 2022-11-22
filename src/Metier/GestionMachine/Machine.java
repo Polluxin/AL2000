@@ -1,5 +1,6 @@
 package Metier.GestionMachine;
 
+import BaseDeDonnees.DAOs.CarteAboDAO;
 import BaseDeDonnees.DAOs.TechnicienDAO;
 import BaseDeDonnees.Session;
 import Metier.Exception.BluRayInvalide;
@@ -61,14 +62,24 @@ public class Machine implements Distributeur, Maintenance {
         bd.open();
         TechnicienDAO dao = new TechnicienDAO(bd.getSession());
         Technicien t = dao.lire(Integer.parseInt(id));
+        bd.close();
         if (t == null)
             throw new ConnexionImpossible("Erreur d'identification du technicien");
         return t;
     }
 
     @Override
-    public CarteAbo lireCarteAbo() throws CarteIllisible {
-        return null;
+    public CarteAbo lireCarteAbo(String id) throws CarteIllisible, ConnexionImpossible {
+        // TODO Tester
+        if (!id.matches("^\\d+$"))
+            throw new CarteIllisible("Format identifiant incorrect");
+        bd.open();
+        CarteAboDAO dao = new CarteAboDAO(bd.getSession());
+        CarteAbo c = dao.lire(Integer.parseInt(id));
+        bd.close();
+        if (c == null)
+            throw new ConnexionImpossible("Erreur d'identification d' l'abonné");
+        return c;
     }
 
     @Override
