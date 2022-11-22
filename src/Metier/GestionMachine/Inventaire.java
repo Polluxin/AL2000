@@ -1,6 +1,5 @@
 package Metier.GestionMachine;
 
-import BaseDeDonnees.DAOs.BluRayDAO;
 import BaseDeDonnees.Session;
 import Metier.GestionLocation.BluRay;
 
@@ -41,21 +40,16 @@ public class Inventaire {
         return session;
     }
 
+    public void ajouterBluRay(BluRay b){
+        // TODO
+    }
+
     public void ajouterBluRays(List<BluRay> b){
-        BluRayDAO dao = new BluRayDAO(getSession().getSession());
-        dao.setIdMachineAssocie(idMachineAssocie);
-        for (BluRay br: b){
-            dao.creer(br);
-            liste_BluRays.add(br);
-        }
-        session.close();
+        // TODO
     }
 
     public void supprimerBluRay(BluRay b){
-        BluRayDAO dao = new BluRayDAO(getSession().getSession());
-        dao.setIdMachineAssocie(idMachineAssocie);
-        liste_BluRays.remove(b);
-        session.close();
+        // TODO
     }
 
     public List<BluRay> getListeBluRays(){
