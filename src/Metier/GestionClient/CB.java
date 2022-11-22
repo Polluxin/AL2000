@@ -9,7 +9,12 @@ import Metier.Exception.PaiementRefuse;
  */
 public class CB extends Carte {
 
-    String informationBanquaires;
+    String informationsBancaires;
+
+    public CB(String informationsBancaires){
+        this.informationsBancaires = informationsBancaires;
+    }
+
     @Override
     void payer(float montant) throws PaiementRefuse {
         // TODO

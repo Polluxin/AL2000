@@ -32,30 +32,56 @@ commit;
 
 -- Ajout des BluRays
 truncate table LESBLURAYS;
-insert into LESBLURAYS values(1, 2, 1);
-insert into LESBLURAYS values(2, 3, 1);
-insert into LESBLURAYS values(3, 12, 1);
-insert into LESBLURAYS values(4, 13, 1);
-insert into LESBLURAYS values(5, 14, 1);
+insert into LESBLURAYS values(1, 2);
+insert into LESBLURAYS values(2, 3);
+insert into LESBLURAYS values(3, 12);
+insert into LESBLURAYS values(4, 13);
+insert into LESBLURAYS values(5, 14);
 
-insert into LESBLURAYS values(6, 1, 2);
-insert into LESBLURAYS values(7, 2, 2);
-insert into LESBLURAYS values(8, 3, 2);
-insert into LESBLURAYS values(9, 4, 2);
-insert into LESBLURAYS values(10, 8, 2);
+insert into LESBLURAYS values(6, 1);
+insert into LESBLURAYS values(7, 2);
+insert into LESBLURAYS values(8, 3);
+insert into LESBLURAYS values(9, 4);
+insert into LESBLURAYS values(10, 8);
 
-insert into LESBLURAYS values(11, 6, 3);
-insert into LESBLURAYS values(12, 7, 3);
-insert into LESBLURAYS values(13, 12, 3);
-insert into LESBLURAYS values(14, 10, 3);
-insert into LESBLURAYS values(15, 14, 3);
+insert into LESBLURAYS values(11, 6);
+insert into LESBLURAYS values(12, 7);
+insert into LESBLURAYS values(13, 12);
+insert into LESBLURAYS values(14, 10);
+insert into LESBLURAYS values(15, 14);
 
-insert into LESBLURAYS values(16, 5, 4);
-insert into LESBLURAYS values(17, 8, 4);
-insert into LESBLURAYS values(18, 14, 4);
-insert into LESBLURAYS values(19, 11, 4);
-insert into LESBLURAYS values(20, 4, 4);
+insert into LESBLURAYS values(16, 5);
+insert into LESBLURAYS values(17, 8);
+insert into LESBLURAYS values(18, 14);
+insert into LESBLURAYS values(19, 11);
+insert into LESBLURAYS values(20, 4);
 commit;
+
+-- Ajout des BluRays dans les machines
+truncate table LESSTOCKS;
+insert into LESSTOCKS values(1, 1);
+insert into LESSTOCKS values(2, 1);
+insert into LESSTOCKS values(3, 1);
+insert into LESSTOCKS values(4, 1);
+insert into LESSTOCKS values(5, 1);
+
+insert into LESSTOCKS values(6, 2);
+insert into LESSTOCKS values(7, 2);
+insert into LESSTOCKS values(8, 2);
+insert into LESSTOCKS values(9, 2);
+insert into LESSTOCKS values(10, 2);
+
+insert into LESSTOCKS values(11, 3);
+insert into LESSTOCKS values(12, 3);
+insert into LESSTOCKS values(13, 3);
+insert into LESSTOCKS values(14, 3);
+insert into LESSTOCKS values(15, 3);
+
+insert into LESSTOCKS values(16, 4);
+insert into LESSTOCKS values(17, 4);
+insert into LESSTOCKS values(18, 4);
+insert into LESSTOCKS values(19, 4);
+insert into LESSTOCKS values(20, 4);
 
 
 -- Ajout des statistiques
@@ -95,9 +121,16 @@ insert into LESCARTESBANCAIRES values(2, '2125 5858 5247 2596-07 24-Jacques Al-2
 insert into LESCARTESBANCAIRES values(3, '7787 8855 9387 7781-11 23-Dorian DuRien-135-');
 commit;
 
--- Ajout des locations
-truncate table LESLOCATIONS;
-insert into LESLOCATIONS values(null, to_date('2022/07/15 8:30:25', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 1, 0, 1, 5);
-insert into LESLOCATIONS values(null, to_date('2022/08/21 9:44:11', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 2, 1, 1, 4);
-insert into LESLOCATIONS values(null, to_date('2022/07/15 11:30:25', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 3, 1, 3, 12);
+-- Ajout des locations de BluRays
+truncate table LESLOCATIONSBLURAY;
+insert into LESLOCATIONSBLURAY values(null, to_date('2022/07/15 8:30:25', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 1, 1, 1);
+insert into LESLOCATIONSBLURAY values(null, to_date('2022/08/21 9:44:11', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 2, 1, 3);
+insert into LESLOCATIONSBLURAY values(null, to_date('2022/07/15 11:30:25', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 3, 1, 5);
+commit;
+
+-- Ajout des locations de QRCode
+truncate table LESLOCATIONSQRCODE;
+insert into LESLOCATIONSQRCODE values(null, to_date('2022/07/15 8:30:25', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 1, 1, 12);
+insert into LESLOCATIONSQRCODE values(null, to_date('2022/08/21 9:44:11', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 2, 1, 13);
+insert into LESLOCATIONSQRCODE values(null, to_date('2022/07/15 11:30:25', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 3, 1, 14);
 commit;

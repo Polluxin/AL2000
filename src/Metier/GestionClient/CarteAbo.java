@@ -7,7 +7,6 @@ package Metier.GestionClient;
  */
 public class CarteAbo extends Carte {
 
-
     private float solde;
 
     public float getSolde() {
@@ -15,6 +14,11 @@ public class CarteAbo extends Carte {
     }
 
     public void setSolde(float solde) {
+        this.solde = solde;
+    }
+
+    public CarteAbo(int id, float solde){
+        this.id = id;
         this.solde = solde;
     }
 

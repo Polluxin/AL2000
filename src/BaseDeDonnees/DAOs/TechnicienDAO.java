@@ -19,14 +19,16 @@ public class TechnicienDAO extends DAO<Technicien>{
 
     @Override
     public Technicien lire(int id) {
-        Technicien technicien = null;
+        Technicien technicien;
         try {
             ResultSet res = this.connect.createStatement().executeQuery(
                     "SELECT * FROM LesTechniciens WHERE id="+id);
             res.next();
             technicien = new Technicien(res.getInt("id"), res.getString("nom"), res.getString("prenom"));
 
-        } catch (SQLException e) { e.printStackTrace(); }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;}
         return technicien;
     }
 

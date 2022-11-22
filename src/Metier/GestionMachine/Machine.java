@@ -1,6 +1,11 @@
 package Metier.GestionMachine;
 
+import BaseDeDonnees.DAOs.CarteAboDAO;
+import BaseDeDonnees.DAOs.TechnicienDAO;
+import BaseDeDonnees.Session;
+import Metier.Exception.BluRayInvalide;
 import Metier.Exception.CarteIllisible;
+import Metier.Exception.ConnexionImpossible;
 import Metier.GestionClient.CB;
 import Metier.GestionClient.CarteAbo;
 import Metier.GestionLocation.BluRay;
@@ -20,23 +25,61 @@ public class Machine implements Distributeur, Maintenance {
     Inventaire inventaire;
 
     Statistiques statistiques;
-    Machine(Inventaire i, Statistiques s){
+
+    Session bd;
+
+    Machine(Inventaire i, Statistiques s, Session contactBD){
+        bd = contactBD;
         inventaire = i;
         statistiques = s;
     }
     @Override
-    public CB lireCB() throws CarteIllisible {
-        return null;
+    public CB lireCB(String infosCarte) throws CarteIllisible {
+        // TODO Tester
+        // Rappel format des infos de la carte: "5341 2154 2225 4448-04 25-Paul Fort-888-"
+        String[] infos = infosCarte.split("-");
+        System.out.println("-> Infos de la carte lue dans le lecteur: ");
+        System.out.println("- Numéro : "+infos[0]);
+        System.out.println("- Date d'expiration : "+infos[1]);
+        System.out.println("- Nom et prénom : "+infos[2]);
+        System.out.println("- Cryptogramme : "+infos[3]);
+        if (!infos[0].matches("(\\d{4} ){3}\\d{4}"))
+            throw new CarteIllisible("Numéro invalide");
+        if (!infos[1].matches("\\d{2} \\d{2}"))
+            throw new CarteIllisible("Date d'expiration invalide");
+        if (!infos[2].matches("(\\W|^)\\w+\\s(\\w)+(\\W|$)"))
+            throw new CarteIllisible("Nom et prénom invalides");
+        if (!infos[3].matches("^\\d{3}"))
+            throw new CarteIllisible("Cryptogramme invalide");
+        return new CB(infosCarte);
     }
 
     @Override
-    public Technicien lireCTechnicien() throws CarteIllisible {
-        return null;
+    public Technicien lireCTechnicien(String id) throws CarteIllisible, ConnexionImpossible {
+        // TODO Tester
+        if (!id.matches("^\\d+$"))
+            throw new CarteIllisible("Format identifiant incorrect");
+        bd.open();
+        TechnicienDAO dao = new TechnicienDAO(bd.getSession());
+        Technicien t = dao.lire(Integer.parseInt(id));
+        bd.close();
+        if (t == null)
+            throw new ConnexionImpossible("Erreur d'identification du technicien");
+        return t;
     }
 
     @Override
-    public CarteAbo lireCarteAbo() throws CarteIllisible {
-        return null;
+    public CarteAbo lireCarteAbo(String id) throws CarteIllisible, ConnexionImpossible {
+        // TODO Tester
+        if (!id.matches("^\\d+$"))
+            throw new CarteIllisible("Format identifiant incorrect");
+        bd.open();
+        CarteAboDAO dao = new CarteAboDAO(bd.getSession());
+        CarteAbo c = dao.lire(Integer.parseInt(id));
+        bd.close();
+        if (c == null)
+            throw new ConnexionImpossible("Erreur d'identification d' l'abonné");
+        return c;
     }
 
     @Override
@@ -58,8 +101,15 @@ public class Machine implements Distributeur, Maintenance {
     }
 
     @Override
-    public void avalerBluRays(Inventaire i) {
-        System.out.println("-> Rendu de BluRays");
+    public void avalerBluRay(String id) throws BluRayInvalide {
+        System.out.print("-> Authentification du BluRay ");
+        try {
+            int lu = Integer.parseInt(id);
+            if (lu == 0) throw new BluRayInvalide();
+            System.out.println("numéro "+lu+" OK");
+        } catch (Exception e) {
+            throw new BluRayInvalide();
+        }
     }
 
     @Override

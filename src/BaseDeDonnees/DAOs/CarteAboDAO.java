@@ -3,6 +3,8 @@ package BaseDeDonnees.DAOs;
 import Metier.GestionClient.CarteAbo;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 // TODO
 
@@ -18,7 +20,17 @@ public class CarteAboDAO extends DAO<CarteAbo> {
 
     @Override
     public CarteAbo lire(int id) {
-        return null;
+        CarteAbo carteAbo;
+        try {
+            ResultSet res = this.connect.createStatement().executeQuery(
+                    "SELECT solde FROM LesCartesAbonnes WHERE idAbo="+id);
+            res.next();
+            carteAbo = new CarteAbo(res.getInt("id"), res.getFloat("solde"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;}
+        return carteAbo;
     }
 
     @Override
