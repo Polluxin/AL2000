@@ -10,7 +10,8 @@ import java.util.Map;
  * BluRays.
  * @author Geoffrey DAVID
  */
-public class Mediateur implements Abonnement {
+@SuppressWarnings("unused")
+public class Mediateur{
     Map<String, Handler> handlers;
 
     AL2000 logiciel;
@@ -25,7 +26,6 @@ public class Mediateur implements Abonnement {
      * @param evenement la catégorie de l'événement
      * @param h l'action à effectuer en réponse (relative à l'AL2000)
      */
-    @Override
     public void abonner(String evenement, Handler h) {
         handlers.put(evenement, h);
     }
@@ -34,7 +34,6 @@ public class Mediateur implements Abonnement {
      * Utilisée pour stopper l'attente d'évenement.
      * @param evenement la catégorie de l'événement
      */
-    @Override
     public void desabonner(String evenement) {
         handlers.remove(evenement);
     }
@@ -46,7 +45,6 @@ public class Mediateur implements Abonnement {
      * @param evenement l'événement produit
      * @param e les données relatives à l'événement
      */
-    @Override
     public void publier(String evenement, DonneesEvenement e) {
         handlers.get(evenement).handle(e);
     }

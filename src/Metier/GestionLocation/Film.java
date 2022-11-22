@@ -1,7 +1,6 @@
 package Metier.GestionLocation;
 
 import java.sql.Date;
-import java.sql.Time;
 
 /**
  *
@@ -12,10 +11,10 @@ import java.sql.Time;
 public class Film {
     String titre, realisateur;
     Date date;
-    Time duree;
+    String duree;
     Genre genre;
 
-    public Film(String titre, String realisateur, Date date, Time duree, Genre genre) {
+    public Film(String titre, String realisateur, Date date,  String duree, Genre genre) {
         this.titre = titre;
         this.realisateur = realisateur;
         this.date = date;
@@ -39,7 +38,8 @@ public class Film {
         return realisateur;
     }
 
-    public Time getDuree() {
+    public String getDuree() {
         return duree;
     }
+
 }

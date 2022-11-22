@@ -7,11 +7,20 @@ package Metier.GestionLocation;
  */
 public class FiltreTri {
 
-    Tri t;
+    private final Tri tri;
 
-    String valeurDeRecherche;
+    private final String valeurDeRecherche;
 
-    FiltreTri(){
+    public FiltreTri(Tri t, String v){
+        tri = t;
+        valeurDeRecherche = v;
+    }
 
+    public String getValeurDeRecherche() {
+        return valeurDeRecherche;
+    }
+
+    public Tri getTri() {
+        return tri;
     }
 }

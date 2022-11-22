@@ -1,66 +1,20 @@
-package Metier.GestionLocation;
+package Test;
 
 import BaseDeDonnees.Session;
-import Metier.GestionClient.Abonne;
-import Metier.GestionMachine.Inventaire;
+import Metier.GestionLocation.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Geoffrey DAVID
- * @version 0
- */
-@SuppressWarnings("unused")
-public class Catalogue {
+@SuppressWarnings("ALL")
+public class TestCatalogue {
+    public static void main(String[] args) {
+        Session bd = new Session();
+        FiltreTri filtre = new FiltreTri(null, null);
+        Genre[] interdits = {};
 
-    Genre[] interdits;
-
-    Inventaire inventaire;
-
-    FiltreTri filtre;
-
-    Session bd;
-
-    int idMachine;
-
-    public Catalogue(Inventaire i, Session s, int idMachine){
-        inventaire = i;
-        bd = s;
-        this.idMachine = idMachine;
-    }
-
-    /**
-     * Donne la liste des films disponibles et leur support (QRCode et/ou BluRay) selon un filtre f et les
-     * préférences de l'abonné a. Cela implique une consultation de la base de données.
-     * @param a l'abonné
-     * @param f le filtre à appliquer
-     * @return la liste des films du catalogue
-     */
-    public List<FilmEtFormat> donnerFilms(Abonne a, FiltreTri f){
-        filtre = f;
-        interdits = recupererPreferences(a);
-        return recupererFilmsBD();
-    }
-
-    /**
-     * Donne les préférences de l'abonné a.
-     * @param a l'abonné
-     * @return les préférences (genres interdits)
-     */
-    private Genre[] recupererPreferences(Abonne a){
-        return  a.getInterdits();
-    }
-
-    /**.
-     * En fonction du filtre et des préférences en attribut, consulte la base de données pour trouver les films
-     * disponibles, et recoupe avec l'inventaire en attribut.
-     * @return la liste des films disponibles et leur disponibilité en physique
-     */
-    private List<FilmEtFormat> recupererFilmsBD(){
         // Récupération des films QRCode (=tout les films répondant au filtre et au genre interdits)
         bd.open();
         StringBuilder lesFilmsEnQRCode = new StringBuilder("SELECT * FROM LESFILMS");
@@ -85,7 +39,7 @@ public class Catalogue {
         // Construction de la requête des films en BluRay de la machine
         String lesFilmsEnBluRay = "SELECT LESSTOCKS.IDBLURAY, IDFILM, IDMACHINE FROM LESSTOCKS " +
                 "JOIN LESBLURAYS L on LESSTOCKS.IDBLURAY = L.IDBLURAY " +
-                "WHERE IDMACHINE="+idMachine;
+                "WHERE IDMACHINE="+1;
         @SuppressWarnings("SqlResolve") String requete = "WITH LesFilmsEnQRCode AS ("+lesFilmsEnQRCode+"),\n" +
                 "    LesFilmsEnBluRay AS ("+lesFilmsEnBluRay+")\n" +
                 "SELECT LesFilmsEnQRCode.IDFILM,LesFilmsEnQRCode.TITRE,LesFilmsEnQRCode.DATEFILM,LesFilmsEnQRCode.REALISATEUR,LesFilmsEnQRCode.GENRE,LesFilmsEnQRCode.DUREE, idBluRay\n" +
@@ -102,6 +56,7 @@ public class Catalogue {
             liste_films = new ArrayList<>();
             while(res.next()){
                 idBR = res.getInt("IDBLURAY");
+                idFilm = res.getInt("idFilm");
                 f = new Film(res.getString("TITRE"), res.getString("REALISATEUR"),
                         res.getDate("DATEFILM"),
                         res.getString("DUREE"),
@@ -110,12 +65,14 @@ public class Catalogue {
                 liste_films.add(filmEtFormat);
             }
         } catch (SQLException e){
-            System.out.println("Requete : "+lesFilmsEnQRCode);
+            System.out.println("Requete : "+requete);
             e.printStackTrace();
             bd.close();
         }
 
         bd.close();
-        return liste_films;
+        for (FilmEtFormat f: liste_films){
+            System.out.println("Film: "+f.getFilm().getTitre()+" et Format: "+ f.estDispoEnPhysique());
+        }
     }
 }
