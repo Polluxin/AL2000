@@ -2,6 +2,7 @@ package Metier.GestionMachine;
 
 import Metier.Exception.BluRayInvalide;
 import Metier.Exception.CarteIllisible;
+import Metier.Exception.ConnexionImpossible;
 import Metier.GestionClient.CB;
 import Metier.GestionClient.CarteAbo;
 import Metier.GestionLocation.BluRay;
@@ -28,10 +29,11 @@ public interface Distributeur {
 
     /**
      * Crée un objet Technicien à partir d'une carte de technicien insérée dans
-     * le lecteur.
+     * le lecteur en consultant la base de données pour l'identifier.
+     * @param id le numéro lu sur la carte insérée
      * @return l'objet Technicien créé
      */
-    Technicien lireCTechnicien() throws CarteIllisible;
+    Technicien lireCTechnicien(String id) throws CarteIllisible, ConnexionImpossible;
 
     /**
      * Crée un objet CarteAbo à partir d'une carte d'abonné insérée dans
