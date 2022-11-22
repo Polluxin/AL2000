@@ -1,7 +1,7 @@
 package Metier.Exception;
 
 public class CarteIllisible extends Exception{
-    public CarteIllisible(String errorMessage) {
-        super(errorMessage);
+    public CarteIllisible(String errorM) {
+        super(errorM);
     }
 }

@@ -20,9 +20,11 @@ import java.util.List;
 public interface Distributeur {
     /**
      * Crée un objet CB à partir d'une carte bancaire insérée dans le lecteur.
+     * Le lecteur lit les informations sur la carte insérée, et génère un objet associé.
+     * @param infosCarte les infos de la cartes sous le format "5341 2154 2225 4448-04 25-Paul Fort-888-"
      * @return la CB créée
      */
-    CB lireCB() throws CarteIllisible;
+    CB lireCB(String infosCarte) throws CarteIllisible;
 
     /**
      * Crée un objet Technicien à partir d'une carte de technicien insérée dans

@@ -1,7 +1,5 @@
 package Metier.GestionMachine;
 
-import BaseDeDonnees.DAOs.BluRayDAO;
-import BaseDeDonnees.Session;
 import Metier.Exception.BluRayInvalide;
 import Metier.Exception.CarteIllisible;
 import Metier.GestionClient.CB;
@@ -10,7 +8,6 @@ import Metier.GestionLocation.BluRay;
 import Metier.GestionLocation.QrCode;
 import Metier.GestionLocation.Support;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,8 +26,23 @@ public class Machine implements Distributeur, Maintenance {
         statistiques = s;
     }
     @Override
-    public CB lireCB() throws CarteIllisible {
-        return null;
+    public CB lireCB(String infosCarte) throws CarteIllisible {
+        // Rappel format des infos de la carte: "5341 2154 2225 4448-04 25-Paul Fort-888-"
+        String[] infos = infosCarte.split("-");
+        System.out.println("-> Infos de la carte lue dans le lecteur: ");
+        System.out.println("- Numéro : "+infos[0]);
+        System.out.println("- Date d'expiration : "+infos[1]);
+        System.out.println("- Nom et prénom : "+infos[2]);
+        System.out.println("- Cryptogramme : "+infos[3]);
+        if (!infos[0].matches("(\\d{4} ){3}\\d{4}"))
+            throw new CarteIllisible("Numéro invalide");
+        if (!infos[1].matches("\\d{2} \\d{2}"))
+            throw new CarteIllisible("Date d'expiration invalide");
+        if (!infos[2].matches("\\w \\w"))
+            throw new CarteIllisible("Nom et prénom invalides");
+        if (!infos[3].matches("\\d{3}"))
+            throw new CarteIllisible("Cryptogramme invalide");
+        return new CB(infosCarte);
     }
 
     @Override
