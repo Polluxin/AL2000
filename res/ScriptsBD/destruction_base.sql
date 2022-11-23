@@ -2,7 +2,7 @@ drop table LESCARTESBANCAIRES;
 drop table LESLOCATIONSQRCODE;
 drop table LESLOCATIONSBLURAY;
 drop table LESSTOCKS;
-drop table LESBLURAYS;
+drop table LESSTOCKS;
 drop table LESFILMS;
 drop table LESCARTESABONNES;
 drop table LESINTERDITS;
