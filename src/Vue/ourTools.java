@@ -2,6 +2,8 @@ package Vue;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -51,5 +53,50 @@ public class ourTools {
         UIManager.put("CheckBox.font", font);
         UIManager.put("PasswordField.font", font);
         UIManager.put("TextArea.font", font);
+        UIManager.put("Button.font", font);
+        UIManager.put("Label.font", font);
+    }
+
+    public static JOptionPane testerPane(){
+        entreeDuTesteur form = new entreeDuTesteur();
+        JButton annuler = new JButton("ANNULER");
+        JButton valider = new JButton("VALIDER");
+
+        annuler.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane pane = getOptionPane((JComponent)e.getSource());
+                System.out.println("Annuler a été appuyé !");
+                pane.setValue(JOptionPane.NO_OPTION);
+            }
+        });
+
+        valider.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane pane = getOptionPane((JComponent)e.getSource());
+                System.out.println("Valider a été appuyé ! Le texte est : "+form.getText());
+                pane.setValue(JOptionPane.YES_OPTION);
+            }
+        });
+
+
+        Object[] options = {annuler,valider};
+        JOptionPane tester = new JOptionPane(
+                form,
+                JOptionPane.QUESTION_MESSAGE,
+                JOptionPane.YES_NO_OPTION);
+        tester.setOptions(options);
+        return tester;
+    }
+
+    protected static JOptionPane getOptionPane(JComponent parent) {
+        JOptionPane pane = null;
+        if (!(parent instanceof JOptionPane)) {
+            pane = getOptionPane((JComponent)parent.getParent());
+        } else {
+            pane = (JOptionPane) parent;
+        }
+        return pane;
     }
 }
