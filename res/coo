@@ -90,6 +90,7 @@ abstract class Client {
 + recharger(montant: float)
 + fondsReserves(h: HistoLoc): float
 + réglerInterdits(L: Liste<Genre>)
++ payerMax()
 }
 
 class Abonné {
@@ -218,6 +219,7 @@ genre: Genre
 
 class Police {
 - t:Timer
++ CheckPaiements()
 ##TODO
 }
 

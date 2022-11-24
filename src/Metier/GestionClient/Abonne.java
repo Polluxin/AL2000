@@ -76,6 +76,13 @@ public class Abonne extends Client {
     //</editor-fold>
 
 
+    @Override
+    public float payerMax() throws PaiementRefuse {
+        float solde = ((CarteAbo) carte).getSolde();
+        carte.payer(solde);
+        return solde;
+    }
+
     public void payer(Support s, int jours) throws PaiementRefuse {
         float prix = s.getPrixAboJour() * jours;
         carte.payer(prix);

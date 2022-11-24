@@ -156,12 +156,10 @@ public class Compte {
      * @throws PaiementRefuse
      */
     public void retirerSolde(CB cb) throws PaiementRefuse {
-        CarteAbo cA = (CarteAbo) getClient().getCarte();
-        float montant = cA.getSolde();
+        // vider compte
+        float montant = getClient().payerMax();
         // recharger carte
         cb.recharger(montant);
-        // vider compte
-        cA.setSolde(0.F);
     }
 
     /**

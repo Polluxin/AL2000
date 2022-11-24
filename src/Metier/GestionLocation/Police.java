@@ -14,6 +14,7 @@ import java.util.Timer;
 public class Police {
 
     HistoLoc histo;
+    // chrono probablement à retirer
     Timer chrono;
 
     Police(HistoLoc historique, int delai){
@@ -21,6 +22,8 @@ public class Police {
         chrono = new Timer();
     }
     private static int daysApart(Date time1, Date time2){
+        // TODO A TESTER
+        // vérifier comment bien utiliser cette fonction pour compter les jours depuis la date de location
         return (int)((time2.getTime() - time1.getTime()) / (1000*60*60* 24L));
     }
     private void CheckPaiements(){

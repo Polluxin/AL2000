@@ -80,4 +80,14 @@ public abstract class Client {
         return res;
 
     }
+
+    /**
+     * paye le plus tout le solde pour un abonné, 0 sinon
+     * utilisé pour transferer le solde sur une cb
+     * @return
+     * @throws PaiementRefuse
+     */
+    public float payerMax() throws PaiementRefuse {
+        return 0;
+    }
 }
