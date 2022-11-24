@@ -218,6 +218,7 @@ genre: Genre
 
 class Police {
 - t:Timer
++ CheckPaiements()
 ##TODO
 }
 
