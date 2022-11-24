@@ -4,7 +4,7 @@
 - Javadoc pour toutes les classes avec nom(s) de(s) auteur(s)
 
 ## Comment se connecter à la base de données ?
-- Activer le VPN (CISCO)
+- Activer le VPN (CISCO) (une documentation plus complète est disponible [sur ce lien](https://nomadisme.grenet.fr/installVPN.htm))
 - Modifier la classe BaseDeDonnees.Session:
 ```java
 public class Session {
@@ -25,7 +25,7 @@ public class Session {
     }
 }
 ```
-- Lancer dans un terminal la commande "ssh -N -L 1521:im2ag-oracle.univ-grenoble-alpes.fr:1521 LOGIN@im2ag-oracle.univ-grenoble-alpes.fr" avec l'identifiant AGALAN
+- Lancer dans un terminal la commande `ssh -N -L 1521:im2ag-oracle.univ-grenoble-alpes.fr:1521 LOGIN@im2ag-oracle.univ-grenoble-alpes.fr` avec l'identifiant AGALAN à la place de `LOGIN`
 
 ## Comment créer la base de données et la peupler ?
 - Lancer le script "creation_base.sql" puis "peupler_base.sql"
