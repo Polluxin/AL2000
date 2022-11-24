@@ -28,6 +28,10 @@ public abstract class Client {
         return interdits;
     }
 
+    public void setInterdits(Genre[] interdits) {
+        this.interdits = interdits;
+    }
+
     public void reglerInterdits(Genre[] interdits) {
         this.interdits = interdits;
     }

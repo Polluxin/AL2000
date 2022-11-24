@@ -106,7 +106,6 @@ public class Compte {
     public void connexion(CarteAbo c, String mdp) throws MauvaisMotDePasse {
         Abonne abo = null;
         AbonneDAO dao = new AbonneDAO(bd.getSession());
-        // TODO RECUPERER LES GENRES
         bd.open();
         abo = dao.lireDepuisCarte(c);
         assert(abo != null);

@@ -2,7 +2,6 @@ package Metier.GestionClient;
 
 import Metier.Exception.PaiementRefuse;
 import Metier.GestionLocation.Genre;
-import Metier.GestionLocation.HistoLoc;
 import Metier.GestionLocation.Support;
 
 /**
@@ -10,6 +9,7 @@ import Metier.GestionLocation.Support;
  * @author Armand GRENIER
  * @version 0.0
  */
+@SuppressWarnings("unused")
 public class Abonne extends Client {
 
     String nom, prenom, addresseMail, adressePostale, motDePasse;
@@ -73,6 +73,7 @@ public class Abonne extends Client {
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;
     }
+
     //</editor-fold>
 
 

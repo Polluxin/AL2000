@@ -98,7 +98,7 @@ create table LesCartesAbonnes
 create table LesInterdits
 (
     idAbo int primary key,
-    genre char(25)
+    genres varchar(200)
 )
 /
 
