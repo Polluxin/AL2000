@@ -43,7 +43,8 @@ public class Inventaire {
 
     /**
      * Utilisé lors du rendu d'un BLuRay après une location, cette fonction indique dans la base de données que
-     * le BluRay rendu se situe dans la machine identifiée par idMachineAssociée (attribut de la classe).
+     * le BluRay rendu se situe dans la machine identifiée par idMachineAssociée (attribut de la classe), et met à jour
+     * l'inventaire local.
      * @param b le BluRay rendu
      */
     public void ajouterBluRay(BluRay b){
@@ -69,8 +70,31 @@ public class Inventaire {
         getSession().close();
     }
 
+    /**
+     * Utilisé lors d'une location d'un BluRay, cette fonction indique dans la base de données que le BluRay ne se
+     * situe plus dans la machine, et met à jour l'inventaire local.
+     * @param b le BluRay loué
+     */
     public void supprimerBluRay(BluRay b){
-        // TODO
+        supprimerBluRayBD(b.getId());
+        liste_BluRays.remove(b);
+    }
+
+    /**
+     * Fonction qui retire le BluRay dans la table LesStocks.
+     * @param idBluRay l'id du BluRay à retirer
+     */
+    private void supprimerBluRayBD(int idBluRay){
+        // TODO A TESTER
+        getSession().open();
+        String requete = "DELETE FROM LESSTOCKS WHERE idBluRay="+idBluRay;
+        try{
+            getSession().getSession().createStatement().executeUpdate(requete);
+            System.out.println("[BD] BluRay numéro "+idBluRay+" retiré");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        getSession().close();
     }
 
     public List<BluRay> getListeBluRays(){
