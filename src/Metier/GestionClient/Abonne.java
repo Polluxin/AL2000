@@ -12,14 +12,11 @@ import Metier.GestionLocation.Support;
  */
 public class Abonne extends Client {
 
-    CarteAbo carte;
-
     String nom, prenom, addresseMail, adressePostale, motDePasse;
 
     //<editor-fold desc="Constructor">
-    public Abonne(Genre[] interdits, Carte carte, CarteAbo carte1, String nom, String prenom, String addresseMail, String adressePostale, String motDePasse) {
+    public Abonne(Genre[] interdits, Carte carte, String nom, String prenom, String addresseMail, String adressePostale, String motDePasse) {
         super(interdits, carte);
-        this.carte = carte1;
         this.nom = nom;
         this.prenom = prenom;
         this.addresseMail = addresseMail;
@@ -29,7 +26,7 @@ public class Abonne extends Client {
     //</editor-fold>
 
     //<editor-fold desc="getter/setter">
-    public CarteAbo getCarte() {
+    public Carte getCarte() {
         return carte;
     }
 
