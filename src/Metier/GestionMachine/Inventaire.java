@@ -3,6 +3,7 @@ package Metier.GestionMachine;
 import BaseDeDonnees.Session;
 import Metier.GestionLocation.BluRay;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,16 +41,60 @@ public class Inventaire {
         return session;
     }
 
+    /**
+     * Utilisé lors du rendu d'un BLuRay après une location, cette fonction indique dans la base de données que
+     * le BluRay rendu se situe dans la machine identifiée par idMachineAssociée (attribut de la classe), et met à jour
+     * l'inventaire local.
+     * @param b le BluRay rendu
+     */
     public void ajouterBluRay(BluRay b){
-        // TODO
+        ajouterBluRayBD(b.getId(), idMachineAssocie);
+        liste_BluRays.add(b);
     }
 
-    public void ajouterBluRays(List<BluRay> b){
-        // TODO
+    /**
+     * Fonction qui ajoute le BluRay dans la table LesStocks en l'associant à une machine.
+     * @param idBluRay l'id du BluRay à ajouter
+     * @param idMachineAssocie l'id de la machine qui contient le BluRay
+     */
+    private void ajouterBluRayBD(int idBluRay, int idMachineAssocie){
+        // TODO A TESTER
+        getSession().open();
+        String requete = "INSERT INTO LESSTOCKS VALUES("+idBluRay+", "+idMachineAssocie+")";
+        try{
+            getSession().getSession().createStatement().executeUpdate(requete);
+            System.out.println("[BD] BluRay numéro "+idBluRay+" ajouté");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        getSession().close();
     }
 
+    /**
+     * Utilisé lors d'une location d'un BluRay, cette fonction indique dans la base de données que le BluRay ne se
+     * situe plus dans la machine, et met à jour l'inventaire local.
+     * @param b le BluRay loué
+     */
     public void supprimerBluRay(BluRay b){
-        // TODO
+        supprimerBluRayBD(b.getId());
+        liste_BluRays.remove(b);
+    }
+
+    /**
+     * Fonction qui retire le BluRay dans la table LesStocks.
+     * @param idBluRay l'id du BluRay à retirer
+     */
+    private void supprimerBluRayBD(int idBluRay){
+        // TODO A TESTER
+        getSession().open();
+        String requete = "DELETE FROM LESSTOCKS WHERE idBluRay="+idBluRay;
+        try{
+            getSession().getSession().createStatement().executeUpdate(requete);
+            System.out.println("[BD] BluRay numéro "+idBluRay+" retiré");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        getSession().close();
     }
 
     public List<BluRay> getListeBluRays(){
