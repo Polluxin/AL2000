@@ -80,4 +80,8 @@ public abstract class Client {
         return res;
 
     }
+
+    public float payerMax() throws PaiementRefuse {
+        return 0;
+    }
 }
