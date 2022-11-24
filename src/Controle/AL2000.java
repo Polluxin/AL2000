@@ -1,5 +1,6 @@
 package Controle;
 
+import BaseDeDonnees.Session;
 import Metier.Exception.MauvaisMotDePasse;
 import Metier.GestionClient.*;
 import Metier.GestionLocation.*;
@@ -13,6 +14,7 @@ import java.util.prefs.Preferences;
  * @author Geoffrey DAVID
  * @version 0
  */
+@SuppressWarnings("unused")
 public class AL2000 {
 
     private final int idMachineAssociee = 1;
@@ -31,14 +33,18 @@ public class AL2000 {
 
     private Police police;
 
+    private final Session session;
+
     AL2000() {
+        session = new Session();
     }
 
     /**
      * Initialise le logiciel à partir de certains paramètres.
      */
     private void initialisation() {
-        compte = new Compte();
+
+        compte = new Compte(session);
         panier = new Panier();
     }
 

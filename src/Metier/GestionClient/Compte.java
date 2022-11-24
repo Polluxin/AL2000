@@ -1,5 +1,7 @@
 package Metier.GestionClient;
 
+import BaseDeDonnees.DAOs.AbonneDAO;
+import BaseDeDonnees.Session;
 import Metier.Exception.FormulaireInvalide;
 import Metier.Exception.MauvaisMotDePasse;
 import Metier.Exception.PaiementRefuse;
@@ -18,7 +20,10 @@ public class Compte {
 
     Client client = null;
 
-    public Compte() {
+    Session bd;
+
+    public Compte(Session s) {
+        this.bd = s;
     }
 
     public Client getClient() {
@@ -56,12 +61,17 @@ public class Compte {
      */
     public void connexion(CarteAbo c, String mdp) throws MauvaisMotDePasse {
         Abonne abo = null;
-        //TODO
+        AbonneDAO dao = new AbonneDAO(bd.getSession());
+        // TODO A TESTER
+        bd.open();
+        abo = dao.lireDepuisCarte(c);
+        assert(abo != null);
         //lire abo dans la bd avec la carteAbo c Throw exception depuis le DAO !
         if (mdp.compareTo(abo.getMotDePasse()) != 0) {
             throw new MauvaisMotDePasse();
         }
         // tout s'est bien passé, le client est connecté
+        System.out.println("Client authentifié");
         this.client = abo;
     }
 
@@ -103,7 +113,7 @@ public class Compte {
      * @throws PaiementRefuse
      */
     public void retirerSolde(CB cb) throws PaiementRefuse {
-        CarteAbo cA = ((Abonne) client).carte;
+        CarteAbo cA = (CarteAbo) getClient().getCarte();
         float montant = cA.getSolde();
         // recharger carte
         cb.recharger(montant);
