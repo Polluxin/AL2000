@@ -25,6 +25,7 @@ public class Location {
     }
 
 
+    //<editor-fold desc="getter/setter">
     public Support getSupport() {
         return support;
     }
@@ -36,6 +37,19 @@ public class Location {
     public Client getClient() {
         return client;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Etat getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Etat etat) {
+        this.etat = etat;
+    }
+    //</editor-fold>
 
     /**
      * Calcul les fonds nécéssaire pour pouvoir payer une location.
