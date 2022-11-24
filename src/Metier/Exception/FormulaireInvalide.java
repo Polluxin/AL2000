@@ -1,7 +1,7 @@
 package Metier.Exception;
 
 public class FormulaireInvalide extends Exception{
-    public FormulaireInvalide() {
-        super();
+    public FormulaireInvalide(String errorM) {
+        super(errorM);
     }
 }

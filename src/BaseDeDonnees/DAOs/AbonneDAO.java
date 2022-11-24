@@ -14,7 +14,22 @@ public class AbonneDAO extends DAO<Abonne> {
 
     @Override
     public boolean creer(Abonne obj) {
-        return false;
+        // Creation de la carte d'abonné
+        try {
+            ResultSet res = connect.createStatement().executeQuery("SELECT MAX(idabo) FROM LESCARTESABONNES");
+            res.next();
+            int id = res.getInt("idabo") + 1;
+            this.connect.createStatement().executeUpdate(
+                    "INSERT INTO LESCARTESABONNES VALUES("+id+", "+obj.getNom()+", "+obj.getPrenom()+", "+
+                    obj.getAddresseMail()+", "+ obj.getAdressePostale()+", 0, "+obj.getMotDePasse()+")");
+            CarteAbo c = new CarteAbo(id, 0);
+            obj.setCarte(c);
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
@@ -30,6 +45,8 @@ public class AbonneDAO extends DAO<Abonne> {
             res.next();
             a = new Abonne(null, c,res.getString("nom"),res.getString("prenom"),
                     res.getString("mail"), res.getString("adressePostale"), res.getString("mdp"));
+            // Ajout des interdits
+            // TODO
         } catch (SQLException e){
             e.printStackTrace();
         }

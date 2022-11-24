@@ -1,6 +1,7 @@
 package Metier.GestionClient;
 
 import BaseDeDonnees.DAOs.AbonneDAO;
+import BaseDeDonnees.DAOs.CarteAboDAO;
 import BaseDeDonnees.Session;
 import Metier.Exception.FormulaireInvalide;
 import Metier.Exception.MauvaisMotDePasse;
@@ -39,10 +40,53 @@ public class Compte {
      * @throws FormulaireInvalide
      */
     public void inscrire(FormulaireInscription f) throws FormulaireInvalide {
+        // Vérification des informations du formulaire
+        try {
+            verifierFormulaireI(f);
+        } catch (FormulaireInvalide e){
+            e.printStackTrace();
+            throw e;
+        }
+        Abonne a = new Abonne(f.getInterdits(),null, f.getNom(), f.getPrenom(),
+            f.getAdresseMail(), f.getAdresse(), f.getMdp());
         //TODO
         //appel vers la bd pour creer un compte
-        throw new FormulaireInvalide();
-        // connexion à faire
+        AbonneDAO dao = new AbonneDAO(bd.getSession());
+        // Cette fonction crée la carte d'abonnée en BD et la lie à l'abonné A
+        dao.creer(a);
+        assert(a.getCarte() != null);
+        // Connexion de l'abonné nouvellement inscrit
+        client = a;
+    }
+
+    private void verifierFormulaireI(FormulaireInscription f) throws FormulaireInvalide{
+        System.out.println("Verification du formulaire d'inscription :");
+        System.out.print(" -> Nom : ");
+        if (f.getNom().matches("(\\W|^)[A-z]+(\\W|$)")){
+            System.out.println("KO");
+            throw new FormulaireInvalide("Format du nom incorrect");
+        }
+        System.out.print(" -> Prenom : ");
+        if (f.getNom().matches("(\\W|^)[A-z]+(\\W|$)")){
+            System.out.println("KO");
+            throw new FormulaireInvalide("Format du prénom incorrect");
+        }
+        System.out.print(" -> Adresse : ");
+        if (f.getNom().isEmpty()){
+            System.out.println("KO");
+            throw new FormulaireInvalide("Champ de l'adresse vide");
+        }
+        System.out.print(" -> Mail : ");
+        if (f.getNom().matches(".+@.")){
+            System.out.println("KO");
+            throw new FormulaireInvalide("Format du mail incorrect");
+
+        }
+        System.out.print(" -> Mot de passe : ");
+        if (f.getNom().isEmpty()){
+            System.out.println("KO");
+            throw new FormulaireInvalide("Champ du mot de passe vide");
+        }
     }
 
     /**
@@ -62,11 +106,10 @@ public class Compte {
     public void connexion(CarteAbo c, String mdp) throws MauvaisMotDePasse {
         Abonne abo = null;
         AbonneDAO dao = new AbonneDAO(bd.getSession());
-        // TODO A TESTER
+        // TODO RECUPERER LES GENRES
         bd.open();
         abo = dao.lireDepuisCarte(c);
         assert(abo != null);
-        //lire abo dans la bd avec la carteAbo c Throw exception depuis le DAO !
         if (mdp.compareTo(abo.getMotDePasse()) != 0) {
             throw new MauvaisMotDePasse();
         }

@@ -2,21 +2,24 @@ package Metier.GestionMachine;
 
 import Metier.GestionLocation.Genre;
 
-import java.util.List;
-
 /**
  * @author Geoffrey DAVID
  */
 @SuppressWarnings("unused")
 public class FormulaireInscription {
-    private final String nom, prenom, adresse, adresseMail;
-    private final List<Genre> interdits;
-    FormulaireInscription(String nom, String prenom, String adresse, String adresseMail, List<Genre> interdits){
+    private final String nom, prenom, adresse, adresseMail, mdp;
+    private final Genre[] interdits;
+    FormulaireInscription(String nom, String prenom, String adresse, String adresseMail, Genre[] interdits, String mdp){
         this.nom = nom;
         this.prenom = prenom;
         this.adresse = adresse;
         this.adresseMail =adresseMail;
         this.interdits = interdits;
+        this.mdp = mdp;
+    }
+
+    public String getMdp() {
+        return mdp;
     }
 
     public String getPrenom() {
@@ -35,7 +38,7 @@ public class FormulaireInscription {
         return adresse;
     }
 
-    public List<Genre> getInterdits() {
+    public Genre[] getInterdits() {
         return interdits;
     }
 }
