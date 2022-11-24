@@ -5,7 +5,7 @@
 
 ## Comment se connecter à la base de données ?
 - Activer le VPN (CISCO)
-- Modifier la classe BaseDeDonnees.Session pour inscrire dans user:
+- Modifier la classe BaseDeDonnees.Session:
 ```java
 public class Session {
     public void open() {
