@@ -5,7 +5,7 @@
 
 ## Comment se connecter à la base de données ?
 - Activer le VPN (CISCO)
-- Modifier la classe BaseDeDonnees.Session:
+- Modifier la valeur de String user dans la classe BaseDeDonnees.Session:
 ```java
 public class Session {
     public void open() {
@@ -25,7 +25,7 @@ public class Session {
     }
 }
 ```
-- Lancer dans un terminal la commande "ssh -N -L 1521:im2ag-oracle.univ-grenoble-alpes.fr:1521 LOGIN@im2ag-oracle.univ-grenoble-alpes.fr" avec l'identifiant AGALAN
+- Lancer dans un terminal la commande "ssh -N -L 1521:im2ag-oracle.univ-grenoble-alpes.fr:1521 LOGIN@im2ag-oracle.univ-grenoble-alpes.fr" en remplacant LOGIN par votre identifiant AGALAN puis lorsque demandé, entrez votres mot de passe.
 
 ## Comment créer la base de données et la peupler ?
 - Lancer le script "creation_base.sql" puis "peupler_base.sql"
