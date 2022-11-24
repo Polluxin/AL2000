@@ -4,7 +4,7 @@
 - Javadoc pour toutes les classes avec nom(s) de(s) auteur(s)
 
 ## Comment se connecter à la base de données ?
-- Activer le VPN (CISCO)
+- Activer le VPN (CISCO) (une documentation plus complète est disponible [sur ce lien](https://nomadisme.grenet.fr/installVPN.htm))
 - Modifier la valeur de String user dans la classe BaseDeDonnees.Session:
 ```java
 public class Session {
