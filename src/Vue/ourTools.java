@@ -57,7 +57,8 @@ public class ourTools {
         UIManager.put("Label.font", font);
     }
 
-    public static JOptionPane testerPane(){
+    public static JOptionPane testerPane(NavigationBar navbar){
+        navbar.addAwaitingProcess();
         entreeDuTesteur form = new entreeDuTesteur();
         JButton annuler = new JButton("ANNULER");
         JButton valider = new JButton("VALIDER");
@@ -68,6 +69,7 @@ public class ourTools {
                 JOptionPane pane = getOptionPane((JComponent)e.getSource());
                 System.out.println("Annuler a été appuyé !");
                 pane.setValue(JOptionPane.NO_OPTION);
+                navbar.removeAwaitingProcess();
             }
         });
 
@@ -77,6 +79,7 @@ public class ourTools {
                 JOptionPane pane = getOptionPane((JComponent)e.getSource());
                 System.out.println("Valider a été appuyé ! Le texte est : "+form.getText());
                 pane.setValue(JOptionPane.YES_OPTION);
+                navbar.removeAwaitingProcess();
             }
         });
 

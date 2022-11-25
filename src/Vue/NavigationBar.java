@@ -11,6 +11,8 @@ import java.util.LinkedList;
 public class NavigationBar extends JPanel {
     InterfaceUtilisateur iu;
 
+    int awaitingProcess;
+
     JPanel droiteNav;
     JPanel droiteNavOut;
     JPanel gaucheNav;
@@ -31,6 +33,8 @@ public class NavigationBar extends JPanel {
         this.setLayout(new BorderLayout());
         //this.setBackground(Color.GREEN);
         this.setOpaque(false);
+
+        awaitingProcess = 0;
 
         navColor = ourColors.fond();
 
@@ -197,10 +201,12 @@ public class NavigationBar extends JPanel {
         this.retour.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fifo.pop(); //supprimer l'etat courant
-                ETAT_IU nouveau = fifo.pop(); // recuperer l'etat precedent
-                System.out.println("Retour --> Nouvel etat = "+nouveau+" .. reste des etats = "+fifo.toString());
-                iu.changerEtat(nouveau);
+                if(awaitingProcess == 0) {
+                    fifo.pop(); //supprimer l'etat courant
+                    ETAT_IU nouveau = fifo.pop(); // recuperer l'etat precedent
+                    System.out.println("Retour --> Nouvel etat = " + nouveau + " .. reste des etats = " + fifo.toString());
+                    iu.changerEtat(nouveau);
+                }
             }
         });
     }
@@ -250,6 +256,14 @@ public class NavigationBar extends JPanel {
     public void setPanier(boolean active) {
         this.panier.setVisible(active);
         this.panier.setEnabled(active);
+    }
+
+    public void addAwaitingProcess(){
+        awaitingProcess += 1;
+    }
+
+    public void removeAwaitingProcess(){
+        awaitingProcess -= 1;
     }
 
 }

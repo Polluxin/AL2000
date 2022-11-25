@@ -41,7 +41,7 @@ public class InterfaceUtilisateur {
         inscription = new Inscription();
         inscriptionReussie = new InscriptionReussie();
         connexion = new Connexion();
-        rendrebluray = new rendreBluray();
+        rendrebluray = new rendreBluray(navBar);
         voir_films = new voirFilms();
         attenteDVD = new AttenteDVD();
 
@@ -50,6 +50,7 @@ public class InterfaceUtilisateur {
 
         panneauCourant = ecranDeBienvenue;
         navBar.ajouterEtat(ETAT_IU.BIENVENUE);
+        navBar.cacher();
 
         // Taille de l'ecran de l'utilisateur :
         double LARGEUR = tailleEcran.getWidth()/3;

@@ -9,7 +9,9 @@ public class rendreBluray extends JPanel {
     JTextArea instructions;
     JLabel icon;
     JButton simulation;
-    public rendreBluray(){
+    NavigationBar navbar;
+    public rendreBluray(NavigationBar navigation){
+        navbar = navigation;
         icon = new JLabel();
         icon.setIcon(ourPictures.getPicture("src/ressources/rendredvd.png"));
         icon.setOpaque(false);
@@ -26,20 +28,7 @@ public class rendreBluray extends JPanel {
         simulation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*
-                entreeDuTesteur form = new entreeDuTesteur();
-                Object[] options = {"ANNULER",
-                        "VALIDER"};
-                int n = JOptionPane.showOptionDialog(null,
-                        form,
-                        "Simulation",
-                        0,
-                        JOptionPane.INFORMATION_MESSAGE,
-                        null,
-                        options,
-                        null
-                ); //default button title*/
-                JOptionPane simulateur = ourTools.testerPane();
+                JOptionPane simulateur = ourTools.testerPane(navbar);
                 //JButton[] options = (JButton[]) simulateur.getOptions();
                 //options[0].se
                 JDialog dialog = simulateur.createDialog(null, " test title ");
