@@ -134,3 +134,12 @@ insert into LESLOCATIONSQRCODE values(null, to_date('2022/07/15 8:30:25', 'YYYY/
 insert into LESLOCATIONSQRCODE values(null, to_date('2022/08/21 9:44:11', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 2, 1, 13);
 insert into LESLOCATIONSQRCODE values(null, to_date('2022/07/15 11:30:25', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 3, 1, 14);
 commit;
+
+-- Ajout des genres interdits (preferences)
+truncate table LESINTERDITS;
+insert into LESINTERDITS values(1, 'ROMANCE ACTION');
+insert into LESINTERDITS values(2, '');
+insert into LESINTERDITS values(3, 'HORREUR');
+insert into LESINTERDITS values(4, '');
+insert into LESINTERDITS values(5, 'SF');
+commit;

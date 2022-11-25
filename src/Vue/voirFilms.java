@@ -8,6 +8,9 @@ public class voirFilms extends JPanel {
     JPanel rechercher;
     JPanel panneauDroite;
 
+    JScrollPane listeDeFilms;
+    JPanel grilleDesFilms;
+
     JTextField barreDeRecherche;
     JButton btnRecherche;
 
@@ -33,7 +36,14 @@ public class voirFilms extends JPanel {
         rechercher.add(barreDeRecherche, BorderLayout.CENTER);
         rechercher.add(btnRecherche, BorderLayout.EAST);
 
+        grilleDesFilms = new JPanel(new GridLayout(10,3));
+        listeDeFilms = new JScrollPane(grilleDesFilms);
+
+
+
+
         panneauGauche.add(rechercher, BorderLayout.NORTH);
+        panneauGauche.add(listeDeFilms);
 
         panneauDroite = new JPanel();
         panneauDroite.setBackground(ourColors.fond());

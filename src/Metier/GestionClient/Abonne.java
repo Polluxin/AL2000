@@ -9,16 +9,14 @@ import Metier.GestionLocation.Support;
  * @author Armand GRENIER
  * @version 0.0
  */
+@SuppressWarnings("unused")
 public class Abonne extends Client {
-
-    CarteAbo carte;
 
     String nom, prenom, addresseMail, adressePostale, motDePasse;
 
     //<editor-fold desc="Constructor">
-    public Abonne(Genre[] interdits, Carte carte, CarteAbo carte1, String nom, String prenom, String addresseMail, String adressePostale, String motDePasse) {
+    public Abonne(Genre[] interdits, Carte carte, String nom, String prenom, String addresseMail, String adressePostale, String motDePasse) {
         super(interdits, carte);
-        this.carte = carte1;
         this.nom = nom;
         this.prenom = prenom;
         this.addresseMail = addresseMail;
@@ -28,7 +26,7 @@ public class Abonne extends Client {
     //</editor-fold>
 
     //<editor-fold desc="getter/setter">
-    public CarteAbo getCarte() {
+    public Carte getCarte() {
         return carte;
     }
 
@@ -75,14 +73,19 @@ public class Abonne extends Client {
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;
     }
+
     //</editor-fold>
 
+
+    @Override
+    public float payerMax() throws PaiementRefuse {
+        float solde = ((CarteAbo) carte).getSolde();
+        carte.payer(solde);
+        return solde;
+    }
 
     public void payer(Support s, int jours) throws PaiementRefuse {
         float prix = s.getPrixAboJour() * jours;
         carte.payer(prix);
     }
-
-
-
 }

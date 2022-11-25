@@ -1,5 +1,6 @@
 package Metier.GestionMachine;
 
+import BaseDeDonnees.DAOs.BluRayDAO;
 import BaseDeDonnees.DAOs.CarteAboDAO;
 import BaseDeDonnees.DAOs.TechnicienDAO;
 import BaseDeDonnees.Session;
@@ -92,6 +93,8 @@ public class Machine implements Distributeur, Maintenance {
 
     @Override
     public void livrerBluRay(BluRay b) {
+        // retrait du BluRay de l'inventaire
+        inventaire.supprimerBluRay(b);
         System.out.println("-> Livraison du BluRay de '"+b.getFilm()+"'");
     }
 
@@ -102,12 +105,17 @@ public class Machine implements Distributeur, Maintenance {
 
     @Override
     public void avalerBluRay(String id) throws BluRayInvalide {
+        // TODO A TESTER
         System.out.print("-> Authentification du BluRay ");
         try {
             int lu = Integer.parseInt(id);
             if (lu == 0) throw new BluRayInvalide();
-            System.out.println("numéro "+lu+" OK");
-        } catch (Exception e) {
+            System.out.println("numéro "+lu+": OK");
+            // Ajout du BluRay dans l'inventaire
+            BluRayDAO dao = new BluRayDAO(bd.getSession());
+            BluRay b = dao.lire(lu);
+            inventaire.ajouterBluRay(b);
+        } catch (BluRayInvalide e) {
             throw new BluRayInvalide();
         }
     }

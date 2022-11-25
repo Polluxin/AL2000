@@ -20,8 +20,9 @@ public class InterfaceUtilisateur {
     Inscription inscription;
     InscriptionReussie inscriptionReussie;
     Connexion connexion;
-    rendreDVD rendreDvd;
+    rendreBluray rendrebluray;
     voirFilms voir_films;
+    AttenteDVD attenteDVD;
     ETAT_IU etatCourant;
     JPanel panneauCourant;
 
@@ -40,8 +41,9 @@ public class InterfaceUtilisateur {
         inscription = new Inscription();
         inscriptionReussie = new InscriptionReussie();
         connexion = new Connexion();
-        rendreDvd = new rendreDVD();
+        rendrebluray = new rendreBluray();
         voir_films = new voirFilms();
+        attenteDVD = new AttenteDVD();
 
         inscription.setVisible(true);
         inscriptionReussie.setVisible(true);
@@ -55,7 +57,7 @@ public class InterfaceUtilisateur {
 
         // Parametrage
         ecran.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ecran.setMinimumSize(new Dimension(1000, 500));
+        ecran.setMinimumSize(new Dimension(1300, 1000));
         ecran.setPreferredSize(new Dimension((int)LARGEUR,(int)HAUTEUR));
         ecran.setContentPane(fondDEcran);
         ecran.setResizable(true);
@@ -65,7 +67,7 @@ public class InterfaceUtilisateur {
 
         ecran.add(panneauCourant);
 
-        changerEtat(ETAT_IU.VOIR_FILMS);
+        //changerEtat(ETAT_IU.ATTENTE_DVD);
 
         ecran.pack();
         ecran.setVisible(true);
@@ -95,10 +97,13 @@ public class InterfaceUtilisateur {
                 }
                 case RENDRE_DVD -> {
                     navBar.retourSeulement(true);
-                    panneauCourant = rendreDvd;
+                    panneauCourant = rendrebluray;
                 }
                 case VOIR_FILMS -> {
                     panneauCourant = voir_films;
+                }
+                case ATTENTE_DVD -> {
+                    panneauCourant = attenteDVD;
                 }
                 default -> {
                     System.out.println("ERROR -- Unknown new state !");

@@ -25,6 +25,7 @@ public class Location {
     }
 
 
+    //<editor-fold desc="getter/setter">
     public Support getSupport() {
         return support;
     }
@@ -36,6 +37,19 @@ public class Location {
     public Client getClient() {
         return client;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Etat getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Etat etat) {
+        this.etat = etat;
+    }
+    //</editor-fold>
 
     /**
      * Calcul les fonds nécéssaire pour pouvoir payer une location.
@@ -71,18 +85,21 @@ public class Location {
         return fondsNecessaire((Location[]) locations.toArray());
     }
 
-    public void payer(){
+    /**
+     * Fait payer la location au client en fonction du nombre
+     * de jours depuis le début de la location.
+     */
+    public void payer() throws PaiementRefuse {
         int joursAPayer;
         // TODO
         Date sqlDate = new Date(System.currentTimeMillis());
         joursAPayer = 2;
-        try {
-            client.payer(support, joursAPayer);
-        } catch (PaiementRefuse e) {
-            // le paiement est refusé
-            throw new RuntimeException(e);
-        }
+        client.payer(support, joursAPayer);
 
+    }
+
+    public void payerRetard() throws PaiementRefuse {
+        client.payerRetard(support);
     }
 
 

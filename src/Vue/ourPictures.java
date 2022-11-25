@@ -37,6 +37,8 @@ public final class ourPictures {
     private static final StretchIcon search = loadPicture("src/ressources/search.png");
     private static final StretchIcon signalerProbleme = loadPicture("src/ressources/signalerProbleme.png");
     private static final StretchIcon voirfilms = loadPicture("src/ressources/voirfilms.png");
+    private static final StretchIcon annuler = loadPicture("src/ressources/annuler.png");
+    private static final StretchIcon valider = loadPicture("src/ressources/valider.png");
     private static final StretchIcon admin_pressed = loadPicture("src/ressources/admin.png_pressed.png");
     private static final StretchIcon afficherHistorique_pressed = loadPicture("src/ressources/afficherHistorique.png_pressed.png");
     private static final StretchIcon afficherStatistiques_pressed = loadPicture("src/ressources/afficherStatistiques.png_pressed.png");
@@ -61,6 +63,9 @@ public final class ourPictures {
     private static final StretchIcon search_pressed = loadPicture("src/ressources/search.png_pressed.png");
     private static final StretchIcon signalerProbleme_pressed = loadPicture("src/ressources/signalerProbleme.png_pressed.png");
     private static final StretchIcon voirfilms_pressed = loadPicture("src/ressources/voirfilms.png_pressed.png");
+    private static final StretchIcon annuler_pressed = loadPicture("src/ressources/annuler.png_pressed.png");
+    private static final StretchIcon valider_pressed = loadPicture("src/ressources/valider.png_pressed.png");
+    private static final StretchIcon chargementGif = loadPicture("src/ressources/Spinner-2.gif");
     private static final Map<String, StretchIcon> map = hashMapCreate();
 
     private static Map<String, StretchIcon> hashMapCreate(){
@@ -89,6 +94,8 @@ public final class ourPictures {
         out.put("src/ressources/search.png", search);
         out.put("src/ressources/signalerProbleme.png", signalerProbleme);
         out.put("src/ressources/voirfilms.png", voirfilms);
+        out.put("src/ressources/valider.png", valider);
+        out.put("src/ressources/annuler.png", annuler);
         out.put("src/ressources/admin.png_pressed.png", admin_pressed);
         out.put("src/ressources/afficherHistorique.png_pressed.png", afficherHistorique_pressed);
         out.put("src/ressources/afficherStatistiques.png_pressed.png", afficherStatistiques_pressed);
@@ -113,6 +120,9 @@ public final class ourPictures {
         out.put("src/ressources/search.png_pressed.png", search_pressed);
         out.put("src/ressources/signalerProbleme.png_pressed.png", signalerProbleme_pressed);
         out.put("src/ressources/voirfilms.png_pressed.png", voirfilms_pressed);
+        out.put("src/ressources/valider.png_pressed.png", valider_pressed);
+        out.put("src/ressources/annuler.png_pressed.png", annuler_pressed);
+        out.put("src/ressources/Spinner-2.gif", chargementGif);
         return out;
     }
     public static StretchIcon loadPicture(String path){

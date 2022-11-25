@@ -1,7 +1,9 @@
 package Metier.GestionLocation;
 
 import Metier.GestionClient.Abonne;
+import Metier.GestionClient.Client;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +23,8 @@ public class HistoLoc {
      * @return la liste des locations
      */
     public List<Location> voirHistorique(){
+        // TODO
+        // DAO truc lire la BD
         return null;
     }
 
@@ -29,16 +33,35 @@ public class HistoLoc {
      * @param a l'abonné
      * @return la liste des locations
      */
-    public List<Location> voirHistoriqueClient(Abonne a){
-        return null;
+    public List<Location> voirHistoriqueClient(Client a){
+        List<Location> res = new ArrayList<>();
+        for (Location l: voirHistorique()){
+            if (l.client == a) {
+                res.add(l);
+            }
+        }
+        return res;
+    }
+    public List<Location> voirLocationEnCours(Client a){
+        List<Location> res = new ArrayList<>();
+        for (Location l: voirHistorique()){
+            if (l.client == a && l.etat == Etat.ENCOURS) {
+                res.add(l);
+            }
+        }
+        return res;
     }
 
     /**
      * Ajoute les locations l dans l'historique de locations du client abonné a, en modifiant la base de données.
      * @param l la liste des locations
-     * @param a l'abonné
      */
-    public void ajouterLocations(List<Location> l, Abonne a){
+    public void ajouterLocations(List<Location> l){
+        // TODO
+        // DAO truc faire un insert dans la BD
+        for (Location loc : l){
+            // ajouter dans la bdd ?
+        }
 
     }
 
@@ -46,28 +69,16 @@ public class HistoLoc {
      * Met à jour la base de données : la location associée au BluRay b passe dans l'état TERMINEE.
      * @param b le BluRay rendu
      */
-    public void rendreBluRay(BluRay b){
+    public void rendreBLuRay(BluRay b){
+        // TODO
+        // DAO truc: récupérer la transaction, l'Etat passe à APAYER. Police demandera un paiement.
 
     }
 
     public void rendreBluRay(List<BluRay> lb){
+        for (BluRay br: lb) {
+            rendreBLuRay(br);
+        }
     }
 
-    /**
-     * Donne le montant à payer pour régler la location reliée au BluRay b, en consultant la base de données.
-     * @param b le BluRay
-     * @return le montant à débiter
-     */
-    public float calculerMontant(BluRay b){
-        return 0;
-    }
-
-    /**
-     * Vérifie si l'abonné a a une location non rendue (utilisé pour retirer le solde de son compte).
-     * @param a l'abonné
-     * @return vrai s'il y a des locations en cours
-     */
-    public boolean aLocationEnCours(Abonne a){
-        return false;
-    }
 }
