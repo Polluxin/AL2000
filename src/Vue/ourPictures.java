@@ -25,7 +25,6 @@ public final class ourPictures {
     private static final StretchIcon disconnect = loadPicture("src/ressources/disconnect.png");
     private static final StretchIcon inscription = loadPicture("src/ressources/inscription.png");
     private static final StretchIcon inscriptionpayer = loadPicture("src/ressources/inscriptionpayer.png");
-    private static final StretchIcon ouvrirAL2000 = loadPicture("src/ressources/ouvrirAL2000.png");
     private static final StretchIcon panier = loadPicture("src/ressources/panier.png");
     private static final StretchIcon parametres = loadPicture("src/ressources/parametres.png");
     private static final StretchIcon QRCode = loadPicture("src/ressources/QRCode.png");
@@ -43,15 +42,12 @@ public final class ourPictures {
     private static final StretchIcon afficherHistorique_pressed = loadPicture("src/ressources/afficherHistorique.png_pressed.png");
     private static final StretchIcon afficherStatistiques_pressed = loadPicture("src/ressources/afficherStatistiques.png_pressed.png");
     private static final StretchIcon ajouterPanier_pressed = loadPicture("src/ressources/ajouterPanier.png_pressed.png");
-    private static final StretchIcon Background_pressed = loadPicture("src/ressources/Background.png_pressed.png");
     private static final StretchIcon bluray_pressed = loadPicture("src/ressources/bluray.png_pressed.png");
-    private static final StretchIcon button_pressed = loadPicture("src/ressources/button.png_pressed.png");
     private static final StretchIcon compte_pressed = loadPicture("src/ressources/compte.png_pressed.png");
     private static final StretchIcon connexion_pressed = loadPicture("src/ressources/connexion.png_pressed.png");
     private static final StretchIcon disconnect_pressed = loadPicture("src/ressources/disconnect.png_pressed.png");
     private static final StretchIcon inscription_pressed = loadPicture("src/ressources/inscription.png_pressed.png");
     private static final StretchIcon inscriptionpayer_pressed = loadPicture("src/ressources/inscriptionpayer.png_pressed.png");
-    private static final StretchIcon ouvrirAL2000_pressed = loadPicture("src/ressources/ouvrirAL2000.png_pressed.png");
     private static final StretchIcon panier_pressed = loadPicture("src/ressources/panier.png_pressed.png");
     private static final StretchIcon parametres_pressed = loadPicture("src/ressources/parametres.png_pressed.png");
     private static final StretchIcon QRCode_pressed = loadPicture("src/ressources/QRCode.png_pressed.png");
@@ -65,6 +61,7 @@ public final class ourPictures {
     private static final StretchIcon voirfilms_pressed = loadPicture("src/ressources/voirfilms.png_pressed.png");
     private static final StretchIcon annuler_pressed = loadPicture("src/ressources/annuler.png_pressed.png");
     private static final StretchIcon valider_pressed = loadPicture("src/ressources/valider.png_pressed.png");
+    private static final StretchIcon couverture = loadPicture("src/ressources/couverture.png");
     private static final StretchIcon chargementGif = loadPicture("src/ressources/Spinner-2.gif");
     private static final Map<String, StretchIcon> map = hashMapCreate();
 
@@ -82,7 +79,6 @@ public final class ourPictures {
         out.put("src/ressources/disconnect.png", disconnect);
         out.put("src/ressources/inscription.png", inscription);
         out.put("src/ressources/inscriptionpayer.png", inscriptionpayer);
-        out.put("src/ressources/ouvrirAL2000.png", ouvrirAL2000);
         out.put("src/ressources/panier.png", panier);
         out.put("src/ressources/parametres.png", parametres);
         out.put("src/ressources/QRCode.png", QRCode);
@@ -100,15 +96,12 @@ public final class ourPictures {
         out.put("src/ressources/afficherHistorique.png_pressed.png", afficherHistorique_pressed);
         out.put("src/ressources/afficherStatistiques.png_pressed.png", afficherStatistiques_pressed);
         out.put("src/ressources/ajouterPanier.png_pressed.png", ajouterPanier_pressed);
-        out.put("src/ressources/Background.png_pressed.png", Background_pressed);
         out.put("src/ressources/bluray.png_pressed.png", bluray_pressed);
-        out.put("src/ressources/button.png_pressed.png", button_pressed);
         out.put("src/ressources/compte.png_pressed.png", compte_pressed);
         out.put("src/ressources/connexion.png_pressed.png", connexion_pressed);
         out.put("src/ressources/disconnect.png_pressed.png", disconnect_pressed);
         out.put("src/ressources/inscription.png_pressed.png", inscription_pressed);
         out.put("src/ressources/inscriptionpayer.png_pressed.png", inscriptionpayer_pressed);
-        out.put("src/ressources/ouvrirAL2000.png_pressed.png", ouvrirAL2000_pressed);
         out.put("src/ressources/panier.png_pressed.png", panier_pressed);
         out.put("src/ressources/parametres.png_pressed.png", parametres_pressed);
         out.put("src/ressources/QRCode.png_pressed.png", QRCode_pressed);
@@ -122,6 +115,7 @@ public final class ourPictures {
         out.put("src/ressources/voirfilms.png_pressed.png", voirfilms_pressed);
         out.put("src/ressources/valider.png_pressed.png", valider_pressed);
         out.put("src/ressources/annuler.png_pressed.png", annuler_pressed);
+        out.put("src/ressources/couverture.png", couverture);
         out.put("src/ressources/Spinner-2.gif", chargementGif);
         return out;
     }
@@ -137,6 +131,7 @@ public final class ourPictures {
             return si;
         } catch(Exception e){
             e.printStackTrace();
+            System.out.println("Could not load picture : "+path);
             return null;
         }
     }
@@ -154,105 +149,16 @@ public final class ourPictures {
         /**
          *  Get in a dimension and an expected width and outputs a dimension with the expected width and the new height.
          */
-        System.out.println("In W: "+in.getWidth()+"  H: "+in.getHeight());
         Dimension out = new Dimension((int)((maxHeight*in.getWidth())/in.getHeight()), (int)maxHeight);
-        System.out.println("Out W: "+out.getWidth()+"  H: "+out.getHeight());
         return out;
-    }
-
-    public static StretchIcon getAdmin() {
-        return admin;
-    }
-
-    public static StretchIcon getAfficherHistorique() {
-        return afficherHistorique;
-    }
-
-    public static StretchIcon getAfficherStatistiques() {
-        return afficherStatistiques;
-    }
-
-    public static StretchIcon getAjouterPanier() {
-        return ajouterPanier;
-    }
-
-    public static StretchIcon getBackground() {
-        return Background;
     }
 
     public static StretchIcon getBluray() {
         return bluray;
     }
 
-    public static StretchIcon getButton() {
-        return button;
-    }
-
-    public static StretchIcon getCompte() {
-        return compte;
-    }
-
     public static StretchIcon getConnexion() {
         return connexion;
     }
 
-    public static StretchIcon getDisconnect() {
-        return disconnect;
-    }
-
-    public static StretchIcon getInscription() {
-        return inscription;
-    }
-
-    public static StretchIcon getInscriptionpayer() {
-        return inscriptionpayer;
-    }
-
-    public static StretchIcon getOuvrirAL2000() {
-        return ouvrirAL2000;
-    }
-
-    public static StretchIcon getPanier() {
-        return panier;
-    }
-
-    public static StretchIcon getParametres() {
-        return parametres;
-    }
-
-    public static StretchIcon getQRCode() {
-        return QRCode;
-    }
-
-    public static StretchIcon getRecharger() {
-        return recharger;
-    }
-
-    public static StretchIcon getRendredvd() {
-        return rendredvd;
-    }
-
-    public static StretchIcon getRendrefilms() {
-        return rendrefilms;
-    }
-
-    public static StretchIcon getRetirer() {
-        return retirer;
-    }
-
-    public static StretchIcon getRetour() {
-        return retour;
-    }
-
-    public static StretchIcon getSearch() {
-        return search;
-    }
-
-    public static StretchIcon getSignalerProbleme() {
-        return signalerProbleme;
-    }
-
-    public static StretchIcon getVoirfilms() {
-        return voirfilms;
-    }
 }

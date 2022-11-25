@@ -1,3 +1,5 @@
+import Vue.InterfaceUtilisateur;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -9,6 +11,6 @@ public class Main {
         // code pour la class AL2000
 
         System.out.println("Lancement de l'interface");
-        // code ihm ici
+        InterfaceUtilisateur iu = new InterfaceUtilisateur();
     }
 }

@@ -13,9 +13,11 @@ public class voirFilms extends JPanel {
 
     JTextField barreDeRecherche;
     JButton btnRecherche;
+    JPanel[] tousLesFilms;
 
 
     public voirFilms(){
+        int nombreFilms = 30;
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
         panneauGauche = new JPanel();
@@ -36,10 +38,23 @@ public class voirFilms extends JPanel {
         rechercher.add(barreDeRecherche, BorderLayout.CENTER);
         rechercher.add(btnRecherche, BorderLayout.EAST);
 
-        grilleDesFilms = new JPanel(new GridLayout(10,3));
-        listeDeFilms = new JScrollPane(grilleDesFilms);
+        grilleDesFilms = new JPanel(new GridLayout(0, 3)){
+            @Override
+            public Dimension getPreferredSize() {
+                int scrollPaneWidth = listeDeFilms.getViewport().getWidth();
+                int height = 10*200;
+                return new Dimension(scrollPaneWidth, height);
+            }
+        };
 
+        grilleDesFilms.setOpaque(false);
 
+        tousLesFilms = new JPanel[nombreFilms];
+        initGrid();
+        listeDeFilms = new JScrollPane(grilleDesFilms, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        listeDeFilms.getVerticalScrollBar().setUnitIncrement(14); // increase scroll speed
+        listeDeFilms.setOpaque(false);
 
 
         panneauGauche.add(rechercher, BorderLayout.NORTH);
@@ -53,6 +68,18 @@ public class voirFilms extends JPanel {
         this.add(panneauDroite, BorderLayout.EAST);
     }
 
-    private
+    private void initGrid(){
+        for(int i=0; i<18; i++){
+            JLabel l1 = new JLabel("Super Films ! ");
+            JButton b1 = ourTools.transparentButtonWithIcon("src/ressources/couverture.png");
+            b1.setMinimumSize(new Dimension(200,200));
+            JPanel p1 = new JPanel(new BorderLayout());
+            p1.setMinimumSize(new Dimension(300, 300));
+            p1.setBorder(BorderFactory.createMatteBorder(5,5,5,5,Color.BLACK));
+            p1.add(b1);
+            tousLesFilms[i] = p1;
+            grilleDesFilms.add(tousLesFilms[i]);
+        }
+    }
 
 }
