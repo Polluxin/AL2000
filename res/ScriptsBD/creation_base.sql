@@ -45,7 +45,7 @@ create table LesLocationsQRCode
     etat char(25),
     carte int,
     idMachine int,
-    idFilm,
+    idFilm int,
 
     constraint locationsqr_fk_idFilms
         foreign key (idFilm)

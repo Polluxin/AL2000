@@ -6,15 +6,23 @@ import java.sql.Connection;
 
 // TODO
 
-public class LocationAnoDAO extends DAO<Location>{
+public class LocationDAO extends DAO<Location>{
 
-    public LocationAnoDAO(Connection conn) {
+    public LocationDAO(Connection conn) {
         super(conn);
     }
 
     @Override
-    public boolean creer(Location obj) {
+    public boolean creer(Location loc) {
         return false;
+    }
+
+    public Location lireLocQRCode(int id){
+        return null;
+    }
+
+    public Location lireLocBluRay(int id){
+        return null;
     }
 
     @Override

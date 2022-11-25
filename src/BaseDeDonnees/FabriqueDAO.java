@@ -13,9 +13,7 @@ public class FabriqueDAO {
 
     public CBDAO getCBDAO(){ return new CBDAO(conn); }
 
-    public LocationAboDAO getLocationAboDAO(){ return new LocationAboDAO(conn); }
-
-    public LocationAnoDAO getLocationAnoDAO(){ return new LocationAnoDAO(conn); }
+    public LocationDAO getLocationAboDAO(){ return new LocationDAO(conn); }
 
     public AbonneDAO getAbonneDAO(){ return new AbonneDAO(conn); }
 
