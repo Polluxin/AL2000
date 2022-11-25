@@ -53,4 +53,6 @@ public class voirFilms extends JPanel {
         this.add(panneauDroite, BorderLayout.EAST);
     }
 
+    private
+
 }
