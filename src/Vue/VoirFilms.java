@@ -3,7 +3,7 @@ package Vue;
 import javax.swing.*;
 import java.awt.*;
 
-public class voirFilms extends JPanel {
+public class VoirFilms extends JPanel {
     JPanel panneauGauche;
     JPanel rechercher;
     JPanel panneauDroite;
@@ -13,15 +13,15 @@ public class voirFilms extends JPanel {
 
     JTextField barreDeRecherche;
     JButton btnRecherche;
-    JPanel[] tousLesFilms;
+    JButton[] tousLesFilmsBoutons;
 
 
-    public voirFilms(){
+    public VoirFilms(){
         int nombreFilms = 30;
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
         panneauGauche = new JPanel();
-        panneauGauche.setBackground(new Color(0,0,0,120));
+        panneauGauche.setBackground(new Color(0,0,0, 0));
         panneauGauche.setLayout(new BorderLayout());
 
         rechercher = new JPanel(new BorderLayout());
@@ -49,12 +49,13 @@ public class voirFilms extends JPanel {
 
         grilleDesFilms.setOpaque(false);
 
-        tousLesFilms = new JPanel[nombreFilms];
+        tousLesFilmsBoutons = new JButton[nombreFilms];
         initGrid();
         listeDeFilms = new JScrollPane(grilleDesFilms, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         listeDeFilms.getVerticalScrollBar().setUnitIncrement(14); // increase scroll speed
         listeDeFilms.setOpaque(false);
+        listeDeFilms.getViewport().setBackground(ourColors.fond2());
 
 
         panneauGauche.add(rechercher, BorderLayout.NORTH);
@@ -70,15 +71,22 @@ public class voirFilms extends JPanel {
 
     private void initGrid(){
         for(int i=0; i<18; i++){
-            JLabel l1 = new JLabel("Super Films ! ");
-            JButton b1 = ourTools.transparentButtonWithIcon("src/ressources/couverture.png");
-            b1.setMinimumSize(new Dimension(200,200));
+            JButton b1 = ourTools.transparentButtonWithIcon("src/ressources/ajouterPanier.png");
+            b1.setMinimumSize(new Dimension(300,60));
+            b1.setPreferredSize(new Dimension(300,60));
+            //b1.setOpaque(false);
+            tousLesFilmsBoutons[i] = b1;
+            StretchIcon imageFilm = ourPictures.getPicture("src/ressources/couverture.png");
+            JLabel jl1 = new JLabel(imageFilm);
+            jl1.setPreferredSize(new Dimension(300,300));
+            jl1.setMinimumSize(new Dimension(300,300));
             JPanel p1 = new JPanel(new BorderLayout());
-            p1.setMinimumSize(new Dimension(300, 300));
-            p1.setBorder(BorderFactory.createMatteBorder(5,5,5,5,Color.BLACK));
-            p1.add(b1);
-            tousLesFilms[i] = p1;
-            grilleDesFilms.add(tousLesFilms[i]);
+
+            p1.setMinimumSize(new Dimension(300, 350));
+            p1.add(b1, BorderLayout.SOUTH);
+            p1.add(jl1, BorderLayout.CENTER);
+
+            grilleDesFilms.add(p1);
         }
     }
 

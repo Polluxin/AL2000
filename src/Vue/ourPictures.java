@@ -62,6 +62,7 @@ public final class ourPictures {
     private static final StretchIcon annuler_pressed = loadPicture("src/ressources/annuler.png_pressed.png");
     private static final StretchIcon valider_pressed = loadPicture("src/ressources/valider.png_pressed.png");
     private static final StretchIcon couverture = loadPicture("src/ressources/couverture.png");
+    private static final StretchIcon couverture_pressed = loadPicture("src/ressources/couverture.png_pressed.png");
     private static final StretchIcon chargementGif = loadPicture("src/ressources/Spinner-2.gif");
     private static final Map<String, StretchIcon> map = hashMapCreate();
 
@@ -116,6 +117,7 @@ public final class ourPictures {
         out.put("src/ressources/valider.png_pressed.png", valider_pressed);
         out.put("src/ressources/annuler.png_pressed.png", annuler_pressed);
         out.put("src/ressources/couverture.png", couverture);
+        out.put("src/ressources/couverture.png_pressed.png", couverture_pressed);
         out.put("src/ressources/Spinner-2.gif", chargementGif);
         return out;
     }

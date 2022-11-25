@@ -2,9 +2,6 @@ package Vue;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.util.Objects;
 
 import static java.awt.Font.createFont;
 
@@ -21,7 +18,7 @@ public class InterfaceUtilisateur {
     InscriptionReussie inscriptionReussie;
     Connexion connexion;
     rendreBluray rendrebluray;
-    voirFilms voir_films;
+    VoirFilms voir_films;
     AttenteDVD attenteDVD;
     ETAT_IU etatCourant;
     JPanel panneauCourant;
@@ -42,7 +39,7 @@ public class InterfaceUtilisateur {
         inscriptionReussie = new InscriptionReussie();
         connexion = new Connexion();
         rendrebluray = new rendreBluray(navBar);
-        voir_films = new voirFilms();
+        voir_films = new VoirFilms();
         attenteDVD = new AttenteDVD();
 
         inscription.setVisible(true);
