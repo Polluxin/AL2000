@@ -1,4 +1,4 @@
-package Test;
+package Tests;
 
 import BaseDeDonnees.DAOs.StatistiquesDAO;
 import BaseDeDonnees.DAOs.TechnicienDAO;
