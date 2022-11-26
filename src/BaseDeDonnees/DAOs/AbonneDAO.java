@@ -13,16 +13,21 @@ public class AbonneDAO extends DAO<Abonne> {
         super(conn);
     }
 
+    //Utilisé lors de l'inscription d'un nouvel abonné
     @Override
     public boolean creer(Abonne obj) {
         // Creation de la carte d'abonné
         // TODO A TESTER
         try {
-            ResultSet res = connect.createStatement().executeQuery("SELECT MAX(idabo) FROM LESCARTESABONNES");
+            ResultSet res = connect.createStatement().executeQuery("" +
+                    "SELECT MAX(idabo) " +
+                    "FROM LESCARTES");
             res.next();
             int id = res.getInt("idabo") + 1;
             this.connect.createStatement().executeUpdate(
-                    "INSERT INTO LESCARTESABONNES VALUES("+id+", "+obj.getNom()+", "+obj.getPrenom()+", "+
+                    "INSERT INTO LESCARTES VALUES("+id+", "+obj.getNom()+", "+obj.getPrenom()+")");
+            this.connect.createStatement().executeUpdate(
+                    "INSERT INTO LESCA VALUES("+id+", "+
                     obj.getAddresseMail()+", "+ obj.getAdressePostale()+", 0, "+obj.getMotDePasse()+")");
             CarteAbo c = new CarteAbo(id, 0);
             obj.setCarte(c);
@@ -46,20 +51,27 @@ public class AbonneDAO extends DAO<Abonne> {
     }
 
     @Override
-    public Abonne lire(int id){
+    public Abonne lire(int id) {
         return null;
     }
 
+    // Utilisé pour la connexion d'un abonné à la borne.
     public Abonne lireDepuisCarte(CarteAbo c) {
         // TODO A TESTER
-        Abonne a = null;
+        Abonne a;
         try {
-            ResultSet res = connect.createStatement().executeQuery("SELECT * FROM LESCARTESABONNES WHERE IDABO="+c.getId());
+            ResultSet res = connect.createStatement().executeQuery("" +
+                    "SELECT * " +
+                    "FROM LESCA a, LESCARTES c" +
+                    "WHERE c.IDCarte = a.IDCarte AND a.IDCarte="+c.getId());
             res.next();
             a = new Abonne(null, c,res.getString("nom"),res.getString("prenom"),
                     res.getString("mail"), res.getString("adressePostale"), res.getString("mdp"));
             // Ajout des interdits
-            ResultSet res2 = connect.createStatement().executeQuery("SELECT genres FROM LESINTERDITS WHERE IDABO="+c.getId());
+            ResultSet res2 = connect.createStatement().executeQuery("" +
+                    "SELECT genres " +
+                    "FROM LESINTERDITS " +
+                    "WHERE IdAbo="+c.getId());
             res2.next();
             String g = res2.getString("genres");
             if (g != null) {
@@ -73,6 +85,7 @@ public class AbonneDAO extends DAO<Abonne> {
             }
         } catch (SQLException e){
             e.printStackTrace();
+            return null;
         }
         return a;
     }
