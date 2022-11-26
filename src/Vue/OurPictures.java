@@ -8,11 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * ourPictures loads all the pictures used in the program to avoid having to load them multiple times.
+ * OurPictures loads all the pictures used in the program to avoid having to load them multiple times.
  *
  * This is very bulky and repetitive because it's intended to be used in static.
  */
-public final class ourPictures {
+public final class OurPictures {
     private static final StretchIcon admin = loadPicture("src/ressources/admin.png");
     private static final StretchIcon afficherHistorique = loadPicture("src/ressources/afficherHistorique.png");
     private static final StretchIcon afficherStatistiques = loadPicture("src/ressources/afficherStatistiques.png");

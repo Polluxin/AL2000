@@ -31,7 +31,7 @@ public class Connexion extends JPanel {
         motDePasse = new JPasswordField("");
         motDePasse.setOpaque(true);
 
-        connexion = ourTools.transparentButtonWithIcon("src/ressources/connexion.png");
+        connexion = OurTools.transparentButtonWithIcon("src/ressources/connexion.png");
         connexion.setOpaque(false);
 
 

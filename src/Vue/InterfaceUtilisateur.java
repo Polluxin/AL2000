@@ -11,13 +11,13 @@ public class InterfaceUtilisateur {
     JFrame ecran;
     boolean utilisateurConnecte;
     NavigationBar navBar;
-    backgroundPanel fondDEcran;
+    BackgroundPanel fondDEcran;
     Dimension tailleEcran;
     Bienvenue ecranDeBienvenue;
     Inscription inscription;
     InscriptionReussie inscriptionReussie;
     Connexion connexion;
-    rendreBluray rendrebluray;
+    RendreBluray rendrebluray;
     VoirFilms voir_films;
     AttenteDVD attenteDVD;
     ETAT_IU etatCourant;
@@ -25,12 +25,12 @@ public class InterfaceUtilisateur {
 
 
     public InterfaceUtilisateur(){
-        ourTools.setFont();
+        OurTools.setFont();
 
         // Initialisations
         ecran = new JFrame();
         navBar = new NavigationBar(this);
-        fondDEcran = new backgroundPanel();
+        fondDEcran = new BackgroundPanel();
         tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
         etatCourant = ETAT_IU.AUCUN;
 
@@ -38,7 +38,7 @@ public class InterfaceUtilisateur {
         inscription = new Inscription();
         inscriptionReussie = new InscriptionReussie();
         connexion = new Connexion();
-        rendrebluray = new rendreBluray(navBar);
+        rendrebluray = new RendreBluray(navBar);
         voir_films = new VoirFilms();
         attenteDVD = new AttenteDVD();
 

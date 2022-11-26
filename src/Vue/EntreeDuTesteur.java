@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class entreeDuTesteur extends JPanel {
+public class EntreeDuTesteur extends JPanel {
     JPanel form;
     JPanel buttonsLayout;
     JTextField numero;
@@ -13,7 +13,7 @@ public class entreeDuTesteur extends JPanel {
     JButton[] btn_nombre;
     JPanel tousLesBoutonsNumeriques;
     JPanel entreeNumero;
-    public entreeDuTesteur(){
+    public EntreeDuTesteur(){
         initPanneau();
         this.add(form);
     }
@@ -23,7 +23,7 @@ public class entreeDuTesteur extends JPanel {
 
         form = new JPanel(new GridLayout(3,1));
         form.setBorder(BorderFactory.createMatteBorder(3,3,3,3,Color.BLACK));
-        form.setBackground(ourColors.fond2());
+        form.setBackground(OurColors.fond2());
 
         instructions = new JTextField("Veuillez entrer le numero du Blu-ray :");
         instructions.setOpaque(false);

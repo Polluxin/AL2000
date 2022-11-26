@@ -2,7 +2,7 @@ package Vue;
 
 import java.awt.*;
 
-public final class ourColors {
+public final class OurColors {
     public static Color fond(){
         return new Color(137, 161, 171);
     }

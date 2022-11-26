@@ -1,7 +1,6 @@
 package Vue;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,7 +55,7 @@ public class Inscription extends JPanel {
 
         this.add(interdiction);
 
-        inscriptionPayer = ourTools.transparentButtonWithIcon("src/ressources/inscriptionpayer.png");
+        inscriptionPayer = OurTools.transparentButtonWithIcon("src/ressources/inscriptionpayer.png");
         this.add(inscriptionPayer);
     }
 

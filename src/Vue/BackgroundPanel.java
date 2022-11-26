@@ -1,14 +1,13 @@
 package Vue;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.io.File;
 
-public class backgroundPanel extends JPanel {
+public class BackgroundPanel extends JPanel {
     File f;
     StretchIcon background;
-    public backgroundPanel(){
+    public BackgroundPanel(){
         f = new File("src/ressources/Background.png");
         background = new StretchIcon(f.getAbsolutePath());
         this.setLayout(new BorderLayout());

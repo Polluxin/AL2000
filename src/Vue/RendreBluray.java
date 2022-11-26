@@ -5,15 +5,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class rendreBluray extends JPanel {
+public class RendreBluray extends JPanel {
     JTextArea instructions;
     JLabel icon;
     JButton simulation;
     NavigationBar navbar;
-    public rendreBluray(NavigationBar navigation){
+    public RendreBluray(NavigationBar navigation){
         navbar = navigation;
         icon = new JLabel();
-        icon.setIcon(ourPictures.getPicture("src/ressources/rendredvd.png"));
+        icon.setIcon(OurPictures.getPicture("src/ressources/rendredvd.png"));
         icon.setOpaque(false);
 
         instructions = new JTextArea("Veuillez insérer les Blu-ray dans la fente prévue à cet effet.");
@@ -28,7 +28,7 @@ public class rendreBluray extends JPanel {
         simulation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane simulateur = ourTools.testerPane(navbar);
+                JOptionPane simulateur = OurTools.testerPane(navbar);
                 //JButton[] options = (JButton[]) simulateur.getOptions();
                 //options[0].se
                 JDialog dialog = simulateur.createDialog(null, " test title ");
