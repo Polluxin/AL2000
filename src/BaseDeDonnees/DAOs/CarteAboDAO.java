@@ -14,11 +14,6 @@ public class CarteAboDAO extends DAO<CarteAbo> {
     }
 
     @Override
-    public boolean creer(CarteAbo obj) {
-        return false;
-    }
-
-    @Override
     public CarteAbo lire(int id) {
         CarteAbo carteAbo;
         try {
@@ -31,15 +26,5 @@ public class CarteAboDAO extends DAO<CarteAbo> {
             e.printStackTrace();
             return null;}
         return carteAbo;
-    }
-
-    @Override
-    public boolean modifier(CarteAbo obj) {
-        return false;
-    }
-
-    @Override
-    public boolean supprimer(CarteAbo obj) {
-        return false;
     }
 }

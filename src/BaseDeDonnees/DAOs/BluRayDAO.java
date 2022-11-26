@@ -16,12 +16,6 @@ public class BluRayDAO extends DAO<BluRay>{
         super(conn);
     }
 
-    @Override
-    public boolean creer(BluRay obj) {
-        // Impossible car pas le rôle de l'application
-        return false;
-    }
-
     @Override // Utilisé lors du rendu de BluRay
     public BluRay lire(int id) {
         // TODO A TESTER
@@ -37,17 +31,5 @@ public class BluRayDAO extends DAO<BluRay>{
             e.printStackTrace();
         }
         return b;
-    }
-
-    @Override
-    public boolean modifier(BluRay obj) {
-        // Impossible car pas le rôle de l'application
-        return false;
-    }
-
-    @Override
-    public boolean supprimer(BluRay obj) {
-        // Impossible car pas le rôle de l'application
-        return false;
     }
 }

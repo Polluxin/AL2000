@@ -12,12 +12,6 @@ public class TechnicienDAO extends DAO<Technicien>{
     }
 
     @Override
-    public boolean creer(Technicien obj) {
-        // Impossible, base déjà peuplée
-        return false;
-    }
-
-    @Override
     public Technicien lire(int id) {
         Technicien technicien;
         try {
@@ -30,17 +24,5 @@ public class TechnicienDAO extends DAO<Technicien>{
             e.printStackTrace();
             return null;}
         return technicien;
-    }
-
-    @Override
-    public boolean modifier(Technicien obj) {
-        // Impossible, pas le rôle de l'application
-        return false;
-    }
-
-    @Override
-    public boolean supprimer(Technicien obj) {
-        // Impossible, pas le rôle de l'application
-        return false;
     }
 }

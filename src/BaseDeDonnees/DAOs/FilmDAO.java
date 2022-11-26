@@ -13,11 +13,6 @@ public class FilmDAO extends DAO<Film>{
     }
 
     @Override
-    public boolean creer(Film obj) {
-        return false;
-    }
-
-    @Override
     public Film lire(int id) {
         // TODO A TESTER
         Film f = null;
@@ -31,15 +26,5 @@ public class FilmDAO extends DAO<Film>{
             e.printStackTrace();
         }
         return f;
-    }
-
-    @Override
-    public boolean modifier(Film obj) {
-        return false;
-    }
-
-    @Override
-    public boolean supprimer(Film obj) {
-        return false;
     }
 }

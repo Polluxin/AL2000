@@ -12,12 +12,6 @@ public class StatistiquesDAO extends DAO<Statistiques> {
     }
 
     @Override
-    public boolean creer(Statistiques obj) {
-        // Impossible, base déjà peuplée
-        return false;
-    }
-
-    @Override
     public Statistiques lire(int idMachine) {
         Statistiques stats = null;
         try {
@@ -43,11 +37,5 @@ public class StatistiquesDAO extends DAO<Statistiques> {
             e.printStackTrace();
             return false;
         }
-    }
-
-    @Override
-    public boolean supprimer(Statistiques obj) {
-        // Impossible, pas le rôle de l'application
-        return false;
     }
 }

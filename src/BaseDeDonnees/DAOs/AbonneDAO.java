@@ -50,11 +50,6 @@ public class AbonneDAO extends DAO<Abonne> {
         }
     }
 
-    @Override
-    public Abonne lire(int id) {
-        return null;
-    }
-
     // Utilisé pour la connexion d'un abonné à la borne.
     public Abonne lireDepuisCarte(CarteAbo c) {
         // TODO A TESTER
@@ -88,15 +83,5 @@ public class AbonneDAO extends DAO<Abonne> {
             return null;
         }
         return a;
-    }
-
-    @Override
-    public boolean modifier(Abonne obj) {
-        return false;
-    }
-
-    @Override
-    public boolean supprimer(Abonne obj) {
-        return false;
     }
 }
