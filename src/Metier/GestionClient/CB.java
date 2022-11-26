@@ -9,10 +9,26 @@ import Metier.Exception.PaiementRefuse;
  */
 public class CB extends Carte {
 
+    String nom;
+    String prenom;
     String informationsBancaires;
 
-    public CB(String informationsBancaires){
+    public CB(String nom, String prenom, String informationsBancaires){
+        this.nom = nom;
+        this.prenom = prenom;
         this.informationsBancaires = informationsBancaires;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public String getInformationsBancaires() {
+        return informationsBancaires;
     }
 
     @Override
@@ -32,4 +48,5 @@ public class CB extends Carte {
         // TODO
         return false;
     }
+
 }

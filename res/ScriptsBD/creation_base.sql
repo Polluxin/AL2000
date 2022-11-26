@@ -44,7 +44,7 @@ create table LesCartes
 create table LesCB
 (
     idCarte int primary key,
-    infos varchar2(150),
+    infos varchar2(150),        -- sous le format "5341 2154 2225 4448-04 25-Paul Fort-888-"
 
     constraint cb_fk_idCarte
         foreign key (idCarte)

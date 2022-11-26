@@ -12,12 +12,20 @@ public abstract class DAO<T> {
     protected Connection connect;
     public DAO(Connection conn){ this.connect = conn; }
 
-    public abstract boolean creer(T obj);
+    public boolean creer(T obj){
+        return false;
+    }
 
-    public abstract T lire(int id);
+    public T lire(int id){
+        return null;
+    }
 
-    public abstract boolean modifier(T obj);
+    public boolean modifier(T obj){
+        return false;
+    }
 
-    public abstract boolean supprimer(T obj);
+    public boolean supprimer(T obj){
+        return false;
+    }
 
 }

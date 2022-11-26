@@ -52,7 +52,8 @@ public class Machine implements Distributeur, Maintenance {
             throw new CarteIllisible("Nom et prénom invalides");
         if (!infos[3].matches("^\\d{3}"))
             throw new CarteIllisible("Cryptogramme invalide");
-        return new CB(infosCarte);
+        String[] nomprenom = infos[2].split(" ");
+        return new CB(nomprenom[0], nomprenom[1], infosCarte);
     }
 
     @Override

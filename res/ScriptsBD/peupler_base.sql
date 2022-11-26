@@ -131,9 +131,9 @@ commit;
 
 -- Ajout des cartes bancaires
 truncate table LESCB;
-insert into LESCB values(6, '5341 2154 2225 4448-04 25-888-');
-insert into LESCB values(7, '2125 5858 5247 2596-07 24-257-');
-insert into LESCB values(8, '7787 8855 9387 7781-11 23-135-');
+insert into LESCB values(6, '5341 2154 2225 4448-04 25-Paul Fort-888-');
+insert into LESCB values(7, '2125 5858 5247 2596-07 24-Jacques Al-257-');
+insert into LESCB values(8, '7787 8855 9387 7781-11 23-Dorian DuRien-135-');
 commit;
 
 -- Ajout des locations
