@@ -25,7 +25,7 @@ public class AttenteDVD extends JPanel {
 
         form = new JPanel(new GridLayout(3,1));
         form.setBorder(BorderFactory.createMatteBorder(3,3,3,3,Color.BLACK));
-        form.setBackground(ourColors.fond2());
+        form.setBackground(OurColors.fond2());
 
 
         instructions = new JTextField("Veuillez entrer le numero du Blu-ray :");
@@ -47,8 +47,8 @@ public class AttenteDVD extends JPanel {
 
         buttonsLayout = new JPanel(new GridLayout(1,2));
         buttonsLayout.setOpaque(false);
-        annuler = ourTools.transparentButtonWithIcon("src/ressources/annuler.png");
-        valider = ourTools.transparentButtonWithIcon("src/ressources/valider.png");
+        annuler = OurTools.transparentButtonWithIcon("src/ressources/annuler.png");
+        valider = OurTools.transparentButtonWithIcon("src/ressources/valider.png");
         buttonsLayout.add(annuler);
         buttonsLayout.add(valider);
 
@@ -107,7 +107,7 @@ public class AttenteDVD extends JPanel {
     private JPanel loadingScreen(){
         JPanel loading = new JPanel();
         JLabel loadingGif = new JLabel();
-        loadingGif.setIcon(ourPictures.getPicture("src/ressources/Spinner-2.gif"));
+        loadingGif.setIcon(OurPictures.getPicture("src/ressources/Spinner-2.gif"));
         loading.add(loadingGif);
         return loading;
     }

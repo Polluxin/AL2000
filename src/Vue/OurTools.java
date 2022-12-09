@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-public class ourTools {
+public class OurTools {
 
     /**
      * > transparentButtonWithIcon creates a button with an icon, and makes it transparent to only show the icon
@@ -19,8 +19,8 @@ public class ourTools {
         String pressedName = rss+"_pressed.png";
         // Create the button and initialise it
         JButton jb = new JButton();
-        StretchIcon icon = ourPictures.getPicture(rss);
-        StretchIcon pressed = ourPictures.getPicture(pressedName);
+        StretchIcon icon = OurPictures.getPicture(rss);
+        StretchIcon pressed = OurPictures.getPicture(pressedName);
 
         //System.out.println(icon.getDescription());
         jb.setIcon(icon);
@@ -59,7 +59,7 @@ public class ourTools {
 
     public static JOptionPane testerPane(NavigationBar navbar){
         navbar.addAwaitingProcess();
-        entreeDuTesteur form = new entreeDuTesteur();
+        EntreeDuTesteur form = new EntreeDuTesteur();
         JButton annuler = new JButton("ANNULER");
         JButton valider = new JButton("VALIDER");
 

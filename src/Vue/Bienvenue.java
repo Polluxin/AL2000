@@ -34,7 +34,7 @@ public class Bienvenue extends JPanel{
         String[] refs = {"src/ressources/connexion.png", "src/ressources/rendrefilms.png", "src/ressources/inscription.png", "src/ressources/voirfilms.png"};
         // Ajouter tous les boutons dans leur panneau
         for(int i=0; i<4;i++){
-            listeBoutons[i] = ourTools.transparentButtonWithIcon(refs[i]);
+            listeBoutons[i] = OurTools.transparentButtonWithIcon(refs[i]);
             //listeBoutons[i].addActionListener(e -> panneauPrincipal.setVisible(false));
             boutons.add(new JLabel(""));
             boutons.add(listeBoutons[i]);
