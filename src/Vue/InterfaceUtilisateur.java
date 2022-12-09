@@ -19,6 +19,7 @@ public class InterfaceUtilisateur {
     Connexion connexion;
     RendreBluray rendrebluray;
     VoirFilms voir_films;
+    AjouterAuPanier ajouterAuPanier;
     AttenteDVD attenteDVD;
     ETAT_IU etatCourant;
     JPanel panneauCourant;
@@ -41,6 +42,7 @@ public class InterfaceUtilisateur {
         rendrebluray = new RendreBluray(navBar);
         voir_films = new VoirFilms();
         attenteDVD = new AttenteDVD();
+        ajouterAuPanier = new AjouterAuPanier();
 
         inscription.setVisible(true);
         inscriptionReussie.setVisible(true);
@@ -65,7 +67,7 @@ public class InterfaceUtilisateur {
 
         ecran.add(panneauCourant);
 
-        //changerEtat(ETAT_IU.ATTENTE_DVD);
+        //changerEtat(ETAT_IU.AJOUTER_AU_PANIER);
 
         ecran.pack();
         ecran.setVisible(true);
@@ -102,6 +104,9 @@ public class InterfaceUtilisateur {
                 }
                 case ATTENTE_DVD -> {
                     panneauCourant = attenteDVD;
+                }
+                case AJOUTER_AU_PANIER -> {
+                    panneauCourant = ajouterAuPanier;
                 }
                 default -> {
                     System.out.println("ERROR -- Unknown new state !");

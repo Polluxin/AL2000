@@ -14,6 +14,7 @@ public class VoirFilms extends JPanel {
     JTextField barreDeRecherche;
     JButton btnRecherche;
     JButton[] tousLesFilmsBoutons;
+    Film[] tousLesFilms;
 
 
     public VoirFilms(){
@@ -50,6 +51,7 @@ public class VoirFilms extends JPanel {
         grilleDesFilms.setOpaque(false);
 
         tousLesFilmsBoutons = new JButton[nombreFilms];
+        tousLesFilms = new Film[nombreFilms];
         initGrid();
         listeDeFilms = new JScrollPane(grilleDesFilms, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -76,7 +78,9 @@ public class VoirFilms extends JPanel {
             b1.setPreferredSize(new Dimension(300,60));
             //b1.setOpaque(false);
             tousLesFilmsBoutons[i] = b1;
-            StretchIcon imageFilm = OurPictures.getPicture("src/ressources/couverture.png");
+            tousLesFilms[i] = new Film();
+
+            StretchIcon imageFilm = tousLesFilms[i].getCouverture();
             JLabel jl1 = new JLabel(imageFilm);
             jl1.setPreferredSize(new Dimension(300,300));
             jl1.setMinimumSize(new Dimension(300,300));
