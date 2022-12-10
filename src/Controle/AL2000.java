@@ -1,24 +1,21 @@
 package Controle;
 
 import BaseDeDonnees.Session;
-import Metier.Exception.MauvaisMotDePasse;
+import Metier.Exception.*;
 import Metier.GestionClient.*;
 import Metier.GestionLocation.*;
 import Metier.GestionMachine.*;
 
 import java.util.List;
-import java.util.prefs.Preferences;
 
 /**
  * Contrôleur de l'application, tout passe par ici.
  * @author Geoffrey DAVID
+ * @author Armand GRENIER
  * @version 0
  */
 @SuppressWarnings("unused")
 public class AL2000 {
-
-    private final int idMachine = 1;
-    private final int delaisPolice = 300;
 
     private Compte compte;
 
@@ -34,22 +31,24 @@ public class AL2000 {
 
     private Police police;
 
-    private final Session session;
+    private Technicien technicien;
 
-    AL2000() {
-        session = new Session();
+    public AL2000(Session s) {
+        initialisation(s);
     }
 
     /**
      * Initialise le logiciel à partir de certains paramètres.
      */
     private void initialisation(Session session) {
-        // dans le constucteur de Inventair passer session ?
-        // il faudrait pouvoir initialiser l'inventaire un fonction de la bd et idMachine ?
-        Inventaire inv = new Inventaire(idMachine);
+        session.open();
+        // Initialisation de l'inventaire
+        int idMachine = 1;
+        Inventaire inv = new Inventaire(idMachine, session);
+        inv.initialiser();
 
-        // lire les stats de puis la bd ? ou quelle données mettres ?
-        Statistiques stat = new Statistiques(idMachine, "");
+        // Initialisation des statistiques
+        Statistiques statistiques = Statistiques.getInstance(idMachine, session);
 
         // attributs
         compte = new Compte(session);
@@ -57,64 +56,107 @@ public class AL2000 {
         histo = new HistoLoc(idMachine);
         catalogue = new Catalogue(inv, session, idMachine);
         signalement = new Signalement();
-        machine = new Machine(inv, stat, session);
+        machine = new Machine(inv, statistiques, session);
+        int delaisPolice = 300;
         police = new Police(histo, delaisPolice);
+        technicien = null;
+        session.close();
     }
 
     /**
-     * Initialise le logiciel à partir de certains paramètres.
-     *
+     * Fonction utilisée lors de la finalisation de la commande. Elle valide le panier et livre
+     * les films.
+     * @throws FondsInsuffisants si le client n'a pas un solde suffisant sur son compte
      */
-    public void louerFilms() {
+    public void louerFilms() throws FondsInsuffisants {
+        List<Support> liste_films = panier.getSupports();
+        validerPanier();
+        machine.livrerFilms(liste_films);
     }
 
     /**
-     * Initialise le logiciel à partir de certains paramètres.
-     *
+     * Fonction fantôme car on utilise plutôt simulerInsertionBluRay directement.
+     * @param b le BluRay rendu
      */
-    public void rendreFilms() {
+    public void rendreFilm(BluRay b) {
+        System.out.println("BluRay numéro "+b.getId()+" rendu");
     }
 
     /**
-     * Donne la liste des films et leur disponibilité en BluRay grâce au type couple FilmFormat.
-     *
+     * Donne la liste des films et leur disponibilité en BluRay grâce au type couple FilmEtFormat.
      * @param filtre le filtre utilisé
      */
-    public void donnerCatalogue(FiltreTri filtre) {
-
-    }
-
-    /**
-     * Tente de connecter l'abonné grâce au mot de passe (lié à la classe Compte).
-     *
-     * @param mdp le mot de passe de connexion
-     */
-    public void connexion(String mdp) {
-        // lecture de carte
-        // TODO
-        CarteAbo c = null;
-        // connexion
-        try {
-            compte.connexion(c, mdp);
-        } catch (MauvaisMotDePasse e) {
-            // mauvais mdp
-            // TODO
-        }
+    public List<FilmEtFormat> donnerCatalogue(FiltreTri filtre) {
+        return catalogue.donnerFilms(compte.getClient().getInterdits(),filtre);
     }
 
     /**
      * Authentifie le technicien grâce à une carte lue dans le
      * lecteur de la machine.
+     * @param t le technicien à authentifier
      */
 
-    public void connexionTechnicien() {
+    public void connexionTechnicien(Technicien t) {
+        technicien = t;
+        t.setMachine((Machine) machine);
     }
 
     /**
-     * Déconnecte l'abonné du logciel (lié à la classe Compte).
+     * Tente de connecter l'abonné grâce au mot de passe (lié à la classe Compte).
+     *
+     * @param c la carte tentant de connexion
+     * @param mdp le mot de passe de connexion
+     */
+    public void connexion(CarteAbo c, String mdp) throws MauvaisMotDePasse {
+        compte.connexion(c, mdp);
+    }
+
+    /**
+     * Fonction de simulation d'insertion de carte d'abonné.
+     * @param idCarte le numéro de la carte
+     * @return la carte insérée
+     * @throws CarteIllisible si le numéro est incorrect
+     * @throws ConnexionImpossible si la connexion à la base est coupée
+     */
+    public CarteAbo simulerInsertionCA(String idCarte) throws CarteIllisible, ConnexionImpossible {
+        return machine.lireCarteAbo(idCarte);
+    }
+
+    /**
+     *  Fonction de simulation d'insertion de carte bancaire.
+     * @param infosCarte les infos présentes sur la carte sous le format "5341 2154 2225 4448-04 25-Paul Fort-888-"
+     * @return la carte insérée
+     * @throws CarteIllisible si les infos de la carte sont incorrectes
+     */
+    public CB simulerInsertionCB(String infosCarte) throws CarteIllisible {
+        return machine.lireCB(infosCarte);
+    }
+
+    /**
+     * Fonction de simulation d'insertion de carte de technicien.
+     * @param id le numéro de la carte
+     * @return l'objet technicien créé à partir de la carte
+     * @throws CarteIllisible s'il n'y a pas de carte avec ce numéro
+     * @throws ConnexionImpossible si la connexion avec la BD est coupée
+     */
+    public Technicien simulerInsertionCT(String id) throws CarteIllisible, ConnexionImpossible {
+        return machine.lireCTechnicien(id);
+    }
+
+    /**
+     * Fonction de simulation d'insertion d'un BluRay dans le lecteur, lors d'un rendu.
+     * @param id le numéro du BluRay (unique)
+     * @throws BluRayInvalide si le numéro n'est pas reconnu
+     */
+    public void simulerInsertionBluRay(String id) throws BluRayInvalide {
+         machine.avalerBluRay(id);
+    }
+
+    /**
+     * Déconnecte l'abonné du logiciel (lié à la classe Compte).
      */
     public void deconnexion() {
-
+        compte.deconnexion();
     }
 
     /**
@@ -123,6 +165,15 @@ public class AL2000 {
      * @param s le film à ajouter
      */
     public void ajouterPanier(Support s) {
+
+    }
+
+    /**
+     * Supprime le film du panier (lié à la classe Panier).
+     *
+     * @param s le film à supprimer
+     */
+    public void supprimerPanier(Support s) {
 
     }
 
@@ -141,23 +192,23 @@ public class AL2000 {
      * @return la liste des locations
      */
     public List<Location> consulterPanier() {
-        return null;
+        return panier.getLocations();
     }
 
     /**
      * Valide le panier courant, en ajoutant toutes les locations à l'historique client et/ou machine.
      *
      */
-    public void validerPanier() {
+    public void validerPanier() throws FondsInsuffisants {
         // Vérifier les fonds
         float fondMin = panier.evaluerPrix();
         fondMin += compte.getClient().fondsReserves(histo);
         if (compte.getClient().getCarte().verifier_fonds(fondMin)) {
-            // ajouter le panier dans histoLoc
+            histo.ajouterLocations(panier.getLocations());
             panier.viderPanier();
         } else {
             // ne peut pas payer
-            // Renvoyer une exception ?
+            throw new FondsInsuffisants();
         }
 
     }
@@ -169,7 +220,7 @@ public class AL2000 {
      * @return liste de locations
      */
     public List<Location> voirHistoMachine() {
-        return null;
+        return histo.voirHistorique();
     }
 
     /**
@@ -178,7 +229,7 @@ public class AL2000 {
      * @return liste de locations
      */
     public List<Location> voirHistoClient() {
-        return null;
+        return histo.voirHistoriqueClient(compte.getClient());
     }
 
     /**
@@ -187,21 +238,23 @@ public class AL2000 {
      * @return les statistiques
      */
     public Statistiques voirStatistiques() {
-        return null;
+        return technicien.voirStatistiques();
     }
 
     /**
      * Ouvre la trappe physique de la machine (fonctionnalité du technicien).
      */
     public void ouvrirMachine() {
-
+        if (technicien != null)
+            technicien.ouvrirMachine();
     }
 
     /**
      * Ferme la trappe physique de la machine (fonctionnalité du technicien).
      */
     public void fermerMachine() {
-
+        if (technicien != null)
+            technicien.fermerMachine();
     }
 
     /**
@@ -223,15 +276,16 @@ public class AL2000 {
      * @param f le formulaire de signalement
      */
     public void signalerProbleme(FormulaireSignalement f){
-
+        System.out.println("Signalement envoyé à CyberVidéo");
     }
 
     /**
-     * Permet de modifier les préférences du compte connecté.
-     * @param p les préférences du compte
+     * Permet de modifier les genres proscrits du compte connecté.
+     * @param interdits les genres interdits du compte
      */
-    public void reglerPreferences(Preferences p){
-
+    public void reglerInterdits(Genre[] interdits){
+        compte.getClient().reglerInterdits(interdits);
+        //Test
     }
 
 }
