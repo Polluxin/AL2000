@@ -109,15 +109,15 @@ commit;
 
 -- Ajout des cartes
 truncate table LESCARTES;
-insert into LESCARTES values(1,'DelaVie', 'Charles');
-insert into LESCARTES values(2,'Lavant', 'Alphonse');
-insert into LESCARTES values(3,'Grégory', 'Yann');
-insert into LESCARTES values(4,'DelaMarne', 'Juliette');
-insert into LESCARTES values(5,'Boulon', 'Marion');
+insert into LESCARTES values(null,'DelaVie', 'Charles');
+insert into LESCARTES values(null,'Lavant', 'Alphonse');
+insert into LESCARTES values(null,'Grégory', 'Yann');
+insert into LESCARTES values(null,'DelaMarne', 'Juliette');
+insert into LESCARTES values(null,'Boulon', 'Marion');
 
-insert into LESCARTES values(6,'Paul', 'Fort');
-insert into LESCARTES values(7,'Jacques', 'Al');
-insert into LESCARTES values(8,'Dorian', 'DuRien');
+insert into LESCARTES values(null,'Paul', 'Fort');
+insert into LESCARTES values(null,'Jacques', 'Al');
+insert into LESCARTES values(null,'Dorian', 'DuRien');
 commit;
 
 -- Ajout des cartes abonnés
@@ -138,13 +138,13 @@ commit;
 
 -- Ajout des locations
 truncate table LESLOCATIONS;
-insert into LESLOCATIONS values(1, to_date('2022/07/15 8:30:25', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 1, 1);
-insert into LESLOCATIONS values(2,to_date('2022/08/21 9:44:11', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 2, 1);
-insert into LESLOCATIONS values(3,to_date('2022/07/15 11:30:25', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 3, 1);
+insert into LESLOCATIONS values(null, to_date('2022/07/15 8:30:25', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 1, 1);
+insert into LESLOCATIONS values(null,to_date('2022/08/21 9:44:11', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 2, 1);
+insert into LESLOCATIONS values(null,to_date('2022/07/15 11:30:25', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 3, 1);
 
-insert into LESLOCATIONS values(4,to_date('2022/07/15 8:30:25', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 1, 1);
-insert into LESLOCATIONS values(5, to_date('2022/08/21 9:44:11', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 2, 1);
-insert into LESLOCATIONS values(6, to_date('2022/07/15 11:30:25', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 3, 1);
+insert into LESLOCATIONS values(null,to_date('2022/07/15 8:30:25', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 1, 1);
+insert into LESLOCATIONS values(null, to_date('2022/08/21 9:44:11', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 2, 1);
+insert into LESLOCATIONS values(null, to_date('2022/07/15 11:30:25', 'YYYY/MM/DD HH:MI:SS'), 'TERMINEE', 3, 1);
 commit;
 
 -- Ajout des locations de BluRays

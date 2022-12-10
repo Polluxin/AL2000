@@ -37,17 +37,6 @@ public class Panier {
         locations.add(loc);
     }
 
-    public List<Location> getLocations() {
-        return locations;
-    }
-
-    public List<Support> getSupports(){
-        List<Support> l = new ArrayList<>();
-        for (Location location: locations)
-            l.add(location.getSupport());
-        return l;
-    }
-
     /**
      * Retire une location de la liste tout en gardant l'odre des éléments.
      * Ne fais rien si la location n'est pas dans la liste

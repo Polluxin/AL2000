@@ -126,7 +126,6 @@ public class Machine implements Distributeur, Maintenance {
     @Override
     public void ouvrir() {
         System.out.println("-> Trappe de la machine ouverte");
-        statistiques.ajouterOuverture();
     }
 
     @Override

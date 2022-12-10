@@ -1,43 +1,6 @@
 @startuml
-
-package GestionMachine {
-    class Machine
-    class Technicien
-    interface Distributeur
-    interface Maintenance
-    class Inventaire
-    class Statistiques
-    class Signalement
-}
-
-package GestionClient {
-    class Client
-    class Abonné
-    class CB
-    class CarteAbo
-    class Anonyme
-    class Carte
-    class Compte
-}
-
-package GestionLocation {
-    class Location
-    class HistoLoc
-    class Film
-    class BluRay
-    interface Support
-    class Catalogue
-    class Panier
-    class Genre
-    class FiltreTri
-    class Police
-    class Etat
-    class "QR Code"
-
-}
-
 AL2000 "0..1" --> "1" Compte : interagit
-AL2000 "1" -l-> "1" Panier : possède
+AL2000 "1" --> "1" Panier : possède
 AL2000 "1" --> "1" HistoLoc : consulte
 AL2000 "1" --> "1" Catalogue : consulte
 AL2000 "1" --> "1" Signalement: interagit
@@ -99,6 +62,11 @@ class AL2000 {
 + signalerProblème(f:FormulaireSignalement)
 + réglerInterdits(li: Liste<Genre>)
 }
+note right of AL2000::validerPanier
+  - si Anonyme alors lireCB().verifier_fonds(montant)
+    sinon compte.verifier_fonds(montant)
+  - h.ajouterLocations(p.valider())
+end note
 
 
 class Compte {
@@ -112,6 +80,9 @@ class Compte {
 + AnonymeSetCB(cb: CB)
 
 }
+note right of Compte::connexion
+  Interrogation de la BD
+end note
 
 abstract class Client {
 + payer(s: Support, nbJours: int)
@@ -148,10 +119,11 @@ inv : Inventaire
 class Signalement {
 + envoyer(FormulaireSignalement)
 }
-note "Un signalement envoyé à CyberVidéo" as A2
-Signalement .. A2
+note bottom of Signalement : Un signalement envoyé à CyberVidéo.
 
 class Machine {
++ inv : Inventaire
++ stat : Statistiques
 }
 
 class HistoLoc {
@@ -164,8 +136,6 @@ class HistoLoc {
 
 class Technicien {
 id : int
-nom : String
-prenom : String
 histo : HistoLoc
 + voirHistorique() : Liste<Location>
 + ouvrirMachine()
@@ -175,12 +145,10 @@ histo : HistoLoc
 }
 
 interface Distributeur {
-+ lireCB(infosCarte:String) : CB
-+ lireCarteAbo(id:String) : CarteAbo
-+ lireCTechnicien(id:String) : Technicien
++ lireCB() : CB
++ lireCarteAbo() : CarteAbo
++ lireCTechnicien() : Technicien
 + livrerFilms(liste_films:Liste<Support>)
-+ livrerBluRay(b:BluRay)
-+ imprimerQRCode(qr:QRCode)
 + avalerBluRays()
 }
 
@@ -194,8 +162,7 @@ interface Maintenance {
 
 class Inventaire {
 - liste_BluRays : Liste<BluRay>
-+ initialiser()
-+ ajouterBluRay()
++ ajouterBluRays(lb:Liste<BluRay>)
 + supprimerBluRay(b:BluRay)
 }
 
@@ -228,11 +195,10 @@ class CarteAbo {
 }
 
 abstract class Support {
--id: int
--prixMax: float
--prixAboJour: float
--prixBaseJour: float
-+ sortirFilm(d:Distributeur)
+id: int
+prixMax: float
+prixAboJour: float
+prixBaseJour: float
 }
 
 class "QR Code" {
@@ -244,11 +210,11 @@ class BluRay {
 }
 
 class Film {
--titre: String
--date: String
--réalisateur: String
--durée: String
--genre: Genre
+titre: String
+date: String
+réalisateur: String
+durée: String
+genre: Genre
 }
 
 class Police {
@@ -257,12 +223,10 @@ class Police {
 ##TODO
 }
 
-note "Vérifie périodiquement s'il y a des locations\non rendues depuis plus de 5 jours" as A1
-Police .l. A1
+note right of Police : Vérifie périodiquement s'il y a des locations\nnon rendues depuis plus de 5 jours.
 
 enum Etat {
  ENCOURS
- APAYER
  TERMINEE
 }
 

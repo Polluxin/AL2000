@@ -1,15 +1,11 @@
 package Metier.GestionMachine;
 
 
-import BaseDeDonnees.DAOs.StatistiquesDAO;
-import BaseDeDonnees.Session;
-
 /**
  * Objet regroupant les différentes statistiques d'une machine.
  * @author Geoffrey DAVID
  * @version 0
  */
-@SuppressWarnings("unused")
 public class Statistiques {
 
     int nbLocations;
@@ -23,16 +19,6 @@ public class Statistiques {
         String [] d = donnees.split("-");
         nbLocations = Integer.parseInt(d[0]);
         nbOuvertures = Integer.parseInt(d[1]);
-    }
-
-    public static Statistiques getInstance(int idMachine, Session s){
-        Statistiques st = new StatistiquesDAO(s.getSession()).lire(idMachine);
-        System.out.println("Statistiques initialisées : "+st);
-        return st;
-    }
-
-    public void mettreAJourBD(Session s){
-        new StatistiquesDAO(s.getSession()).modifier(this);
     }
 
     public void ajouterLocation() {
@@ -59,7 +45,9 @@ public class Statistiques {
 
     @Override
     public String toString(){
-        return "{ "+idMachine+" "+nbLocations + " " + nbOuvertures + " }";
+        return "Machine numéro " + idMachine +
+                "\n-> " + nbLocations + " locations" +
+                "\n-> " + nbOuvertures + " ouvertures";
     }
 
 }

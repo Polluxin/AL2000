@@ -1,6 +1,7 @@
 package Metier.GestionClient;
 
 import Metier.Exception.PaiementRefuse;
+import Metier.GestionLocation.Genre;
 import Metier.GestionLocation.Support;
 
 /**
@@ -14,13 +15,14 @@ public class Anonyme extends Client{
 
     /**
      *
+     * @param interdits
      * @param carte
      *
-     * La carte doit être une carte banquaire.
+     * La carte doit être une carte banquaire et la liste interdits doit être vide.
      */
 
-    public Anonyme(Carte carte) {
-        super(null, carte);
+    public Anonyme(Genre[] interdits, Carte carte) {
+        super(interdits, carte);
     }
 
     public void payer(Support s, int jours) throws PaiementRefuse {

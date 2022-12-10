@@ -192,7 +192,7 @@ public class LocationDAO extends DAO<Location>{
     private Client recupererClient(ResultSet ligne, String mode) throws SQLException{
         Client c;
         if (Objects.equals(mode, "CB")){ // En CB, il faut juste créer un client anonyme attribuer la CB en DAO
-            c = new Anonyme((new CBDAO(connect)).lire(ligne.getInt("idcarte")));
+            c = new Anonyme(new Genre[0], (new CBDAO(connect)).lire(ligne.getInt("idcarte")));
         } else { // En CA, il faut récupérer l'objet abonné associé grâce au DAO
             c= (new AbonneDAO(connect).lireDepuisCarte( (new CarteAboDAO(connect).lire(ligne.getInt("idcarte")))));
         }
