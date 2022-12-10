@@ -19,8 +19,9 @@ public class CarteAboDAO extends DAO<CarteAbo> {
         try {
             ResultSet res = this.connect.createStatement().executeQuery(
                     "SELECT solde FROM LesCA WHERE IDCARTE="+id);
-            res.next();
-            carteAbo = new CarteAbo(id, res.getFloat("solde"));
+            if (res.next()) {
+                carteAbo = new CarteAbo(id, res.getFloat("solde"));
+            } else return null;
 
         } catch (SQLException e) {
             e.printStackTrace();
