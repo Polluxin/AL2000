@@ -122,8 +122,6 @@ class Signalement {
 note bottom of Signalement : Un signalement envoyé à CyberVidéo.
 
 class Machine {
-+ inv : Inventaire
-+ stat : Statistiques
 }
 
 class HistoLoc {

@@ -3,13 +3,13 @@ package Controle;
 import BaseDeDonnees.Session;
 import Metier.Exception.CarteIllisible;
 import Metier.Exception.ConnexionImpossible;
+import Metier.Exception.FondsInsuffisants;
 import Metier.Exception.MauvaisMotDePasse;
 import Metier.GestionClient.*;
 import Metier.GestionLocation.*;
 import Metier.GestionMachine.*;
 
 import java.util.List;
-import java.util.prefs.Preferences;
 
 /**
  * Contrôleur de l'application, tout passe par ici.
@@ -51,7 +51,7 @@ public class AL2000 {
         inv.initialiser();
 
         // Initialisation des statistiques
-        Statistiques stat = Statistiques.getInstance(idMachine, session);
+        Statistiques statistiques = Statistiques.getInstance(idMachine, session);
 
         // attributs
         compte = new Compte(session);
@@ -59,24 +59,19 @@ public class AL2000 {
         histo = new HistoLoc(idMachine);
         catalogue = new Catalogue(inv, session, idMachine);
         signalement = new Signalement();
-        machine = new Machine(inv, stat, session);
+        machine = new Machine(inv, statistiques, session);
         int delaisPolice = 300;
         police = new Police(histo, delaisPolice);
         technicien = null;
         session.close();
     }
 
-    /**
-     * Initialise le logiciel à partir de certains paramètres.
-     *
-     */
-    public void louerFilms() {
+    public void louerFilms() throws FondsInsuffisants {
+        List<Support> liste_films = panier.getSupports();
+        validerPanier();
+        machine.livrerFilms(liste_films);
     }
 
-    /**
-     * Initialise le logiciel à partir de certains paramètres.
-     *
-     */
     public void rendreFilms() {
     }
 
@@ -97,6 +92,7 @@ public class AL2000 {
 
     public void connexionTechnicien(Technicien t) {
         technicien = t;
+        t.setMachine((Machine) machine);
     }
 
     /**
@@ -138,6 +134,15 @@ public class AL2000 {
     }
 
     /**
+     * Supprime le film du panier (lié à la classe Panier).
+     *
+     * @param s le film à supprimer
+     */
+    public void supprimerPanier(Support s) {
+
+    }
+
+    /**
      * Change le support du film lié à la location l du panier (lié à Panier).
      *
      * @param l la location à modifier
@@ -152,23 +157,23 @@ public class AL2000 {
      * @return la liste des locations
      */
     public List<Location> consulterPanier() {
-        return null;
+        return panier.getLocations();
     }
 
     /**
      * Valide le panier courant, en ajoutant toutes les locations à l'historique client et/ou machine.
      *
      */
-    public void validerPanier() {
+    public void validerPanier() throws FondsInsuffisants {
         // Vérifier les fonds
         float fondMin = panier.evaluerPrix();
         fondMin += compte.getClient().fondsReserves(histo);
         if (compte.getClient().getCarte().verifier_fonds(fondMin)) {
-            // ajouter le panier dans histoLoc
+            histo.ajouterLocations(panier.getLocations());
             panier.viderPanier();
         } else {
             // ne peut pas payer
-            // Renvoyer une exception ?
+            throw new FondsInsuffisants();
         }
 
     }
@@ -180,7 +185,7 @@ public class AL2000 {
      * @return liste de locations
      */
     public List<Location> voirHistoMachine() {
-        return null;
+        return histo.voirHistorique();
     }
 
     /**
@@ -189,7 +194,7 @@ public class AL2000 {
      * @return liste de locations
      */
     public List<Location> voirHistoClient() {
-        return null;
+        return histo.voirHistoriqueClient(compte.getClient());
     }
 
     /**
@@ -198,21 +203,23 @@ public class AL2000 {
      * @return les statistiques
      */
     public Statistiques voirStatistiques() {
-        return null;
+        return technicien.voirStatistiques();
     }
 
     /**
      * Ouvre la trappe physique de la machine (fonctionnalité du technicien).
      */
     public void ouvrirMachine() {
-
+        if (technicien != null)
+            technicien.ouvrirMachine();
     }
 
     /**
      * Ferme la trappe physique de la machine (fonctionnalité du technicien).
      */
     public void fermerMachine() {
-
+        if (technicien != null)
+            technicien.fermerMachine();
     }
 
     /**
@@ -234,15 +241,15 @@ public class AL2000 {
      * @param f le formulaire de signalement
      */
     public void signalerProbleme(FormulaireSignalement f){
-
+        System.out.println("Signalement envoyé à CyberVidéo");
     }
 
     /**
-     * Permet de modifier les préférences du compte connecté.
-     * @param p les préférences du compte
+     * Permet de modifier les genres proscrits du compte connecté.
+     * @param interdits les genres interdits du compte
      */
-    public void reglerPreferences(Preferences p){
-
+    public void reglerInterdits(Genre[] interdits){
+        compte.getClient().reglerInterdits(interdits);
     }
 
 }
