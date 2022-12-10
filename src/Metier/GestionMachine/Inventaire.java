@@ -1,8 +1,10 @@
 package Metier.GestionMachine;
 
+import BaseDeDonnees.DAOs.BluRayDAO;
 import BaseDeDonnees.Session;
 import Metier.GestionLocation.BluRay;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,8 @@ public class Inventaire {
 
     private final int idMachineAssocie;
 
-    public Inventaire(int idMachineAssociee){
+    public Inventaire(int idMachineAssociee, Session s){
+        session = s;
         this.idMachineAssocie = idMachineAssociee;
         liste_BluRays = new ArrayList<>();
     }
@@ -36,8 +39,26 @@ public class Inventaire {
         if (session == null){
             session = new Session();
         }
-        session.open();
         return session;
+    }
+
+    /**
+     * Initialise l'inventaire en mettant à jour la liste des BluRays dans la machine. En cas réél, cette fonction
+     * identifie juste tout les BluRays présents physiquement, mais ici, elle consulte la BD pour assurer la cohérence
+     * des données.
+     */
+    public void initialiser(){
+        BluRayDAO dao = new BluRayDAO(session.getSession());
+        try{
+            ResultSet res = getSession().getSession().createStatement().executeQuery("SELECT IDBLURAY FROM LESSTOCKS WHERE IDMACHINE="+idMachineAssocie);
+            while (res.next()){
+                liste_BluRays.add(dao.lire(res.getInt("IdBluRay")));
+            }
+            System.out.println("Inventaire initialisé : "+this);
+        } catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("Echec dans l'initialisation de l'inventaire");
+        }
     }
 
     /**
@@ -100,5 +121,16 @@ public class Inventaire {
 
     public List<BluRay> getListeBluRays(){
         return liste_BluRays;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder("{ ");
+        for (BluRay b: liste_BluRays){
+            str.append(b.getId());
+            str.append(" ");
+        }
+        str.append("}");
+        return str.toString();
     }
 }
