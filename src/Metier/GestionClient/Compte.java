@@ -1,7 +1,6 @@
 package Metier.GestionClient;
 
 import BaseDeDonnees.DAOs.AbonneDAO;
-import BaseDeDonnees.DAOs.CarteAboDAO;
 import BaseDeDonnees.Session;
 import Metier.Exception.FormulaireInvalide;
 import Metier.Exception.MauvaisMotDePasse;
@@ -51,9 +50,12 @@ public class Compte {
             f.getAdresseMail(), f.getAdresse(), f.getMdp());
         //TODO
         //appel vers la bd pour creer un compte
+        bd.open();
         AbonneDAO dao = new AbonneDAO(bd.getSession());
         // Cette fonction crée la carte d'abonnée en BD et la lie à l'abonné A
         dao.creer(a);
+        bd.commit();
+        bd.close();
         assert(a.getCarte() != null);
         // Connexion de l'abonné nouvellement inscrit
         client = a;
@@ -101,13 +103,14 @@ public class Compte {
      *
      * @param c carte de l'abonnée
      * @param mdp mot de passe
-     * @throws MauvaisMotDePasse
+     * @throws MauvaisMotDePasse si le mot de passe est incorrect
      */
     public void connexion(CarteAbo c, String mdp) throws MauvaisMotDePasse {
         Abonne abo = null;
         AbonneDAO dao = new AbonneDAO(bd.getSession());
         bd.open();
         abo = dao.lireDepuisCarte(c);
+        bd.close();
         assert(abo != null);
         if (mdp.compareTo(abo.getMotDePasse()) != 0) {
             throw new MauvaisMotDePasse();

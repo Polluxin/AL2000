@@ -2,9 +2,6 @@ package Vue;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.util.Objects;
 
 import static java.awt.Font.createFont;
 
@@ -14,26 +11,27 @@ public class InterfaceUtilisateur {
     JFrame ecran;
     boolean utilisateurConnecte;
     NavigationBar navBar;
-    backgroundPanel fondDEcran;
+    BackgroundPanel fondDEcran;
     Dimension tailleEcran;
     Bienvenue ecranDeBienvenue;
     Inscription inscription;
     InscriptionReussie inscriptionReussie;
     Connexion connexion;
-    rendreBluray rendrebluray;
-    voirFilms voir_films;
+    RendreBluray rendrebluray;
+    VoirFilms voir_films;
+    AjouterAuPanier ajouterAuPanier;
     AttenteDVD attenteDVD;
     ETAT_IU etatCourant;
     JPanel panneauCourant;
 
 
     public InterfaceUtilisateur(){
-        ourTools.setFont();
+        OurTools.setFont();
 
         // Initialisations
         ecran = new JFrame();
         navBar = new NavigationBar(this);
-        fondDEcran = new backgroundPanel();
+        fondDEcran = new BackgroundPanel();
         tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
         etatCourant = ETAT_IU.AUCUN;
 
@@ -41,15 +39,17 @@ public class InterfaceUtilisateur {
         inscription = new Inscription();
         inscriptionReussie = new InscriptionReussie();
         connexion = new Connexion();
-        rendrebluray = new rendreBluray();
-        voir_films = new voirFilms();
+        rendrebluray = new RendreBluray(navBar);
+        voir_films = new VoirFilms();
         attenteDVD = new AttenteDVD();
+        ajouterAuPanier = new AjouterAuPanier();
 
         inscription.setVisible(true);
         inscriptionReussie.setVisible(true);
 
         panneauCourant = ecranDeBienvenue;
         navBar.ajouterEtat(ETAT_IU.BIENVENUE);
+        navBar.cacher();
 
         // Taille de l'ecran de l'utilisateur :
         double LARGEUR = tailleEcran.getWidth()/3;
@@ -67,7 +67,7 @@ public class InterfaceUtilisateur {
 
         ecran.add(panneauCourant);
 
-        //changerEtat(ETAT_IU.ATTENTE_DVD);
+        //changerEtat(ETAT_IU.AJOUTER_AU_PANIER);
 
         ecran.pack();
         ecran.setVisible(true);
@@ -104,6 +104,9 @@ public class InterfaceUtilisateur {
                 }
                 case ATTENTE_DVD -> {
                     panneauCourant = attenteDVD;
+                }
+                case AJOUTER_AU_PANIER -> {
+                    panneauCourant = ajouterAuPanier;
                 }
                 default -> {
                     System.out.println("ERROR -- Unknown new state !");

@@ -11,6 +11,8 @@ import java.util.LinkedList;
 public class NavigationBar extends JPanel {
     InterfaceUtilisateur iu;
 
+    int awaitingProcess;
+
     JPanel droiteNav;
     JPanel droiteNavOut;
     JPanel gaucheNav;
@@ -32,7 +34,9 @@ public class NavigationBar extends JPanel {
         //this.setBackground(Color.GREEN);
         this.setOpaque(false);
 
-        navColor = ourColors.fond();
+        awaitingProcess = 0;
+
+        navColor = OurColors.fond();
 
         droiteNav = new JPanel();
         droiteNav.setBackground(navColor);
@@ -78,8 +82,8 @@ public class NavigationBar extends JPanel {
 
     JButton bouton(String imageRef){
         // Create the Icon
-        StretchIcon ii = ourPictures.getPicture(imageRef);// load image
-        StretchIcon pressed = ourPictures.getPicture(imageRef+"_pressed.png");// load image
+        StretchIcon ii = OurPictures.getPicture(imageRef);// load image
+        StretchIcon pressed = OurPictures.getPicture(imageRef+"_pressed.png");// load image
         //testDialog(ii);
 
         // Create the button and initialise it
@@ -87,8 +91,8 @@ public class NavigationBar extends JPanel {
         jb.setIcon(ii);
         jb.setPressedIcon(pressed);
 
-        Dimension defaultImageDimension = ourPictures.getDimensions(ii);
-        jb.setPreferredSize(ourPictures.scaleDimensionByHeight(defaultImageDimension, 100));
+        Dimension defaultImageDimension = OurPictures.getDimensions(ii);
+        jb.setPreferredSize(OurPictures.scaleDimensionByHeight(defaultImageDimension, 100));
 
         // Debug parameters
         jb.addActionListener(e -> System.out.println(this.getWidth()));
@@ -109,8 +113,8 @@ public class NavigationBar extends JPanel {
         JDialog dialog = new JDialog();
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setTitle("Image Loading Demo");
-        dialog.setPreferredSize(ourPictures.getDimensions(image));
-        System.out.println(ourPictures.getDimensions(image));
+        dialog.setPreferredSize(OurPictures.getDimensions(image));
+        System.out.println(OurPictures.getDimensions(image));
 
         dialog.add(new JLabel(image));
 
@@ -182,7 +186,7 @@ public class NavigationBar extends JPanel {
 
     public void setThisBorder(boolean visible){
         if(visible) {
-            this.setBorder(new MatteBorder(borderSize, borderSize, borderSize, borderSize, ourColors.border()));
+            this.setBorder(new MatteBorder(borderSize, borderSize, borderSize, borderSize, OurColors.border()));
         } else {
             this.setBorder(new EmptyBorder(1,1,1,1));
         }
@@ -197,10 +201,12 @@ public class NavigationBar extends JPanel {
         this.retour.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fifo.pop(); //supprimer l'etat courant
-                ETAT_IU nouveau = fifo.pop(); // recuperer l'etat precedent
-                System.out.println("Retour --> Nouvel etat = "+nouveau+" .. reste des etats = "+fifo.toString());
-                iu.changerEtat(nouveau);
+                if(awaitingProcess == 0) {
+                    fifo.pop(); //supprimer l'etat courant
+                    ETAT_IU nouveau = fifo.pop(); // recuperer l'etat precedent
+                    System.out.println("Retour --> Nouvel etat = " + nouveau + " .. reste des etats = " + fifo.toString());
+                    iu.changerEtat(nouveau);
+                }
             }
         });
     }
@@ -250,6 +256,14 @@ public class NavigationBar extends JPanel {
     public void setPanier(boolean active) {
         this.panier.setVisible(active);
         this.panier.setEnabled(active);
+    }
+
+    public void addAwaitingProcess(){
+        awaitingProcess += 1;
+    }
+
+    public void removeAwaitingProcess(){
+        awaitingProcess -= 1;
     }
 
 }

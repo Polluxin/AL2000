@@ -16,9 +16,8 @@ public class Mediateur{
 
     AL2000 logiciel;
 
-    Mediateur(AL2000 a){
+    Mediateur(){
         handlers = new HashMap<>();
-        logiciel = a;
     }
 
     /**

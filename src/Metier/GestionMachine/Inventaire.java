@@ -11,13 +11,12 @@ import java.util.List;
 
 /**
  * Gestion des stocks de BluRays disponibles physiquement dans la machine.
- * Directement reliée à la BD, met à jour la table LesBluRays de manière
+ * Directement reliée à la BD, met à jour la table LesStocks de manière
  * à maintenir la liste des disques présents dans la machine lors des
  * locations et des rendus.
  * Une session à la BD est donc ouverte à chaque ajout de location, et
- * lors de rendus de disques, en utilisant le DAO de BluRay.
+ * lors de rendus de disques.
  * @author Geoffrey DAVID
- * @version 0
  */
 @SuppressWarnings("unused")
 public class Inventaire {
@@ -67,6 +66,7 @@ public class Inventaire {
         } catch (SQLException e){
             e.printStackTrace();
         }
+        getSession().commit();
         getSession().close();
     }
 
@@ -94,6 +94,7 @@ public class Inventaire {
         } catch (SQLException e){
             e.printStackTrace();
         }
+        getSession().commit();
         getSession().close();
     }
 

@@ -36,7 +36,7 @@ public class Machine implements Distributeur, Maintenance {
     }
     @Override
     public CB lireCB(String infosCarte) throws CarteIllisible {
-        // TODO Tester
+        // TODO A TESTER
         // Rappel format des infos de la carte: "5341 2154 2225 4448-04 25-Paul Fort-888-"
         String[] infos = infosCarte.split("-");
         System.out.println("-> Infos de la carte lue dans le lecteur: ");
@@ -52,12 +52,13 @@ public class Machine implements Distributeur, Maintenance {
             throw new CarteIllisible("Nom et prénom invalides");
         if (!infos[3].matches("^\\d{3}"))
             throw new CarteIllisible("Cryptogramme invalide");
-        return new CB(infosCarte);
+        String[] nomprenom = infos[2].split(" ");
+        return new CB(nomprenom[0], nomprenom[1], infosCarte);
     }
 
     @Override
     public Technicien lireCTechnicien(String id) throws CarteIllisible, ConnexionImpossible {
-        // TODO Tester
+        // TODO A TESTER
         if (!id.matches("^\\d+$"))
             throw new CarteIllisible("Format identifiant incorrect");
         bd.open();
@@ -71,7 +72,7 @@ public class Machine implements Distributeur, Maintenance {
 
     @Override
     public CarteAbo lireCarteAbo(String id) throws CarteIllisible, ConnexionImpossible {
-        // TODO Tester
+        // TODO A TESTER
         if (!id.matches("^\\d+$"))
             throw new CarteIllisible("Format identifiant incorrect");
         bd.open();
@@ -112,8 +113,10 @@ public class Machine implements Distributeur, Maintenance {
             if (lu == 0) throw new BluRayInvalide();
             System.out.println("numéro "+lu+": OK");
             // Ajout du BluRay dans l'inventaire
+            bd.open();
             BluRayDAO dao = new BluRayDAO(bd.getSession());
             BluRay b = dao.lire(lu);
+            bd.close();
             inventaire.ajouterBluRay(b);
         } catch (BluRayInvalide e) {
             throw new BluRayInvalide();

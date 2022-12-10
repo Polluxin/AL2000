@@ -14,32 +14,17 @@ public class CarteAboDAO extends DAO<CarteAbo> {
     }
 
     @Override
-    public boolean creer(CarteAbo obj) {
-        return false;
-    }
-
-    @Override
     public CarteAbo lire(int id) {
         CarteAbo carteAbo;
         try {
             ResultSet res = this.connect.createStatement().executeQuery(
-                    "SELECT solde FROM LesCartesAbonnes WHERE idAbo="+id);
+                    "SELECT solde FROM LesCA WHERE IDCARTE="+id);
             res.next();
-            carteAbo = new CarteAbo(res.getInt("id"), res.getFloat("solde"));
+            carteAbo = new CarteAbo(id, res.getFloat("solde"));
 
         } catch (SQLException e) {
             e.printStackTrace();
             return null;}
         return carteAbo;
-    }
-
-    @Override
-    public boolean modifier(CarteAbo obj) {
-        return false;
-    }
-
-    @Override
-    public boolean supprimer(CarteAbo obj) {
-        return false;
     }
 }

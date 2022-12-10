@@ -1,6 +1,7 @@
 package Metier.GestionLocation;
 
-import Metier.GestionClient.Abonne;
+import BaseDeDonnees.DAOs.LocationDAO;
+import BaseDeDonnees.Session;
 import Metier.GestionClient.Client;
 
 import java.util.ArrayList;
@@ -12,10 +13,13 @@ import java.util.List;
  * @author Geoffrey DAVID
  * @version 0
  */
+@SuppressWarnings("unused")
 public class HistoLoc {
 
-    HistoLoc(){
+    int idMachine;
 
+    HistoLoc(int idMachine){
+        this.idMachine = idMachine;
     }
 
     /**
@@ -23,29 +27,29 @@ public class HistoLoc {
      * @return la liste des locations
      */
     public List<Location> voirHistorique(){
-        // TODO
-        // DAO truc lire la BD
-        return null;
+        Session s = new Session();
+        s.open();
+        List<Location> l = (new LocationDAO(s.getSession(), idMachine)).lireLocationsMachine();
+        s.close();
+        return l;
     }
 
     /**
-     * Donne l'historique des locations du client abonné a, en consultant la base de données.
+     * Donne l'historique des locations du client a, en consultant la base de données.
      * @param a l'abonné
      * @return la liste des locations
      */
     public List<Location> voirHistoriqueClient(Client a){
-        List<Location> res = new ArrayList<>();
-        for (Location l: voirHistorique()){
-            if (l.client == a) {
-                res.add(l);
-            }
-        }
-        return res;
+        Session s = new Session();
+        s.open();
+        List<Location> l = (new LocationDAO(s.getSession(), idMachine)).lireLocationsCarte(a);
+        s.close();
+        return l;
     }
     public List<Location> voirLocationEnCours(Client a){
         List<Location> res = new ArrayList<>();
-        for (Location l: voirHistorique()){
-            if (l.client == a && l.etat == Etat.ENCOURS) {
+        for (Location l: voirHistoriqueClient(a)){
+            if (l.etat == Etat.ENCOURS) {
                 res.add(l);
             }
         }
@@ -57,12 +61,14 @@ public class HistoLoc {
      * @param l la liste des locations
      */
     public void ajouterLocations(List<Location> l){
-        // TODO
-        // DAO truc faire un insert dans la BD
+        Session s = new Session();
+        LocationDAO dao = new LocationDAO(s.getSession(), idMachine);
+        s.open();
         for (Location loc : l){
-            // ajouter dans la bdd ?
+            assert(dao.creer(loc));
         }
-
+        s.commit();
+        s.close();
     }
 
     /**
@@ -70,9 +76,12 @@ public class HistoLoc {
      * @param b le BluRay rendu
      */
     public void rendreBLuRay(BluRay b){
-        // TODO
-        // DAO truc: récupérer la transaction, l'Etat passe à APAYER. Police demandera un paiement.
-
+        Session s = new Session();
+        LocationDAO dao = new LocationDAO(s.getSession(), idMachine);
+        s.open();
+        assert(dao.modifierDepuisBluRay(b));
+        s.commit();
+        s.close();
     }
 
     public void rendreBluRay(List<BluRay> lb){
