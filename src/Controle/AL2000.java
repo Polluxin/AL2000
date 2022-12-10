@@ -285,6 +285,7 @@ public class AL2000 {
      */
     public void reglerInterdits(Genre[] interdits){
         compte.getClient().reglerInterdits(interdits);
+        //Test
     }
 
 }
