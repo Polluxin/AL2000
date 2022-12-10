@@ -36,14 +36,15 @@ public class AL2000 {
 
     private Technicien technicien;
 
-    AL2000() {
+    public AL2000(Session s) {
+        initialisation(s);
     }
 
     /**
      * Initialise le logiciel à partir de certains paramètres.
      */
     private void initialisation(Session session) {
-
+        session.open();
         // Initialisation de l'inventaire
         int idMachine = 1;
         Inventaire inv = new Inventaire(idMachine, session);
@@ -62,6 +63,7 @@ public class AL2000 {
         int delaisPolice = 300;
         police = new Police(histo, delaisPolice);
         technicien = null;
+        session.close();
     }
 
     /**

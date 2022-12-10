@@ -26,7 +26,9 @@ public class Statistiques {
     }
 
     public static Statistiques getInstance(int idMachine, Session s){
-        return new StatistiquesDAO(s.getSession()).lire(idMachine);
+        Statistiques st = new StatistiquesDAO(s.getSession()).lire(idMachine);
+        System.out.println("Statistiques initialisées : "+st);
+        return st;
     }
 
     public void mettreAJourBD(Session s){
@@ -57,9 +59,7 @@ public class Statistiques {
 
     @Override
     public String toString(){
-        return "Machine numéro " + idMachine +
-                "\n-> " + nbLocations + " locations" +
-                "\n-> " + nbOuvertures + " ouvertures";
+        return "{ "+idMachine+" "+nbLocations + " " + nbOuvertures + " }";
     }
 
 }

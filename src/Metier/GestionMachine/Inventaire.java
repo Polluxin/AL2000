@@ -48,7 +48,6 @@ public class Inventaire {
      * des données.
      */
     public void initialiser(){
-        session.open();
         BluRayDAO dao = new BluRayDAO(session.getSession());
         try{
             ResultSet res = getSession().getSession().createStatement().executeQuery("SELECT IDBLURAY FROM LESSTOCKS WHERE IDMACHINE="+idMachineAssocie);
@@ -60,8 +59,6 @@ public class Inventaire {
             e.printStackTrace();
             System.out.println("Echec dans l'initialisation de l'inventaire");
         }
-        session.close();
-
     }
 
     /**
@@ -128,7 +125,7 @@ public class Inventaire {
 
     @Override
     public String toString() {
-        StringBuilder str = new StringBuilder("{");
+        StringBuilder str = new StringBuilder("{ ");
         for (BluRay b: liste_BluRays){
             str.append(b.getId());
             str.append(" ");
