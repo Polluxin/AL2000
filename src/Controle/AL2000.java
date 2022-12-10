@@ -1,6 +1,8 @@
 package Controle;
 
 import BaseDeDonnees.Session;
+import Metier.Exception.CarteIllisible;
+import Metier.Exception.ConnexionImpossible;
 import Metier.Exception.MauvaisMotDePasse;
 import Metier.GestionClient.*;
 import Metier.GestionLocation.*;
@@ -12,13 +14,11 @@ import java.util.prefs.Preferences;
 /**
  * Contrôleur de l'application, tout passe par ici.
  * @author Geoffrey DAVID
+ * @author Armand GRENIER
  * @version 0
  */
 @SuppressWarnings("unused")
 public class AL2000 {
-
-    private final int idMachine = 1;
-    private final int delaisPolice = 300;
 
     private Compte compte;
 
@@ -34,22 +34,23 @@ public class AL2000 {
 
     private Police police;
 
-    private final Session session;
+    private Technicien technicien;
 
     AL2000() {
-        session = new Session();
     }
 
     /**
      * Initialise le logiciel à partir de certains paramètres.
      */
     private void initialisation(Session session) {
-        // dans le constucteur de Inventair passer session ?
-        // il faudrait pouvoir initialiser l'inventaire un fonction de la bd et idMachine ?
-        Inventaire inv = new Inventaire(idMachine);
 
-        // lire les stats de puis la bd ? ou quelle données mettres ?
-        Statistiques stat = new Statistiques(idMachine, "");
+        // Initialisation de l'inventaire
+        int idMachine = 1;
+        Inventaire inv = new Inventaire(idMachine, session);
+        inv.initialiser();
+
+        // Initialisation des statistiques
+        Statistiques stat = Statistiques.getInstance(idMachine, session);
 
         // attributs
         compte = new Compte(session);
@@ -58,7 +59,9 @@ public class AL2000 {
         catalogue = new Catalogue(inv, session, idMachine);
         signalement = new Signalement();
         machine = new Machine(inv, stat, session);
+        int delaisPolice = 300;
         police = new Police(histo, delaisPolice);
+        technicien = null;
     }
 
     /**
@@ -76,45 +79,51 @@ public class AL2000 {
     }
 
     /**
-     * Donne la liste des films et leur disponibilité en BluRay grâce au type couple FilmFormat.
+     * Donne la liste des films et leur disponibilité en BluRay grâce au type couple FilmEtFormat.
      *
      * @param filtre le filtre utilisé
      */
-    public void donnerCatalogue(FiltreTri filtre) {
-
-    }
-
-    /**
-     * Tente de connecter l'abonné grâce au mot de passe (lié à la classe Compte).
-     *
-     * @param mdp le mot de passe de connexion
-     */
-    public void connexion(String mdp) {
-        // lecture de carte
-        // TODO
-        CarteAbo c = null;
-        // connexion
-        try {
-            compte.connexion(c, mdp);
-        } catch (MauvaisMotDePasse e) {
-            // mauvais mdp
-            // TODO
-        }
+    public List<FilmEtFormat> donnerCatalogue(FiltreTri filtre) {
+        return catalogue.donnerFilms(compte.getClient().getInterdits(),filtre);
     }
 
     /**
      * Authentifie le technicien grâce à une carte lue dans le
      * lecteur de la machine.
+     * @param t le technicien à authentifier
      */
 
-    public void connexionTechnicien() {
+    public void connexionTechnicien(Technicien t) {
+        technicien = t;
     }
 
     /**
-     * Déconnecte l'abonné du logciel (lié à la classe Compte).
+     * Tente de connecter l'abonné grâce au mot de passe (lié à la classe Compte).
+     *
+     * @param c la carte tentant de connexion
+     * @param mdp le mot de passe de connexion
+     */
+    public void connexion(CarteAbo c, String mdp) throws MauvaisMotDePasse {
+        compte.connexion(c, mdp);
+    }
+
+    public CarteAbo simulerInsertionCA(String idCarte) throws CarteIllisible, ConnexionImpossible {
+        return machine.lireCarteAbo(idCarte);
+    }
+
+    public CB simulerInsertionCB(String infosCarte) throws CarteIllisible {
+        return machine.lireCB(infosCarte);
+    }
+
+    public Technicien simulerInsertionCT(String id) throws CarteIllisible, ConnexionImpossible {
+        return machine.lireCTechnicien(id);
+    }
+
+    /**
+     * Déconnecte l'abonné du logiciel (lié à la classe Compte).
      */
     public void deconnexion() {
-
+        compte.deconnexion();
     }
 
     /**
