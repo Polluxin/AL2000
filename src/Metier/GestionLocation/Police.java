@@ -17,7 +17,7 @@ public class Police {
     // chrono probablement à retirer
     Timer chrono;
 
-    Police(HistoLoc historique, int delai){
+    public Police(HistoLoc historique, int delai){
         histo = historique;
         chrono = new Timer();
     }

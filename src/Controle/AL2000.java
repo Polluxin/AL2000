@@ -17,7 +17,8 @@ import java.util.prefs.Preferences;
 @SuppressWarnings("unused")
 public class AL2000 {
 
-    private final int idMachineAssociee = 1;
+    private final int idMachine = 1;
+    private final int delaisPolice = 300;
 
     private Compte compte;
 
@@ -42,10 +43,22 @@ public class AL2000 {
     /**
      * Initialise le logiciel à partir de certains paramètres.
      */
-    private void initialisation() {
+    private void initialisation(Session session) {
+        // dans le constucteur de Inventair passer session ?
+        // il faudrait pouvoir initialiser l'inventaire un fonction de la bd et idMachine ?
+        Inventaire inv = new Inventaire(idMachine);
 
+        // lire les stats de puis la bd ? ou quelle données mettres ?
+        Statistiques stat = new Statistiques(idMachine, "");
+
+        // attributs
         compte = new Compte(session);
         panier = new Panier();
+        histo = new HistoLoc(idMachine);
+        catalogue = new Catalogue(inv, session, idMachine);
+        signalement = new Signalement();
+        machine = new Machine(inv, stat, session);
+        police = new Police(histo, delaisPolice);
     }
 
     /**
@@ -68,7 +81,7 @@ public class AL2000 {
      * @param filtre le filtre utilisé
      */
     public void donnerCatalogue(FiltreTri filtre) {
-        //return null;
+
     }
 
     /**

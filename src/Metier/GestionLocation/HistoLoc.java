@@ -18,7 +18,7 @@ public class HistoLoc {
 
     int idMachine;
 
-    HistoLoc(int idMachine){
+    public HistoLoc(int idMachine){
         this.idMachine = idMachine;
     }
 
