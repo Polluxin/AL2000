@@ -58,9 +58,7 @@ public class Technicien {
 
     @Override
     public String toString(){
-        return "Technicien numéro " + id +
-                "\n-> " + nom  +
-                "\n-> " + prenom ;
+        return "{ "+ id + " " + nom + " "+ prenom + " }";
     }
 
 }
