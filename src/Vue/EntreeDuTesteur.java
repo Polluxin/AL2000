@@ -13,7 +13,9 @@ public class EntreeDuTesteur extends JPanel {
     JButton[] btn_nombre;
     JPanel tousLesBoutonsNumeriques;
     JPanel entreeNumero;
-    public EntreeDuTesteur(){
+    String text;
+    public EntreeDuTesteur(String text){
+        this.text = text;
         initPanneau();
         this.add(form);
     }
@@ -25,7 +27,7 @@ public class EntreeDuTesteur extends JPanel {
         form.setBorder(BorderFactory.createMatteBorder(3,3,3,3,Color.BLACK));
         form.setBackground(OurColors.fond2());
 
-        instructions = new JTextField("Veuillez entrer le numero du Blu-ray :");
+        instructions = new JTextField(text);
         instructions.setOpaque(false);
         instructions.setEditable(false);
         instructions.setPreferredSize(new Dimension(500, 100));

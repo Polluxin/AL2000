@@ -1,6 +1,7 @@
 package Vue;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,10 +14,6 @@ public class Inscription extends JPanel {
     JPanel interdiction;
     JPanel inscription;
 
-    JTextField txt_adresseMail;
-    JTextField txt_adressePostale;
-    JTextField txt_motDePasse;
-    JTextField txt_confirmation;
 
     JCheckBox action;
     JCheckBox aventure;
@@ -27,14 +24,14 @@ public class Inscription extends JPanel {
     JButton inscriptionPayer;
 
 
-    public Inscription(){
+    public Inscription(InterfaceUtilisateur iu){
         this.setOpaque(false);
         this.setLayout(new GridLayout(6,1));
 
-        adresseMail = nouvelEnsemble(txt_adresseMail, "adresse mail", "Veuillez entrer votre adresse mail");
-        adressePostale = nouvelEnsemble(txt_adressePostale, "adresse", "Veuillez entrer votre adresse");
-        motDePasse = nouvelEnsemble(txt_motDePasse, "mot de passe", "Veuillez entrer votre mot de passe");
-        confirmation = nouvelEnsemble(txt_confirmation, "mot de passe", "Veuillez confirmer votre mot de passe");
+        adresseMail = nouvelEnsemble("adresse mail", "Veuillez entrer votre adresse mail");
+        adressePostale = nouvelEnsemble("adresse", "Veuillez entrer votre adresse");
+        motDePasse = nouvelEnsemble("mot de passe", "Veuillez entrer votre mot de passe");
+        confirmation = nouvelEnsemble("mot de passe", "Veuillez confirmer votre mot de passe");
         this.add(adresseMail);
         this.add(adressePostale);
         this.add(motDePasse);
@@ -56,11 +53,19 @@ public class Inscription extends JPanel {
         this.add(interdiction);
 
         inscriptionPayer = OurTools.transparentButtonWithIcon("src/ressources/inscriptionpayer.png");
+        inscriptionPayer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iu.changerEtat(ETAT_IU.INSCRIPTION_REUSSIE);
+                effectuerInscription();
+            }
+        });
         this.add(inscriptionPayer);
     }
 
-    public JPanel nouvelEnsemble(JTextField jtxt, String text, String title){
+    public JPanel nouvelEnsemble(String text, String title){
         JPanel out = new JPanel(new BorderLayout());
+        JTextField jtxt;
         out.setOpaque(false);
         if(text == "mot de passe"){
             jtxt = new JPasswordField("mot de passe");
@@ -93,6 +98,27 @@ public class Inscription extends JPanel {
             }
         });
         return out;
-
     }
+
+    private void effectuerInscription(){
+        for (Component c : interdiction.getComponents()) {
+            JCheckBox current = (JCheckBox) c;
+            if(current.isSelected()){
+                String text = current.getText().split("color='red'>")[1].split("</font>")[0];
+                System.out.println(text+" is selected");
+            }
+        }
+        System.out.println("Mail : "+getNouvelEnsembleValeur(adresseMail));
+        System.out.println("Adresse : "+getNouvelEnsembleValeur(adressePostale));
+        System.out.println("Mot de passe : "+getNouvelEnsembleValeur(motDePasse));
+        System.out.println("Confirmation : "+getNouvelEnsembleValeur(confirmation));
+    }
+
+    private String getNouvelEnsembleValeur(JPanel j ){
+        BorderLayout l = (BorderLayout)j.getLayout();
+        JTextField txt = (JTextField) l.getLayoutComponent(BorderLayout.CENTER);
+        return txt.getText();
+    }
+
+
 }

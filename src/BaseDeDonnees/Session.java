@@ -8,7 +8,7 @@ public class Session {
     private static Connection connect;
     public void open(){
         String url = "jdbc:oracle:thin:@localhost:1521:im2ag";
-        String user = "davidge";
+        String user = "pavlovm  ";
         System.out.println("Session : Connexion à la base de données à "+ url +" par "+ user);
         try
         {

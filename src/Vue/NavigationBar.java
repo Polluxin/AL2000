@@ -57,6 +57,8 @@ public class NavigationBar extends JPanel {
         deconnexion = bouton("src/ressources/disconnect.png");
         panier = bouton("src/ressources/panier.png");
 
+        boutonsInit();
+
         gaucheNav.add(retour, BorderLayout.WEST);
         gaucheNav.add(aide);
 
@@ -78,6 +80,8 @@ public class NavigationBar extends JPanel {
 
         this.setThisBorder(true);
         this.setMinimumSize(new Dimension(856, 100));
+
+        this.setAdmin(false);
     }
 
     JButton bouton(String imageRef){
@@ -121,6 +125,10 @@ public class NavigationBar extends JPanel {
         dialog.pack();
         dialog.setLocationByPlatform(true);
         dialog.setVisible(true);
+    }
+
+    void boutonsInit(){
+        connexion.addActionListener(e -> iu.changerEtat(ETAT_IU.CONNEXION));
     }
 
     public JButton getRetour() {

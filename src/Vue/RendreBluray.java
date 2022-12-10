@@ -28,19 +28,11 @@ public class RendreBluray extends JPanel {
         simulation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane simulateur = OurTools.testerPane(navbar);
-                //JButton[] options = (JButton[]) simulateur.getOptions();
-                //options[0].se
-                JDialog dialog = simulateur.createDialog(null, " test title ");
+                JOptionPane simulateur = OurTools.testerPane(navbar, RendreBluray.this, "Veuillez entrer le numero du Blu-ray :");
+                JDialog dialog = simulateur.createDialog(null, "Veuillez entrer le numero");
+                dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                 dialog.setModal(false);
                 dialog.setVisible(true);
-
-                /*
-                if (n == JOptionPane.OK_OPTION){ // case annuler
-                    System.out.println("Oof");
-                } else { // case valider
-                    System.out.println("A BluRay was entered of id : "+form.getText());
-                }*/
             }
         });
 
@@ -50,5 +42,9 @@ public class RendreBluray extends JPanel {
         this.add(instructions, BorderLayout.NORTH);
         this.add(icon);
         this.add(simulation, BorderLayout.SOUTH);
+    }
+
+    public void testerPaneGetter(String numero){
+        System.out.println("Blu-ray numero "+numero+" à été entré.");
     }
 }

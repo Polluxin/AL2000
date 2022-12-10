@@ -6,14 +6,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class OurTools {
 
     /**
-     * > transparentButtonWithIcon creates a button with an icon, and makes it transparent to only show the icon
+     * > transparentButtonWithIcon Créé un bouton avec une icone, et ne montre que l'icone
      *
-     * @param rss the name of the image file in the resources folder
-     * @return A JButton with an icon.
+     * @param rss le chemin vers l'image dans les fichiers
+     * @return Un JButton avec une icone
      */
     public static JButton transparentButtonWithIcon(String rss){
         String pressedName = rss+"_pressed.png";
@@ -37,8 +38,7 @@ public class OurTools {
     }
 
     /**
-     * setFont loads a font from a file and sets it as the default font for all text fields, check boxes, password fields and
-     * text areas
+     * setFont charge une police de caractère personnalisée et l'assigne aux objets utilisés
      */
     public static void setFont(){
         Font font;
@@ -57,9 +57,14 @@ public class OurTools {
         UIManager.put("Label.font", font);
     }
 
-    public static JOptionPane testerPane(NavigationBar navbar){
+    /**
+     * Créé un panneau de test pour entrer des numeros, comme des Blu-ray et un numero de carte
+     * @param navbar la barre de navigatiion du me,nu
+     * @return le JOptionPane de test
+     */
+    public static JOptionPane testerPane(NavigationBar navbar, JPanel jb, String customText){
         navbar.addAwaitingProcess();
-        EntreeDuTesteur form = new EntreeDuTesteur();
+        EntreeDuTesteur form = new EntreeDuTesteur(customText);
         JButton annuler = new JButton("ANNULER");
         JButton valider = new JButton("VALIDER");
 
@@ -77,8 +82,14 @@ public class OurTools {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane pane = getOptionPane((JComponent)e.getSource());
-                System.out.println("Valider a été appuyé ! Le texte est : "+form.getText());
                 pane.setValue(JOptionPane.YES_OPTION);
+                if(jb.getClass().getName() == "Vue.RendreBluray"){
+                    RendreBluray rb = (RendreBluray) jb;
+                    rb.testerPaneGetter(form.getText());
+                } else if (jb.getClass().getName() == "Vue.Connexion"){
+                    Connexion cnx = (Connexion) jb;
+                    cnx.testerPaneGetter(form.getText());
+                }
                 navbar.removeAwaitingProcess();
             }
         });
@@ -94,7 +105,7 @@ public class OurTools {
     }
 
     protected static JOptionPane getOptionPane(JComponent parent) {
-        JOptionPane pane = null;
+        JOptionPane pane;
         if (!(parent instanceof JOptionPane)) {
             pane = getOptionPane((JComponent)parent.getParent());
         } else {

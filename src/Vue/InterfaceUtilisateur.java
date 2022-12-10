@@ -36,9 +36,9 @@ public class InterfaceUtilisateur {
         etatCourant = ETAT_IU.AUCUN;
 
         ecranDeBienvenue = new Bienvenue(this);
-        inscription = new Inscription();
+        inscription = new Inscription(this);
         inscriptionReussie = new InscriptionReussie();
-        connexion = new Connexion();
+        connexion = new Connexion(navBar);
         rendrebluray = new RendreBluray(navBar);
         voir_films = new VoirFilms();
         attenteDVD = new AttenteDVD();
@@ -87,7 +87,7 @@ public class InterfaceUtilisateur {
                     navBar.retourSeulement(true);
                     panneauCourant = inscription;
                 }
-                case INSCRIPTION_VALIDE -> {
+                case INSCRIPTION_REUSSIE -> {
                     navBar.retourSeulement(true);
                     panneauCourant = inscriptionReussie;
                 }
