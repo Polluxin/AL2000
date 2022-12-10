@@ -11,7 +11,7 @@ import java.util.LinkedList;
 public class NavigationBar extends JPanel {
     InterfaceUtilisateur iu;
 
-    int awaitingProcess;
+    LinkedList<JDialog> awaitingProcess = new LinkedList<>();
 
     JPanel droiteNav;
     JPanel droiteNavOut;
@@ -33,8 +33,6 @@ public class NavigationBar extends JPanel {
         this.setLayout(new BorderLayout());
         //this.setBackground(Color.GREEN);
         this.setOpaque(false);
-
-        awaitingProcess = 0;
 
         navColor = OurColors.fond();
 
@@ -209,12 +207,11 @@ public class NavigationBar extends JPanel {
         this.retour.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(awaitingProcess == 0) {
-                    fifo.pop(); //supprimer l'etat courant
-                    ETAT_IU nouveau = fifo.pop(); // recuperer l'etat precedent
-                    System.out.println("Retour --> Nouvel etat = " + nouveau + " .. reste des etats = " + fifo.toString());
-                    iu.changerEtat(nouveau);
-                }
+                fifo.pop(); //supprimer l'etat courant
+                ETAT_IU nouveau = fifo.pop(); // recuperer l'etat precedent
+                System.out.println("Retour --> Nouvel etat = " + nouveau + " .. reste des etats = " + fifo.toString());
+                iu.changerEtat(nouveau);
+                releaseProcess();
             }
         });
     }
@@ -266,12 +263,20 @@ public class NavigationBar extends JPanel {
         this.panier.setEnabled(active);
     }
 
-    public void addAwaitingProcess(){
-        awaitingProcess += 1;
+    public void addAwaitingProcess(JDialog j){
+        awaitingProcess.add(j);
     }
 
-    public void removeAwaitingProcess(){
-        awaitingProcess -= 1;
+    public void removeAwaitingProcess(JOptionPane j){
+        awaitingProcess.remove(j);
+    }
+
+    public void releaseProcess(){
+        for(int i=0; i<awaitingProcess.size(); i++){
+            JDialog j = awaitingProcess.pop();
+            j.setVisible(false);
+            j.dispose();
+        }
     }
 
 }

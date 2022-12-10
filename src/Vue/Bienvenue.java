@@ -79,7 +79,7 @@ public class Bienvenue extends JPanel{
         listeBoutons[0].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                iu.changerEtat(ETAT_IU.CONNEXION);
+                iu.changerEtat(ETAT_IU.PRE_CONNEXION);
             }
         });
 
