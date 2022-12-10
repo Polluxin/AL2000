@@ -4,33 +4,36 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-public class RendreBluray extends JPanel {
+public class PreConnexion extends JPanel {
     JTextArea instructions;
     JLabel icon;
     JButton simulation;
     NavigationBar navbar;
-    public RendreBluray(InterfaceUtilisateur iu){
+    InterfaceUtilisateur iu;
+    public PreConnexion(InterfaceUtilisateur iu){
+        this.iu = iu;
         navbar = iu.getNavBar();
         icon = new JLabel();
         icon.setIcon(OurPictures.getPicture("src/ressources/rendredvd.png"));
         icon.setOpaque(false);
 
-        instructions = new JTextArea("Veuillez insérer les Blu-ray dans la fente prévue à cet effet.");
+        instructions = new JTextArea("Veuillez insérer votre Carte d'abonné dans la fente prévue à cet effet.");
         instructions.setOpaque(false);
         instructions.setLineWrap(true);
         instructions.setWrapStyleWord(true);
 
-        simulation = new JButton("Simuler entrée Blu-ray");
+        simulation = new JButton("Simuler entrée Carte");
         simulation.setPreferredSize(new Dimension(100, 100));
         simulation.setBackground(Color.CYAN);
 
         simulation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane simulateur = OurTools.testerPane(navbar, RendreBluray.this, "Veuillez entrer le numero du Blu-ray :");
+                JOptionPane simulateur = OurTools.testerPane(navbar, PreConnexion.this, "Veuillez entrer le numero de la carte :");
                 JDialog dialog = simulateur.createDialog(null, "Veuillez entrer le numero");
-                iu.getNavBar().addAwaitingProcess(dialog);
                 dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                 dialog.setModal(false);
                 dialog.setVisible(true);
@@ -46,6 +49,8 @@ public class RendreBluray extends JPanel {
     }
 
     public void testerPaneGetter(String numero){
-        System.out.println("Blu-ray numero "+numero+" à été entré.");
+        iu.numeroDeCarte = Integer.parseInt(numero);
+        System.out.println("Carte numero "+iu.numeroDeCarte+" à été entré.");
+        iu.changerEtat(ETAT_IU.CONNEXION);
     }
 }

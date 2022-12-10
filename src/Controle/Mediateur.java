@@ -16,7 +16,7 @@ public class Mediateur{
 
     AL2000 logiciel;
 
-    Mediateur(){
+    public Mediateur(){
         handlers = new HashMap<>();
     }
 
@@ -47,4 +47,6 @@ public class Mediateur{
     public void publier(String evenement, DonneesEvenement e) {
         handlers.get(evenement).handle(e);
     }
+
+    public void setLogiciel(AL2000 logi){ this.logiciel = logi; }
 }

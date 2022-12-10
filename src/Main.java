@@ -1,3 +1,4 @@
+import Controle.Mediateur;
 import Vue.InterfaceUtilisateur;
 
 public class Main {
