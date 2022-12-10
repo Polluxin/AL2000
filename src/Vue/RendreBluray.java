@@ -10,8 +10,8 @@ public class RendreBluray extends JPanel {
     JLabel icon;
     JButton simulation;
     NavigationBar navbar;
-    public RendreBluray(InterfaceUtilisateur iu){
-        navbar = iu.getNavBar();
+    public RendreBluray(NavigationBar navigation){
+        navbar = navigation;
         icon = new JLabel();
         icon.setIcon(OurPictures.getPicture("src/ressources/rendredvd.png"));
         icon.setOpaque(false);
@@ -30,7 +30,6 @@ public class RendreBluray extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane simulateur = OurTools.testerPane(navbar, RendreBluray.this, "Veuillez entrer le numero du Blu-ray :");
                 JDialog dialog = simulateur.createDialog(null, "Veuillez entrer le numero");
-                iu.getNavBar().addAwaitingProcess(dialog);
                 dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                 dialog.setModal(false);
                 dialog.setVisible(true);

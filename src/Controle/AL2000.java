@@ -36,7 +36,7 @@ public class AL2000 {
 
     private final Session session;
 
-    public AL2000() {
+    AL2000() {
         session = new Session();
     }
 

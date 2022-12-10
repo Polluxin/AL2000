@@ -1,8 +1,5 @@
 package Vue;
 
-import Controle.AL2000;
-import Controle.Mediateur;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -20,7 +17,6 @@ public class InterfaceUtilisateur {
     Inscription inscription;
     InscriptionReussie inscriptionReussie;
     Connexion connexion;
-    PreConnexion preConnexion;
     RendreBluray rendrebluray;
     VoirFilms voir_films;
     AjouterAuPanier ajouterAuPanier;
@@ -28,16 +24,10 @@ public class InterfaceUtilisateur {
     ETAT_IU etatCourant;
     JPanel panneauCourant;
 
-    Mediateur mediateur;
-    AL2000 logiciel;
-    int numeroDeCarte;
-
 
     public InterfaceUtilisateur(){
         OurTools.setFont();
-        mediateur = new Mediateur();
-        logiciel = new AL2000();
-        mediateur.setLogiciel(logiciel);
+
         // Initialisations
         ecran = new JFrame();
         navBar = new NavigationBar(this);
@@ -48,9 +38,8 @@ public class InterfaceUtilisateur {
         ecranDeBienvenue = new Bienvenue(this);
         inscription = new Inscription(this);
         inscriptionReussie = new InscriptionReussie();
-        connexion = new Connexion(this);
-        preConnexion = new PreConnexion(this);
-        rendrebluray = new RendreBluray(this);
+        connexion = new Connexion(navBar);
+        rendrebluray = new RendreBluray(navBar);
         voir_films = new VoirFilms();
         attenteDVD = new AttenteDVD();
         ajouterAuPanier = new AjouterAuPanier();
@@ -106,10 +95,6 @@ public class InterfaceUtilisateur {
                     navBar.retourSeulement(true);
                     panneauCourant = connexion;
                 }
-                case PRE_CONNEXION -> {
-                    navBar.retourSeulement(true);
-                    panneauCourant = preConnexion;
-                }
                 case RENDRE_DVD -> {
                     navBar.retourSeulement(true);
                     panneauCourant = rendrebluray;
@@ -147,20 +132,8 @@ public class InterfaceUtilisateur {
         return this.utilisateurConnecte;
     }
 
-    public NavigationBar getNavBar(){
-        return this.navBar;
-    }
-
-    public Mediateur getMediateur(){
-        return this.mediateur;
-    }
-
-    public AL2000 getLogiciel(){
-        return logiciel;
-    }
 
     public static void main(String[] args) {
-        Mediateur m = new Mediateur();
         InterfaceUtilisateur UI = new InterfaceUtilisateur();
     }
 }

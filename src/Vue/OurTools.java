@@ -63,8 +63,7 @@ public class OurTools {
      * @return le JOptionPane de test
      */
     public static JOptionPane testerPane(NavigationBar navbar, JPanel jb, String customText){
-        JOptionPane tester = new JOptionPane();
-        //navbar.addAwaitingProcess(tester);
+        navbar.addAwaitingProcess();
         EntreeDuTesteur form = new EntreeDuTesteur(customText);
         JButton annuler = new JButton("ANNULER");
         JButton valider = new JButton("VALIDER");
@@ -75,7 +74,7 @@ public class OurTools {
                 JOptionPane pane = getOptionPane((JComponent)e.getSource());
                 System.out.println("Annuler a été appuyé !");
                 pane.setValue(JOptionPane.NO_OPTION);
-                //navbar.removeAwaitingProcess(tester);
+                navbar.removeAwaitingProcess();
             }
         });
 
@@ -87,17 +86,17 @@ public class OurTools {
                 if(jb.getClass().getName() == "Vue.RendreBluray"){
                     RendreBluray rb = (RendreBluray) jb;
                     rb.testerPaneGetter(form.getText());
-                } else if (jb.getClass().getName() == "Vue.PreConnexion"){
-                    PreConnexion pcnx = (PreConnexion) jb;
-                    pcnx.testerPaneGetter(form.getText());
+                } else if (jb.getClass().getName() == "Vue.Connexion"){
+                    Connexion cnx = (Connexion) jb;
+                    cnx.testerPaneGetter(form.getText());
                 }
-                //navbar.removeAwaitingProcess(tester);
+                navbar.removeAwaitingProcess();
             }
         });
 
 
         Object[] options = {annuler,valider};
-        tester = new JOptionPane(
+        JOptionPane tester = new JOptionPane(
                 form,
                 JOptionPane.QUESTION_MESSAGE,
                 JOptionPane.YES_NO_OPTION);
