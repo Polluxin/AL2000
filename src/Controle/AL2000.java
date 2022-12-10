@@ -1,10 +1,7 @@
 package Controle;
 
 import BaseDeDonnees.Session;
-import Metier.Exception.CarteIllisible;
-import Metier.Exception.ConnexionImpossible;
-import Metier.Exception.FondsInsuffisants;
-import Metier.Exception.MauvaisMotDePasse;
+import Metier.Exception.*;
 import Metier.GestionClient.*;
 import Metier.GestionLocation.*;
 import Metier.GestionMachine.*;
@@ -66,18 +63,27 @@ public class AL2000 {
         session.close();
     }
 
+    /**
+     * Fonction utilisée lors de la finalisation de la commande. Elle valide le panier et livre
+     * les films.
+     * @throws FondsInsuffisants si le client n'a pas un solde suffisant sur son compte
+     */
     public void louerFilms() throws FondsInsuffisants {
         List<Support> liste_films = panier.getSupports();
         validerPanier();
         machine.livrerFilms(liste_films);
     }
 
-    public void rendreFilms() {
+    /**
+     * Fonction fantôme car on utilise plutôt simulerInsertionBluRay directement.
+     * @param b le BluRay rendu
+     */
+    public void rendreFilm(BluRay b) {
+        System.out.println("BluRay numéro "+b.getId()+" rendu");
     }
 
     /**
      * Donne la liste des films et leur disponibilité en BluRay grâce au type couple FilmEtFormat.
-     *
      * @param filtre le filtre utilisé
      */
     public List<FilmEtFormat> donnerCatalogue(FiltreTri filtre) {
@@ -105,16 +111,45 @@ public class AL2000 {
         compte.connexion(c, mdp);
     }
 
+    /**
+     * Fonction de simulation d'insertion de carte d'abonné.
+     * @param idCarte le numéro de la carte
+     * @return la carte insérée
+     * @throws CarteIllisible si le numéro est incorrect
+     * @throws ConnexionImpossible si la connexion à la base est coupée
+     */
     public CarteAbo simulerInsertionCA(String idCarte) throws CarteIllisible, ConnexionImpossible {
         return machine.lireCarteAbo(idCarte);
     }
 
+    /**
+     *  Fonction de simulation d'insertion de carte bancaire.
+     * @param infosCarte les infos présentes sur la carte sous le format "5341 2154 2225 4448-04 25-Paul Fort-888-"
+     * @return la carte insérée
+     * @throws CarteIllisible si les infos de la carte sont incorrectes
+     */
     public CB simulerInsertionCB(String infosCarte) throws CarteIllisible {
         return machine.lireCB(infosCarte);
     }
 
+    /**
+     * Fonction de simulation d'insertion de carte de technicien.
+     * @param id le numéro de la carte
+     * @return l'objet technicien créé à partir de la carte
+     * @throws CarteIllisible s'il n'y a pas de carte avec ce numéro
+     * @throws ConnexionImpossible si la connexion avec la BD est coupée
+     */
     public Technicien simulerInsertionCT(String id) throws CarteIllisible, ConnexionImpossible {
         return machine.lireCTechnicien(id);
+    }
+
+    /**
+     * Fonction de simulation d'insertion d'un BluRay dans le lecteur, lors d'un rendu.
+     * @param id le numéro du BluRay (unique)
+     * @throws BluRayInvalide si le numéro n'est pas reconnu
+     */
+    public void simulerInsertionBluRay(String id) throws BluRayInvalide {
+         machine.avalerBluRay(id);
     }
 
     /**
