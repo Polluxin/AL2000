@@ -29,7 +29,7 @@ public class Machine implements Distributeur, Maintenance {
 
     Session bd;
 
-    Machine(Inventaire i, Statistiques s, Session contactBD){
+    public Machine(Inventaire i, Statistiques s, Session contactBD){
         bd = contactBD;
         inventaire = i;
         statistiques = s;
