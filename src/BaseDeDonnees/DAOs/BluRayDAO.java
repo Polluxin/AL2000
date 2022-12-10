@@ -23,7 +23,7 @@ public class BluRayDAO extends DAO<BluRay>{
         try {
             FilmDAO dao = new FilmDAO(connect);
             ResultSet res = connect.createStatement().executeQuery("SELECT * FROM LESBLURAYS WHERE IDBLURAY="+id);
-            res.next();
+            if (!res.next()) return null;
             Film f = dao.lire(res.getInt("idFilm"));
             assert(f != null);
             b = new BluRay(res.getInt("idBluRay"), f);

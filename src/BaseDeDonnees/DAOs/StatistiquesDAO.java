@@ -17,7 +17,7 @@ public class StatistiquesDAO extends DAO<Statistiques> {
         try {
             ResultSet res = this.connect.createStatement().executeQuery(
                     "SELECT * FROM LesStatistiques WHERE idMachine="+idMachine);
-            res.next();
+            if (!res.next()) return null;
             // res.getString("donnees") sous le format "nbLocation-nbOuvertures"
             stats = new Statistiques(res.getInt("idMachine"), res.getString("donnees"));
 

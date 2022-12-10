@@ -37,7 +37,7 @@ public class LocationDAO extends DAO<Location>{
           // Trouver l'id de la location
             ResultSet res = connect.createStatement().executeQuery(
                     "SELECT MAX(idlocation) FROM LESLOCATIONS");
-            res.next();
+            if (!res.next()) return false;
             int idLoc = res.getInt("idcarte");
             // Ajouter la location selon son format
             int idSupport = loc.getSupport().getId();
@@ -50,7 +50,7 @@ public class LocationDAO extends DAO<Location>{
                 // Recherche l'id du film à ajouter
                 ResultSet resqr = connect.createStatement().executeQuery(
                         "SELECT IDFILM FROM LESFILMS WHERE TITRE='"+loc.getSupport().getFilm().getTitre()+"'");
-                resqr.next();
+                if (!res.next()) return false;
                 idAAjouter = res.getInt("idfilm");
             }
             else {                  // BluRay

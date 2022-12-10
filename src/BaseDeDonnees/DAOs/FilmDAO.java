@@ -18,7 +18,7 @@ public class FilmDAO extends DAO<Film>{
         Film f = null;
         try {
             ResultSet res = connect.createStatement().executeQuery("SELECT * FROM LESFILMS WHERE IDFILM="+id);
-            res.next();
+            if (!res.next()) return null;
             f = new Film(res.getString("titre"),res.getString("realisateur"),
                     res.getDate("datefilm"), res.getString("duree"),
                     Genre.toGenre(res.getString("genre")));

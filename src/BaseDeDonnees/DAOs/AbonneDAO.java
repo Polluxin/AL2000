@@ -22,7 +22,7 @@ public class AbonneDAO extends DAO<Abonne> {
             ResultSet res = connect.createStatement().executeQuery("" +
                     "SELECT MAX(idabo) " +
                     "FROM LESCARTES");
-            res.next();
+            if (!res.next()) return false;
             int id = res.getInt("idabo") + 1;
             this.connect.createStatement().executeUpdate(
                     "INSERT INTO LESCARTES VALUES("+id+", "+obj.getNom()+", "+obj.getPrenom()+")");

@@ -20,7 +20,7 @@ public class CBDAO extends DAO<CB>{
         try {
             ResultSet res = connect.createStatement().executeQuery(
                     "SELECT MAX(idCarte) FROM LESCARTES");
-            res.next();
+            if (!res.next()) return false;
             int id = res.getInt("idCarte")+1;
             connect.createStatement().executeUpdate(
                     "INSERT INTO LESCARTES VALUES ("+id+", "+obj.getNom()+", "+obj.getPrenom()+")");

@@ -17,7 +17,7 @@ public class TechnicienDAO extends DAO<Technicien>{
         try {
             ResultSet res = this.connect.createStatement().executeQuery(
                     "SELECT * FROM LesTechniciens WHERE id="+id);
-            res.next();
+            if (!res.next()) return null;
             technicien = new Technicien(res.getInt("id"), res.getString("nom"), res.getString("prenom"));
 
         } catch (SQLException e) {
