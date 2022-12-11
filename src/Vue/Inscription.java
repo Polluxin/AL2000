@@ -173,15 +173,15 @@ public class Inscription extends JPanel {
         }
 
 
-        FormulaireInscription fi = new FormulaireInscription(
-                getNouvelEnsembleValeur(nom),
-                getNouvelEnsembleValeur(prenom),
-                getNouvelEnsembleValeur(adressePostale),
-                getNouvelEnsembleValeur(adresseMail),
-                genres,
-                getNouvelEnsembleValeur(motDePasse)
+            FormulaireInscription fi = new FormulaireInscription(
+                    getNouvelEnsembleValeur(nom),
+                    getNouvelEnsembleValeur(prenom),
+                    getNouvelEnsembleValeur(adressePostale),
+                    getNouvelEnsembleValeur(adresseMail),
+                    genres,
+                    getNouvelEnsembleValeur(motDePasse)
 
-        );
+            );
         interfaceUtilisateur.getMediateur().publier("Inscription", new DonneesEvenement() {
             @Override
             public Object getDonnees() {

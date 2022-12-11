@@ -4,9 +4,14 @@ import BaseDeDonnees.Session;
 import Controle.AL2000;
 import Controle.Mediateur;
 import Metier.GestionClient.CarteAbo;
+import Metier.GestionLocation.Film;
+import Metier.GestionLocation.FilmEtFormat;
+import Metier.GestionLocation.FiltreTri;
+import Metier.GestionLocation.Tri;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class InterfaceUtilisateur {
 
@@ -34,6 +39,8 @@ public class InterfaceUtilisateur {
     Mediateur mediateur;
     AL2000 logiciel;
     CarteAbo carteAbonne;
+    int nombreDelementsDansLePanier;
+    Film filmActuel;
 
     /**
      * Creation de l'interface utilisateur et initialisation des panneaux
@@ -43,6 +50,9 @@ public class InterfaceUtilisateur {
         // Controle
         mediateur = new Mediateur();
         logiciel = new AL2000(new Session());
+        System.out.println("test");
+        List<FilmEtFormat> catalogue = logiciel.donnerCatalogue(new FiltreTri(Tri.TITRE, ""));
+        System.out.println("test");
         mediateur.setLogiciel(logiciel);
         // Initialisations des variables
         ecran = new JFrame();
@@ -200,6 +210,32 @@ public class InterfaceUtilisateur {
 
     public void setCarteAbonne(CarteAbo ca){
         this.carteAbonne = ca;
+    }
+
+    public Boolean incrementerPanier(){
+        if(nombreDelementsDansLePanier == 10){
+            return false;
+        } else {
+            nombreDelementsDansLePanier++;
+            return true;
+        }
+    }
+
+    public Boolean décrementerPanier(){
+        if(nombreDelementsDansLePanier == 0){
+            return false;
+        } else {
+            nombreDelementsDansLePanier--;
+            return true;
+        }
+    }
+
+    public void setFilmActuel(Film f){
+        this.filmActuel = f;
+    }
+
+    public Film getFilmActuel(){
+        return filmActuel;
     }
 
     public static void main(String[] args) {

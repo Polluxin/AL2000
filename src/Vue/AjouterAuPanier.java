@@ -41,8 +41,8 @@ public class AjouterAuPanier extends JPanel {
         boutonAjouter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Action caught ! ");
                 interfaceUtilisateur.changerEtat(ETAT_IU.CONFIRMER_AJOUTER_AU_PANIER);
+                interfaceUtilisateur.setFilmActuel(film);
             }
         });
         soldePayer.add(boutonAjouter);
@@ -58,6 +58,11 @@ public class AjouterAuPanier extends JPanel {
     }
     public AjouterAuPanier(InterfaceUtilisateur iu){
         this(new Film("Genial Eric le Generique", "Eric Lanvin", new java.sql.Date(System.currentTimeMillis()), "2h00", Genre.ACTION), iu);
+    }
+
+    public void setFilm(Film f){
+        ceFilm = f;
+        titreFilm.setText(f.getTitre());
     }
 
 
