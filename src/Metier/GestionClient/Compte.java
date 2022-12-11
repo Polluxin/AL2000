@@ -64,28 +64,28 @@ public class Compte {
     private void verifierFormulaireI(FormulaireInscription f) throws FormulaireInvalide{
         System.out.println("Verification du formulaire d'inscription :");
         System.out.print(" -> Nom : ");
-        if (f.getNom().matches("(\\W|^)[A-z]+(\\W|$)")){
+        if (!f.getNom().matches("(\\W|^)[A-z]+(\\W|$)")){
             System.out.println("KO");
             throw new FormulaireInvalide("Format du nom incorrect");
         }
         System.out.print(" -> Prenom : ");
-        if (f.getNom().matches("(\\W|^)[A-z]+(\\W|$)")){
+        if (!f.getPrenom().matches("(\\W|^)[A-z]+(\\W|$)")){
             System.out.println("KO");
             throw new FormulaireInvalide("Format du prénom incorrect");
         }
         System.out.print(" -> Adresse : ");
-        if (f.getNom().isEmpty()){
+        if (f.getAdresse().isEmpty()){
             System.out.println("KO");
             throw new FormulaireInvalide("Champ de l'adresse vide");
         }
         System.out.print(" -> Mail : ");
-        if (f.getNom().matches(".+@.")){
+        if (!f.getAdresseMail().matches(".+@.+")){
             System.out.println("KO");
             throw new FormulaireInvalide("Format du mail incorrect");
 
         }
         System.out.print(" -> Mot de passe : ");
-        if (f.getNom().isEmpty()){
+        if (f.getMdp().isEmpty()){
             System.out.println("KO");
             throw new FormulaireInvalide("Champ du mot de passe vide");
         }

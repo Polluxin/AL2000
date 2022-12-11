@@ -9,7 +9,7 @@ import Metier.GestionLocation.Genre;
 public class FormulaireInscription {
     private final String nom, prenom, adresse, adresseMail, mdp;
     private final Genre[] interdits;
-    FormulaireInscription(String nom, String prenom, String adresse, String adresseMail, Genre[] interdits, String mdp){
+    public FormulaireInscription(String nom, String prenom, String adresse, String adresseMail, Genre[] interdits, String mdp){
         this.nom = nom;
         this.prenom = prenom;
         this.adresse = adresse;

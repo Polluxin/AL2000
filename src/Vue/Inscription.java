@@ -2,6 +2,7 @@ package Vue;
 
 import Controle.DonneesEvenement;
 import Controle.Handler;
+import Metier.Exception.FormulaireInvalide;
 import Metier.Exception.MauvaisMotDePasse;
 import Metier.GestionLocation.Genre;
 import Metier.GestionMachine.FormulaireInscription;
@@ -20,7 +21,7 @@ public class Inscription extends JPanel {
     JPanel motDePasse;
     JPanel confirmation;
     JPanel interdiction;
-    JPanel inscription;
+    InterfaceUtilisateur interfaceUtilisateur;
 
 
     JCheckBox western;
@@ -42,6 +43,7 @@ public class Inscription extends JPanel {
 
 
     public Inscription(InterfaceUtilisateur iu){
+        this.interfaceUtilisateur = iu;
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
         dansScrollPane = new JPanel(new GridLayout(8,0));
@@ -83,7 +85,7 @@ public class Inscription extends JPanel {
         inscriptionPayer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                iu.changerEtat(ETAT_IU.INSCRIPTION_REUSSIE);
+                //iu.changerEtat(ETAT_IU.INSCRIPTION_REUSSIE);
                 effectuerInscription();
             }
         });
@@ -98,8 +100,17 @@ public class Inscription extends JPanel {
                 iu.getMediateur().abonner("Inscription", new Handler() {
                     @Override
                     public void handle(DonneesEvenement e) {
-                        Object[] donnes = (Object[]) e.getDonnees();
+                        FormulaireInscription fi = (FormulaireInscription) e.getDonnees();
+                        try {
+                            interfaceUtilisateur.getLogiciel().inscription(fi);
+                            interfaceUtilisateur.getMediateur().desabonner("Inscription");
+                            threadInterrupt();
+                            interfaceUtilisateur.changerEtat(ETAT_IU.INSCRIPTION_REUSSIE);
+                        } catch (FormulaireInvalide ex) {
+                            System.out.println("Inscription Impossible");
+                        }
                         System.out.println("Inscription handle ..");
+                        System.out.println(fi.getNom());
                     }
                 });
             }
@@ -136,7 +147,7 @@ public class Inscription extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String currentText = out.getText();
-                String newText = "";
+                String newText;
                 if(currentText.startsWith("<html")){
                     newText = currentText.split("color='red'>")[1].split("</font>")[0];
                 } else {
@@ -161,7 +172,7 @@ public class Inscription extends JPanel {
             }
         }
 
-        /*
+
         FormulaireInscription fi = new FormulaireInscription(
                 getNouvelEnsembleValeur(nom),
                 getNouvelEnsembleValeur(prenom),
@@ -170,11 +181,14 @@ public class Inscription extends JPanel {
                 genres,
                 getNouvelEnsembleValeur(motDePasse)
 
-        );*/
-        System.out.println("Mail : "+getNouvelEnsembleValeur(adresseMail));
-        System.out.println("Adresse : "+getNouvelEnsembleValeur(adressePostale));
-        System.out.println("Mot de passe : "+getNouvelEnsembleValeur(motDePasse));
-        System.out.println("Confirmation : "+getNouvelEnsembleValeur(confirmation));
+        );
+        interfaceUtilisateur.getMediateur().publier("Inscription", new DonneesEvenement() {
+            @Override
+            public Object getDonnees() {
+                return fi;
+            }
+        });
+
     }
 
     private String getNouvelEnsembleValeur(JPanel j ){
