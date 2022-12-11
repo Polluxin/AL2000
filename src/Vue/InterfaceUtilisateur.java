@@ -23,8 +23,11 @@ public class InterfaceUtilisateur {
     RendreBluray rendrebluray;
     VoirFilms voir_films;
     AjouterAuPanier ajouterAuPanier;
+    AfficherPanier afficherPanier;
     ConfirmerAjouterPanier confirmerAjouterPanier;
     AttenteDVD attenteDVD;
+    ParametreAbonne parametreAbonne;
+    ParametreTechnicien parametreTechnicien;
     ETAT_IU etatCourant;
     JPanel panneauCourant;
 
@@ -58,7 +61,11 @@ public class InterfaceUtilisateur {
         voir_films = new VoirFilms(this);
         attenteDVD = new AttenteDVD();
         ajouterAuPanier = new AjouterAuPanier(this);
+        afficherPanier = new AfficherPanier(this);
         confirmerAjouterPanier = new ConfirmerAjouterPanier(this);
+        parametreAbonne = new ParametreAbonne(this);
+        parametreTechnicien = new ParametreTechnicien(this);
+
 
         // panneau de départ
         panneauCourant = ecranDeBienvenue;
@@ -110,6 +117,10 @@ public class InterfaceUtilisateur {
                 case CONNEXION -> {
                     navBar.retourSeulement(true);
                     panneauCourant = connexion;
+                } case PARAMETRES_ABONNE -> {
+                    panneauCourant = parametreAbonne;
+                } case PARAMETRES_TECHNICIEN -> {
+                    panneauCourant = parametreTechnicien;
                 }
                 case PRE_CONNEXION -> {
                     navBar.retourSeulement(true);
@@ -122,9 +133,9 @@ public class InterfaceUtilisateur {
                 case VOIR_FILMS -> panneauCourant = voir_films;
                 case ATTENTE_DVD -> panneauCourant = attenteDVD;
                 case AJOUTER_AU_PANIER -> panneauCourant = ajouterAuPanier;
+                case AFFICHER_PANIER -> panneauCourant = afficherPanier;
                 case CONFIRMER_AJOUTER_AU_PANIER -> {
                     navBar.retourSeulement(true);
-                    System.out.println("New Panel");
                     panneauCourant = confirmerAjouterPanier;
                 }
                 default -> {
@@ -138,7 +149,6 @@ public class InterfaceUtilisateur {
             panneauCourant.setVisible(true);
             ecran.pack();
             ecran.repaint();
-            System.out.println("New Panel -- ");
         }
     }
 
