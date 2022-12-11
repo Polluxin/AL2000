@@ -126,7 +126,7 @@ public class NavigationBar extends JPanel {
     }
 
     void boutonsInit(){
-        connexion.addActionListener(e -> iu.changerEtat(ETAT_IU.CONNEXION));
+        connexion.addActionListener(e -> iu.changerEtat(ETAT_IU.PRE_CONNEXION));
     }
 
     public JButton getRetour() {
@@ -209,6 +209,7 @@ public class NavigationBar extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 fifo.pop(); //supprimer l'etat courant
                 ETAT_IU nouveau = fifo.pop(); // recuperer l'etat precedent
+                System.out.println("Retour --> Nouvel etat = " + nouveau + " .. reste des etats = " + fifo.toString());
                 System.out.println("Retour --> Nouvel etat = " + nouveau + " .. reste des etats = " + fifo.toString());
                 iu.changerEtat(nouveau);
                 releaseProcess();

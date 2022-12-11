@@ -1,7 +1,11 @@
 package Vue;
 
+import Metier.GestionLocation.Film;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class VoirFilms extends JPanel {
     JPanel panneauGauche;
@@ -15,9 +19,11 @@ public class VoirFilms extends JPanel {
     JButton btnRecherche;
     JButton[] tousLesFilmsBoutons;
     Film[] tousLesFilms;
+    InterfaceUtilisateur iu;
 
 
-    public VoirFilms(){
+    public VoirFilms(InterfaceUtilisateur iu){
+        this.iu = iu;
         int nombreFilms = 30;
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
@@ -80,7 +86,21 @@ public class VoirFilms extends JPanel {
             tousLesFilmsBoutons[i] = b1;
             tousLesFilms[i] = new Film();
 
-            StretchIcon imageFilm = tousLesFilms[i].getCouverture();
+            b1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    iu.changerEtat(ETAT_IU.AJOUTER_AU_PANIER);
+                }
+            });
+
+            b1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                }
+            });
+
+            StretchIcon imageFilm = OurPictures.getPicture("src/ressources/couverture.png");
             JLabel jl1 = new JLabel(imageFilm);
             jl1.setPreferredSize(new Dimension(300,300));
             jl1.setMinimumSize(new Dimension(300,300));

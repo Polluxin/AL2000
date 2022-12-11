@@ -22,6 +22,17 @@ public class Film {
         this.genre = genre;
     }
 
+    /**
+     * Film Generique
+     */
+    public Film(){
+        this("Eric le generique",
+                "Eric Lanvin",
+                new Date(2020, 12, 3),
+                "2h00",
+                Genre.HORREUR);
+    }
+
     public String getTitre() {
         return titre;
     }
