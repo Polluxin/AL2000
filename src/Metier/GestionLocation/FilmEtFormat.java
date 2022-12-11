@@ -15,4 +15,12 @@ public class FilmEtFormat {
     public Film getFilm() {
         return film;
     }
+
+    @Override
+    public String toString() {
+        return "FilmEtFormat{" +
+                "film=" + film +
+                ", estDispoEnPhysique=" + estDispoEnPhysique +
+                '}';
+    }
 }

@@ -80,7 +80,7 @@ class AL2000 {
 - initialisation()
 + louerFilms()
 + rendreFilms()
-+ donnerCatalogue(f:Filtre) : Liste<FilmFormat>
++ donnerCatalogue(f: FiltreTri) : Liste<FilmFormat>
 + inscription(f:Formulaire)
 + connexion(mdp:String)
 + connexionTechnicien()

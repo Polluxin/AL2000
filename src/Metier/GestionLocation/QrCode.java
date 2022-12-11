@@ -11,13 +11,12 @@ import Metier.GestionMachine.Inventaire;
  */
 @SuppressWarnings("unused")
 public class QrCode extends Support {
-
-    float prixMax = 5.f;
-    float prixAboJour = 4.F;
-    float prixBaseJour = 5.F;
         public QrCode(int id, Film film) {
             this.id = id;
             this.film = film;
+            prixMax = 5.f;
+            prixAboJour = 4.F;
+            prixBaseJour = 5.F;
         }
 
     @Override

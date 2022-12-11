@@ -46,7 +46,7 @@ public class CB extends Carte {
     @Override
     public boolean verifier_fonds(float montant) {
         // TODO
-        return false;
+        return true;
     }
 
 }

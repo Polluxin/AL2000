@@ -9,16 +9,13 @@ import Metier.GestionMachine.Inventaire;
  * @version 0.0
  */
 public class BluRay extends Support {
-    int id;
-    float prixMax = 15.f;
-
-    float prixAboJour = 4.F;
-    float prixBaseJour = 5.F;
-    Film film;
 
     public BluRay(int id, Film film) {
         this.id = id;
         this.film = film;
+        prixMax = 15.f;
+        prixAboJour = 4.F;
+        prixBaseJour = 5.F;
     }
 
     public Film getFilm() {

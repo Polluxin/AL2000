@@ -138,7 +138,7 @@ public class Inventaire {
 
     public BluRay chercherBluRay(Film f){
         for (BluRay bluray : liste_BluRays){
-            if (bluray.getFilm() == f) {
+            if (bluray.getFilm().equals(f)) {
                 return bluray;
             }
         }
