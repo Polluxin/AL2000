@@ -33,9 +33,11 @@ public class VoirFilms extends JPanel {
     Thread backgroundThreadRun;
 
     List<FilmEtFormat> listeFilms;
+    Boolean grilleDesFilms_initialise;
 
     public VoirFilms(InterfaceUtilisateur iu){
         this.iu = iu;
+        grilleDesFilms_initialise = Boolean.FALSE;
 
         backgroundThread = new Runnable() {
             @Override
@@ -46,6 +48,7 @@ public class VoirFilms extends JPanel {
                         creerListefilms(iu.getLogiciel().donnerCatalogue((FiltreTri) e.getDonnees()));
                         iu.getMediateur().desabonner("recupererListeFilms");
                         threadInterrupt();
+                        grilleDesFilms_initialise = true;
                         System.out.println("Recuperer liste films handled ..");
                     }
                 });
@@ -55,7 +58,9 @@ public class VoirFilms extends JPanel {
         backgroundThreadRun = new Thread(backgroundThread);
         backgroundThreadRun.start();
 
-        int nombreFilms = 30;
+        int nombreFilms = 14;
+        tousLesFilmsBoutons = new JButton[nombreFilms];
+        tousLesFilms = new Film[nombreFilms];
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
         panneauGauche = new JPanel();
@@ -80,7 +85,7 @@ public class VoirFilms extends JPanel {
             @Override
             public Dimension getPreferredSize() {
                 int scrollPaneWidth = listeDeFilms.getViewport().getWidth();
-                int height = 10*200;
+                int height = 5*200;
                 return new Dimension(scrollPaneWidth, height);
             }
         };
@@ -92,12 +97,18 @@ public class VoirFilms extends JPanel {
                 return new FiltreTri(Tri.TITRE, null);
             }
         });
+        while(!grilleDesFilms_initialise){
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         grilleDesFilms.setOpaque(false);
 
         tousLesFilmsBoutons = new JButton[nombreFilms];
         tousLesFilms = new Film[nombreFilms];
-        initGrid();
         listeDeFilms = new JScrollPane(grilleDesFilms, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         listeDeFilms.getVerticalScrollBar().setUnitIncrement(14); // increase scroll speed
@@ -116,8 +127,14 @@ public class VoirFilms extends JPanel {
         this.add(panneauDroite, BorderLayout.EAST);
     }
 
-    private void initGrid(){
-        for(int i=0; i< 30; i++){
+    private void threadInterrupt(){
+        backgroundThreadRun.interrupt();
+    }
+
+    private void creerListefilms(List<FilmEtFormat> listeFilms){
+        this.listeFilms = listeFilms;
+        int i = 0;
+        for (FilmEtFormat fef : listeFilms) {
             JButton b1 = OurTools.transparentButtonWithIcon("src/ressources/ajouterPanier.png");
             b1.setMinimumSize(new Dimension(300,60));
             b1.setPreferredSize(new Dimension(300,60));
@@ -128,18 +145,8 @@ public class VoirFilms extends JPanel {
             b1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if(iu.getNavBar().estConnecte()){
-                        iu.changerEtat(ETAT_IU.AJOUTER_AU_PANIER);
-                    } else {
-                        iu.changerEtat(ETAT_IU.AJOUTER_AU_PANIER); // pour les tests
-                        System.out.println("Aucun abonné connecté !");
-                    }
-                }
-            });
-
-            b1.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
+                    iu.setFilmActuel(fef.getFilm());
+                    iu.changerEtat(ETAT_IU.AJOUTER_AU_PANIER);
 
                 }
             });
@@ -155,17 +162,7 @@ public class VoirFilms extends JPanel {
             p1.add(jl1, BorderLayout.CENTER);
 
             grilleDesFilms.add(p1);
-        }
-    }
-
-    private void threadInterrupt(){
-        backgroundThreadRun.interrupt();
-    }
-
-    private void creerListefilms(List<FilmEtFormat> listeFilms){
-        this.listeFilms = listeFilms;
-        for (FilmEtFormat fef : listeFilms) {
-            System.out.println("Film : "+fef);
+            i++;
         }
 
     }
