@@ -62,12 +62,11 @@ public class HistoLoc {
      */
     public void ajouterLocations(List<Location> l){
         Session s = new Session();
-        LocationDAO dao = new LocationDAO(s.getSession(), idMachine);
         s.open();
+        LocationDAO dao = new LocationDAO(s.getSession(), idMachine);
         for (Location loc : l){
-            assert(dao.creer(loc));
+            if (!dao.creer(loc)) System.out.println("Location non ajoutée");
         }
-        s.commit();
         s.close();
     }
 
@@ -79,8 +78,6 @@ public class HistoLoc {
         Session s = new Session();
         LocationDAO dao = new LocationDAO(s.getSession(), idMachine);
         s.open();
-        assert(dao.modifierDepuisBluRay(b));
-        s.commit();
         s.close();
     }
 

@@ -31,14 +31,13 @@ public class LocationDAO extends DAO<Location>{
      */
     @Override
     public boolean creer(Location loc) {
-        assert(loc.getClient().getCarte().getId() > 0);
         // TODO A TESTER
         try{
           // Trouver l'id de la location
             ResultSet res = connect.createStatement().executeQuery(
-                    "SELECT MAX(idlocation) FROM LESLOCATIONS");
-            if (!res.next()) return false;
-            int idLoc = res.getInt("idcarte");
+                    "SELECT count(idlocation) as id FROM LESLOCATIONS");
+            if (!res.next()) throw new SQLException("ID de la nouvelle location non trouvée");
+            int idLoc = res.getInt("id")+1;
             // Ajouter la location selon son format
             int idSupport = loc.getSupport().getId();
             String table;
@@ -50,8 +49,10 @@ public class LocationDAO extends DAO<Location>{
                 // Recherche l'id du film à ajouter
                 ResultSet resqr = connect.createStatement().executeQuery(
                         "SELECT IDFILM FROM LESFILMS WHERE TITRE='"+loc.getSupport().getFilm().getTitre()+"'");
-                if (!res.next()) return false;
-                idAAjouter = res.getInt("idfilm");
+                if (!resqr.next()) {
+                    throw new SQLException("ID du film à ajouter non trouvé (SELECT IDFILM FROM LESFILMS WHERE TITRE='"+loc.getSupport().getFilm().getTitre()+"')");
+                }
+                idAAjouter = resqr.getInt("idfilm");
             }
             else {                  // BluRay
                 idAAjouter = idSupport;
@@ -60,7 +61,7 @@ public class LocationDAO extends DAO<Location>{
             }
             // Ajout de la location
             connect.createStatement().executeUpdate(
-                    "INSERT INTO LESLOCATIONS VALUES ("+idLoc+", current_date, "+etat
+                    "INSERT INTO LESLOCATIONS VALUES ("+idLoc+", current_date, "+"'"+etat+"'"
                     +", "+loc.getClient().getCarte().getId()+", "+idMachine+")");
             connect.createStatement().executeUpdate(
                     "INSERT INTO "+table+" VALUES ("+idLoc+", "+idAAjouter+")");

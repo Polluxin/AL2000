@@ -19,13 +19,13 @@ public class CBDAO extends DAO<CB>{
     public boolean creer(CB obj) {
         try {
             ResultSet res = connect.createStatement().executeQuery(
-                    "SELECT MAX(idCarte) FROM LESCARTES");
+                    "SELECT count(idCarte) as idCarte FROM LESCARTES");
             if (!res.next()) return false;
             int id = res.getInt("idCarte")+1;
             connect.createStatement().executeUpdate(
-                    "INSERT INTO LESCARTES VALUES ("+id+", "+obj.getNom()+", "+obj.getPrenom()+")");
+                    "INSERT INTO LESCARTES VALUES ("+id+", '"+obj.getNom()+"', '"+obj.getPrenom()+"')");
             connect.createStatement().executeUpdate(
-                    "INSERT INTO LESCB VALUES ("+id+", "+obj.getInformationsBancaires()+")");
+                    "INSERT INTO LESCB VALUES ("+id+", '"+obj.getInformationsBancaires()+"')");
             obj.setId(id);
             return true;
         } catch (SQLException e){
@@ -39,7 +39,7 @@ public class CBDAO extends DAO<CB>{
     public int lireID(CB cb){
         try {
             ResultSet res = connect.createStatement().executeQuery(
-                    "SELECT IDCARTE FROM LESCB WHERE infos="+cb.getInformationsBancaires());
+                    "SELECT IDCARTE FROM LESCB WHERE infos='"+cb.getInformationsBancaires()+"'");
             if (res.next()) return res.getInt("idCarte");
         } catch (SQLException e){
             e.printStackTrace();

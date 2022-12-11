@@ -3,7 +3,6 @@ package Metier.GestionLocation;
 import Metier.Exception.PaiementRefuse;
 import Metier.GestionClient.Client;
 import Metier.GestionMachine.Distributeur;
-import Metier.GestionMachine.Inventaire;
 
 import java.sql.Date;
 import java.util.List;
@@ -51,6 +50,11 @@ public class Location {
     public void setEtat(Etat etat) {
         this.etat = etat;
     }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     //</editor-fold>
 
     /**

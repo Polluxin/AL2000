@@ -1,6 +1,7 @@
 package Metier.GestionLocation;
 
-import Metier.GestionClient.Carte;
+import Metier.GestionClient.Anonyme;
+import Metier.GestionClient.CB;
 import Metier.GestionClient.Client;
 
 import java.sql.Date;
@@ -62,6 +63,15 @@ public class Panier {
      */
     public void supprimer(Location l) {
         locations.remove(l);
+    }
+
+    /**
+     * Attribue la carte cb à toutes les locations du panier.
+     * @param cb la carte avec laquelle louer
+     */
+    public void setLocationsToCB(CB cb){
+        for (Location l: locations)
+            l.setClient(new Anonyme(cb));
     }
 
     public void supprimer(Support s) {
