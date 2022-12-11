@@ -2,15 +2,9 @@ package Tests.Metier;
 
 import BaseDeDonnees.Session;
 import Controle.AL2000;
-import Metier.Exception.BluRayInvalide;
-import Metier.Exception.CarteIllisible;
-import Metier.Exception.ConnexionImpossible;
-import Metier.Exception.MauvaisMotDePasse;
-import Metier.GestionClient.CB;
+import Metier.Exception.*;
 import Metier.GestionClient.CarteAbo;
-import Metier.GestionLocation.FilmEtFormat;
 import Metier.GestionLocation.Location;
-import Metier.GestionLocation.Support;
 
 import java.util.Scanner;
 
@@ -52,11 +46,12 @@ public class RendreBluRay {
 
         try {
             al2000.simulerInsertionBluRay(String.valueOf(scInt));
-        } catch (BluRayInvalide e) {
+        } catch (BluRayInvalide | BluRayNonLoue e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
 
-        // affichage des location en cours
+        // affichage des locations en cours
         System.out.println("Locations : ");
         for (Location l : al2000.voirHistoClient()) {
             System.out.println(i + " - " + l);

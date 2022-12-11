@@ -71,13 +71,14 @@ public class HistoLoc {
     }
 
     /**
-     * Met à jour la base de données : la location associée au BluRay b passe dans l'état TERMINEE.
+     * Met à jour la base de données : la location associée au BluRay b passe dans l'état APAYER.
      * @param b le BluRay rendu
      */
     public void rendreBLuRay(BluRay b){
         Session s = new Session();
-        LocationDAO dao = new LocationDAO(s.getSession(), idMachine);
         s.open();
+        LocationDAO dao = new LocationDAO(s.getSession(), idMachine);
+        dao.modifierDepuisBluRay(b);
         s.close();
     }
 

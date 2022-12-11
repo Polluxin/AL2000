@@ -164,8 +164,9 @@ public class AL2000 {
      * @param id le numéro du BluRay (unique)
      * @throws BluRayInvalide si le numéro n'est pas reconnu
      */
-    public void simulerInsertionBluRay(String id) throws BluRayInvalide {
-         machine.avalerBluRay(id);
+    public void simulerInsertionBluRay(String id) throws BluRayInvalide, BluRayNonLoue {
+         BluRay b = machine.avalerBluRay(id);
+         histo.rendreBLuRay(b); // maj de la location associée
     }
 
     /**

@@ -1,6 +1,7 @@
 package Metier.GestionMachine;
 
 import Metier.Exception.BluRayInvalide;
+import Metier.Exception.BluRayNonLoue;
 import Metier.Exception.CarteIllisible;
 import Metier.Exception.ConnexionImpossible;
 import Metier.GestionClient.CB;
@@ -60,7 +61,7 @@ public interface Distributeur {
      * est conclue.
      * @param id l'identifiant lu sur le BluRay
      */
-    void avalerBluRay(String id) throws BluRayInvalide;
+    BluRay avalerBluRay(String id) throws BluRayInvalide, BluRayNonLoue;
 
     BluRay chercherBluRay(Film f);
 
