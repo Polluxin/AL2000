@@ -47,6 +47,8 @@ public class PreConnexion extends JPanel {
                         try {
                             iu.setCarteAbonne(iu.getLogiciel().simulerInsertionCA(id));
                             System.out.println("Connexion réussie avec la carte "+id);
+                            iu.getMediateur().desabonner("InsertionCA");
+                            iu.changerEtat(ETAT_IU.CONNEXION);
                         } catch (CarteIllisible ex) {
                             System.out.println("ERREUR : Carte Illisible");
                         } catch (ConnexionImpossible ex) {
@@ -73,9 +75,9 @@ public class PreConnexion extends JPanel {
                 return numero;
             }
         });
-        iu.getMediateur().desabonner("InsertionCA");
+
 
 //        System.out.println("Carte numero "+iu.numeroDeCarte+" à été entré.");
-        iu.changerEtat(ETAT_IU.CONNEXION);
+
     }
 }

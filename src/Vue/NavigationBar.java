@@ -27,11 +27,15 @@ public class NavigationBar extends JPanel {
     Color navColor;
     int borderSize;
     LinkedList<ETAT_IU> fifo = new LinkedList<ETAT_IU>();
+    Boolean estConnecte;
 
+    /**
+     * Constructeur, initialise tous les parametres de la barre de navigation
+     * @param iu l'interface utilisateur
+     */
     public NavigationBar(InterfaceUtilisateur iu){
         this.iu = iu;
         this.setLayout(new BorderLayout());
-        //this.setBackground(Color.GREEN);
         this.setOpaque(false);
 
         navColor = OurColors.fond();
@@ -45,6 +49,7 @@ public class NavigationBar extends JPanel {
         gaucheNav.setLayout(new BorderLayout());
 
 
+        // Initialisation des boutons de la barre de navigation
         retour = bouton("src/ressources/retour.png");
         this.setRetour();
         aide = bouton("src/ressources/signalerProbleme.png");
@@ -55,6 +60,7 @@ public class NavigationBar extends JPanel {
         deconnexion = bouton("src/ressources/disconnect.png");
         panier = bouton("src/ressources/panier.png");
 
+        // Initialisation des actions des boutons
         boutonsInit();
 
         gaucheNav.add(retour, BorderLayout.WEST);
@@ -80,8 +86,15 @@ public class NavigationBar extends JPanel {
         this.setMinimumSize(new Dimension(856, 100));
 
         this.setAdmin(false);
+        this.setConnecte(false);
+        this.cacher();
     }
 
+    /**
+     * Création d'un bouton à placer dans la barre de navigation
+     * @param imageRef
+     * @return
+     */
     JButton bouton(String imageRef){
         // Create the Icon
         StretchIcon ii = OurPictures.getPicture(imageRef);// load image
@@ -96,9 +109,6 @@ public class NavigationBar extends JPanel {
         Dimension defaultImageDimension = OurPictures.getDimensions(ii);
         jb.setPreferredSize(OurPictures.scaleDimensionByHeight(defaultImageDimension, 100));
 
-        // Debug parameters
-        jb.addActionListener(e -> System.out.println(this.getWidth()));
-
         //necessary to properly resize
         jb.setBorder(new EmptyBorder(1,1,1,1));
 
@@ -106,51 +116,22 @@ public class NavigationBar extends JPanel {
         jb.setBorderPainted(false);
         jb.setContentAreaFilled(false);
         jb.setFocusPainted(false);
-        jb.setOpaque(false); // <-- https://stackoverflow.com/a/8367524
+        jb.setOpaque(false);
 
         return jb;
     }
 
-    void testDialog(StretchIcon image){
-        JDialog dialog = new JDialog();
-        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        dialog.setTitle("Image Loading Demo");
-        dialog.setPreferredSize(OurPictures.getDimensions(image));
-        System.out.println(OurPictures.getDimensions(image));
-
-        dialog.add(new JLabel(image));
-
-        dialog.pack();
-        dialog.setLocationByPlatform(true);
-        dialog.setVisible(true);
-    }
-
+    /**
+     * Initialisation des ecouteurs des boutons
+     */
     void boutonsInit(){
         connexion.addActionListener(e -> iu.changerEtat(ETAT_IU.PRE_CONNEXION));
+        deconnexion.addActionListener(e -> iu.deconnexion());
     }
 
-    public JButton getRetour() {
-        return retour;
-    }
-
-    public JButton getAide() {
-        return aide;
-    }
 
     public JButton getConnexion() {
         return connexion;
-    }
-
-    public JButton getParametres() {
-        return parametres;
-    }
-
-    public JButton getParametreAdmin() {
-        return parametreAdmin;
-    }
-
-    public JButton getDeconnexion() {
-        return deconnexion;
     }
 
     public void setAdmin(boolean admin){
@@ -160,11 +141,13 @@ public class NavigationBar extends JPanel {
 
     public void setConnecte(boolean estConnecte){
         if(estConnecte){
+            this.estConnecte = true;
             connexion.setEnabled(false);
             connexion.setVisible(false);
             compte.setEnabled(true);
             compte.setVisible(true);
         } else {
+            this.estConnecte = false;
             connexion.setEnabled(true);
             connexion.setVisible(true);
             compte.setEnabled(false);
@@ -174,10 +157,6 @@ public class NavigationBar extends JPanel {
 
     public void cacher(){
         this.setVisible(false);
-    }
-
-    public void montrer(){
-        this.setVisible(true);
     }
 
     public void retourSeulement(boolean retourSeulement){
@@ -200,7 +179,6 @@ public class NavigationBar extends JPanel {
 
     public void ajouterEtat(ETAT_IU etat){
         fifo.push(etat);
-        System.out.println(fifo.toString());
     }
 
     private void setRetour(){
@@ -209,8 +187,6 @@ public class NavigationBar extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 fifo.pop(); //supprimer l'etat courant
                 ETAT_IU nouveau = fifo.pop(); // recuperer l'etat precedent
-                System.out.println("Retour --> Nouvel etat = " + nouveau + " .. reste des etats = " + fifo.toString());
-                System.out.println("Retour --> Nouvel etat = " + nouveau + " .. reste des etats = " + fifo.toString());
                 iu.changerEtat(nouveau);
                 releaseProcess();
             }
@@ -246,30 +222,13 @@ public class NavigationBar extends JPanel {
         this.connexion.setVisible(active);
         this.connexion.setEnabled(active);
     }
-    public void setParametres(boolean active) {
-        this.parametres.setVisible(active);
-        this.parametres.setEnabled(active);
-    }
 
-    public void setParametresAdmin(boolean active) {
-        this.parametreAdmin.setVisible(active);
-        this.parametreAdmin.setEnabled(active);
-    }
-    public void setDeconnexion(boolean active) {
-        this.deconnexion.setVisible(active);
-        this.deconnexion.setEnabled(active);
-    }
-    public void setPanier(boolean active) {
-        this.panier.setVisible(active);
-        this.panier.setEnabled(active);
+    public Boolean estConnecte(){
+        return this.estConnecte;
     }
 
     public void addAwaitingProcess(JDialog j){
         awaitingProcess.add(j);
-    }
-
-    public void removeAwaitingProcess(JOptionPane j){
-        awaitingProcess.remove(j);
     }
 
     public void releaseProcess(){

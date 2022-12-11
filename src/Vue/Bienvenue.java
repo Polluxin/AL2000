@@ -31,7 +31,7 @@ public class Bienvenue extends JPanel{
         // Liste de tous les boutons
         listeBoutons = new JButton[4];
 
-        String[] refs = {"src/ressources/connexion.png", "src/ressources/rendrefilms.png", "src/ressources/inscription.png", "src/ressources/voirfilms.png"};
+        String[] refs = {"src/ressources/connexion.png","src/ressources/inscription.png", "src/ressources/rendrefilms.png", "src/ressources/voirfilms.png"};
         // Ajouter tous les boutons dans leur panneau
         for(int i=0; i<4;i++){
             listeBoutons[i] = OurTools.transparentButtonWithIcon(refs[i]);
@@ -65,9 +65,9 @@ public class Bienvenue extends JPanel{
     public JButton getBouton(String name){
         if(Objects.equals(name, "connexion")){
             return this.listeBoutons[0];
-        } else if (Objects.equals(name, "rendre films")){
-            return this.listeBoutons[1];
         } else if (Objects.equals(name, "inscription")){
+            return this.listeBoutons[1];
+        } else if (Objects.equals(name, "rendre films")){
             return this.listeBoutons[2];
         } else if (Objects.equals(name, "voir films")){
             return this.listeBoutons[3];
@@ -86,14 +86,14 @@ public class Bienvenue extends JPanel{
         listeBoutons[1].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                iu.changerEtat(ETAT_IU.RENDRE_DVD);
+                iu.changerEtat(ETAT_IU.INSCRIPTION);
             }
         });
 
         listeBoutons[2].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                iu.changerEtat(ETAT_IU.INSCRIPTION);
+                iu.changerEtat(ETAT_IU.RENDRE_DVD);
             }
         });
 

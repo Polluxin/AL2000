@@ -5,6 +5,8 @@ import Metier.GestionLocation.Genre;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AjouterAuPanier extends JPanel {
     Film ceFilm;
@@ -16,7 +18,7 @@ public class AjouterAuPanier extends JPanel {
     JPanel panneauDroiteNord;
     JPanel soldePayer;
     JButton boutonAjouter;
-    public AjouterAuPanier(Film film){
+    public AjouterAuPanier(Film film, InterfaceUtilisateur interfaceUtilisateur){
         this.setLayout(new BorderLayout());
         this.ceFilm = film;
         this.titreFilm = new JLabel(ceFilm.getTitre(),SwingConstants.CENTER);
@@ -36,6 +38,13 @@ public class AjouterAuPanier extends JPanel {
         soldePayer.add(new JLabel("Solde : 45€"));
 
         boutonAjouter = OurTools.transparentButtonWithIcon("src/ressources/ajouterPanier.png");
+        boutonAjouter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Action caught ! ");
+                interfaceUtilisateur.changerEtat(ETAT_IU.CONFIRMER_AJOUTER_AU_PANIER);
+            }
+        });
         soldePayer.add(boutonAjouter);
         panneauGauche.add(soldePayer, BorderLayout.SOUTH);
 
@@ -47,8 +56,8 @@ public class AjouterAuPanier extends JPanel {
         this.add(panneauPrincipal);
 
     }
-    public AjouterAuPanier(){
-        this(new Film("Genial Eric le Generique", "Eric Lanvin", new java.sql.Date(System.currentTimeMillis()), "2h00", Genre.ACTION));
+    public AjouterAuPanier(InterfaceUtilisateur iu){
+        this(new Film("Genial Eric le Generique", "Eric Lanvin", new java.sql.Date(System.currentTimeMillis()), "2h00", Genre.ACTION), iu);
     }
 
 

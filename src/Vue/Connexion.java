@@ -17,6 +17,7 @@ public class Connexion extends JPanel {
     JTextField motDePasseTxt;
     InterfaceUtilisateur iu;
     Runnable backgroundThread;
+    Thread backgroundThreadRun;
     public Connexion(InterfaceUtilisateur iu){
         this.iu = iu;
         backgroundThread = new Runnable() {
@@ -29,8 +30,10 @@ public class Connexion extends JPanel {
                         try {
                             System.out.println("CarteAbo est : "+iu.getCarteAbonne()+"\nID = "+iu.getCarteAbonne().getId()+" -- Solde : "+iu.getCarteAbonne().getSolde());
                             iu.getLogiciel().connexion(iu.getCarteAbonne(), donnes);
-                            System.out.println("--");
                             iu.getNavBar().setConnecte(true);
+                            iu.getMediateur().desabonner("Connexion");
+                            threadInterrupt();
+                            iu.changerEtat(ETAT_IU.VOIR_FILMS);
                         } catch (MauvaisMotDePasse ex) {
                             System.out.println("ERREUR : Mauvais Mot de Passe");
                         }
@@ -38,7 +41,7 @@ public class Connexion extends JPanel {
                 });
             }
         };
-        Thread backgroundThreadRun = new Thread(backgroundThread);
+        backgroundThreadRun = new Thread(backgroundThread);
         backgroundThreadRun.start();
 
         this.setLayout(new BorderLayout());
@@ -66,8 +69,6 @@ public class Connexion extends JPanel {
                         return String.valueOf(motDePasse.getPassword());
                     }
                 });
-                iu.getMediateur().desabonner("Connexion");
-                backgroundThreadRun.interrupt();
             }
         });
 
@@ -80,6 +81,11 @@ public class Connexion extends JPanel {
         this.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         this.add(centrePanneau, BorderLayout.CENTER);
         this.setOpaque(false);
+
+    }
+
+    private void threadInterrupt(){
+        backgroundThreadRun.interrupt();
     }
 
 

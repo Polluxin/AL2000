@@ -26,7 +26,6 @@ public class AttenteDVD extends JPanel {
         form = new JPanel(new GridLayout(3,1));
         form.setBorder(BorderFactory.createMatteBorder(3,3,3,3,Color.BLACK));
         form.setBackground(OurColors.fond2());
-        System.out.println("HELLO");
 
         instructions = new JTextField("Veuillez entrer le numero du Blu-ray :");
         instructions.setOpaque(false);

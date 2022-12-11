@@ -89,7 +89,11 @@ public class VoirFilms extends JPanel {
             b1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    iu.changerEtat(ETAT_IU.AJOUTER_AU_PANIER);
+                    if(iu.getNavBar().estConnecte()){
+                        iu.changerEtat(ETAT_IU.AJOUTER_AU_PANIER);
+                    } else {
+                        System.out.println("Aucun abonné connecté !");
+                    }
                 }
             });
 

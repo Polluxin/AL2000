@@ -23,28 +23,32 @@ public class InterfaceUtilisateur {
     RendreBluray rendrebluray;
     VoirFilms voir_films;
     AjouterAuPanier ajouterAuPanier;
+    ConfirmerAjouterPanier confirmerAjouterPanier;
     AttenteDVD attenteDVD;
     ETAT_IU etatCourant;
     JPanel panneauCourant;
 
     Mediateur mediateur;
     AL2000 logiciel;
-    int numeroDeCarte;
     CarteAbo carteAbonne;
 
-
+    /**
+     * Creation de l'interface utilisateur et initialisation des panneaux
+     */
     public InterfaceUtilisateur(){
         OurTools.setFont();
+        // Controle
         mediateur = new Mediateur();
         logiciel = new AL2000(new Session());
         mediateur.setLogiciel(logiciel);
-        // Initialisations
+        // Initialisations des variables
         ecran = new JFrame();
-        navBar = new NavigationBar(this);
         fondDEcran = new BackgroundPanel();
         tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
         etatCourant = ETAT_IU.AUCUN;
 
+        // Initialisation des panneaux
+        navBar = new NavigationBar(this);
         ecranDeBienvenue = new Bienvenue(this);
         inscription = new Inscription(this);
         inscriptionReussie = new InscriptionReussie();
@@ -53,41 +57,42 @@ public class InterfaceUtilisateur {
         rendrebluray = new RendreBluray(this);
         voir_films = new VoirFilms(this);
         attenteDVD = new AttenteDVD();
-        ajouterAuPanier = new AjouterAuPanier();
+        ajouterAuPanier = new AjouterAuPanier(this);
+        confirmerAjouterPanier = new ConfirmerAjouterPanier(this);
 
-        inscription.setVisible(true);
-        inscriptionReussie.setVisible(true);
-
+        // panneau de départ
         panneauCourant = ecranDeBienvenue;
         navBar.ajouterEtat(ETAT_IU.BIENVENUE);
-        navBar.cacher();
 
-        // Taille de l'ecran de l'utilisateur :
-        double LARGEUR = tailleEcran.getWidth()/3;
-        double HAUTEUR = tailleEcran.getHeight()/3;
 
-        // Parametrage
+        // Parametrage du contentPane et de l'ecran principal
         ecran.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ecran.setMinimumSize(new Dimension(1300, 1000));
-        ecran.setPreferredSize(new Dimension((int)LARGEUR,(int)HAUTEUR));
+        ecran.setMinimumSize(new Dimension(1300, 1000)); //Taille minimales pour le bon fonctionnement des differents elements visuels
+        ecran.setPreferredSize(new Dimension(1300,1000));
         ecran.setContentPane(fondDEcran);
         ecran.setResizable(true);
 
         ecran.setLayout(new BorderLayout());
         ecran.add(navBar, BorderLayout.NORTH);
 
+        // ajout du panneau de départ (bienvenue)
         ecran.add(panneauCourant);
 
-        //changerEtat(ETAT_IU.AJOUTER_AU_PANIER);
-
+        // afficher
         ecran.pack();
         ecran.setVisible(true);
         ecran.setLocationRelativeTo(null);
     }
 
+    /**
+     * Changer l'état courant et donc le panneau affiché. Modifie egalement la barre de navigation en fonction des cas.
+     * @param nouvelEtat
+     */
     public void changerEtat(ETAT_IU nouvelEtat) {
+        // enlever l'ecran precedent
         ecran.remove(panneauCourant);
         navBar.reset();
+        // modifier l'etat courant
         if (nouvelEtat != etatCourant) {
             switch (nouvelEtat) {
                 case BIENVENUE -> {
@@ -117,15 +122,23 @@ public class InterfaceUtilisateur {
                 case VOIR_FILMS -> panneauCourant = voir_films;
                 case ATTENTE_DVD -> panneauCourant = attenteDVD;
                 case AJOUTER_AU_PANIER -> panneauCourant = ajouterAuPanier;
+                case CONFIRMER_AJOUTER_AU_PANIER -> {
+                    navBar.retourSeulement(true);
+                    System.out.println("New Panel");
+                    panneauCourant = confirmerAjouterPanier;
+                }
                 default -> {
                     System.out.println("ERROR -- Unknown new state !");
                 }
             }
+            // parametrage de l'ecran courant
             ecran.add(panneauCourant);
             etatCourant = nouvelEtat;
             navBar.ajouterEtat(nouvelEtat);
+            panneauCourant.setVisible(true);
             ecran.pack();
             ecran.repaint();
+            System.out.println("New Panel -- ");
         }
     }
 
@@ -134,8 +147,25 @@ public class InterfaceUtilisateur {
     }
 
 
+    /**
+     * Reinitialise tout en cas de deconnexion pour eviter d'avoir des données de connexion qui se propagent entre les sessions
+     */
     public void deconnexion(){
-        this.utilisateurConnecte = false;
+        resetIU();
+        changerEtat(ETAT_IU.BIENVENUE);
+        inscription = new Inscription(this);
+        connexion = new Connexion(this);
+        preConnexion = new PreConnexion(this);
+        rendrebluray = new RendreBluray(this);
+        voir_films = new VoirFilms(this);
+        navBar.setConnecte(false);
+        navBar.setAdmin(false);
+        System.out.println("Déconnexion réussie !");
+    }
+
+    private void resetIU(){
+        carteAbonne=null;
+        utilisateurConnecte = false;
     }
 
     public boolean estConnecte(){
@@ -160,10 +190,6 @@ public class InterfaceUtilisateur {
 
     public void setCarteAbonne(CarteAbo ca){
         this.carteAbonne = ca;
-    }
-
-    public VoirFilms getVoir_films(){
-        return this.voir_films;
     }
 
     public static void main(String[] args) {
