@@ -104,7 +104,6 @@ public class Compte {
         AbonneDAO dao = new AbonneDAO(bd.getSession());
         abo = dao.lireDepuisCarte(c);
         bd.close();
-        assert(abo != null);
         if (mdp.compareTo(abo.getMotDePasse()) != 0) {
             throw new MauvaisMotDePasse();
         }
