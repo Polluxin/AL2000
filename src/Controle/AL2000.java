@@ -88,7 +88,7 @@ public class AL2000 {
      * @param filtreTri le filtre utilisé
      */
     public List<FilmEtFormat> donnerCatalogue(FiltreTri filtreTri) {
-        return catalogue.donnerFilms(compte.getClient().getInterdits(),filtreTri);
+        return catalogue.donnerFilms(compte.getClient().getInterdits(), filtreTri);
     }
 
     /**
@@ -111,6 +111,10 @@ public class AL2000 {
     public void connexion(CarteAbo c, String mdp) throws MauvaisMotDePasse {
         compte.connexion(c, mdp);
         if (compte.getClient() != null)  System.out.println("Bonjour " + ((Abonne) compte.getClient()).getPrenom() + " " + ((Abonne) compte.getClient()).getNom());
+    }
+
+    public void inscription(FormulaireInscription form) throws FormulaireInvalide {
+        compte.inscrire(form);
     }
 
     /**
@@ -265,44 +269,26 @@ public class AL2000 {
      * Crédite le compte du client courant en lisant une CB dans le lecteur (lié à la machine).
      * @param montant la somme à créditer
      */
-    public void recharger(float montant, String infosCarte){
-        // TODO
-        // quel comportement pour les exceptions ?
+    public void recharger(float montant, String infosCarte) throws CarteIllisible, PaiementRefuse {
+        // TODO A refaire avec l'ui (simulation insertion)
         CB cb;
         // lire la carte
-        try {
-            cb = machine.lireCB(infosCarte);
-        } catch (CarteIllisible e) {
-            throw new RuntimeException(e);
-        }
+        cb = machine.lireCB(infosCarte);
         // vérifier les montants
-        try {
-            compte.rechargerSolde(montant, cb);
-        } catch (PaiementRefuse e) {
-            throw new RuntimeException(e);
-        }
+        compte.rechargerSolde(montant, cb);
     }
 
     /**
      * Vide le compte du client courant en créditant la CB dans le lecteur (lié à la machine).
      * Si le client n'a pas de location en cours (lié à HistoLoc).
      */
-    public void retirerSolde(String infosCarte){
-        // TODO
-        // quel comportement pour les exceptions ?
+    public void retirerSolde(String infosCarte) throws PaiementRefuse, CarteIllisible{
+        // TODO A refaire avec l'ui (simulation insertion)
         CB cb;
         // lire la carte
-        try {
-            cb = machine.lireCB(infosCarte);
-        } catch (CarteIllisible e) {
-            throw new RuntimeException(e);
-        }
+        cb = machine.lireCB(infosCarte);
         // vider le compte
-        try {
             compte.retirerSolde(cb);
-        } catch (PaiementRefuse e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -322,4 +308,14 @@ public class AL2000 {
         //Test
     }
 
+    /**
+     * intéroge le distributeur pour trouver un BluRay valide ou créer un QrCode
+     * @param film
+     * @param b true pour demander un support physique
+     * @return un support corespondant au film
+     */
+    public Support getSupport(Film film, boolean b) {
+        // en cours
+        return null;
+    }
 }
