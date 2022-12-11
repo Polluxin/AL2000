@@ -84,7 +84,15 @@ public class Location {
      * @return la somme des fonds max pour chacune des locations
      */
     public static float fondsNecessaire(List<Location> locations) {
-        return fondsNecessaire((Location[]) locations.toArray());
+        return fondsNecessaire(locations.toArray());
+    }
+
+    private static float fondsNecessaire(Object[] toArray) {
+        float sum =0.F;
+        for (Object o : toArray){
+            sum += fondsNecessaire((Location) o);
+        }
+        return sum;
     }
 
     /**
@@ -107,5 +115,15 @@ public class Location {
 
     public void changerSupport(Distributeur dist) {
         support = support.supportInverse(dist);
+    }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "date=" + date +
+                ", etat=" + etat +
+                ", support=" + support +
+                ", client=" + client +
+                '}';
     }
 }

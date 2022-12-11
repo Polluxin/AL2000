@@ -46,4 +46,12 @@ public abstract class Support {
     public Support supportInverse(Distributeur dist) {
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "Support{" +
+                "id=" + id +
+                ", film=" + film +
+                '}';
+    }
 }

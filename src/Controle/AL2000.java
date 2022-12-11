@@ -33,6 +33,8 @@ public class AL2000 {
 
     private Technicien technicien;
 
+    private FabriqueSupport fabSupport;
+
     public AL2000(Session s) {
         initialisation(s);
     }
@@ -60,6 +62,7 @@ public class AL2000 {
         int delaisPolice = 300;
         police = new Police(histo, delaisPolice);
         technicien = null;
+        fabSupport = new FabriqueSupport(machine);
         session.close();
     }
 
@@ -72,6 +75,12 @@ public class AL2000 {
         List<Support> liste_films = panier.getSupports();
         validerPanier();
         machine.livrerFilms(liste_films);
+    }
+
+    public void louerFilms(CB cb) throws FondsInsuffisants {
+        compte.connexionAnnonyme(cb);
+        louerFilms();
+        compte.deconnexion();
     }
 
     /**
@@ -210,8 +219,8 @@ public class AL2000 {
         // quel gestion pour l'erreur ?
         // Vérifier les fonds
         float fondMin = panier.evaluerPrix();
-        fondMin += compte.getClient().fondsReserves(histo);
-        if (compte.getClient().getCarte().verifier_fonds(fondMin)) {
+        fondMin += compte.fondsReserves(histo);
+        if (compte.verifier_fonds(fondMin)) {
             histo.ajouterLocations(panier.getLocations());
             panier.viderPanier();
         } else {
@@ -310,12 +319,16 @@ public class AL2000 {
 
     /**
      * intéroge le distributeur pour trouver un BluRay valide ou créer un QrCode
-     * @param film
+     * @param film le film dont on souhaite trouver le suppport
      * @param b true pour demander un support physique
      * @return un support corespondant au film
      */
     public Support getSupport(Film film, boolean b) {
-        // en cours
-        return null;
+        if (b){
+            return fabSupport.Bluray(film);
+        }
+        return fabSupport.QrCode(film);
     }
+
+
 }

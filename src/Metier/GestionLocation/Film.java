@@ -1,6 +1,7 @@
 package Metier.GestionLocation;
 
 import java.sql.Date;
+import java.util.Objects;
 
 /**
  *
@@ -28,7 +29,7 @@ public class Film {
     public Film(){
         this("Eric le generique",
                 "Eric Lanvin",
-                new Date(2020, 12, 3),
+                new Date(System.currentTimeMillis()),
                 "2h00",
                 Genre.HORREUR);
     }
@@ -51,6 +52,25 @@ public class Film {
 
     public String getDuree() {
         return duree;
+    }
+
+    @Override
+    public String toString() {
+        return "Film{" +
+                "titre='" + titre + '\'' +
+                ", realisateur='" + realisateur + '\'' +
+                ", date=" + date +
+                ", duree='" + duree + '\'' +
+                ", genre=" + genre +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Film film = (Film) o;
+        return Objects.equals(titre, film.titre) && Objects.equals(realisateur, film.realisateur) && Objects.equals(date, film.date) && Objects.equals(duree, film.duree) && genre == film.genre;
     }
 
 }

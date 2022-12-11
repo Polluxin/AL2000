@@ -6,6 +6,7 @@ import Metier.Exception.FormulaireInvalide;
 import Metier.Exception.MauvaisMotDePasse;
 import Metier.Exception.PaiementRefuse;
 import Metier.GestionLocation.Genre;
+import Metier.GestionLocation.HistoLoc;
 import Metier.GestionMachine.FormulaireInscription;
 
 /**
@@ -90,14 +91,6 @@ public class Compte {
             throw new FormulaireInvalide("Champ du mot de passe vide");
         }
     }
-
-    /**
-     * Grâce à la carte c et le mot de passe mdp, tente de connecter l'abonné à la machine.
-     *
-     * @param c   la carte de l'abonné
-     * @param mdp le mot de passe entré
-     */
-
     /**
      * Essaie de connecter l'abonné un abonné identifié par sa carte avec son mot de passe.
      *
@@ -106,7 +99,7 @@ public class Compte {
      * @throws MauvaisMotDePasse si le mot de passe est incorrect
      */
     public void connexion(CarteAbo c, String mdp) throws MauvaisMotDePasse {
-        Abonne abo = null;
+        Abonne abo;
         bd.open();
         AbonneDAO dao = new AbonneDAO(bd.getSession());
         abo = dao.lireDepuisCarte(c);
@@ -117,6 +110,14 @@ public class Compte {
         // tout s'est bien passé, le client est connecté
         System.out.println("Client authentifié");
         this.client = abo;
+    }
+
+    /**
+     * Effectue une connexion mais avec un anonyme
+     * @param cb carte banquaire de l'anonyme
+     */
+    public void connexionAnnonyme(CB cb) {
+        this.client = new Anonyme(cb);
     }
 
 
@@ -147,7 +148,7 @@ public class Compte {
         // payer avec carte
         cb.payer(montant);
         // augmenter le solde
-        ((Abonne) client).recharger(montant);
+        (client).recharger(montant);
     }
 
     /**
@@ -179,5 +180,19 @@ public class Compte {
     public void AnonymeSetCB(CB cb) {
         Anonyme cA = (Anonyme) client;
         cA.carte = cb;
+    }
+
+    public Genre[] getInterdits() {
+        if (client == null) {
+            return new Genre[]{};
+        }
+        return client.getInterdits();
+    }
+
+    public float fondsReserves(HistoLoc histo) {
+        if (client != null) {
+            return client.fondsReserves(histo);
+        }
+        return 0.F;
     }
 }
