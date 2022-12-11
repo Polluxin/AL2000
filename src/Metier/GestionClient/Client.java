@@ -40,6 +40,14 @@ public abstract class Client {
         return carte;
     }
 
+    public String getNom(){
+        return null;
+    }
+
+    public String getPrenom(){
+        return null;
+    }
+
 //</editor-fold>
 
     /**
