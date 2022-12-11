@@ -28,7 +28,7 @@ public class RendreBluray extends JPanel {
         simulation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane simulateur = OurTools.testerPane(navbar, RendreBluray.this, "Veuillez entrer le numero du Blu-ray :");
+                JOptionPane simulateur = OurTools.testerPane(RendreBluray.this, "Veuillez entrer le numero du Blu-ray :");
                 JDialog dialog = simulateur.createDialog(null, "Veuillez entrer le numero");
                 iu.getNavBar().addAwaitingProcess(dialog);
                 dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);

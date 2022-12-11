@@ -1,6 +1,7 @@
 package Vue;
 
-import com.sun.jdi.BooleanType;
+import Metier.GestionLocation.Film;
+import Metier.GestionLocation.Genre;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +30,7 @@ public class AjouterAuPanier extends JPanel {
         panneauDroiteNord = new JPanel(new GridLayout(0,4));
         //panneauDroiteNord.add()
 
-        panneauGauche.add(new JLabel(film.getCouverture()));
+        panneauGauche.add(new JLabel(OurPictures.getPicture("src/ressources/couverture.png")));
 
         soldePayer = new JPanel(new GridLayout(2,0));
         soldePayer.add(new JLabel("Solde : 45€"));
@@ -47,10 +48,8 @@ public class AjouterAuPanier extends JPanel {
 
     }
     public AjouterAuPanier(){
-        this(new Film());
+        this(new Film("Genial Eric le Generique", "Eric Lanvin", new java.sql.Date(System.currentTimeMillis()), "2h00", Genre.ACTION));
     }
 
-    public void setFilm(Film f){
 
-    }
 }

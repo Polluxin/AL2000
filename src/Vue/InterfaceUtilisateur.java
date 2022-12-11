@@ -1,13 +1,12 @@
 package Vue;
 
+import BaseDeDonnees.Session;
 import Controle.AL2000;
 import Controle.Mediateur;
+import Metier.GestionClient.CarteAbo;
 
 import javax.swing.*;
 import java.awt.*;
-
-import static java.awt.Font.createFont;
-
 
 public class InterfaceUtilisateur {
 
@@ -31,13 +30,14 @@ public class InterfaceUtilisateur {
     Mediateur mediateur;
     AL2000 logiciel;
     int numeroDeCarte;
+    CarteAbo carteAbonne;
 
 
     public InterfaceUtilisateur(){
         OurTools.setFont();
         mediateur = new Mediateur();
-        //logiciel = new AL2000();
-        //mediateur.setLogiciel(logiciel);
+        logiciel = new AL2000(new Session());
+        mediateur.setLogiciel(logiciel);
         // Initialisations
         ecran = new JFrame();
         navBar = new NavigationBar(this);
@@ -51,7 +51,7 @@ public class InterfaceUtilisateur {
         connexion = new Connexion(this);
         preConnexion = new PreConnexion(this);
         rendrebluray = new RendreBluray(this);
-        voir_films = new VoirFilms();
+        voir_films = new VoirFilms(this);
         attenteDVD = new AttenteDVD();
         ajouterAuPanier = new AjouterAuPanier();
 
@@ -114,15 +114,9 @@ public class InterfaceUtilisateur {
                     navBar.retourSeulement(true);
                     panneauCourant = rendrebluray;
                 }
-                case VOIR_FILMS -> {
-                    panneauCourant = voir_films;
-                }
-                case ATTENTE_DVD -> {
-                    panneauCourant = attenteDVD;
-                }
-                case AJOUTER_AU_PANIER -> {
-                    panneauCourant = ajouterAuPanier;
-                }
+                case VOIR_FILMS -> panneauCourant = voir_films;
+                case ATTENTE_DVD -> panneauCourant = attenteDVD;
+                case AJOUTER_AU_PANIER -> panneauCourant = ajouterAuPanier;
                 default -> {
                     System.out.println("ERROR -- Unknown new state !");
                 }
@@ -138,6 +132,7 @@ public class InterfaceUtilisateur {
     public void connexion(){
         this.utilisateurConnecte = true;
     }
+
 
     public void deconnexion(){
         this.utilisateurConnecte = false;
@@ -159,8 +154,19 @@ public class InterfaceUtilisateur {
         return logiciel;
     }
 
+    public CarteAbo getCarteAbonne() {
+        return carteAbonne;
+    }
+
+    public void setCarteAbonne(CarteAbo ca){
+        this.carteAbonne = ca;
+    }
+
+    public VoirFilms getVoir_films(){
+        return this.voir_films;
+    }
+
     public static void main(String[] args) {
-        //Mediateur m = new Mediateur();
         InterfaceUtilisateur UI = new InterfaceUtilisateur();
     }
 }

@@ -1,11 +1,14 @@
 package Vue;
 
+import Controle.DonneesEvenement;
+import Controle.Handler;
+import Metier.Exception.CarteIllisible;
+import Metier.Exception.ConnexionImpossible;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class PreConnexion extends JPanel {
     JTextArea instructions;
@@ -32,11 +35,26 @@ public class PreConnexion extends JPanel {
         simulation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane simulateur = OurTools.testerPane(navbar, PreConnexion.this, "Veuillez entrer le numero de la carte :");
+                JOptionPane simulateur = OurTools.testerPane(PreConnexion.this, "Veuillez entrer le numero de la carte :");
                 JDialog dialog = simulateur.createDialog(null, "Veuillez entrer le numero");
                 dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                 dialog.setModal(false);
                 dialog.setVisible(true);
+                iu.getMediateur().abonner("InsertionCA", new Handler() {
+                    @Override
+                    public void handle(DonneesEvenement e) {
+                        String id = (String) e.getDonnees();
+                        try {
+                            iu.setCarteAbonne(iu.getLogiciel().simulerInsertionCA(id));
+                            System.out.println("Connexion réussi avec la carte "+id);
+                        } catch (CarteIllisible ex) {
+                            System.out.println("ERREUR : Carte Illisible");
+                        } catch (ConnexionImpossible ex) {
+                            System.out.println("ERREUR : Connexion Impossible");
+                        }
+
+                    }
+                });
             }
         });
 
@@ -49,7 +67,14 @@ public class PreConnexion extends JPanel {
     }
 
     public void testerPaneGetter(String numero){
-        iu.numeroDeCarte = Integer.parseInt(numero);
+        iu.getMediateur().publier("InsertionCA", new DonneesEvenement() {
+            @Override
+            public String getDonnees() {
+                return numero;
+            }
+        });
+        iu.getMediateur().desabonner("InsertionCA");
+
         System.out.println("Carte numero "+iu.numeroDeCarte+" à été entré.");
         iu.changerEtat(ETAT_IU.CONNEXION);
     }

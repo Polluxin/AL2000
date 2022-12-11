@@ -2,12 +2,12 @@ package Vue;
 
 import Controle.DonneesEvenement;
 import Controle.Handler;
+import Metier.Exception.MauvaisMotDePasse;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class Connexion extends JPanel {
     JPanel centrePanneau;
@@ -16,8 +16,31 @@ public class Connexion extends JPanel {
     JPasswordField motDePasse;
     JTextField motDePasseTxt;
     InterfaceUtilisateur iu;
+    Runnable backgroundThread;
     public Connexion(InterfaceUtilisateur iu){
         this.iu = iu;
+        backgroundThread = new Runnable() {
+            @Override
+            public void run() {
+                iu.getMediateur().abonner("Connexion", new Handler() {
+                    @Override
+                    public void handle(DonneesEvenement e) {
+                        String donnes = (String) e.getDonnees();
+                        try {
+                            System.out.println("CarteAbo is : "+iu.getCarteAbonne()+"\nID = "+iu.getCarteAbonne().getId()+" -- Solde : "+iu.getCarteAbonne().getSolde());
+                            iu.getLogiciel().connexion(iu.getCarteAbonne(), donnes);
+                            System.out.println("--");
+                            iu.getNavBar().setConnecte(true);
+                        } catch (MauvaisMotDePasse ex) {
+                            System.out.println("ERREUR : Mauvais Mot de Passe");
+                        }
+                    }
+                });
+            }
+        };
+        Thread backgroundThreadRun = new Thread(backgroundThread);
+        backgroundThreadRun.start();
+
         this.setLayout(new BorderLayout());
         centrePanneau = new JPanel(new BorderLayout());
         centrePanneau.setOpaque(false);
@@ -37,9 +60,14 @@ public class Connexion extends JPanel {
         connexion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Numero : "+iu.numeroDeCarte+"\nMot de passe : "+ String.valueOf(motDePasse.getPassword()));
-                effectuerConnexion();
-                iu.getNavBar().setConnecte(true);
+                iu.getMediateur().publier("Connexion", new DonneesEvenement() {
+                    @Override
+                    public Object getDonnees() {
+                        return String.valueOf(motDePasse.getPassword());
+                    }
+                });
+                iu.getMediateur().desabonner("Connexion");
+                backgroundThreadRun.interrupt();
             }
         });
 
@@ -54,13 +82,5 @@ public class Connexion extends JPanel {
         this.setOpaque(false);
     }
 
-    private void effectuerConnexion(){
-        iu.getMediateur().abonner("insererCarte", new Handler() {
-            @Override
-            public void handle(DonneesEvenement e) {
-                //  iu.getLogiciel().
-            }
-        });
-    }
 
 }

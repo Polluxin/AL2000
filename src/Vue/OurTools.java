@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class OurTools {
 
@@ -59,11 +58,10 @@ public class OurTools {
 
     /**
      * Créé un panneau de test pour entrer des numeros, comme des Blu-ray et un numero de carte
-     * @param navbar la barre de navigatiion du me,nu
      * @return le JOptionPane de test
      */
-    public static JOptionPane testerPane(NavigationBar navbar, JPanel jb, String customText){
-        JOptionPane tester = new JOptionPane();
+    public static JOptionPane testerPane(JPanel jb, String customText){
+        JOptionPane tester;
         //navbar.addAwaitingProcess(tester);
         EntreeDuTesteur form = new EntreeDuTesteur(customText);
         JButton annuler = new JButton("ANNULER");
@@ -91,7 +89,6 @@ public class OurTools {
                     PreConnexion pcnx = (PreConnexion) jb;
                     pcnx.testerPaneGetter(form.getText());
                 }
-                //navbar.removeAwaitingProcess(tester);
             }
         });
 

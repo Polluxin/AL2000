@@ -5,5 +5,5 @@ package Controle;
  * @author Geoffrey DAVID
  */
 public interface DonneesEvenement {
-    public String getDonnees();
+    public Object getDonnees();
 }
