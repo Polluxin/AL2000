@@ -127,6 +127,8 @@ public class NavigationBar extends JPanel {
     void boutonsInit(){
         connexion.addActionListener(e -> iu.changerEtat(ETAT_IU.PRE_CONNEXION));
         deconnexion.addActionListener(e -> iu.deconnexion());
+        parametres.addActionListener(e -> iu.changerEtat(ETAT_IU.PARAMETRES_ABONNE));
+        panier.addActionListener(e -> iu.changerEtat(ETAT_IU.AFFICHER_PANIER));
     }
 
 
