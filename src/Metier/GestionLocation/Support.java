@@ -1,6 +1,7 @@
 package Metier.GestionLocation;
 
 import Metier.GestionMachine.Distributeur;
+import Metier.GestionMachine.Inventaire;
 
 public abstract class Support {
     /**
@@ -35,5 +36,14 @@ public abstract class Support {
 
     public float getPrixBaseJour() {
         return prixBaseJour;
+    }
+
+    /**
+     * renvoie un support sur le même film mais remplace QrCode par BluRay et vice-versa
+     * @param dist Distributeur utilisé pour trouver les BluRays
+     * @return le support "inverse"
+     */
+    public Support supportInverse(Distributeur dist) {
+        return null;
     }
 }

@@ -2,6 +2,7 @@ package Metier.GestionLocation;
 
 
 import Metier.GestionMachine.Distributeur;
+import Metier.GestionMachine.Inventaire;
 
 /**
  *
@@ -28,6 +29,12 @@ public class QrCode extends Support {
     @Override
     public int getId(){
             return -1;
+    }
+
+    @Override
+    public Support supportInverse(Distributeur dist) {
+        return dist.chercherBluRay(film);
+
     }
 }
 

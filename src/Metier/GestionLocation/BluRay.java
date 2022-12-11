@@ -1,6 +1,7 @@
 package Metier.GestionLocation;
 
 import Metier.GestionMachine.Distributeur;
+import Metier.GestionMachine.Inventaire;
 
 /**
  *
@@ -31,5 +32,12 @@ public class BluRay extends Support {
     @Override
     public void sortirFilm(Distributeur distributeur) {
         distributeur.livrerBluRay(this);
+    }
+
+    @Override
+    public Support supportInverse(Distributeur dist) {
+        // TODO
+        // comment créer un qrCode ? que id choisir ?
+        return new QrCode(-999, film);
     }
 }

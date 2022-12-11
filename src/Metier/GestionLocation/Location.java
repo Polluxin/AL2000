@@ -2,6 +2,8 @@ package Metier.GestionLocation;
 
 import Metier.Exception.PaiementRefuse;
 import Metier.GestionClient.Client;
+import Metier.GestionMachine.Distributeur;
+import Metier.GestionMachine.Inventaire;
 
 import java.sql.Date;
 import java.util.List;
@@ -76,10 +78,10 @@ public class Location {
     }
 
     /**
-     * Calcul les fonds nécéssaire pour pouvoir louer toutes les locations de la liste.
+     * Calcul les fonds nécessaires pour pouvoir louer toutes les locations de la liste.
      *
-     * @param locations
-     * @return
+     * @param locations liste de location dont le coût est calculer
+     * @return la somme des fonds max pour chacune des locations
      */
     public static float fondsNecessaire(List<Location> locations) {
         return fondsNecessaire((Location[]) locations.toArray());
@@ -103,5 +105,7 @@ public class Location {
     }
 
 
-
+    public void changerSupport(Distributeur dist) {
+        support = support.supportInverse(dist);
+    }
 }

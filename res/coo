@@ -130,11 +130,12 @@ class Abonné {
 }
 
 class Panier {
-+ ajouter(f: Film, c: Client; physique: bool)
-+ supprimer(l:location)
++ ajouter(s: Support, c: Client)
++ supprimer(s: Support)
 + changerSupport(l:Location)
 + verifier() : bool
 + viderPanier()
++ evaluerPrix()
 }
 
 class Catalogue {
@@ -182,6 +183,7 @@ interface Distributeur {
 + livrerBluRay(b:BluRay)
 + imprimerQRCode(qr:QRCode)
 + avalerBluRays()
++ chercherBluRay(Film f)
 }
 
 interface Maintenance {
@@ -208,6 +210,8 @@ class Location {
 - dateLocatin: Date
 - etatLocation: Etat
 + payer()
++ payerRetard()
++ changerSupport(dist: Distributeur)
 + {Static} fondsNecessaire(l: location, promo: bool)
 + {Static} fondsNecessaire(L: Liste<location>, promo: bool)
 }
@@ -232,6 +236,7 @@ abstract class Support {
 -prixMax: float
 -prixAboJour: float
 -prixBaseJour: float
++ supportInverse(d:Distributeur)
 + sortirFilm(d:Distributeur)
 }
 

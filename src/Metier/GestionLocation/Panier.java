@@ -36,6 +36,13 @@ public class Panier {
         Location loc = new Location(sqlDate, Etat.ENCOURS, s, c);
         locations.add(loc);
     }
+    public void ajouter(Support s, Client c) {
+        Date sqlDate = new Date(System.currentTimeMillis());
+        // création de la location
+        Location loc = new Location(sqlDate, Etat.ENCOURS, s, c);
+        locations.add(loc);
+
+    }
 
     public List<Location> getLocations() {
         return locations;
@@ -57,9 +64,18 @@ public class Panier {
         locations.remove(l);
     }
 
+    public void supprimer(Support s) {
+        for (Location loc : locations){
+            if (loc.support == s) {
+                locations.remove(loc);
+                break;
+            }
+        }
+    }
+
     /**
      * créer un support physique TODO
-     * @param l
+     * @param l location
      */
     public void setSupportBluRay(Location l){
         // TODO
@@ -72,6 +88,10 @@ public class Panier {
         l.support = new QrCode(-1, l.support.film);
     }
 
+    /**
+     * calcul le prix du panier en utilisant les coûts maximum pour prévoir les fonds requis
+     * @return le coût nécessaire à réserver pour être certain de pouvoir payer toutes les locations
+     */
     public float evaluerPrix(){
         return Location.fondsNecessaire(locations);
     }
@@ -79,8 +99,4 @@ public class Panier {
     public void viderPanier(){
         locations = new ArrayList<>();
     }
-
-
-
-
 }

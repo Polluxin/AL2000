@@ -80,14 +80,15 @@ public class AL2000 {
      */
     public void rendreFilm(BluRay b) {
         System.out.println("BluRay numéro "+b.getId()+" rendu");
+        histo.rendreBLuRay(b);
     }
 
     /**
      * Donne la liste des films et leur disponibilité en BluRay grâce au type couple FilmEtFormat.
-     * @param filtre le filtre utilisé
+     * @param filtreTri le filtre utilisé
      */
-    public List<FilmEtFormat> donnerCatalogue(FiltreTri filtre) {
-        return catalogue.donnerFilms(compte.getClient().getInterdits(),filtre);
+    public List<FilmEtFormat> donnerCatalogue(FiltreTri filtreTri) {
+        return catalogue.donnerFilms(compte.getClient().getInterdits(),filtreTri);
     }
 
     /**
@@ -165,7 +166,7 @@ public class AL2000 {
      * @param s le film à ajouter
      */
     public void ajouterPanier(Support s) {
-
+        panier.ajouter(s, compte.getClient());
     }
 
     /**
@@ -174,7 +175,7 @@ public class AL2000 {
      * @param s le film à supprimer
      */
     public void supprimerPanier(Support s) {
-
+        panier.supprimer(s);
     }
 
     /**
@@ -183,7 +184,7 @@ public class AL2000 {
      * @param l la location à modifier
      */
     public void changerSupportPanier(Location l) {
-
+        l.changerSupport(machine);
     }
 
     /**
@@ -200,6 +201,8 @@ public class AL2000 {
      *
      */
     public void validerPanier() throws FondsInsuffisants {
+        // TODO
+        // quel gestion pour l'erreur ?
         // Vérifier les fonds
         float fondMin = panier.evaluerPrix();
         fondMin += compte.getClient().fondsReserves(histo);
@@ -261,14 +264,44 @@ public class AL2000 {
      * Crédite le compte du client courant en lisant une CB dans le lecteur (lié à la machine).
      * @param montant la somme à créditer
      */
-    public void recharger(float montant){
+    public void recharger(float montant, String infosCarte){
+        // TODO
+        // quel comportement pour les exceptions ?
+        CB cb;
+        // lire la carte
+        try {
+            cb = machine.lireCB(infosCarte);
+        } catch (CarteIllisible e) {
+            throw new RuntimeException(e);
+        }
+        // vérifier les montants
+        try {
+            compte.rechargerSolde(montant, cb);
+        } catch (PaiementRefuse e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
      * Vide le compte du client courant en créditant la CB dans le lecteur (lié à la machine).
      * Si le client n'a pas de location en cours (lié à HistoLoc).
      */
-    public void retirerSolde(){
+    public void retirerSolde(String infosCarte){
+        // TODO
+        // quel comportement pour les exceptions ?
+        CB cb;
+        // lire la carte
+        try {
+            cb = machine.lireCB(infosCarte);
+        } catch (CarteIllisible e) {
+            throw new RuntimeException(e);
+        }
+        // vider le compte
+        try {
+            compte.retirerSolde(cb);
+        } catch (PaiementRefuse e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

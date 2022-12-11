@@ -6,6 +6,7 @@ import Metier.Exception.ConnexionImpossible;
 import Metier.GestionClient.CB;
 import Metier.GestionClient.CarteAbo;
 import Metier.GestionLocation.BluRay;
+import Metier.GestionLocation.Film;
 import Metier.GestionLocation.QrCode;
 import Metier.GestionLocation.Support;
 
@@ -60,5 +61,7 @@ public interface Distributeur {
      * @param id l'identifiant lu sur le BluRay
      */
     void avalerBluRay(String id) throws BluRayInvalide;
+
+    BluRay chercherBluRay(Film f);
 
 }

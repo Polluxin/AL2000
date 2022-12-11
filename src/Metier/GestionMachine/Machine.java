@@ -10,6 +10,7 @@ import Metier.Exception.ConnexionImpossible;
 import Metier.GestionClient.CB;
 import Metier.GestionClient.CarteAbo;
 import Metier.GestionLocation.BluRay;
+import Metier.GestionLocation.Film;
 import Metier.GestionLocation.QrCode;
 import Metier.GestionLocation.Support;
 
@@ -34,6 +35,11 @@ public class Machine implements Distributeur, Maintenance {
         inventaire = i;
         statistiques = s;
     }
+
+    public Inventaire getInventaire() {
+        return inventaire;
+    }
+
     @Override
     public CB lireCB(String infosCarte) throws CarteIllisible {
         // TODO A TESTER
@@ -142,5 +148,9 @@ public class Machine implements Distributeur, Maintenance {
     @Override
     public Inventaire donnerInventaire() {
         return inventaire;
+    }
+
+    public BluRay chercherBluRay(Film f) {
+            return inventaire.chercherBluRay(f);
     }
 }

@@ -3,6 +3,8 @@ package Metier.GestionMachine;
 import BaseDeDonnees.DAOs.BluRayDAO;
 import BaseDeDonnees.Session;
 import Metier.GestionLocation.BluRay;
+import Metier.GestionLocation.Film;
+import Metier.GestionLocation.Location;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -132,5 +134,14 @@ public class Inventaire {
         }
         str.append("}");
         return str.toString();
+    }
+
+    public BluRay chercherBluRay(Film f){
+        for (BluRay bluray : liste_BluRays){
+            if (bluray.getFilm() == f) {
+                return bluray;
+            }
+        }
+        return null;
     }
 }
