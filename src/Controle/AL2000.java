@@ -329,5 +329,13 @@ public class AL2000 {
         return fabSupport.QrCode(film);
     }
 
+    /**
+     * Recupere le compte du client actuel
+     * @return un compte
+     */
+    public Compte getCompte(){
+        return this.compte;
+    }
+
 
 }

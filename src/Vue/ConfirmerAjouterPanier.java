@@ -1,12 +1,21 @@
 package Vue;
 
+import Controle.DonneesEvenement;
+import Controle.Handler;
+import Metier.GestionLocation.QrCode;
+import Metier.GestionLocation.Support;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ConfirmerAjouterPanier extends JPanel {
     InterfaceUtilisateur interfaceUtilisateur;
     JButton qrCode;
     JButton physique;
+    Thread backgroundThreadRun;
+    Runnable backgroundThread;
     public ConfirmerAjouterPanier(InterfaceUtilisateur interfaceUtilisateur){
         this.interfaceUtilisateur = interfaceUtilisateur;
         this.setLayout(new BorderLayout());
@@ -27,7 +36,55 @@ public class ConfirmerAjouterPanier extends JPanel {
 
         this.add(conteneurBoutons);
         this.add(text, BorderLayout.NORTH);
+        backgroundThread = new Runnable() {
+            @Override
+            public void run() {
+                interfaceUtilisateur.getMediateur().abonner("ajouterPanier", new Handler() {
+                    @Override
+                    public void handle(DonneesEvenement e) {
+                        Support sup = (Support) e.getDonnees();
+                        if(interfaceUtilisateur.incrementerPanier()){
+                            interfaceUtilisateur.getLogiciel().ajouterPanier(sup);
+                        } else {
+                            System.out.println("Panier Plein !");
+                        }
+                    }
+                });
+            }
+        };
+        actionsBoutons();
 
         this.setVisible(true);
+    }
+
+    private void actionsBoutons(){
+        qrCode.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Support qrc = interfaceUtilisateur.getLogiciel().getSupport(interfaceUtilisateur.getFilmActuel(), true);
+                interfaceUtilisateur.getMediateur().publier("ajouterPanier", new DonneesEvenement() {
+                    @Override
+                    public Object getDonnees() {
+                        return qrc;
+                    }
+                });
+            }
+        });
+        physique.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Support phy = interfaceUtilisateur.getLogiciel().getSupport(interfaceUtilisateur.getFilmActuel(), false);
+                interfaceUtilisateur.getMediateur().publier("ajouterPanier", new DonneesEvenement() {
+                    @Override
+                    public Object getDonnees() {
+                        return phy;
+                    }
+                });
+            }
+        });
+    }
+
+    private void threadInterrupt(){
+        backgroundThreadRun.interrupt();
     }
 }

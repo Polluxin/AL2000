@@ -1,11 +1,19 @@
 package Vue;
 
+import Controle.DonneesEvenement;
+import Controle.Handler;
+import Metier.Exception.FormulaireInvalide;
 import Metier.GestionLocation.Film;
+import Metier.GestionLocation.FilmEtFormat;
+import Metier.GestionLocation.FiltreTri;
+import Metier.GestionLocation.Tri;
+import Metier.GestionMachine.FormulaireInscription;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class VoirFilms extends JPanel {
     JPanel panneauGauche;
@@ -21,9 +29,32 @@ public class VoirFilms extends JPanel {
     Film[] tousLesFilms;
     InterfaceUtilisateur iu;
 
+    Runnable backgroundThread;
+    Thread backgroundThreadRun;
+
+    List<FilmEtFormat> listeFilms;
 
     public VoirFilms(InterfaceUtilisateur iu){
         this.iu = iu;
+
+        backgroundThread = new Runnable() {
+            @Override
+            public void run() {
+                iu.getMediateur().abonner("recupererListeFilms", new Handler() {
+                    @Override
+                    public void handle(DonneesEvenement e) {
+                        creerListefilms(iu.getLogiciel().donnerCatalogue((FiltreTri) e.getDonnees()));
+                        iu.getMediateur().desabonner("recupererListeFilms");
+                        threadInterrupt();
+                        System.out.println("Recuperer liste films handled ..");
+                    }
+                });
+            }
+        };
+
+        backgroundThreadRun = new Thread(backgroundThread);
+        backgroundThreadRun.start();
+
         int nombreFilms = 30;
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
@@ -54,6 +85,14 @@ public class VoirFilms extends JPanel {
             }
         };
 
+        iu.getMediateur().publier("recupererListeFilms", new DonneesEvenement() {
+            @Override
+            public Object getDonnees() {
+                // TODO Gestion des Filtres
+                return new FiltreTri(Tri.TITRE, null);
+            }
+        });
+
         grilleDesFilms.setOpaque(false);
 
         tousLesFilmsBoutons = new JButton[nombreFilms];
@@ -78,7 +117,7 @@ public class VoirFilms extends JPanel {
     }
 
     private void initGrid(){
-        for(int i=0; i<18; i++){
+        for(int i=0; i< 30; i++){
             JButton b1 = OurTools.transparentButtonWithIcon("src/ressources/ajouterPanier.png");
             b1.setMinimumSize(new Dimension(300,60));
             b1.setPreferredSize(new Dimension(300,60));
@@ -117,6 +156,18 @@ public class VoirFilms extends JPanel {
 
             grilleDesFilms.add(p1);
         }
+    }
+
+    private void threadInterrupt(){
+        backgroundThreadRun.interrupt();
+    }
+
+    private void creerListefilms(List<FilmEtFormat> listeFilms){
+        this.listeFilms = listeFilms;
+        for (FilmEtFormat fef : listeFilms) {
+            System.out.println("Film : "+fef);
+        }
+
     }
 
 }
