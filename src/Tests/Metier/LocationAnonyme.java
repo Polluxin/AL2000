@@ -25,7 +25,7 @@ public class LocationAnonyme {
         AL2000 al2000 = new AL2000(new Session());
 
         //récupérer les films
-        List<FilmEtFormat> catalogue = al2000.donnerCatalogue(new FiltreTri(Tri.TITRE, ""));
+            List<FilmEtFormat> catalogue = al2000.donnerCatalogue(new FiltreTri(Tri.TITRE, ""));
 
         // affichage
         System.out.println("Catalogue : ");
