@@ -86,7 +86,7 @@ public class Machine implements Distributeur, Maintenance {
         CarteAbo c = dao.lire(Integer.parseInt(id));
         bd.close();
         if (c == null)
-            throw new ConnexionImpossible("Erreur d'identification d' l'abonné");
+            throw new ConnexionImpossible("Erreur d'identification abonné");
         return c;
     }
 

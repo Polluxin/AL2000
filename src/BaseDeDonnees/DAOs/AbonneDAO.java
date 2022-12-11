@@ -57,7 +57,7 @@ public class AbonneDAO extends DAO<Abonne> {
         try {
             ResultSet res = connect.createStatement().executeQuery("" +
                     "SELECT * " +
-                    "FROM LESCA a, LESCARTES c" +
+                    "FROM LESCA a, LESCARTES c " +
                     "WHERE c.IDCarte = a.IDCarte AND a.IDCarte="+c.getId());
             res.next();
             a = new Abonne(null, c,res.getString("nom"),res.getString("prenom"),

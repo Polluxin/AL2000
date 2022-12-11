@@ -27,7 +27,7 @@ public class Connexion extends JPanel {
                     public void handle(DonneesEvenement e) {
                         String donnes = (String) e.getDonnees();
                         try {
-                            System.out.println("CarteAbo is : "+iu.getCarteAbonne()+"\nID = "+iu.getCarteAbonne().getId()+" -- Solde : "+iu.getCarteAbonne().getSolde());
+                            System.out.println("CarteAbo est : "+iu.getCarteAbonne()+"\nID = "+iu.getCarteAbonne().getId()+" -- Solde : "+iu.getCarteAbonne().getSolde());
                             iu.getLogiciel().connexion(iu.getCarteAbonne(), donnes);
                             System.out.println("--");
                             iu.getNavBar().setConnecte(true);
