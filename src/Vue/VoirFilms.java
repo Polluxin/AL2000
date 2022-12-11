@@ -92,6 +92,7 @@ public class VoirFilms extends JPanel {
                     if(iu.getNavBar().estConnecte()){
                         iu.changerEtat(ETAT_IU.AJOUTER_AU_PANIER);
                     } else {
+                        iu.changerEtat(ETAT_IU.AJOUTER_AU_PANIER); // pour les tests
                         System.out.println("Aucun abonné connecté !");
                     }
                 }
