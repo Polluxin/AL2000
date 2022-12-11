@@ -92,6 +92,7 @@ public class Inscription extends JPanel {
         dansScrollPane.add(inscriptionPayer);
 
         affichage = new JScrollPane(dansScrollPane);
+        affichage.getVerticalScrollBar().setUnitIncrement(14);
         this.add(affichage);
 
         backgroundThread = new Runnable() {

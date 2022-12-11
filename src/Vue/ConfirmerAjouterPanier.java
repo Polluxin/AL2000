@@ -45,14 +45,18 @@ public class ConfirmerAjouterPanier extends JPanel {
                         Support sup = (Support) e.getDonnees();
                         if(interfaceUtilisateur.incrementerPanier()){
                             interfaceUtilisateur.getLogiciel().ajouterPanier(sup);
+                            System.out.println("Film ajouté !");
                         } else {
                             System.out.println("Panier Plein !");
                         }
+                        interfaceUtilisateur.changerEtat(ETAT_IU.BIENVENUE);
                     }
                 });
             }
         };
         actionsBoutons();
+        backgroundThreadRun = new Thread(backgroundThread);
+        backgroundThreadRun.start();
 
         this.setVisible(true);
     }

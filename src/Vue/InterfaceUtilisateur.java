@@ -232,6 +232,8 @@ public class InterfaceUtilisateur {
 
     public void setFilmActuel(Film f){
         this.filmActuel = f;
+        ajouterAuPanier.setFilm(f);
+        System.out.println("Ouverture du film : "+f.getTitre());
     }
 
     public Film getFilmActuel(){

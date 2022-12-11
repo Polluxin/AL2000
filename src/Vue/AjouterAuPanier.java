@@ -42,7 +42,6 @@ public class AjouterAuPanier extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 interfaceUtilisateur.changerEtat(ETAT_IU.CONFIRMER_AJOUTER_AU_PANIER);
-                interfaceUtilisateur.setFilmActuel(film);
             }
         });
         soldePayer.add(boutonAjouter);
