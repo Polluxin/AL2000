@@ -1,5 +1,12 @@
 package Vue;
 
+import Controle.DonneesEvenement;
+import Controle.Handler;
+import Metier.Exception.FormulaireInvalide;
+import Metier.Exception.MauvaisMotDePasse;
+import Metier.GestionLocation.Genre;
+import Metier.GestionMachine.FormulaireInscription;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -7,60 +14,112 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Inscription extends JPanel {
+    JPanel nom;
+    JPanel prenom;
     JPanel adresseMail;
     JPanel adressePostale;
     JPanel motDePasse;
     JPanel confirmation;
     JPanel interdiction;
-    JPanel inscription;
+    InterfaceUtilisateur interfaceUtilisateur;
 
 
+    JCheckBox western;
     JCheckBox action;
-    JCheckBox aventure;
-    JCheckBox thriller;
-    JCheckBox romantique;
+    JCheckBox fantaisie;
+    JCheckBox anime;
     JCheckBox horreur;
+    JCheckBox sf;
+    JCheckBox suspense;
+    JCheckBox romance;
 
     JButton inscriptionPayer;
 
+    JScrollPane affichage;
+    JPanel dansScrollPane;
+
+    Runnable backgroundThread;
+    Thread backgroundThreadRun;
+
 
     public Inscription(InterfaceUtilisateur iu){
+        this.interfaceUtilisateur = iu;
         this.setOpaque(false);
-        this.setLayout(new GridLayout(6,1));
-
+        this.setLayout(new BorderLayout());
+        dansScrollPane = new JPanel(new GridLayout(8,0));
+        nom = nouvelEnsemble("nom", "Veuillez entrer votre nom");
+        prenom = nouvelEnsemble("prénom", "Veuillez entrer votre prénom");
         adresseMail = nouvelEnsemble("adresse mail", "Veuillez entrer votre adresse mail");
         adressePostale = nouvelEnsemble("adresse", "Veuillez entrer votre adresse");
         motDePasse = nouvelEnsemble("mot de passe", "Veuillez entrer votre mot de passe");
         confirmation = nouvelEnsemble("mot de passe", "Veuillez confirmer votre mot de passe");
-        this.add(adresseMail);
-        this.add(adressePostale);
-        this.add(motDePasse);
-        this.add(confirmation);
+        dansScrollPane.add(prenom);
+        dansScrollPane.add(nom);
+        dansScrollPane.add(adresseMail);
+        dansScrollPane.add(adressePostale);
+        dansScrollPane.add(motDePasse);
+        dansScrollPane.add(confirmation);
 
         interdiction = new JPanel(new FlowLayout());
         interdiction.setOpaque(false);
-        action = nouvelleCheckBox("Action");
-        aventure = nouvelleCheckBox("Aventure");
-        thriller = nouvelleCheckBox("Thriller");
-        romantique = nouvelleCheckBox("Romantique");
-        horreur = nouvelleCheckBox("Horreur");
+        western = nouvelleCheckBox("WESTERN");
+        action = nouvelleCheckBox("ACTION");
+        fantaisie = nouvelleCheckBox("FANTAISIE");
+        anime = nouvelleCheckBox("ANIME");
+        horreur = nouvelleCheckBox("HORREUR");
+        sf = nouvelleCheckBox("SF");
+        suspense = nouvelleCheckBox("SUSPENSE");
+        romance = nouvelleCheckBox("ROMANCE");
+        interdiction.add(western);
         interdiction.add(action);
-        interdiction.add(aventure);
-        interdiction.add(thriller);
-        interdiction.add(romantique);
+        interdiction.add(fantaisie);
+        interdiction.add(anime);
         interdiction.add(horreur);
+        interdiction.add(sf);
+        interdiction.add(suspense);
+        interdiction.add(romance);
 
-        this.add(interdiction);
+        dansScrollPane.add(interdiction);
 
         inscriptionPayer = OurTools.transparentButtonWithIcon("src/ressources/inscriptionpayer.png");
         inscriptionPayer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                iu.changerEtat(ETAT_IU.INSCRIPTION_REUSSIE);
+                //iu.changerEtat(ETAT_IU.INSCRIPTION_REUSSIE);
                 effectuerInscription();
             }
         });
-        this.add(inscriptionPayer);
+        dansScrollPane.add(inscriptionPayer);
+
+        affichage = new JScrollPane(dansScrollPane);
+        this.add(affichage);
+
+        backgroundThread = new Runnable() {
+            @Override
+            public void run() {
+                iu.getMediateur().abonner("Inscription", new Handler() {
+                    @Override
+                    public void handle(DonneesEvenement e) {
+                        FormulaireInscription fi = (FormulaireInscription) e.getDonnees();
+                        try {
+                            interfaceUtilisateur.getLogiciel().inscription(fi);
+                            interfaceUtilisateur.getMediateur().desabonner("Inscription");
+                            threadInterrupt();
+                            interfaceUtilisateur.changerEtat(ETAT_IU.INSCRIPTION_REUSSIE);
+                        } catch (FormulaireInvalide ex) {
+                            System.out.println("Inscription Impossible");
+                        }
+                        System.out.println("Inscription handle ..");
+                        System.out.println(fi.getNom());
+                    }
+                });
+            }
+        };
+
+        backgroundThreadRun = new Thread(backgroundThread);
+        backgroundThreadRun.start();
+
+
     }
 
     public JPanel nouvelEnsemble(String text, String title){
@@ -88,7 +147,7 @@ public class Inscription extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String currentText = out.getText();
-                String newText = "";
+                String newText;
                 if(currentText.startsWith("<html")){
                     newText = currentText.split("color='red'>")[1].split("</font>")[0];
                 } else {
@@ -101,23 +160,45 @@ public class Inscription extends JPanel {
     }
 
     private void effectuerInscription(){
+        Genre[] genres = new Genre[8];
+        int i =0;
         for (Component c : interdiction.getComponents()) {
             JCheckBox current = (JCheckBox) c;
             if(current.isSelected()){
                 String text = current.getText().split("color='red'>")[1].split("</font>")[0];
                 System.out.println(text+" is selected");
+                genres[i] = Genre.valueOf(text);
+                System.out.println(genres[i]);
             }
         }
-        System.out.println("Mail : "+getNouvelEnsembleValeur(adresseMail));
-        System.out.println("Adresse : "+getNouvelEnsembleValeur(adressePostale));
-        System.out.println("Mot de passe : "+getNouvelEnsembleValeur(motDePasse));
-        System.out.println("Confirmation : "+getNouvelEnsembleValeur(confirmation));
+
+
+        FormulaireInscription fi = new FormulaireInscription(
+                getNouvelEnsembleValeur(nom),
+                getNouvelEnsembleValeur(prenom),
+                getNouvelEnsembleValeur(adressePostale),
+                getNouvelEnsembleValeur(adresseMail),
+                genres,
+                getNouvelEnsembleValeur(motDePasse)
+
+        );
+        interfaceUtilisateur.getMediateur().publier("Inscription", new DonneesEvenement() {
+            @Override
+            public Object getDonnees() {
+                return fi;
+            }
+        });
+
     }
 
     private String getNouvelEnsembleValeur(JPanel j ){
         BorderLayout l = (BorderLayout)j.getLayout();
         JTextField txt = (JTextField) l.getLayoutComponent(BorderLayout.CENTER);
         return txt.getText();
+    }
+
+    private void threadInterrupt(){
+        backgroundThreadRun.interrupt();
     }
 
 
