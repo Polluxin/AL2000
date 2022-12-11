@@ -33,19 +33,16 @@ public class CB extends Carte {
 
     @Override
     void payer(float montant) throws PaiementRefuse {
-        // TODO
-        throw new PaiementRefuse();
+
     }
 
     @Override
     void recharger(float montant) throws PaiementRefuse {
-        // TODO
-        throw new PaiementRefuse();
+
     }
 
     @Override
     public boolean verifier_fonds(float montant) {
-        // TODO
         return true;
     }
 

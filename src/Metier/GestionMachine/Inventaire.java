@@ -4,7 +4,6 @@ import BaseDeDonnees.DAOs.BluRayDAO;
 import BaseDeDonnees.Session;
 import Metier.GestionLocation.BluRay;
 import Metier.GestionLocation.Film;
-import Metier.GestionLocation.Location;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -89,7 +88,6 @@ public class Inventaire {
         } catch (SQLException e){
             e.printStackTrace();
         }
-        getSession().commit();
         getSession().close();
     }
 
@@ -117,7 +115,6 @@ public class Inventaire {
         } catch (SQLException e){
             e.printStackTrace();
         }
-        getSession().commit();
         getSession().close();
     }
 

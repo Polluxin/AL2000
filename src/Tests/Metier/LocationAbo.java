@@ -1,13 +1,12 @@
 package Tests.Metier;
 
-import BaseDeDonnees.DAOs.CarteAboDAO;
 import BaseDeDonnees.Session;
 import Controle.AL2000;
 import Metier.Exception.FondsInsuffisants;
+import Metier.GestionClient.CB;
 import Metier.GestionLocation.FilmEtFormat;
 import Metier.GestionLocation.FiltreTri;
 import Metier.GestionLocation.Support;
-import Metier.GestionLocation.Tri;
 
 import java.util.List;
 import java.util.Scanner;
@@ -25,7 +24,7 @@ public class LocationAbo {
         AL2000 al2000 = new AL2000(new Session());
 
         //récupérer les films
-        List<FilmEtFormat> catalogue = al2000.donnerCatalogue(new FiltreTri(Tri.TITRE, ""));
+        List<FilmEtFormat> catalogue = al2000.donnerCatalogue(new FiltreTri(null, null));
 
         // affichage
 
@@ -59,7 +58,7 @@ public class LocationAbo {
         al2000.ajouterPanier(support);
         System.out.println(al2000.consulterPanier());
         try {
-            al2000.validerPanier();
+            al2000.louerFilms(new CB("Paul","Fort", "5341 2154 2225 4448-04 25-" ));
         } catch (FondsInsuffisants e) {
             System.out.println("Les fonds de la cb ne sont pas suffisants !");
             throw new RuntimeException(e);

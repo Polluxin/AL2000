@@ -1,6 +1,7 @@
 package Metier.GestionClient;
 
 import BaseDeDonnees.DAOs.AbonneDAO;
+import BaseDeDonnees.DAOs.CBDAO;
 import BaseDeDonnees.Session;
 import Metier.Exception.FormulaireInvalide;
 import Metier.Exception.MauvaisMotDePasse;
@@ -19,12 +20,13 @@ import Metier.GestionMachine.FormulaireInscription;
  */
 public class Compte {
 
-    Client client = null;
+    Client client = new Anonyme(null);
 
     Session bd;
 
     public Compte(Session s) {
         this.bd = s;
+
     }
 
     public Client getClient() {
@@ -116,7 +118,13 @@ public class Compte {
      * Effectue une connexion mais avec un anonyme
      * @param cb carte banquaire de l'anonyme
      */
-    public void connexionAnnonyme(CB cb) {
+    public void connexionAnonyme(CB cb) {
+        bd.open();
+        CBDAO cbdao = new CBDAO(bd.getSession());
+        if (cbdao.lireID(cb) == -1) // Carte non enregistree en BD
+            cbdao.creer(cb);
+        cb.setId(cbdao.lireID(cb));
+        bd.close();
         this.client = new Anonyme(cb);
     }
 

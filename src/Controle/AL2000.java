@@ -78,7 +78,8 @@ public class AL2000 {
     }
 
     public void louerFilms(CB cb) throws FondsInsuffisants {
-        compte.connexionAnnonyme(cb);
+        compte.connexionAnonyme(cb);
+        panier.setLocationsToCB(cb);
         louerFilms();
         compte.deconnexion();
     }
@@ -215,8 +216,6 @@ public class AL2000 {
      *
      */
     public void validerPanier() throws FondsInsuffisants {
-        // TODO
-        // quel gestion pour l'erreur ?
         // Vérifier les fonds
         float fondMin = panier.evaluerPrix();
         fondMin += compte.fondsReserves(histo);
