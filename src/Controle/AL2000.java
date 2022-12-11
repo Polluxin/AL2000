@@ -88,7 +88,7 @@ public class AL2000 {
      * @param filtreTri le filtre utilisé
      */
     public List<FilmEtFormat> donnerCatalogue(FiltreTri filtreTri) {
-        return catalogue.donnerFilms(compte.getClient().getInterdits(),filtreTri);
+        return catalogue.donnerFilms(compte.getInterdits(),filtreTri);
     }
 
     /**
@@ -111,6 +111,11 @@ public class AL2000 {
     public void connexion(CarteAbo c, String mdp) throws MauvaisMotDePasse {
         compte.connexion(c, mdp);
         if (compte.getClient() != null)  System.out.println("Bonjour " + ((Abonne) compte.getClient()).getPrenom() + " " + ((Abonne) compte.getClient()).getNom());
+    }
+
+    public void inscription(FormulaireInscription form) throws FormulaireInvalide {
+        // TODO
+        compte.inscrire(form);
     }
 
     /**
@@ -322,4 +327,14 @@ public class AL2000 {
         //Test
     }
 
+    /**
+     * intéroge le distributeur pour trouver un BluRay valide ou créer un QrCode
+     * @param film
+     * @param b true pour demander un support physique
+     * @return un support corespondant au film
+     */
+    public Support getSupport(Film film, boolean b) {
+        // en cours
+        return null;
+    }
 }
