@@ -5,6 +5,7 @@ import Controle.AL2000;
 import Metier.Exception.CarteIllisible;
 import Metier.Exception.FondsInsuffisants;
 import Metier.GestionClient.CB;
+import Metier.GestionClient.Client;
 import Metier.GestionLocation.*;
 
 import java.util.List;
@@ -74,7 +75,8 @@ public class LocationAnonyme {
         // affichage de l'histoLoc
         System.out.println("Affichage historique location");
         for (Location l :al2000.voirHistoMachine()){
-            System.out.println(l);
+            Client client = l.getClient();
+            System.out.println(l+" par "+ client.getNom() +" "+client.getPrenom());
         }
     }
 }

@@ -21,11 +21,20 @@ public class Anonyme extends Client{
 
     public Anonyme(Carte carte) {
         super(null, carte);
+        this.carte = (CB) carte;
     }
 
     public void payer(Support s, int jours) throws PaiementRefuse {
         float prix = s.getPrixBaseJour() * jours;
         carte.payer(prix);
+    }
+
+    public String getNom(){
+        return carte.getNom();
+    }
+
+    public String getPrenom(){
+        return carte.getPrenom();
     }
 }
 

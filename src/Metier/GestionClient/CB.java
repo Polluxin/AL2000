@@ -19,6 +19,15 @@ public class CB extends Carte {
         this.informationsBancaires = informationsBancaires;
     }
 
+    // infos sous le format "5341 2154 2225 4448-04 25-Paul Fort-888-"
+    public CB(String infos){
+        String[] parsed = infos.split("-");
+        informationsBancaires = infos;
+        String[] np = parsed[2].split(" ");
+        nom = np[1];
+        prenom = np[0];
+    }
+
     public String getNom() {
         return nom;
     }

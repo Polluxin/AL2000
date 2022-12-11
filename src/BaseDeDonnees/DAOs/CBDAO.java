@@ -46,4 +46,19 @@ public class CBDAO extends DAO<CB>{
         }
         return -1;
     }
+
+    @Override
+    public CB lire(int id){
+        CB cb = null;
+        try {
+            ResultSet res = connect.createStatement().executeQuery(
+                    "SELECT infos FROM LESCB WHERE IDCARTE="+id);
+            if (!res.next())
+                throw new SQLException("CB introuvable en BD (id = "+id);
+            cb = new CB(res.getString("infos"));
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return cb;
+    }
 }
