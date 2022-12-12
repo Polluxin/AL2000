@@ -7,6 +7,9 @@ import Metier.GestionLocation.*;
 import Metier.GestionMachine.*;
 
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Contrôleur de l'application, tout passe par ici.
@@ -59,11 +62,17 @@ public class AL2000 {
         catalogue = new Catalogue(inv, session, idMachine);
         signalement = new Signalement();
         machine = new Machine(inv, statistiques, session);
-        int delaisPolice = 300;
-        police = new Police(histo, delaisPolice);
         technicien = null;
         fabSupport = new FabriqueSupport(machine);
         session.close();
+
+        //créer Police
+        // 86400 secondes par jour
+        // 259200 pour 3 jours
+        int delaisPolice = 5;
+        Police.activerPolice(histo, delaisPolice);
+
+
     }
 
     /**
