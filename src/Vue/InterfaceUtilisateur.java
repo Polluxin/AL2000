@@ -50,9 +50,6 @@ public class InterfaceUtilisateur {
         // Controle
         mediateur = new Mediateur();
         logiciel = new AL2000(new Session());
-        System.out.println("test");
-        List<FilmEtFormat> catalogue = logiciel.donnerCatalogue(new FiltreTri(Tri.TITRE, ""));
-        System.out.println("test");
         mediateur.setLogiciel(logiciel);
         // Initialisations des variables
         ecran = new JFrame();
@@ -181,6 +178,7 @@ public class InterfaceUtilisateur {
         navBar.setConnecte(false);
         navBar.setAdmin(false);
         System.out.println("Déconnexion réussie !");
+        getLogiciel().deconnexion();
     }
 
     private void resetIU(){
@@ -210,6 +208,9 @@ public class InterfaceUtilisateur {
 
     public void setCarteAbonne(CarteAbo ca){
         this.carteAbonne = ca;
+    }
+    public AfficherPanier getAfficherPanier(){
+        return this.afficherPanier;
     }
 
     public Boolean incrementerPanier(){

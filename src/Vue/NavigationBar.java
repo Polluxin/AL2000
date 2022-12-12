@@ -128,7 +128,13 @@ public class NavigationBar extends JPanel {
         connexion.addActionListener(e -> iu.changerEtat(ETAT_IU.PRE_CONNEXION));
         deconnexion.addActionListener(e -> iu.deconnexion());
         parametres.addActionListener(e -> iu.changerEtat(ETAT_IU.PARAMETRES_ABONNE));
-        panier.addActionListener(e -> iu.changerEtat(ETAT_IU.AFFICHER_PANIER));
+        panier.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                iu.getAfficherPanier().activate();
+                iu.changerEtat(ETAT_IU.AFFICHER_PANIER);
+            }
+        });
     }
 
 

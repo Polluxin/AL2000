@@ -49,7 +49,7 @@ public class ConfirmerAjouterPanier extends JPanel {
                         } else {
                             System.out.println("Panier Plein !");
                         }
-                        interfaceUtilisateur.changerEtat(ETAT_IU.BIENVENUE);
+                        interfaceUtilisateur.changerEtat(ETAT_IU.VOIR_FILMS);
                     }
                 });
             }

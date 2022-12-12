@@ -1,5 +1,9 @@
 package Vue;
 
+import Controle.DonneesEvenement;
+import Controle.Handler;
+import Metier.Exception.BluRayInvalide;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,8 +14,32 @@ public class RendreBluray extends JPanel {
     JLabel icon;
     JButton simulation;
     NavigationBar navbar;
+    Thread backgroundThreadRun;
+    Runnable backgroundThread;
+    InterfaceUtilisateur iu;
     public RendreBluray(InterfaceUtilisateur iu){
         navbar = iu.getNavBar();
+        this.iu = iu;
+        backgroundThread = new Runnable() {
+            @Override
+            public void run() {
+                iu.getMediateur().abonner("Entrer Blu-Ray", new Handler() {
+                    @Override
+                    public void handle(DonneesEvenement e) {
+                        try {
+                            iu.getLogiciel().simulerInsertionBluRay((String) e.getDonnees());
+                            iu.getMediateur().desabonner("Entrer Blu-Ray");
+                            threadInterrupt();
+                            System.out.println("Blu-Ray correctement rendu.");
+                        } catch (BluRayInvalide ex) {
+                            System.out.println("Blu-Ray Invalide !");
+                        }
+                    }
+                });
+            }
+        };
+        backgroundThreadRun = new Thread(backgroundThread);
+        backgroundThreadRun.start();
         icon = new JLabel();
         icon.setIcon(OurPictures.getPicture("src/ressources/rendredvd.png"));
         icon.setOpaque(false);
@@ -46,6 +74,15 @@ public class RendreBluray extends JPanel {
     }
 
     public void testerPaneGetter(String numero){
-        System.out.println("Blu-ray numero "+numero+" à été entré.");
+        iu.getMediateur().publier("Entrer Blu-Ray", new DonneesEvenement() {
+            @Override
+            public Object getDonnees() {
+                return numero;
+            }
+        });
+    }
+
+    private void threadInterrupt(){
+        backgroundThreadRun.interrupt();
     }
 }

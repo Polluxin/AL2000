@@ -10,7 +10,12 @@ import java.awt.event.ActionListener;
 
 public class AjouterAuPanier extends JPanel {
     Film ceFilm;
+    JTextArea realisateur;
+    JTextArea duree;
+    JTextArea date;
+    JTextArea genre;
     JLabel titreFilm;
+    JLabel solde;
     JPanel titrePanneau;
     JPanel panneauPrincipal;
     JPanel panneauGauche;
@@ -18,8 +23,10 @@ public class AjouterAuPanier extends JPanel {
     JPanel panneauDroiteNord;
     JPanel soldePayer;
     JButton boutonAjouter;
+    InterfaceUtilisateur interfaceUtilisateur;
     public AjouterAuPanier(Film film, InterfaceUtilisateur interfaceUtilisateur){
         this.setLayout(new BorderLayout());
+        this.interfaceUtilisateur = interfaceUtilisateur;
         this.ceFilm = film;
         this.titreFilm = new JLabel(ceFilm.getTitre(),SwingConstants.CENTER);
         this.titreFilm.setMinimumSize(new Dimension(1000, 50));
@@ -28,14 +35,26 @@ public class AjouterAuPanier extends JPanel {
 
         panneauPrincipal = new JPanel(new GridLayout(0,2));
         panneauGauche = new JPanel(new BorderLayout());
-        panneauDroite = new JPanel(new BorderLayout());
-        panneauDroiteNord = new JPanel(new GridLayout(0,4));
+        panneauDroite = new JPanel(new GridLayout(8, 0));
+        panneauDroite.add(new JLabel("Realisateur : "));
+        realisateur = textWrapped("");
+        panneauDroite.add(realisateur);
+        panneauDroite.add(new JLabel("Date : "));
+        date = textWrapped("");
+        panneauDroite.add(date);
+        panneauDroite.add(new JLabel("Duree : "));
+        duree = textWrapped("");
+        panneauDroite.add(duree);
+        panneauDroite.add(new JLabel("Genre : "));
+        genre = textWrapped("");
+        panneauDroite.add(genre);
         //panneauDroiteNord.add()
 
         panneauGauche.add(new JLabel(OurPictures.getPicture("src/ressources/couverture.png")));
 
         soldePayer = new JPanel(new GridLayout(2,0));
-        soldePayer.add(new JLabel("Solde : 45€"));
+        solde = new JLabel("Solde : XXX");
+        soldePayer.add(solde);
 
         boutonAjouter = OurTools.transparentButtonWithIcon("src/ressources/ajouterPanier.png");
         boutonAjouter.addActionListener(new ActionListener() {
@@ -50,6 +69,7 @@ public class AjouterAuPanier extends JPanel {
 
 
         panneauPrincipal.add(panneauGauche);
+        panneauPrincipal.add(panneauDroite);
 
         this.add(titrePanneau, BorderLayout.NORTH);
         this.add(panneauPrincipal);
@@ -62,6 +82,23 @@ public class AjouterAuPanier extends JPanel {
     public void setFilm(Film f){
         ceFilm = f;
         titreFilm.setText(f.getTitre());
+        if(interfaceUtilisateur.getCarteAbonne() == null){
+            solde.setText("Solde : XXX");
+        } else {
+            solde.setText("Solde : "+String.valueOf(interfaceUtilisateur.getCarteAbonne().getSolde())+" €");
+        }
+        duree.setText(f.getDuree());
+        date.setText(f.getDate().toString());
+        genre.setText(f.getGenre().toString());
+        realisateur.setText(f.getRealisateur());
+    }
+
+    private JTextArea textWrapped(String text){
+        JTextArea jt = new JTextArea(text);
+        jt.setWrapStyleWord(true);
+        jt.setLineWrap(true);
+        jt.setOpaque(false);
+        return jt;
     }
 
 
