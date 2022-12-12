@@ -12,7 +12,7 @@ import java.util.List;
  * Contrôleur de l'application, tout passe par ici.
  * @author Geoffrey DAVID
  * @author Armand GRENIER
- * @version 0
+ * @version 1
  */
 @SuppressWarnings("unused")
 public class AL2000 {
@@ -25,11 +25,7 @@ public class AL2000 {
 
     private Catalogue catalogue;
 
-    private Signalement signalement;
-
     private Distributeur machine;
-
-    private Police police;
 
     private Technicien technicien;
 
@@ -57,10 +53,9 @@ public class AL2000 {
         panier = new Panier();
         histo = new HistoLoc(idMachine);
         catalogue = new Catalogue(inv, session, idMachine);
-        signalement = new Signalement();
         machine = new Machine(inv, statistiques, session);
         int delaisPolice = 300;
-        police = new Police(histo, delaisPolice);
+        Police police = new Police(histo, delaisPolice);
         technicien = null;
         fabSupport = new FabriqueSupport(machine);
         session.close();
@@ -77,6 +72,11 @@ public class AL2000 {
         machine.livrerFilms(liste_films);
     }
 
+    /**
+     * Fonction utilisée pour la location de films sans être abonné.
+     * @param cb la cb à débiter lors du rendu
+     * @throws FondsInsuffisants si la cb ne sera pas en mesure de payer
+     */
     public void louerFilms(CB cb) throws FondsInsuffisants {
         compte.connexionAnonyme(cb);
         panier.setLocationsToCB(cb);
@@ -292,7 +292,6 @@ public class AL2000 {
      * Si le client n'a pas de location en cours (lié à HistoLoc).
      */
     public void retirerSolde(String infosCarte) throws PaiementRefuse, CarteIllisible{
-        // TODO A refaire avec l'ui (simulation insertion)
         CB cb;
         // lire la carte
         cb = machine.lireCB(infosCarte);
@@ -305,7 +304,7 @@ public class AL2000 {
      * @param f le formulaire de signalement
      */
     public void signalerProbleme(FormulaireSignalement f){
-        System.out.println("Signalement envoyé à CyberVidéo");
+        System.out.println("Signalement : "+f+"envoyé à CyberVidéo");
     }
 
     /**
@@ -331,7 +330,7 @@ public class AL2000 {
     }
 
     /**
-     * Recupere le compte du client actuel
+     * Recupere le compte du client actuel.
      * @return un compte
      */
     public Compte getCompte(){
