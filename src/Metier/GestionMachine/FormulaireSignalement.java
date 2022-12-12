@@ -5,7 +5,7 @@ public class FormulaireSignalement {
 
     private final String nom, prenom, adresseMail, description;
 
-    FormulaireSignalement(String nom, String prenom, String adresseMail, String description){
+    public FormulaireSignalement(String nom, String prenom, String adresseMail, String description){
         this.nom = nom;
         this.prenom = prenom;
         this.description = description;
