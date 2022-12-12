@@ -280,7 +280,6 @@ public class AL2000 {
      * @param montant la somme à créditer
      */
     public void recharger(float montant, String infosCarte) throws CarteIllisible, PaiementRefuse {
-        // TODO A refaire avec l'ui (simulation insertion)
         CB cb;
         // lire la carte
         cb = machine.lireCB(infosCarte);

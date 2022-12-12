@@ -154,9 +154,14 @@ public class Compte {
      */
     public void rechargerSolde(float montant, CB cb) throws PaiementRefuse {
         // payer avec carte
+        CarteAbo c = (CarteAbo) (client).getCarte();
         cb.payer(montant);
         // augmenter le solde
         (client).recharger(montant);
+        bd.open();
+        new AbonneDAO(bd.getSession()).modifierSolde( c.getId(), c.getSolde());
+        bd.close();
+        System.out.println("Compte rechargé de "+montant+" euros");
     }
 
     /**
