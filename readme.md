@@ -1,5 +1,6 @@
 # Projet AL2000 - *Novembre 2022*
 ## Description globale de l'état du code
+Lien du git : https://github.com/Polluxin/AL2000.git
 ### Cahier des charges
 * Le cahier des charges de départ se situe dans la [SRS rédigée](res/Documents/SRS_GL_Projet_M1_Info.pdf).
 * Le diagramme UML du projet se situe dans le fichier [diagramme_plantUML](res/Documents/diagramme_plantUML) (format plantUML) et [diagramme_UML](res/Documents/diagramme_UML.png).
