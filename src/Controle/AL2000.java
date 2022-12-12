@@ -7,9 +7,6 @@ import Metier.GestionLocation.*;
 import Metier.GestionMachine.*;
 
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Contrôleur de l'application, tout passe par ici.
@@ -64,10 +61,8 @@ public class AL2000 {
         //créer Police
         // 86400 secondes par jour
         // 259200 pour 3 jours
-        int delaisPolice = 5;
-        Police.activerPolice(histo, delaisPolice);
-
-
+//        int delaisPolice = 10;
+//        Police.activerPolice(histo, delaisPolice);
     }
 
     /**

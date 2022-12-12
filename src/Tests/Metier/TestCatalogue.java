@@ -1,4 +1,4 @@
-package Tests;
+package Tests.Metier;
 
 import BaseDeDonnees.Session;
 import Metier.GestionLocation.*;

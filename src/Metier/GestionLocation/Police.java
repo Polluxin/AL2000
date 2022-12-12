@@ -36,7 +36,7 @@ public class Police implements Runnable {
                 try {
                     l.payer();
                     histo.updateLocBDD(l);
-                    System.out.println("update de " + l);
+                    System.out.println("update de " + l +" ID : "+l.getId());
                 } catch (PaiementRefuse e) {
                     // rien faire puis réessayer la prochaine fois
                     System.out.println("Paiement refusé pour location APAYER");
@@ -50,7 +50,7 @@ public class Police implements Runnable {
                 try {
                     l.payerRetard();
                     histo.updateLocBDD(l);
-                    System.out.println("update de " + l);
+                    System.out.println("update de " + l +" ID : "+l.getId());
                 } catch (PaiementRefuse e) {
                     // paiement échoué
                     System.out.println("Paiement refusé pour location en retard");
