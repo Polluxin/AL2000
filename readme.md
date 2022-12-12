@@ -2,6 +2,7 @@
 ## Description globale de l'état du code
 ### Cahier des charges
 * Le cahier des charges de départ se situe dans la SRS rédigée (res/Documents/SRS_GL_Projet_M1_Info.pdf).
+* La spécification de la BD se trouve dans le fichier Spec_BD.pdf
 * Toutes les fonctionnalités ne sont pas présentes, et certaines ont été modifiées.
 * Une fonctionnalité est dite présente si elle est complète et a été testée.
 * Certaines fonctionnalités absentes sur le produit final ont été implémentés dans le noyau fonctionnel (non testées).
@@ -45,7 +46,7 @@ Le .JAR est alors généré dans le dossier du projet
 * Lancer la commande *java -jar AL2000.jar* dans le répertoire contenant le fichier
 
 ## Liste des tests des parties fonctionnelles
-
+* Les tests effectués se situent dans le dossier src/Tests.
 ## Diagramme UML de la partie métier 
 ```puml
 @startuml
