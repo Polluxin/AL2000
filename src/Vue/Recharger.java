@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 /**
  * Recharger le solde de la carte abonné à l'aide d'une carte bancaire
@@ -82,7 +83,7 @@ public class Recharger extends Panneau {
                     System.out.println("test : id -> "+id);
                     CB cb = interfaceUtilisateur.getLogiciel().simulerInsertionCB(id);
                     System.out.println("Carte "+cb.getInformationsBancaires()+" inséré.");
-                    if(montantAAjouter.getText() != ""){
+                    if(!Objects.equals(montantAAjouter.getText(), "")){
                         interfaceUtilisateur.getLogiciel().recharger(Float.valueOf(montantAAjouter.getText()), cb.getInformationsBancaires());
                     }
                     interfaceUtilisateur.changerEtat(ETAT_IU.VOIR_FILMS);

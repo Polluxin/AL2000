@@ -1,5 +1,6 @@
 package Tests;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 import BaseDeDonnees.Session;
@@ -22,7 +23,7 @@ System.out.println("rendre dvd");
         aL2000.simulerInsertionBluRay(scChar);
         System.out.println("voullez vous rendre un autre bluray 'oui' 'non' ");
         scChar=cs.next();
-        b=scChar=="oui";
+        b= Objects.equals(scChar, "oui");
     }
 
 }}

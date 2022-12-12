@@ -29,11 +29,9 @@ public class Test2 {
 //connextion du client 
         System.out.println("inscription  :");
         System.out.println("Veuillez entrer votre adresse mail");
-        String nom="1";
-       nom=cs.next();
+        String nom=cs.next();
        System.out.println("Veuillez entrer votre adresse mail");
-       String prenom="1";
-       prenom=cs.next();
+       String prenom=cs.next();
         System.out.println("Veuillez entrer votre adresse mail");
         String mail="1";
        mail=cs.next();
@@ -48,9 +46,9 @@ public class Test2 {
         md2=cs.next();
         Genre[] inter=new Genre[3];
             
-            inter[1]=Genre.ACTION;
-            inter[2]=Genre.SF;
-            inter[3]=Genre.FANTAISIE;
+            inter[0]=Genre.ACTION;
+            inter[1]=Genre.SF;
+            inter[2]=Genre.FANTAISIE;
         FormulaireInscription f=new FormulaireInscription(nom,prenom,adr, mail, inter, md1);
         
         AL2000 aL2000=new AL2000(new Session());

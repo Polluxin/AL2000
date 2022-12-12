@@ -1,5 +1,6 @@
 package Tests;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import Metier.Exception.FondsInsuffisants;
 import BaseDeDonnees.*;
@@ -55,13 +56,13 @@ public class Test1 {
         System.out.println("voulez vous le fim au format bluray entrer 'b' sinon qrcode entrer 'q' ");
         
         String ret=cs.next(); 
-        Support achat =aL2000.getSupport(catalogue.get( idfilm).getFilm(),ret=="b");
+        Support achat =aL2000.getSupport(catalogue.get( idfilm).getFilm(), Objects.equals(ret, "b"));
 
         aL2000.ajouterPanier(achat);
         System.out.println("bien été ajouter");
         System.out.println("voullez vous ajouter un autre film 'oui' 'non'");
     String r=cs.next();
-    b=r=="oui";
+    b= Objects.equals(r, "oui");
     }
     System.out.println(aL2000.consulterPanier());
     

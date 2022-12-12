@@ -42,7 +42,7 @@ public class OurTools {
     public static void setFont(){
         Font font;
         try {
-            File f = new File("res/ressources/Cocogoose.ttf");
+            File f = new File("res/ressources/Cocogoose.otf");
             font = Font.createFont(Font.TRUETYPE_FONT, f);
         } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
