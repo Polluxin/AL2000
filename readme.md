@@ -1,80 +1,21 @@
 # Projet AL2000 - *Novembre 2022*
-## Conventions de code
-- Commentaires et code en français
-- Javadoc pour toutes les classes avec nom(s) de(s) auteur(s)
+## Description globale de l'état du code
 
-## Comment se connecter à la base de données ?
-- Activer le VPN (CISCO) (une documentation plus complète est disponible [sur ce lien](https://nomadisme.grenet.fr/installVPN.htm))
-- Modifier la valeur de String user dans la classe BaseDeDonnees.Session:
-```java
-public class Session {
-    public void open() {
-        String url = "jdbc:oracle:thin:@localhost:1521:im2ag";
-        String user = "davidge"; // Ici mettre l'identifiant AGALAN
-        System.out.println("Session : Connexion à la base de données à " + url + " par " + user);
-        try {
-            DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
-            String passwd = "97c7fa9f41"; // Ici mettre le mot de passe Oracle
-            // (dans le fichier oracle.txt)
-            connect = DriverManager.getConnection(url, user, passwd);
-            System.out.println("Session : Connecté");
-        } catch (SQLException e) {
-            System.out.println("Session : Connexion impossible");
-            e.printStackTrace();
-        }
-    }
-}
-```
-- Lancer dans un terminal la commande "ssh -N -L 1521:im2ag-oracle.univ-grenoble-alpes.fr:1521 LOGIN@im2ag-oracle.univ-grenoble-alpes.fr" en remplacant LOGIN par votre identifiant AGALAN puis lorsque demandé, entrez votres mot de passe.
+## Choix effectués
 
-## Comment créer la base de données et la peupler ?
-- Lancer le script "creation_base.sql" puis "peupler_base.sql"
+## Comment compiler et exécuter le projet ?
+### Etape 1 : se connecter au VPN
+- Lancer le VPN Cisco fourni par l'UGA
+### Etape 2 (optionnelle) : peupler la BD
+- Lancer les scripts : *destruction_base.sql*, *creation_base.sql* et *peupler_base.sql* sur le serveur Oracle (c.f. Session)
+Attention : Session permet une connexion à la base par l'utilisateur davidge (mdp : 365214), le peuplement de la base doit donc se faire aussi sur ce schéma.
+### Etape 3 : compiler (optionnel) et créer le Jar (*IntelliJ*)
+#### Il est possible de recréer le jar (remplacer *AL2000.jar*) :
+* Aller dans "Project Structure..." -> "Artifacts"
+* Ajouter ("+") -> JAR -> "From modules with dependencies"
+* Choisir la classe **Main()** et cocher **Extract to the target JAR**
+* Pour le générer faire ensuite "Build" -> "Build Artifacts..."
 
-## Structure générale
-```puml
-@startuml
-[IHM] - InterfaceU
-InterfaceU - [AL2000]
-[AL2000] - DAO
-DAO - [BaseDeDonnées]
-@enduml
-```
+Le .JAR est alors généré dans le dossier
 
-## Comment écrire de la doc java ?
-Un exemple :
-```java
-/**
-* Début de commentaire spécifique à la javadoc. On
-* commence par une description générale de la classe.
-* Le texte peut être enrichi de balises html :
-* <ul>
-* <li>pour créer des listes ;</li>
-* <li>pour <tt>mettre en valeur</tt> du texte.</li>
-* </ul>
-*
-* @author meta-information
-* @version spécifique au module
-*/
-class Point {
-    /** Abscisse */
-    private double x;
-    /** Ordonnée */
-    private double y;
-    /**
-     * Description de la méthode, ici un recupérateur.
-     * @return valeur de l'abscisse.
-     */
-    double x() {
-        return x;
-    }
-    /**
-     * Et ici un modificateur.
-     * @param x nouvelle abscisse
-     * @param y nouvelle ordonnée
-     */
-    void setXY(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
-}
-```
+## Liste des tests des parties fonctionnelles
