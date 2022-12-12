@@ -31,6 +31,6 @@ hs_err_pid*
 out/
 .idea/
 .idea_modules/
-
+*.iml
 *.ipr
 *.iws
