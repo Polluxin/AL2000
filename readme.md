@@ -1,8 +1,11 @@
 # Projet AL2000 - *Novembre 2022*
 ## Description globale de l'état du code
-
-## Choix effectués
-
+### Cahier des charges
+* Le cahier des charges de départ se situe dans la SRS rédigée (res/Documents/SRS_GL_Projet_M1_Info.pdf)
+* Toutes les fonctionnalités ne sont pas présentes, et certaines ont été modifiées
+### Avancée
+* Dire où on en est, ce qui marche, et ce qui marche pas
+* etc
 ## Comment compiler et exécuter le projet ?
 ### Etape 1 : se connecter au VPN
 - Lancer le VPN Cisco fourni par l'UGA

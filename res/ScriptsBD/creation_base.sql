@@ -56,12 +56,13 @@ create table LesCA
     idCarte int primary key,
     mail varchar2(100),
     adressePostale varchar2(100),
-    solde float,
+    solde float check ( solde>0 ),
     mdp varchar2(50),
 
     constraint ca_fk_idCarte
         foreign key (idCarte)
             references LesCartes(idCarte)
+
 );
 
 create table LesLocations
