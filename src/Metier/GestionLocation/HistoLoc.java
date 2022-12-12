@@ -88,4 +88,11 @@ public class HistoLoc {
         }
     }
 
+    public void updateLocBDD(Location l) {
+        Session s = new Session();
+        s.open();
+        LocationDAO dao = new LocationDAO(s.getSession(), idMachine);
+        dao.modifier(l);
+        s.close();
+    }
 }

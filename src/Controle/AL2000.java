@@ -7,12 +7,15 @@ import Metier.GestionLocation.*;
 import Metier.GestionMachine.*;
 
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Contrôleur de l'application, tout passe par ici.
  * @author Geoffrey DAVID
  * @author Armand GRENIER
- * @version 1
+ * @version 0
  */
 @SuppressWarnings("unused")
 public class AL2000 {
@@ -54,11 +57,17 @@ public class AL2000 {
         histo = new HistoLoc(idMachine);
         catalogue = new Catalogue(inv, session, idMachine);
         machine = new Machine(inv, statistiques, session);
-        int delaisPolice = 300;
-        Police police = new Police(histo, delaisPolice);
         technicien = null;
         fabSupport = new FabriqueSupport(machine);
         session.close();
+
+        //créer Police
+        // 86400 secondes par jour
+        // 259200 pour 3 jours
+        int delaisPolice = 5;
+        Police.activerPolice(histo, delaisPolice);
+
+
     }
 
     /**
@@ -330,7 +339,7 @@ public class AL2000 {
     }
 
     /**
-     * Recupere le compte du client actuel.
+     * Recupere le compte du client actuel
      * @return un compte
      */
     public Compte getCompte(){

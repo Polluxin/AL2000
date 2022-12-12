@@ -2,6 +2,7 @@ package Metier.GestionClient;
 
 import BaseDeDonnees.DAOs.AbonneDAO;
 import BaseDeDonnees.DAOs.CBDAO;
+import BaseDeDonnees.DAOs.LocationDAO;
 import BaseDeDonnees.Session;
 import Metier.Exception.FormulaireInvalide;
 import Metier.Exception.MauvaisMotDePasse;
@@ -207,5 +208,13 @@ public class Compte {
             return client.fondsReserves(histo);
         }
         return 0.F;
+    }
+
+    public void updateBDD() {
+        Session s = new Session();
+        s.open();
+        //LocationDAO dao = new LocationDAO(s.getSession(), idMachine);
+        //dao.modifier(l);
+        s.close();
     }
 }
