@@ -19,7 +19,7 @@ public class RendreBluRay {
         AL2000 al2000 = new AL2000(new Session());
 
         //connexion
-        CarteAbo c = null;
+        CarteAbo c;
         try {
             c = al2000.simulerInsertionCA("1");
         } catch (CarteIllisible | ConnexionImpossible e) {
