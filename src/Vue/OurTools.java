@@ -91,6 +91,9 @@ public class OurTools {
                 } else if (jb.getClass().getName().equals("Vue.Recharger")){
                     Recharger rech = (Recharger) jb;
                     rech.testerPaneGetter(form.getText());
+                } else if (jb.getClass().getName().equals("Vue.ReglerPanierCB")){
+                    ReglerPanierCB rpcb = (ReglerPanierCB) jb;
+                    rpcb.testerPaneGetter(form.getText());
                 }
             }
         });
