@@ -2,8 +2,10 @@ package Vue;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class ParametreAbonne extends JPanel {
+public class ParametreAbonne extends Panneau {
     JButton recharger;
     JButton retirer;
     JButton historique;
@@ -22,6 +24,20 @@ public class ParametreAbonne extends JPanel {
         this.add(retirer);
         this.add(solde);
         this.add(historique);
+        initButtons();
 
+    }
+
+    private void initButtons(){
+        recharger.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                interfaceUtilisateur.changerEtat(ETAT_IU.RECHARGER);
+            }
+        });
+    }
+
+    public void activer(){
+        solde.setText("solde : "+interfaceUtilisateur.getCarteAbonne().getSolde()+" €");
     }
 }

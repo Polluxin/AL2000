@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Connexion extends JPanel {
+public class Connexion extends Panneau {
     JPanel centrePanneau;
     JPanel motDePassePanneau;
     JButton connexion;
@@ -20,29 +20,6 @@ public class Connexion extends JPanel {
     Thread backgroundThreadRun;
     public Connexion(InterfaceUtilisateur iu){
         this.iu = iu;
-        backgroundThread = new Runnable() {
-            @Override
-            public void run() {
-                iu.getMediateur().abonner("Connexion", new Handler() {
-                    @Override
-                    public void handle(DonneesEvenement e) {
-                        String donnes = (String) e.getDonnees();
-                        try {
-                            System.out.println("CarteAbo est : "+iu.getCarteAbonne()+"\nID = "+iu.getCarteAbonne().getId()+" -- Solde : "+iu.getCarteAbonne().getSolde());
-                            iu.getLogiciel().connexion(iu.getCarteAbonne(), donnes);
-                            iu.getNavBar().setConnecte(true);
-                            iu.getMediateur().desabonner("Connexion");
-                            threadInterrupt();
-                            iu.changerEtat(ETAT_IU.VOIR_FILMS);
-                        } catch (MauvaisMotDePasse ex) {
-                            System.out.println("ERREUR : Mauvais Mot de Passe");
-                        }
-                    }
-                });
-            }
-        };
-        backgroundThreadRun = new Thread(backgroundThread);
-        backgroundThreadRun.start();
 
         this.setLayout(new BorderLayout());
         centrePanneau = new JPanel(new BorderLayout());
@@ -59,16 +36,20 @@ public class Connexion extends JPanel {
 
         connexion = OurTools.transparentButtonWithIcon("src/ressources/connexion.png");
         connexion.setOpaque(false);
-        connexion.setMaximumSize(new Dimension(500,1000));
+        connexion.setMaximumSize(new Dimension(500,500));
         connexion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                iu.getMediateur().publier("Connexion", new DonneesEvenement() {
-                    @Override
-                    public Object getDonnees() {
-                        return String.valueOf(motDePasse.getPassword());
-                    }
-                });
+                if(iu.getNavBar().estConnecte()){
+                    System.out.println("Utilisateur déja connecté ! ");
+                } else {
+                    iu.getMediateur().publier("Connexion", new DonneesEvenement() {
+                        @Override
+                        public Object getDonnees() {
+                            return String.valueOf(motDePasse.getPassword());
+                        }
+                    });
+                }
             }
         });
 
@@ -88,5 +69,33 @@ public class Connexion extends JPanel {
         backgroundThreadRun.interrupt();
     }
 
+    @Override
+    public void desactiver() {
+        iu.getMediateur().desabonner("Connexion");
+        threadInterrupt();
+    }
 
+    @Override
+    public void activer() {
+        backgroundThread = new Runnable() {
+            @Override
+            public void run() {
+                iu.getMediateur().abonner("Connexion", new Handler() {
+                    @Override
+                    public void handle(DonneesEvenement e) {
+                        String donnes = (String) e.getDonnees();
+                        try {
+                            iu.getLogiciel().connexion(iu.getCarteAbonne(), donnes);
+                            iu.getNavBar().setConnecte(true);
+                            iu.changerEtat(ETAT_IU.VOIR_FILMS);
+                        } catch (MauvaisMotDePasse ex) {
+                            System.out.println("ERREUR : Mauvais Mot de Passe");
+                        }
+                    }
+                });
+            }
+        };
+        backgroundThreadRun = new Thread(backgroundThread);
+        backgroundThreadRun.start();
+    }
 }

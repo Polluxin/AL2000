@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ConfirmerAjouterPanier extends JPanel {
+public class ConfirmerAjouterPanier extends Panneau {
     InterfaceUtilisateur interfaceUtilisateur;
     JButton qrCode;
     JButton physique;

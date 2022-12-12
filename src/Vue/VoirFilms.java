@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class VoirFilms extends JPanel {
+public class VoirFilms extends Panneau {
     JPanel panneauGauche;
     JPanel rechercher;
     JPanel panneauDroite;
@@ -27,6 +27,7 @@ public class VoirFilms extends JPanel {
     JButton btnRecherche;
     JButton[] tousLesFilmsBoutons;
     Film[] tousLesFilms;
+    JTextArea[] tousLesTitres;
     InterfaceUtilisateur iu;
 
     Runnable backgroundThread;
@@ -61,6 +62,8 @@ public class VoirFilms extends JPanel {
         int nombreFilms = 14;
         tousLesFilmsBoutons = new JButton[nombreFilms];
         tousLesFilms = new Film[nombreFilms];
+        tousLesTitres = new JTextArea[nombreFilms];
+
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
         panneauGauche = new JPanel();
@@ -140,7 +143,13 @@ public class VoirFilms extends JPanel {
             b1.setPreferredSize(new Dimension(300,60));
             //b1.setOpaque(false);
             tousLesFilmsBoutons[i] = b1;
-            tousLesFilms[i] = new Film();
+            tousLesFilms[i] = fef.getFilm();
+            tousLesTitres[i] = new JTextArea(tousLesFilms[i].getTitre());
+            tousLesTitres[i].setLineWrap(true);
+            tousLesTitres[i].setWrapStyleWord(true);
+            tousLesTitres[i].setOpaque(false);
+            tousLesTitres[i].setMinimumSize(new Dimension(50, 50));
+            tousLesTitres[i].setFont(tousLesTitres[i].getFont().deriveFont(20f));
 
             b1.addActionListener(new ActionListener() {
                 @Override
@@ -157,9 +166,10 @@ public class VoirFilms extends JPanel {
             jl1.setMinimumSize(new Dimension(300,300));
             JPanel p1 = new JPanel(new BorderLayout());
 
-            p1.setMinimumSize(new Dimension(300, 350));
+            p1.setMinimumSize(new Dimension(300, 400));
             p1.add(b1, BorderLayout.SOUTH);
             p1.add(jl1, BorderLayout.CENTER);
+            p1.add(tousLesTitres[i], BorderLayout.NORTH);
 
             grilleDesFilms.add(p1);
             i++;

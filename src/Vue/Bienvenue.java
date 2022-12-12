@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class Bienvenue extends JPanel{
+public class Bienvenue extends Panneau{
     JPanel panneauPrincipal;
     JPanel boutons;
     JButton[] listeBoutons;
@@ -62,19 +62,6 @@ public class Bienvenue extends JPanel{
 
     }
 
-    public JButton getBouton(String name){
-        if(Objects.equals(name, "connexion")){
-            return this.listeBoutons[0];
-        } else if (Objects.equals(name, "inscription")){
-            return this.listeBoutons[1];
-        } else if (Objects.equals(name, "rendre films")){
-            return this.listeBoutons[2];
-        } else if (Objects.equals(name, "voir films")){
-            return this.listeBoutons[3];
-        }
-        else return null;
-    }
-
     private void setActions(){
         listeBoutons[0].addActionListener(new ActionListener() {
             @Override
@@ -105,6 +92,12 @@ public class Bienvenue extends JPanel{
         });
     }
 
-
-
+    @Override
+    public void activer() {
+        if(interfaceUtilisateur.estConnecte()){
+            listeBoutons[0].setEnabled(false);
+        } else {
+            listeBoutons[0].setEnabled(true);
+        }
+    }
 }
