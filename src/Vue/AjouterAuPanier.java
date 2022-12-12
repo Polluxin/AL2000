@@ -1,6 +1,7 @@
 package Vue;
 
 import Metier.GestionLocation.Film;
+import Metier.GestionLocation.FilmEtFormat;
 import Metier.GestionLocation.Genre;
 
 import javax.swing.*;
@@ -14,7 +15,6 @@ import java.awt.event.ActionListener;
  */
 public class AjouterAuPanier extends Panneau {
     Film ceFilm;
-    InterfaceUtilisateur interfaceUtilisateur;
     JButton boutonAjouter;
     JLabel solde;
     JLabel titreFilm;
@@ -100,18 +100,18 @@ public class AjouterAuPanier extends Panneau {
      * Modifie l'interface avec le film contenu dans setFilm
      * @param f
      */
-    public void setFilm(Film f){
-        ceFilm = f;
-        titreFilm.setText(f.getTitre());
+    public void setFilm(FilmEtFormat f){
+        ceFilm = f.getFilm();
+        titreFilm.setText(ceFilm.getTitre());
         if(interfaceUtilisateur.getCarteAbonne() == null){
             solde.setText("Solde : XXX");
         } else {
             solde.setText("Solde : "+String.valueOf(interfaceUtilisateur.getCarteAbonne().getSolde())+" €");
         }
-        duree.setText(f.getDuree());
-        date.setText(f.getDate().toString());
-        genre.setText(f.getGenre().toString());
-        realisateur.setText(f.getRealisateur());
+        duree.setText(ceFilm.getDuree());
+        date.setText(ceFilm.getDate().toString());
+        genre.setText(ceFilm.getGenre().toString());
+        realisateur.setText(ceFilm.getRealisateur());
     }
 
     /**

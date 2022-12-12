@@ -1,5 +1,8 @@
 package Vue;
 
+import Controle.DonneesEvenement;
+import Controle.Handler;
+import Metier.Exception.FondsInsuffisants;
 import Metier.GestionLocation.Location;
 
 import javax.swing.*;
@@ -23,6 +26,8 @@ public class AfficherPanier extends Panneau {
     JPanel panneauBasGauche;
     JScrollPane listeDeFilms;
     JTextField montantValeur;
+    Runnable backgroundThread;
+    Thread backgroundThreadRun;
 
     /**
      * Constructeur de l'affichage de panier
@@ -36,6 +41,7 @@ public class AfficherPanier extends Panneau {
 
         // bouton de validation du panier
         validerPanier = OurTools.transparentButtonWithIcon("src/ressources/valider.png");
+        initValider();
 
         // JPanel principal
         affichage = new JPanel(new BorderLayout());
@@ -87,6 +93,35 @@ public class AfficherPanier extends Panneau {
      */
     public void activer(){
         build(interfaceUtilisateur.getLogiciel().consulterPanier());
+        backgroundThread = new Runnable() {
+            @Override
+            public void run() {
+                interfaceUtilisateur.getMediateur().abonner("Paiement", new Handler() {
+                    @Override
+                    public void handle(DonneesEvenement e) {
+                        // Cas Carte abonné
+                        if(interfaceUtilisateur.estConnecte()){
+                            try {
+                                interfaceUtilisateur.getLogiciel().louerFilms();
+                            } catch (FondsInsuffisants ex) {
+                                interfaceUtilisateur.errorDialog("Fonds insuffisant : "+prix+" > "+interfaceUtilisateur.getCarteAbonne().getSolde());
+                                interfaceUtilisateur.changerEtat(ETAT_IU.RECHARGER);
+                            }
+                        } else {
+                            interfaceUtilisateur.changerEtat(ETAT_IU.REGLER_PANIER_CB);
+                        }
+                    }
+                });
+            }
+        };
+        backgroundThreadRun = new Thread(backgroundThread);
+        backgroundThreadRun.start();
+    }
+
+    public void desactiver(){
+        backgroundThreadRun.interrupt();
+        interfaceUtilisateur.getMediateur().desabonner("Paiement");
+
     }
 
     /**
@@ -136,5 +171,19 @@ public class AfficherPanier extends Panneau {
         while(grilleDesFilms.getComponentCount() != 0) {
             grilleDesFilms.remove(0);
         }
+    }
+
+    private void initValider(){
+        validerPanier.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                interfaceUtilisateur.getMediateur().publier("Paiement", new DonneesEvenement() {
+                    @Override
+                    public Object getDonnees() {
+                        return null;
+                    }
+                });
+            }
+        });
     }
 }

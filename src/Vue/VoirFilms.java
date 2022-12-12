@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.List;
 
 public class VoirFilms extends Panneau {
@@ -39,25 +40,6 @@ public class VoirFilms extends Panneau {
     public VoirFilms(InterfaceUtilisateur iu){
         this.iu = iu;
         grilleDesFilms_initialise = Boolean.FALSE;
-
-        backgroundThread = new Runnable() {
-            @Override
-            public void run() {
-                iu.getMediateur().abonner("recupererListeFilms", new Handler() {
-                    @Override
-                    public void handle(DonneesEvenement e) {
-                        creerListefilms(iu.getLogiciel().donnerCatalogue((FiltreTri) e.getDonnees()));
-                        iu.getMediateur().desabonner("recupererListeFilms");
-                        threadInterrupt();
-                        grilleDesFilms_initialise = true;
-                        System.out.println("Recuperer liste films handled ..");
-                    }
-                });
-            }
-        };
-
-        backgroundThreadRun = new Thread(backgroundThread);
-        backgroundThreadRun.start();
 
         int nombreFilms = 14;
         tousLesFilmsBoutons = new JButton[nombreFilms];
@@ -92,21 +74,6 @@ public class VoirFilms extends Panneau {
                 return new Dimension(scrollPaneWidth, height);
             }
         };
-
-        iu.getMediateur().publier("recupererListeFilms", new DonneesEvenement() {
-            @Override
-            public Object getDonnees() {
-                // TODO Gestion des Filtres
-                return new FiltreTri(Tri.TITRE, null);
-            }
-        });
-        while(!grilleDesFilms_initialise){
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
 
         grilleDesFilms.setOpaque(false);
 
@@ -154,7 +121,8 @@ public class VoirFilms extends Panneau {
             b1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    iu.setFilmActuel(fef.getFilm());
+                    iu.setFilmActuel(fef);
+                    System.out.println("fef : --> "+fef.estDispoEnPhysique());
                     iu.changerEtat(ETAT_IU.AJOUTER_AU_PANIER);
 
                 }
@@ -177,4 +145,26 @@ public class VoirFilms extends Panneau {
 
     }
 
+    private void viderListeFilm() {
+        Arrays.fill(tousLesFilmsBoutons, null);
+        Arrays.fill(tousLesFilms, null);
+        Arrays.fill(tousLesTitres, null);
+        while(grilleDesFilms.getComponentCount() != 0){
+            grilleDesFilms.remove(0);
+        }
+    }
+
+    @Override
+    public void activer() {
+        creerListefilms(iu.getLogiciel().donnerCatalogue(new FiltreTri(Tri.TITRE, null)));
+    }
+
+    @Override
+    public void desactiver() {
+        if(backgroundThreadRun != null) {
+            backgroundThreadRun.interrupt();
+        }
+        iu.getMediateur().desabonner("recupererListeFilms");
+        viderListeFilm();
+    }
 }
