@@ -7,6 +7,9 @@ import Metier.GestionLocation.*;
 import Metier.GestionMachine.*;
 
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Contrôleur de l'application, tout passe par ici.
@@ -25,11 +28,7 @@ public class AL2000 {
 
     private Catalogue catalogue;
 
-    private Signalement signalement;
-
     private Distributeur machine;
-
-    private Police police;
 
     private Technicien technicien;
 
@@ -57,13 +56,18 @@ public class AL2000 {
         panier = new Panier();
         histo = new HistoLoc(idMachine);
         catalogue = new Catalogue(inv, session, idMachine);
-        signalement = new Signalement();
         machine = new Machine(inv, statistiques, session);
-        int delaisPolice = 300;
-        police = new Police(histo, delaisPolice);
         technicien = null;
         fabSupport = new FabriqueSupport(machine);
         session.close();
+
+        //créer Police
+        // 86400 secondes par jour
+        // 259200 pour 3 jours
+        int delaisPolice = 5;
+        Police.activerPolice(histo, delaisPolice);
+
+
     }
 
     /**
@@ -77,6 +81,11 @@ public class AL2000 {
         machine.livrerFilms(liste_films);
     }
 
+    /**
+     * Fonction utilisée pour la location de films sans être abonné.
+     * @param cb la cb à débiter lors du rendu
+     * @throws FondsInsuffisants si la cb ne sera pas en mesure de payer
+     */
     public void louerFilms(CB cb) throws FondsInsuffisants {
         compte.connexionAnonyme(cb);
         panier.setLocationsToCB(cb);
@@ -292,7 +301,6 @@ public class AL2000 {
      * Si le client n'a pas de location en cours (lié à HistoLoc).
      */
     public void retirerSolde(String infosCarte) throws PaiementRefuse, CarteIllisible{
-        // TODO A refaire avec l'ui (simulation insertion)
         CB cb;
         // lire la carte
         cb = machine.lireCB(infosCarte);
@@ -305,7 +313,7 @@ public class AL2000 {
      * @param f le formulaire de signalement
      */
     public void signalerProbleme(FormulaireSignalement f){
-        System.out.println("Signalement envoyé à CyberVidéo");
+        System.out.println("Signalement : "+f+"envoyé à CyberVidéo");
     }
 
     /**

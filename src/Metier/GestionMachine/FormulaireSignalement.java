@@ -27,4 +27,12 @@ public class FormulaireSignalement {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return "{ "+ nom + " "
+                + prenom+" "
+                + adresseMail+" "
+                + description+" }";
+    }
 }
