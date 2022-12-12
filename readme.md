@@ -37,9 +37,9 @@ Lien du git : *https://github.com/Polluxin/AL2000.git*
 ### Etape 2 (optionnelle) : peupler la BD
 - Lancer les scripts : *destruction_base.sql*, *creation_base.sql* et *peupler_base.sql* sur le serveur Oracle (c.f. Session)
 Attention : Session permet une connexion à la base par l'utilisateur davidge (mdp : 365214), le peuplement de la base doit donc se faire aussi sur ce schéma.
-### Etape 3 : compiler et créer le Jar (*IntelliJ*, optionnel)
+### Etape 3 : compiler et créer le Jar (*IntelliJ IDEA*, optionnel)
 #### Il est possible de recréer le jar (remplacer *AL2000.jar*) :
-* Aller dans "Project Structure..." -> "Artifacts"
+* Aller dans "File -> Project Structure..." -> "Artifacts"
 * Ajouter ("+") -> JAR -> "From modules with dependencies"
 * Choisir la classe **Main()** et cocher **Extract to the target JAR**
 * Pour le générer, faire ensuite "Build" -> "Build Artifacts..."
