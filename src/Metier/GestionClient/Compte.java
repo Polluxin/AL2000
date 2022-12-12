@@ -2,7 +2,6 @@ package Metier.GestionClient;
 
 import BaseDeDonnees.DAOs.AbonneDAO;
 import BaseDeDonnees.DAOs.CBDAO;
-import BaseDeDonnees.DAOs.LocationDAO;
 import BaseDeDonnees.Session;
 import Metier.Exception.FormulaireInvalide;
 import Metier.Exception.MauvaisMotDePasse;
@@ -19,6 +18,7 @@ import Metier.GestionMachine.FormulaireInscription;
  * @author Armand GRENIER
  * @version 0
  */
+@SuppressWarnings({"JavadocDeclaration", "unused"})
 public class Compte {
 
     Client client = new Anonyme(null);
@@ -152,7 +152,7 @@ public class Compte {
      * @param montant la somme à créditer
      * @param cb      la carte à débiter
      */
-    public void rechargerSolde(float montant, CB cb) throws PaiementRefuse {
+    public void rechargerSolde(float montant, CB cb) {
         // payer avec carte
         CarteAbo c = (CarteAbo) (client).getCarte();
         cb.payer(montant);
@@ -209,11 +209,4 @@ public class Compte {
         return 0.F;
     }
 
-    public void updateBDD() {
-        Session s = new Session();
-        s.open();
-        //LocationDAO dao = new LocationDAO(s.getSession(), idMachine);
-        //dao.modifier(l);
-        s.close();
-    }
 }

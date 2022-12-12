@@ -262,7 +262,7 @@ class Police {
 ##TODO
 }
 
-note "Vérifie périodiquement s'il y a des locations\non rendues depuis plus de 5 jours" as A1
+note "Vérifie périodiquement s'il y a des locations\non rendues depuis plus de 3 jours" as A1
 Police .l. A1
 
 enum Etat {

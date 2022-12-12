@@ -80,9 +80,9 @@ public class RendreBluray extends Panneau {
                             iu.getLogiciel().simulerInsertionBluRay((String) e.getDonnees());
                             System.out.println("Blu-Ray correctement rendu.");
                         } catch (BluRayInvalide ex) {
-                            interfaceUtilisateur.errorDialog("ERREUR : Blu-Ray Invalide !");
+                            iu.errorDialog("ERREUR : Blu-Ray Invalide !");
                         } catch (BluRayNonLoue eb) {
-                            interfaceUtilisateur.errorDialog("ERREUR : Blu-Ray Déja en magasin !");
+                            iu.errorDialog("ERREUR : Blu-Ray Déja en magasin !");
                         }
                     }
                 });

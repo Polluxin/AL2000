@@ -1,7 +1,6 @@
 package Metier.GestionLocation;
 
 import Metier.GestionMachine.Distributeur;
-import Metier.GestionMachine.Inventaire;
 
 /**
  *
