@@ -268,7 +268,7 @@ public class StretchIcon extends ImageIcon {
      * <P>
      * If the proportion has not been specified, or has been specified as <code>true</code>,
      * the aspect ratio of the image will be preserved by padding and centering the image
-     * horizontally or vertically.  Otherwise the image may be distorted to fill the
+     * horizontally or vertically.  Otherwise, the image may be distorted to fill the
      * component it is painted to.
      * <P>
      * If this icon has no image observer,this method uses the <code>c</code> component

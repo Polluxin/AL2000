@@ -58,7 +58,7 @@ public class Recharger extends Panneau {
     }
 
     /**
-     * Action a effectuer sur insertion d'une carte bancaire
+     * Action à effectuer sur insertion d'une carte bancaire
      * @param numero numero de carte
      */
     public void testerPaneGetter(String numero){

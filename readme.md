@@ -41,7 +41,7 @@ Attention : Session permet une connexion à la base par l'utilisateur davidge (m
 * Aller dans "Project Structure..." -> "Artifacts"
 * Ajouter ("+") -> JAR -> "From modules with dependencies"
 * Choisir la classe **Main()** et cocher **Extract to the target JAR**
-* Pour le générer faire ensuite "Build" -> "Build Artifacts..."
+* Pour le générer, faire ensuite "Build" -> "Build Artifacts..."
 Le .JAR est alors généré dans le dossier du projet
 ### Etape 4 : exécuter le programme
 * Avoir une version de java supérieure à 17

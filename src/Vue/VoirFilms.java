@@ -20,7 +20,6 @@ import java.util.List;
 public class VoirFilms extends Panneau {
     private final JScrollPane listeDeFilms;
     private final JPanel grilleDesFilms;
-    private JButton[] tousLesFilmsBoutons;
     private Film[] tousLesFilms;
     private final JTextArea[] tousLesTitres;
     /**
@@ -31,7 +30,6 @@ public class VoirFilms extends Panneau {
         this.interfaceUtilisateur = iu;
 
         int nombreFilms = 14;
-        tousLesFilmsBoutons = new JButton[nombreFilms];
         tousLesFilms = new Film[nombreFilms];
         tousLesTitres = new JTextArea[nombreFilms];
 
@@ -67,7 +65,6 @@ public class VoirFilms extends Panneau {
 
         grilleDesFilms.setOpaque(false);
 
-        tousLesFilmsBoutons = new JButton[nombreFilms];
         tousLesFilms = new Film[nombreFilms];
         listeDeFilms = new JScrollPane(grilleDesFilms, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -99,7 +96,6 @@ public class VoirFilms extends Panneau {
             b1.setMinimumSize(new Dimension(300,60));
             b1.setPreferredSize(new Dimension(300,60));
             //b1.setOpaque(false);
-            tousLesFilmsBoutons[i] = b1;
             tousLesFilms[i] = fef.getFilm();
             tousLesTitres[i] = new JTextArea(tousLesFilms[i].getTitre());
             tousLesTitres[i].setLineWrap(true);
@@ -139,7 +135,6 @@ public class VoirFilms extends Panneau {
      * Vider les tableaux utilisés et le GridLayout
      */
     private void viderListeFilm() {
-        Arrays.fill(tousLesFilmsBoutons, null);
         Arrays.fill(tousLesFilms, null);
         Arrays.fill(tousLesTitres, null);
         while(grilleDesFilms.getComponentCount() != 0){

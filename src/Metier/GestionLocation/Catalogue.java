@@ -47,11 +47,11 @@ public class Catalogue {
 
     /**.
      * En fonction du filtre et des préférences en attribut, consulte la base de données pour trouver les films
-     * disponibles, et recoupe avec l'inventaire en attribut.
+     * disponibles et recoupe avec l'inventaire en attribut.
      * @return la liste des films disponibles et leur disponibilité en physique
      */
     private List<FilmEtFormat> recupererFilmsBD(){
-        // Récupération des films QRCode (cad tout les films répondant au filtre et pas à un des genres interdits)
+        // Récupération des films QRCode (cas tous les films répondant au filtre et pas à un des genres interdits)
         bd.open();
         StringBuilder lesFilmsEnQRCode = new StringBuilder("SELECT * FROM LESFILMS");
 
@@ -67,7 +67,7 @@ public class Catalogue {
                         lesFilmsEnQRCode.append("AND ");
                 }
             }
-            // Dans l'état, cette requête donne tout les films avec des genres autorisés.
+            // Dans l'état, cette requête donne tous les films avec des genres autorisés.
             if (filtre.getTri() != null)
                 // il ne reste plus qu'à la trier
                 lesFilmsEnQRCode.append(" ORDER BY ").append(filtre.getTri().toString());

@@ -38,7 +38,7 @@ public abstract class Support {
     }
 
     /**
-     * renvoie un support sur le même film mais remplace QrCode par BluRay et vice-versa
+     * renvoie un support sur le même film, mais remplace QrCode par BluRay et vice-versa
      * @param dist Distributeur utilisé pour trouver les BluRays
      * @return le support "inverse"
      */

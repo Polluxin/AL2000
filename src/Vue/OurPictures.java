@@ -9,8 +9,6 @@ import java.util.Map;
 
 /**
  * OurPictures loads all the pictures used in the program to avoid having to load them multiple times.
- *
- * This is very bulky and repetitive because it's intended to be used in static.
  */
 public final class OurPictures {
     private static final StretchIcon admin = loadPicture("res/ressources/admin.png");

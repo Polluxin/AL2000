@@ -115,7 +115,7 @@ public class Compte {
     }
 
     /**
-     * Effectue une connexion mais avec un anonyme
+     * Effectue une connexion, mais avec un anonyme
      * @param cb carte banquaire de l'anonyme
      */
     public void connexionAnonyme(CB cb) {

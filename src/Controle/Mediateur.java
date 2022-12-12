@@ -21,7 +21,7 @@ public class Mediateur{
     }
 
     /**
-     * Utilisée par l'interface utilisateur pour attendre une certaine action (par exemple l'insertion d'un BluRay.
+     * Utilisée par l'interface utilisateur pour attendre une certaine action (par exemple l'insertion d'un BluRay.)
      * @param evenement la catégorie de l'événement
      * @param h l'action à effectuer en réponse (relative à l'AL2000)
      */

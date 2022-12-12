@@ -124,7 +124,7 @@ public class Machine implements Distributeur, Maintenance {
     }
 
     /**
-     * Fonction utilisé par avalerBluRay pour vérifier dans la bd si le BluRay est bien en pleine location.
+     * Fonction utilisée par avalerBluRay pour vérifier dans la bd si le BluRay est bien en pleine location.
      * @param id l'id du BluRay
      * @return vrai si le BluRay est dans une location ENCOURS
      */

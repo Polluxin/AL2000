@@ -89,7 +89,7 @@ public class AL2000 {
     }
 
     /**
-     * Fonction fantôme car on utilise plutôt simulerInsertionBluRay directement.
+     * Fonction fantôme, car on utilise plutôt simulerInsertionBluRay directement.
      * @param b le BluRay rendu
      */
     public void rendreFilm(BluRay b) {

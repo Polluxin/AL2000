@@ -31,7 +31,7 @@ public class RendreBluRay {
             throw new RuntimeException(e);
         }
 
-        // affichage des location en cours
+        // affichage des locations en cours
         System.out.println("Locations : ");
         for (Location l : al2000.voirHistoClient()) {
             System.out.println(i + " - " + l);

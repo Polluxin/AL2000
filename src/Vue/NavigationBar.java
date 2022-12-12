@@ -169,7 +169,7 @@ public class NavigationBar extends Panneau {
     }
 
     /**
-     * Modifie la barre de  navigation en fonction de la connexion de l'utilisateur
+     * Modifie la barre de navigation en fonction de la connexion de l'utilisateur
      * @param estConnecte true pour être connecté, false sinon
      */
     public void setConnecte(boolean estConnecte){
@@ -255,7 +255,7 @@ public class NavigationBar extends Panneau {
 
 
     /**
-     * getter de estConnecte
+     * getter d'estConnecte
      * @return true si un abonné est connecté
      */
     public Boolean estConnecte(){

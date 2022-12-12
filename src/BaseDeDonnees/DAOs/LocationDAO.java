@@ -211,7 +211,7 @@ public class LocationDAO extends DAO<Location>{
     }
 
     /**
-     * Fonction interne qui créer l'objet location, en créant tout les objets qui en découlent.
+     * Fonction interne qui créer l'objet location, en créant tous les objets qui en découlent.
      * Utilisé lors de la lecture d'un historique d'une machine.
      * @param ligne la ligne venant de la BD
      * @param mode CB ou CA pour définir si l'on cherche un client anonyme ou abonné
@@ -226,7 +226,7 @@ public class LocationDAO extends DAO<Location>{
     }
 
     /**
-     * Fonction interne qui créer l'objet location, en créant tout les objets qui en découlent.
+     * Fonction interne qui créer l'objet location, en créant tous les objets qui en découlent.
      * Utilisé lors de la lecture d'un historique d'une machine.
      * @param ligne la ligne venant de la BD
      * @param mode CB ou CA pour définir si l'on cherche un client anonyme ou abonné

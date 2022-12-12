@@ -93,7 +93,7 @@ public class Location {
     /**
      * Calcul les fonds nécessaires pour pouvoir louer toutes les locations de la liste.
      *
-     * @param locations liste de location dont le coût est calculer
+     * @param locations liste de location dont le coût est calculé
      * @return la somme des fonds max pour chacune des locations
      */
     public static float fondsNecessaire(List<Location> locations) {

@@ -126,7 +126,7 @@ public class AfficherPanier extends Panneau {
 
     /**
      * Construit la page avec les nouvelles données de l'utilisateur
-     * @param locations
+     * @param locations liste des locations dans le panier de l'utilisateur
      */
     private void build(List<Location> locations){
         supprimerGrille();
@@ -136,7 +136,7 @@ public class AfficherPanier extends Panneau {
         } else {
             prixGeneral = 5;
         }
-        // Pour chaque locations dans le panier
+        // Pour chaque location dans le panier
         for (Location location : locations) {
             JPanel current = new JPanel(new GridLayout(3,0));
             current.setBackground(new Color(100 + (int)(Math.random() * 151), 100 + (int)(Math.random() * 151), 100 + (int)(Math.random() * 151))); //couleur aleatoire

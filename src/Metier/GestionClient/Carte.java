@@ -33,7 +33,7 @@ public abstract class Carte {
 
     /**
      * Verifie que la carte peut payer le montant
-     * @param montant valeur en euros demandé
+     * @param montant valeur en euros demandée
      * @return true si le fonds sont suffisants pour payer le montant
      */
     public boolean verifier_fonds(float montant) { return false;}

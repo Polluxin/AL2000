@@ -72,7 +72,7 @@ public class InterfaceUtilisateur {
 
         // Parametrage du contentPane et de l'ecran principal
         ecran.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ecran.setMinimumSize(new Dimension(1300, 1000)); //Taille minimales pour le bon fonctionnement des differents elements visuels
+        ecran.setMinimumSize(new Dimension(1300, 1000)); //Taille minimale pour le bon fonctionnement des differents elements visuels
         ecran.setPreferredSize(new Dimension(1300,1000));
         ecran.setContentPane(fondDEcran);
         ecran.setResizable(true);
@@ -215,7 +215,7 @@ public class InterfaceUtilisateur {
     }
 
     /**
-     * Incrémente le panier et renvoie vrai si l'incrémentation à eu lieu, pour limiter le panier à 10 films
+     * Incrémente le panier et renvoie vrai si l'incrémentation a eu lieu, pour limiter le panier à 10 films
      * @return vrai si le panier a pu être incrémenté
      */
     public Boolean incrementerPanier(){

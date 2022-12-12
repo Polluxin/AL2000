@@ -93,7 +93,7 @@ public class Inventaire {
 
     /**
      * Utilisé lors d'une location d'un BluRay, cette fonction indique dans la base de données que le BluRay ne se
-     * situe plus dans la machine, et met à jour l'inventaire local.
+     * situe plus dans la machine et met à jour l'inventaire local.
      * @param b le BluRay loué
      */
     public void supprimerBluRay(BluRay b){

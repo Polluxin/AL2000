@@ -92,7 +92,7 @@ public class AjouterAuPanier extends Panneau {
 
     /**
      * Modifie l'interface avec le film contenu dans setFilm
-     * @param f
+     * @param f le film que l'on doit ouvrir
      */
     public void setFilm(FilmEtFormat f){
         ceFilm = f.getFilm();

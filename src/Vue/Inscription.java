@@ -157,9 +157,7 @@ public class Inscription extends Panneau {
                 }
             }
             Genre[] genres = new Genre[i];
-            for(int j=0; j<i; j++){
-                genres[j] = tempgenres[j];
-            }
+            System.arraycopy(tempgenres, 0, genres, 0, i);
 
             FormulaireInscription fi = new FormulaireInscription(
                     getNouvelEnsembleValeur(nom),
