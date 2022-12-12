@@ -2,7 +2,9 @@ package Vue;
 
 import Controle.DonneesEvenement;
 import Controle.Handler;
-import Metier.Exception.*;
+import Metier.Exception.CarteIllisible;
+import Metier.Exception.FondsInsuffisants;
+import Metier.Exception.PaiementRefuse;
 import Metier.GestionClient.CB;
 
 import javax.swing.*;
@@ -11,19 +13,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Attente de l'entrée d'un DVD par l'utilisateur
  * @author Matvei Pavlov
  */
-public class Recharger extends Panneau {
+public class ReglerPanierCB extends Panneau{
     JTextArea instructions;
     JLabel icon;
     JButton simulation;
-    NavigationBar navbar;
-    JTextField montantAAjouter;
-    public Recharger(InterfaceUtilisateur iu){
+    public ReglerPanierCB(InterfaceUtilisateur iu){
         this.interfaceUtilisateur = iu;
-        this.setLayout(new GridLayout(3, 0));
-        navbar = interfaceUtilisateur.getNavBar();
+        this.setLayout(new GridLayout(4, 0));
         icon = new JLabel();
         icon.setIcon(OurPictures.getPicture("src/ressources/rendredvd.png"));
         icon.setOpaque(false);
@@ -33,10 +31,6 @@ public class Recharger extends Panneau {
         instructions.setLineWrap(true);
         instructions.setWrapStyleWord(true);
 
-        montantAAjouter = new JTextField("");
-        montantAAjouter.setFont(montantAAjouter.getFont().deriveFont(100f));
-        montantAAjouter.setBorder(BorderFactory.createMatteBorder(10,10,10,10,OurColors.border()));
-
         simulation = new JButton("Simuler insertion Carte Banquaire");
         simulation.setPreferredSize(new Dimension(100, 100));
         simulation.setBackground(Color.CYAN);
@@ -44,7 +38,7 @@ public class Recharger extends Panneau {
         simulation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane simulateur = OurTools.testerPane(Recharger.this, "Veuillez entrer le numero de la Carte Bancaire:");
+                JOptionPane simulateur = OurTools.testerPane(ReglerPanierCB.this, "Veuillez entrer le numero de la Carte Bancaire:");
                 JDialog dialog = simulateur.createDialog(null, "Veuillez entrer le numero");
                 interfaceUtilisateur.getNavBar().addAwaitingProcess(dialog);
                 dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -56,7 +50,6 @@ public class Recharger extends Panneau {
         this.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         this.setOpaque(false);
         this.add(instructions);
-        this.add(montantAAjouter);
         this.add(simulation);
     }
 
@@ -75,28 +68,21 @@ public class Recharger extends Panneau {
             public void handle(DonneesEvenement e) {
                 String id = (String) e.getDonnees();
                 try {
-                    System.out.println("test : id -> "+id);
                     CB cb = interfaceUtilisateur.getLogiciel().simulerInsertionCB(id);
-                    System.out.println("Carte "+cb.getInformationsBancaires()+" inséré.");
-                    if(montantAAjouter.getText() != ""){
-                        interfaceUtilisateur.getLogiciel().recharger(Float.valueOf(montantAAjouter.getText()), cb.getInformationsBancaires());
-                    }
+                    interfaceUtilisateur.getLogiciel().louerFilms(cb);
                     interfaceUtilisateur.changerEtat(ETAT_IU.VOIR_FILMS);
                 } catch (CarteIllisible ex) {
                     interfaceUtilisateur.errorDialog("ERREUR : Carte Illisible");
-                } catch (PaiementRefuse ex) {
-                    interfaceUtilisateur.errorDialog("ERREUR : Paiement refusé");
+                } catch (FondsInsuffisants ex) {
+                    interfaceUtilisateur.errorDialog("ERREUR : Fonds Insuffisants");
                 }
 
             }
         });
-        instructions.setText("Votre solde est de : "+interfaceUtilisateur.getCarteAbonne().getSolde()+"\nVeuillez entrer le montant de la recharge et insérer votre Carte Bancaire.\nCarte : 5341 2154 2225 4448-04 25-Paul Fort-888-");
-
+        instructions.setText("Veuillez insérer votre carte bancaire.\nCarte : 5341 2154 2225 4448-04 25-Paul Fort-888-");
     }
 
     public void desactiver(){
         interfaceUtilisateur.getMediateur().desabonner("InsertionCB");
     }
 }
-
-

@@ -26,7 +26,7 @@ public class InterfaceUtilisateur {
     Connexion connexion;
     Dimension tailleEcran;
     ETAT_IU etatCourant;
-    Film filmActuel;
+    FilmEtFormat filmActuel;
     Inscription inscription;
     InscriptionReussie inscriptionReussie;
     JFrame ecran;
@@ -38,6 +38,7 @@ public class InterfaceUtilisateur {
     PreConnexion preConnexion;
     Recharger recharger;
     RendreBluray rendrebluray;
+    ReglerPanierCB reglerPanierCB;
     VoirFilms voir_films;
     boolean utilisateurConnecte;
     int nombreDelementsDansLePanier;
@@ -70,6 +71,7 @@ public class InterfaceUtilisateur {
         parametreTechnicien = new ParametreTechnicien(this);
         preConnexion = new PreConnexion(this);
         recharger = new Recharger(this);
+        reglerPanierCB = new ReglerPanierCB(this);
         rendrebluray = new RendreBluray(this);
         voir_films = new VoirFilms(this);
 
@@ -141,6 +143,9 @@ public class InterfaceUtilisateur {
                 case VOIR_FILMS -> panneauCourant = voir_films;
                 case RECHARGER -> {
                     panneauCourant = recharger;
+                }
+                case REGLER_PANIER_CB -> {
+                    panneauCourant = reglerPanierCB;
                 }
                 case AJOUTER_AU_PANIER -> panneauCourant = ajouterAuPanier;
                 case AFFICHER_PANIER -> panneauCourant = afficherPanier;
@@ -235,11 +240,11 @@ public class InterfaceUtilisateur {
         }
     }
 
-    public void setFilmActuel(Film f){
+    public void setFilmActuel(FilmEtFormat f){
         this.filmActuel = f;
     }
 
-    public Film getFilmActuel(){
+    public FilmEtFormat getFilmActuel(){
         return filmActuel;
     }
 

@@ -22,6 +22,7 @@ public class ConfirmerAjouterPanier extends Panneau {
         this.setOpaque(false);
         qrCode = OurTools.transparentButtonWithIcon("src/ressources/QRCode.png");
         physique = OurTools.transparentButtonWithIcon("src/ressources/bluray.png");
+        actionsBoutons();
 
         JTextArea text = new JTextArea("Sous quel format souhaitez-vous retirer votre film ?");
         text.setLineWrap(true);
@@ -44,7 +45,7 @@ public class ConfirmerAjouterPanier extends Panneau {
         qrCode.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Support qrc = interfaceUtilisateur.getLogiciel().getSupport(interfaceUtilisateur.getFilmActuel(), true);
+                Support qrc = interfaceUtilisateur.getLogiciel().getSupport(interfaceUtilisateur.getFilmActuel().getFilm(), true);
                 interfaceUtilisateur.getMediateur().publier("ajouterPanier", new DonneesEvenement() {
                     @Override
                     public Object getDonnees() {
@@ -56,7 +57,7 @@ public class ConfirmerAjouterPanier extends Panneau {
         physique.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Support phy = interfaceUtilisateur.getLogiciel().getSupport(interfaceUtilisateur.getFilmActuel(), false);
+                Support phy = interfaceUtilisateur.getLogiciel().getSupport(interfaceUtilisateur.getFilmActuel().getFilm(), false);
                 interfaceUtilisateur.getMediateur().publier("ajouterPanier", new DonneesEvenement() {
                     @Override
                     public Object getDonnees() {
@@ -91,9 +92,10 @@ public class ConfirmerAjouterPanier extends Panneau {
                 });
             }
         };
-        actionsBoutons();
         backgroundThreadRun = new Thread(backgroundThread);
         backgroundThreadRun.start();
+        physique.setEnabled(interfaceUtilisateur.getFilmActuel().estDispoEnPhysique());
+        physique.setVisible(interfaceUtilisateur.getFilmActuel().estDispoEnPhysique());
     }
 
     @Override
