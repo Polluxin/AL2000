@@ -155,12 +155,4 @@ public final class OurPictures {
         return new Dimension((int)((maxHeight*in.getWidth())/in.getHeight()), (int)maxHeight);
     }
 
-    public static StretchIcon getBluray() {
-        return bluray;
-    }
-
-    public static StretchIcon getConnexion() {
-        return connexion;
-    }
-
 }

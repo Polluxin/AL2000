@@ -18,29 +18,17 @@ import java.util.List;
  */
 
 public class VoirFilms extends Panneau {
-    JPanel panneauGauche;
-    JPanel rechercher;
-    JPanel panneauDroite;
-
-    JScrollPane listeDeFilms;
-    JPanel grilleDesFilms;
-
-    JTextField barreDeRecherche;
-    JButton btnRecherche;
-    JButton[] tousLesFilmsBoutons;
-    Film[] tousLesFilms;
-    JTextArea[] tousLesTitres;
-
-    List<FilmEtFormat> listeFilms;
-    Boolean grilleDesFilms_initialise;
-
+    private final JScrollPane listeDeFilms;
+    private final JPanel grilleDesFilms;
+    private JButton[] tousLesFilmsBoutons;
+    private Film[] tousLesFilms;
+    private final JTextArea[] tousLesTitres;
     /**
      * Constructeur de VoirFilms permettant de créer les structures qui ne changent pas dans voirFilms
      * @param iu l'interface utilisateur
      */
     public VoirFilms(InterfaceUtilisateur iu){
         this.interfaceUtilisateur = iu;
-        grilleDesFilms_initialise = Boolean.FALSE;
 
         int nombreFilms = 14;
         tousLesFilmsBoutons = new JButton[nombreFilms];
@@ -49,18 +37,18 @@ public class VoirFilms extends Panneau {
 
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
-        panneauGauche = new JPanel();
+        JPanel panneauGauche = new JPanel();
         panneauGauche.setBackground(new Color(0,0,0, 0));
         panneauGauche.setLayout(new BorderLayout());
 
-        rechercher = new JPanel(new BorderLayout());
+        JPanel rechercher = new JPanel(new BorderLayout());
         rechercher.setBackground(OurColors.fond2());
         rechercher.setBorder(BorderFactory.createMatteBorder(2,2,2,2,Color.BLACK));
-        barreDeRecherche = new JTextField();
+        JTextField barreDeRecherche = new JTextField();
         barreDeRecherche.setOpaque(false);
         barreDeRecherche.setEditable(true);
 
-        btnRecherche = OurTools.transparentButtonWithIcon("res/ressources/search.png");
+        JButton btnRecherche = OurTools.transparentButtonWithIcon("res/ressources/search.png");
         //System.out.println("Dimensions of textfield : "+barreDeRecherche.getPreferredSize());
         btnRecherche.setPreferredSize(new Dimension(75,75));
         btnRecherche.addActionListener(e -> iu.errorDialog("Cette fonctionnalité sera disponible dans la prochaine version !"));
@@ -91,7 +79,7 @@ public class VoirFilms extends Panneau {
         panneauGauche.add(rechercher, BorderLayout.NORTH);
         panneauGauche.add(listeDeFilms);
 
-        panneauDroite = new JPanel();
+        JPanel panneauDroite = new JPanel();
         panneauDroite.setBackground(OurColors.fond());
         panneauDroite.setPreferredSize(new Dimension(300, 600));
 
@@ -105,7 +93,6 @@ public class VoirFilms extends Panneau {
      * @param listeFilms la liste des FilmEtFormat
      */
     private void creerListefilms(List<FilmEtFormat> listeFilms){
-        this.listeFilms = listeFilms;
         int i = 0;
         for (FilmEtFormat fef : listeFilms) {
             JButton b1 = OurTools.transparentButtonWithIcon("res/ressources/ajouterPanier.png");

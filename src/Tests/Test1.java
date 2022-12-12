@@ -15,7 +15,7 @@ import Metier.GestionLocation.Tri;
 public class Test1 {
  
 
-    public static void main(String[] arg) throws FondsInsuffisants,CarteIllisible, ConnexionImpossible, MauvaisMotDePasse{
+    public static void main(String[] arg) throws CarteIllisible, ConnexionImpossible, MauvaisMotDePasse{
         int i=0;
         int  idfilm;
         String scChar;

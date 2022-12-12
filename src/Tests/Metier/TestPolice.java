@@ -6,10 +6,8 @@ import Metier.Exception.CarteIllisible;
 import Metier.Exception.ConnexionImpossible;
 import Metier.Exception.MauvaisMotDePasse;
 import Metier.GestionClient.CarteAbo;
-import Metier.GestionLocation.Police;
 import Metier.GestionLocation.Support;
 
-import java.sql.Date;
 import java.util.Scanner;
 
 public class TestPolice {

@@ -3,16 +3,13 @@ package Vue;
 import Controle.DonneesEvenement;
 import Controle.Handler;
 import Metier.Exception.FormulaireInvalide;
-import Metier.Exception.MauvaisMotDePasse;
 import Metier.GestionLocation.Genre;
 import Metier.GestionMachine.FormulaireInscription;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class Inscription extends Panneau {

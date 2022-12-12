@@ -1,5 +1,4 @@
 package Tests;
-import java.util.List;
 import java.util.Scanner;
 import Metier.Exception.FondsInsuffisants;
 import Metier.Exception.FormulaireInvalide;
@@ -8,12 +7,7 @@ import Controle.*;
 import Metier.Exception.CarteIllisible;
 import Metier.Exception.ConnexionImpossible;
 import Metier.Exception.MauvaisMotDePasse;
-import Metier.GestionClient.CarteAbo;
-import Metier.GestionLocation.FilmEtFormat;
-import Metier.GestionLocation.FiltreTri;
 import Metier.GestionLocation.Genre;
-import Metier.GestionLocation.Support;
-import Metier.GestionLocation.Tri;
 import Metier.GestionMachine.FormulaireInscription;
 
 public class Test2 {
