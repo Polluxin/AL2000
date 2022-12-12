@@ -82,9 +82,9 @@ public class Recharger extends Panneau {
                     }
                     interfaceUtilisateur.changerEtat(ETAT_IU.VOIR_FILMS);
                 } catch (CarteIllisible ex) {
-                    System.out.println("Carte illisible ! ");
+                    interfaceUtilisateur.errorDialog("ERREUR : Carte Illisible");
                 } catch (PaiementRefuse ex) {
-                    System.out.println("Recharge Impossible : Fonds insuffisants");
+                    interfaceUtilisateur.errorDialog("ERREUR : Paiement refusé");
                 }
 
             }

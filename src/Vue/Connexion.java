@@ -88,7 +88,7 @@ public class Connexion extends Panneau {
                             interfaceUtilisateur.getNavBar().setConnecte(true);
                             interfaceUtilisateur.changerEtat(ETAT_IU.VOIR_FILMS);
                         } catch (MauvaisMotDePasse ex) {
-                            System.out.println("ERREUR : Mauvais Mot de Passe");
+                            interfaceUtilisateur.errorDialog("ERREUR : Mauvais Mot de Passe");
                         }
                     }
                 });

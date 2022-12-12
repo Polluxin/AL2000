@@ -105,10 +105,8 @@ public class Inscription extends Panneau {
                             threadInterrupt();
                             interfaceUtilisateur.changerEtat(ETAT_IU.INSCRIPTION_REUSSIE);
                         } catch (FormulaireInvalide ex) {
-                            System.out.println("Inscription Impossible");
+                            interfaceUtilisateur.errorDialog("Inscription Impossible");
                         }
-                        System.out.println("Inscription handle ..");
-                        System.out.println(fi.getNom());
                     }
                 });
             }
