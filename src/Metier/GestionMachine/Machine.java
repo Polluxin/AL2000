@@ -21,7 +21,7 @@ import java.util.List;
  * @author Geoffrey DAVID
  * @version 0
  */
-@SuppressWarnings("RedundantThrows")
+@SuppressWarnings({"RedundantThrows", "SqlDialectInspection"})
 public class Machine implements Distributeur, Maintenance {
 
     Inventaire inventaire;
@@ -34,10 +34,6 @@ public class Machine implements Distributeur, Maintenance {
         bd = contactBD;
         inventaire = i;
         statistiques = s;
-    }
-
-    public Inventaire getInventaire() {
-        return inventaire;
     }
 
     @Override

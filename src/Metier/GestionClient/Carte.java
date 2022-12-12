@@ -20,22 +20,21 @@ public abstract class Carte {
 
     /**
      * Paye le montant indiqué en utilisant la carte
-     * @param montant
-     * @throws PaiementRefuse
+     * @param montant valeur en euros à payer
+     * @throws PaiementRefuse si le paiement ne fonction pas (fond bancaire ou solde insuffisant)
      */
     void payer(float montant) throws PaiementRefuse {}
 
     /**
      * Recharge la carte d'un certain montant.
-     * @param montant
-     * @throws PaiementRefuse
+     * @param montant valeur en euros à payer
      */
-    void recharger(float montant) throws PaiementRefuse {}
+    void recharger(float montant) {}
 
     /**
      * Verifie que la carte peut payer le montant
-     * @param montant
-     * @return
+     * @param montant valeur en euros demandé
+     * @return true si le fonds sont suffisants pour payer le montant
      */
     public boolean verifier_fonds(float montant) { return false;}
 

@@ -12,6 +12,7 @@ import java.util.List;
  * @author Armand GRENIER
  * @version 0.0
  */
+@SuppressWarnings("unused")
 public class Location {
     Date date;
     Etat etat;

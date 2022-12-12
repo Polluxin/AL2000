@@ -13,6 +13,7 @@ import java.util.List;
  * @author Armand GRENIER
  * @version 0.0
  */
+@SuppressWarnings("unused")
 public class Panier {
 
     List<Location> locations;
@@ -22,21 +23,10 @@ public class Panier {
     }
 
     /**
-     * Ajoute une nouvelle location dans la liste des locations. La nouvelle
-     * location est créée à partir de la date du jour, d'un client
-     * et d'un support généré à partir d'un film.
-     * @param f le film sur le support
+     * Ajoute une nouvelle location dans la liste des locations.
+     * @param s  le support à louer
      * @param c le Client
-     * @param physique true pour un BluRay, false pour un QrCode
      */
-    public void ajouter(Film f, Client c, boolean physique){
-        Date sqlDate = new Date(System.currentTimeMillis());
-        // TODO
-        // créer le support sue le film
-        Support s = null;
-        Location loc = new Location(sqlDate, Etat.ENCOURS, s, c);
-        locations.add(loc);
-    }
     public void ajouter(Support s, Client c) {
         Date sqlDate = new Date(System.currentTimeMillis());
         // création de la location

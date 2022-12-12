@@ -13,6 +13,7 @@ import java.util.List;
  * @author Armand GRENIER
  * @version 0.0
  */
+@SuppressWarnings("JavadocDeclaration")
 public abstract class Client {
 
     Genre[] interdits;
@@ -74,7 +75,7 @@ public abstract class Client {
      * @param montant
      * @throws PaiementRefuse
      */
-    void recharger(float montant) throws PaiementRefuse {
+    void recharger(float montant) {
         carte.recharger(montant);
     }
 

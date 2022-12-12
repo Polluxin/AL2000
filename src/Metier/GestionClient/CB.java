@@ -1,7 +1,5 @@
 package Metier.GestionClient;
 
-import Metier.Exception.PaiementRefuse;
-
 /**
  *
  * @author Armand GRENIER
@@ -41,12 +39,11 @@ public class CB extends Carte {
     }
 
     @Override
-    void payer(float montant) throws PaiementRefuse {
-
+    void payer(float montant){
     }
 
     @Override
-    void recharger(float montant) throws PaiementRefuse {
+    void recharger(float montant) {
 
     }
 
