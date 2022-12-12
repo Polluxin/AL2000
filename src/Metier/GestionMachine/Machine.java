@@ -44,6 +44,7 @@ public class Machine implements Distributeur, Maintenance {
     public CB lireCB(String infosCarte) throws CarteIllisible {
         // TODO A TESTER
         // Rappel format des infos de la carte: "5341 2154 2225 4448-04 25-Paul Fort-888-"
+        System.out.println(infosCarte);
         String[] infos = infosCarte.split("-");
         System.out.println("-> Infos de la carte lue dans le lecteur: ");
         System.out.println("- Numéro : "+infos[0]);

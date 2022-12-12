@@ -19,12 +19,11 @@ public class Recharger extends Panneau {
     JLabel icon;
     JButton simulation;
     NavigationBar navbar;
-    InterfaceUtilisateur iu;
     JTextField montantAAjouter;
     public Recharger(InterfaceUtilisateur iu){
-        this.iu = iu;
+        this.interfaceUtilisateur = iu;
         this.setLayout(new GridLayout(4, 0));
-        navbar = iu.getNavBar();
+        navbar = interfaceUtilisateur.getNavBar();
         icon = new JLabel();
         icon.setIcon(OurPictures.getPicture("src/ressources/rendredvd.png"));
         icon.setOpaque(false);
@@ -46,7 +45,7 @@ public class Recharger extends Panneau {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane simulateur = OurTools.testerPane(Recharger.this, "Veuillez entrer le numero de la Carte Bancaire:");
                 JDialog dialog = simulateur.createDialog(null, "Veuillez entrer le numero");
-                iu.getNavBar().addAwaitingProcess(dialog);
+                interfaceUtilisateur.getNavBar().addAwaitingProcess(dialog);
                 dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                 dialog.setModal(false);
                 dialog.setVisible(true);
@@ -61,7 +60,7 @@ public class Recharger extends Panneau {
     }
 
     public void testerPaneGetter(String numero){
-        iu.getMediateur().publier("InsertionCB", new DonneesEvenement() {
+        interfaceUtilisateur.getMediateur().publier("InsertionCB", new DonneesEvenement() {
             @Override
             public String getDonnees() {
                 return numero;
@@ -70,26 +69,32 @@ public class Recharger extends Panneau {
     }
 
     public void activer(){
-        iu.getMediateur().abonner("InsertionCB", new Handler() {
+        interfaceUtilisateur.getMediateur().abonner("InsertionCB", new Handler() {
             @Override
             public void handle(DonneesEvenement e) {
                 String id = (String) e.getDonnees();
                 try {
-                    System.out.println("test");
-                    CB cb = iu.getLogiciel().simulerInsertionCB(id);
+                    System.out.println("test : id -> "+id);
+                    CB cb = interfaceUtilisateur.getLogiciel().simulerInsertionCB(id);
                     System.out.println("Carte "+cb.getInformationsBancaires()+" inséré.");
+                    if(montantAAjouter.getText() != ""){
+                        interfaceUtilisateur.getLogiciel().recharger(Float.valueOf(montantAAjouter.getText()), cb.getInformationsBancaires());
+                    }
+                    interfaceUtilisateur.changerEtat(ETAT_IU.VOIR_FILMS);
                 } catch (CarteIllisible ex) {
                     System.out.println("Carte illisible ! ");
+                } catch (PaiementRefuse ex) {
+                    System.out.println("Recharge Impossible : Fonds insuffisants");
                 }
 
             }
         });
-        instructions.setText("Votre solde est de : "+iu.getCarteAbonne().getSolde()+"\nVeuillez entrer le montant de la recharge et insérer votre Carte Bancaire.");
+        instructions.setText("Votre solde est de : "+interfaceUtilisateur.getCarteAbonne().getSolde()+"\nVeuillez entrer le montant de la recharge et insérer votre Carte Bancaire.");
 
     }
 
     public void desactiver(){
-        iu.getMediateur().desabonner("InsertionCB");
+        interfaceUtilisateur.getMediateur().desabonner("InsertionCB");
     }
 }
 
