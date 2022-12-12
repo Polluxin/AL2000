@@ -50,9 +50,9 @@ public class PreConnexion extends Panneau {
                             iu.getMediateur().desabonner("InsertionCA");
                             iu.changerEtat(ETAT_IU.CONNEXION);
                         } catch (CarteIllisible ex) {
-                            System.out.println("ERREUR : Carte Illisible");
+                            iu.errorDialog("ERREUR : Carte Illisible");
                         } catch (ConnexionImpossible ex) {
-                            System.out.println("ERREUR : Carte invalide");
+                            iu.errorDialog("ERREUR : Carte Invalide");
                         }
 
                     }

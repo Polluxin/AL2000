@@ -154,6 +154,8 @@ public class NavigationBar extends JPanel {
         compte.setVisible(estConnecte);
         parametres.setEnabled(estConnecte);
         parametres.setVisible(estConnecte);
+        deconnexion.setEnabled(estConnecte);
+        deconnexion.setVisible(estConnecte);
     }
 
     public void cacher(){

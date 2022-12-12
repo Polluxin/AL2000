@@ -88,6 +88,9 @@ public class OurTools {
                 } else if (jb.getClass().getName().equals("Vue.PreConnexion")){
                     PreConnexion pcnx = (PreConnexion) jb;
                     pcnx.testerPaneGetter(form.getText());
+                } else if (jb.getClass().getName().equals("Vue.Recharger")){
+                    Recharger rech = (Recharger) jb;
+                    rech.testerPaneGetter(form.getText());
                 }
             }
         });
