@@ -24,7 +24,7 @@ public class Test1 {
 //connextion du client 
         System.out.println("connextion  :");
         System.out.println("donner un numero de carte ");
-        String numcarte="1";
+        String numcarte;
         numcarte=cs.next();
       
         System.out.println("donner votre mot de passe  ");
