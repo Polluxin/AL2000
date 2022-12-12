@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
-public class BackgroundPanel extends JPanel {
+public class BackgroundPanel extends Panneau {
     File f;
     StretchIcon background;
     public BackgroundPanel(){

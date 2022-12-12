@@ -82,10 +82,10 @@ public class OurTools {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane pane = getOptionPane((JComponent)e.getSource());
                 pane.setValue(JOptionPane.YES_OPTION);
-                if(jb.getClass().getName() == "Vue.RendreBluray"){
+                if(jb.getClass().getName().equals("Vue.RendreBluray")){
                     RendreBluray rb = (RendreBluray) jb;
                     rb.testerPaneGetter(form.getText());
-                } else if (jb.getClass().getName() == "Vue.PreConnexion"){
+                } else if (jb.getClass().getName().equals("Vue.PreConnexion")){
                     PreConnexion pcnx = (PreConnexion) jb;
                     pcnx.testerPaneGetter(form.getText());
                 }

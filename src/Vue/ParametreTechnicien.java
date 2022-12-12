@@ -3,7 +3,7 @@ package Vue;
 import javax.swing.*;
 import java.awt.*;
 
-public class ParametreTechnicien extends JPanel {
+public class ParametreTechnicien extends Panneau {
     JButton afficherStat;
     JButton ouvrirMachine;
     InterfaceUtilisateur interfaceUtilisateur;

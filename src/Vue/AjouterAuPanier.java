@@ -8,23 +8,33 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AjouterAuPanier extends JPanel {
+/**
+ * JPanel montrant les informations sur un film avant de l'ajouter au panier
+ * @author Matvei Pavlov
+ */
+public class AjouterAuPanier extends Panneau {
     Film ceFilm;
-    JTextArea realisateur;
-    JTextArea duree;
-    JTextArea date;
-    JTextArea genre;
-    JLabel titreFilm;
-    JLabel solde;
-    JPanel titrePanneau;
-    JPanel panneauPrincipal;
-    JPanel panneauGauche;
-    JPanel panneauDroite;
-    JPanel panneauDroiteNord;
-    JPanel soldePayer;
-    JButton boutonAjouter;
     InterfaceUtilisateur interfaceUtilisateur;
+    JButton boutonAjouter;
+    JLabel solde;
+    JLabel titreFilm;
+    JPanel panneauDroite;
+    JPanel panneauGauche;
+    JPanel panneauPrincipal;
+    JPanel soldePayer;
+    JPanel titrePanneau;
+    JTextArea date;
+    JTextArea duree;
+    JTextArea genre;
+    JTextArea realisateur;
+
+    /**
+     * Constructeur
+     * @param film un film, qui sera mis à jour à chaque ouverture
+     * @param interfaceUtilisateur L'interface appelante
+     */
     public AjouterAuPanier(Film film, InterfaceUtilisateur interfaceUtilisateur){
+        // Parametres de this
         this.setLayout(new BorderLayout());
         this.interfaceUtilisateur = interfaceUtilisateur;
         this.ceFilm = film;
@@ -33,8 +43,9 @@ public class AjouterAuPanier extends JPanel {
         titrePanneau = new JPanel(new BorderLayout());
         titrePanneau.add(titreFilm);
 
+
         panneauPrincipal = new JPanel(new GridLayout(0,2));
-        panneauGauche = new JPanel(new BorderLayout());
+        // Initialisation du panneau de droite
         panneauDroite = new JPanel(new GridLayout(8, 0));
         panneauDroite.add(new JLabel("Realisateur : "));
         realisateur = textWrapped("");
@@ -48,14 +59,16 @@ public class AjouterAuPanier extends JPanel {
         panneauDroite.add(new JLabel("Genre : "));
         genre = textWrapped("");
         panneauDroite.add(genre);
-        //panneauDroiteNord.add()
 
+        //Initialisation du panneau de gauche
+        panneauGauche = new JPanel(new BorderLayout());
         panneauGauche.add(new JLabel(OurPictures.getPicture("src/ressources/couverture.png")));
-
+        // Solde
         soldePayer = new JPanel(new GridLayout(2,0));
         solde = new JLabel("Solde : XXX");
         soldePayer.add(solde);
 
+        // Ajout au panier
         boutonAjouter = OurTools.transparentButtonWithIcon("src/ressources/ajouterPanier.png");
         boutonAjouter.addActionListener(new ActionListener() {
             @Override
@@ -66,8 +79,6 @@ public class AjouterAuPanier extends JPanel {
         soldePayer.add(boutonAjouter);
         panneauGauche.add(soldePayer, BorderLayout.SOUTH);
 
-
-
         panneauPrincipal.add(panneauGauche);
         panneauPrincipal.add(panneauDroite);
 
@@ -75,10 +86,20 @@ public class AjouterAuPanier extends JPanel {
         this.add(panneauPrincipal);
 
     }
+
+    /**
+     * Deuxieme version du constructeur avec film prédéfini
+     * @param iu Interface Utilisateur appelante
+     */
     public AjouterAuPanier(InterfaceUtilisateur iu){
         this(new Film("Genial Eric le Generique", "Eric Lanvin", new java.sql.Date(System.currentTimeMillis()), "2h00", Genre.ACTION), iu);
     }
 
+
+    /**
+     * Modifie l'interface avec le film contenu dans setFilm
+     * @param f
+     */
     public void setFilm(Film f){
         ceFilm = f;
         titreFilm.setText(f.getTitre());
@@ -93,6 +114,11 @@ public class AjouterAuPanier extends JPanel {
         realisateur.setText(f.getRealisateur());
     }
 
+    /**
+     * Créé un JTextArea qui supporte le line wrapping, pour les elements de plusieurs lignes
+     * @param text le texte à mettre dans le JTextArea
+     * @return un nouveau JTextArea avec du line-wrap.
+     */
     private JTextArea textWrapped(String text){
         JTextArea jt = new JTextArea(text);
         jt.setWrapStyleWord(true);
@@ -101,5 +127,8 @@ public class AjouterAuPanier extends JPanel {
         return jt;
     }
 
-
+    @Override
+    public void activer() {
+        setFilm(interfaceUtilisateur.getFilmActuel());
+    }
 }

@@ -6,14 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class Bienvenue extends JPanel{
+public class Bienvenue extends Panneau{
     JPanel panneauPrincipal;
     JPanel boutons;
     JButton[] listeBoutons;
-    InterfaceUtilisateur iu;
 
     public Bienvenue(InterfaceUtilisateur iu){
-        this.iu = iu;
+        this.interfaceUtilisateur= iu;
 
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
@@ -62,49 +61,18 @@ public class Bienvenue extends JPanel{
 
     }
 
-    public JButton getBouton(String name){
-        if(Objects.equals(name, "connexion")){
-            return this.listeBoutons[0];
-        } else if (Objects.equals(name, "inscription")){
-            return this.listeBoutons[1];
-        } else if (Objects.equals(name, "rendre films")){
-            return this.listeBoutons[2];
-        } else if (Objects.equals(name, "voir films")){
-            return this.listeBoutons[3];
-        }
-        else return null;
-    }
-
     private void setActions(){
-        listeBoutons[0].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                iu.changerEtat(ETAT_IU.PRE_CONNEXION);
+        listeBoutons[0].addActionListener(e -> {
+            if(!interfaceUtilisateur.estConnecte()) {
+                interfaceUtilisateur.changerEtat(ETAT_IU.PRE_CONNEXION);
             }
         });
-
-        listeBoutons[1].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                iu.changerEtat(ETAT_IU.INSCRIPTION);
+        listeBoutons[1].addActionListener(e -> {
+            if(!interfaceUtilisateur.estConnecte()) {
+                interfaceUtilisateur.changerEtat(ETAT_IU.INSCRIPTION);
             }
         });
-
-        listeBoutons[2].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                iu.changerEtat(ETAT_IU.RENDRE_DVD);
-            }
-        });
-
-        listeBoutons[3].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                iu.changerEtat(ETAT_IU.VOIR_FILMS);
-            }
-        });
+        listeBoutons[2].addActionListener(e -> interfaceUtilisateur.changerEtat(ETAT_IU.RENDRE_DVD));
+        listeBoutons[3].addActionListener(e -> interfaceUtilisateur.changerEtat(ETAT_IU.VOIR_FILMS));
     }
-
-
-
 }

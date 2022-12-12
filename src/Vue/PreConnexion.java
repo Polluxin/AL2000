@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PreConnexion extends JPanel {
+public class PreConnexion extends Panneau {
     JTextArea instructions;
     JLabel icon;
     JButton simulation;

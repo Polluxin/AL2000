@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class EntreeDuTesteur extends JPanel {
+public class EntreeDuTesteur extends Panneau {
     JPanel form;
     JPanel buttonsLayout;
     JTextField numero;
