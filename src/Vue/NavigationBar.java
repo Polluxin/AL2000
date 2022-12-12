@@ -131,7 +131,6 @@ public class NavigationBar extends JPanel {
         panier.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                iu.getAfficherPanier().activate();
                 iu.changerEtat(ETAT_IU.AFFICHER_PANIER);
             }
         });
@@ -148,19 +147,13 @@ public class NavigationBar extends JPanel {
     }
 
     public void setConnecte(boolean estConnecte){
-        if(estConnecte){
-            this.estConnecte = true;
-            connexion.setEnabled(false);
-            connexion.setVisible(false);
-            compte.setEnabled(true);
-            compte.setVisible(true);
-        } else {
-            this.estConnecte = false;
-            connexion.setEnabled(true);
-            connexion.setVisible(true);
-            compte.setEnabled(false);
-            compte.setVisible(false);
-        }
+        this.estConnecte = estConnecte;
+        connexion.setEnabled(!estConnecte);
+        connexion.setVisible(!estConnecte);
+        compte.setEnabled(estConnecte);
+        compte.setVisible(estConnecte);
+        parametres.setEnabled(estConnecte);
+        parametres.setVisible(estConnecte);
     }
 
     public void cacher(){
@@ -211,34 +204,26 @@ public class NavigationBar extends JPanel {
         this.setThisBorder(true);
     }
 
-    public void setCompte(boolean active) {
-        this.compte.setVisible(active);
-        this.compte.setEnabled(active);
-    }
 
-    public void setRetour(boolean active) {
-        this.retour.setVisible(active);
-        this.retour.setEnabled(active);
-    }
-
-    public void setAide(boolean active) {
-        this.aide.setVisible(active);
-        this.aide.setEnabled(active);
-    }
-
-    public void setConnexion(boolean active) {
-        this.connexion.setVisible(active);
-        this.connexion.setEnabled(active);
-    }
-
+    /**
+     * getter de estConnecte
+     * @return true si un abonné est connecté
+     */
     public Boolean estConnecte(){
         return this.estConnecte;
     }
 
+    /**
+     * Ajoute un dialog multithreadé à surveiller
+     * @param j le JDialog
+     */
     public void addAwaitingProcess(JDialog j){
         awaitingProcess.add(j);
     }
 
+    /**
+     * Ferme et detruit les dialog multithreadés contenus dans la liste
+     */
     public void releaseProcess(){
         for(int i=0; i<awaitingProcess.size(); i++){
             JDialog j = awaitingProcess.pop();

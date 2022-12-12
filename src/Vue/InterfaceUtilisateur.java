@@ -15,32 +15,32 @@ import java.util.List;
 
 public class InterfaceUtilisateur {
 
-    JFrame ecran;
-    boolean utilisateurConnecte;
-    NavigationBar navBar;
+
+    AL2000 logiciel;
+    AfficherPanier afficherPanier;
+    AjouterAuPanier ajouterAuPanier;
     BackgroundPanel fondDEcran;
-    Dimension tailleEcran;
     Bienvenue ecranDeBienvenue;
+    CarteAbo carteAbonne;
+    ConfirmerAjouterPanier confirmerAjouterPanier;
+    Connexion connexion;
+    Dimension tailleEcran;
+    ETAT_IU etatCourant;
+    Film filmActuel;
     Inscription inscription;
     InscriptionReussie inscriptionReussie;
-    Connexion connexion;
-    PreConnexion preConnexion;
-    RendreBluray rendrebluray;
-    VoirFilms voir_films;
-    AjouterAuPanier ajouterAuPanier;
-    AfficherPanier afficherPanier;
-    ConfirmerAjouterPanier confirmerAjouterPanier;
-    AttenteDVD attenteDVD;
+    JFrame ecran;
+    Panneau panneauCourant;
+    Mediateur mediateur;
+    NavigationBar navBar;
     ParametreAbonne parametreAbonne;
     ParametreTechnicien parametreTechnicien;
-    ETAT_IU etatCourant;
-    JPanel panneauCourant;
-
-    Mediateur mediateur;
-    AL2000 logiciel;
-    CarteAbo carteAbonne;
+    PreConnexion preConnexion;
+    Recharger recharger;
+    RendreBluray rendrebluray;
+    VoirFilms voir_films;
+    boolean utilisateurConnecte;
     int nombreDelementsDansLePanier;
-    Film filmActuel;
 
     /**
      * Creation de l'interface utilisateur et initialisation des panneaux
@@ -58,20 +58,20 @@ public class InterfaceUtilisateur {
         etatCourant = ETAT_IU.AUCUN;
 
         // Initialisation des panneaux
-        navBar = new NavigationBar(this);
+        afficherPanier = new AfficherPanier(this);
+        ajouterAuPanier = new AjouterAuPanier(this);
+        confirmerAjouterPanier = new ConfirmerAjouterPanier(this);
+        connexion = new Connexion(this);
         ecranDeBienvenue = new Bienvenue(this);
         inscription = new Inscription(this);
         inscriptionReussie = new InscriptionReussie();
-        connexion = new Connexion(this);
-        preConnexion = new PreConnexion(this);
-        rendrebluray = new RendreBluray(this);
-        voir_films = new VoirFilms(this);
-        attenteDVD = new AttenteDVD();
-        ajouterAuPanier = new AjouterAuPanier(this);
-        afficherPanier = new AfficherPanier(this);
-        confirmerAjouterPanier = new ConfirmerAjouterPanier(this);
+        navBar = new NavigationBar(this);
         parametreAbonne = new ParametreAbonne(this);
         parametreTechnicien = new ParametreTechnicien(this);
+        preConnexion = new PreConnexion(this);
+        recharger = new Recharger(this);
+        rendrebluray = new RendreBluray(this);
+        voir_films = new VoirFilms(this);
 
 
         // panneau de départ
@@ -104,6 +104,7 @@ public class InterfaceUtilisateur {
      */
     public void changerEtat(ETAT_IU nouvelEtat) {
         // enlever l'ecran precedent
+        panneauCourant.desactiver();
         ecran.remove(panneauCourant);
         navBar.reset();
         // modifier l'etat courant
@@ -138,7 +139,9 @@ public class InterfaceUtilisateur {
                     panneauCourant = rendrebluray;
                 }
                 case VOIR_FILMS -> panneauCourant = voir_films;
-                case ATTENTE_DVD -> panneauCourant = attenteDVD;
+                case RECHARGER -> {
+                    panneauCourant = recharger;
+                }
                 case AJOUTER_AU_PANIER -> panneauCourant = ajouterAuPanier;
                 case AFFICHER_PANIER -> panneauCourant = afficherPanier;
                 case CONFIRMER_AJOUTER_AU_PANIER -> {
@@ -150,6 +153,7 @@ public class InterfaceUtilisateur {
                 }
             }
             // parametrage de l'ecran courant
+            panneauCourant.activer();
             ecran.add(panneauCourant);
             etatCourant = nouvelEtat;
             navBar.ajouterEtat(nouvelEtat);
@@ -187,7 +191,7 @@ public class InterfaceUtilisateur {
     }
 
     public boolean estConnecte(){
-        return this.utilisateurConnecte;
+        return this.navBar.estConnecte();
     }
 
     public NavigationBar getNavBar(){
@@ -233,8 +237,6 @@ public class InterfaceUtilisateur {
 
     public void setFilmActuel(Film f){
         this.filmActuel = f;
-        ajouterAuPanier.setFilm(f);
-        System.out.println("Ouverture du film : "+f.getTitre());
     }
 
     public Film getFilmActuel(){

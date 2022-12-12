@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RendreBluray extends JPanel {
+public class RendreBluray extends Panneau {
     JTextArea instructions;
     JLabel icon;
     JButton simulation;
@@ -21,33 +21,13 @@ public class RendreBluray extends JPanel {
     public RendreBluray(InterfaceUtilisateur iu){
         navbar = iu.getNavBar();
         this.iu = iu;
-        backgroundThread = new Runnable() {
-            @Override
-            public void run() {
-                iu.getMediateur().abonner("Entrer Blu-Ray", new Handler() {
-                    @Override
-                    public void handle(DonneesEvenement e) {
-                        try {
-                            iu.getLogiciel().simulerInsertionBluRay((String) e.getDonnees());
-                            iu.getMediateur().desabonner("Entrer Blu-Ray");
-                            threadInterrupt();
-                            System.out.println("Blu-Ray correctement rendu.");
-                        } catch (BluRayInvalide ex) {
-                            System.out.println("Blu-Ray Invalide !");
-                        } catch (BluRayNonLoue eb) {
-                            System.out.println("Blu-Ray Actuellement en magasin !");
-                        }
-                    }
-                });
-            }
-        };
-        backgroundThreadRun = new Thread(backgroundThread);
-        backgroundThreadRun.start();
+
         icon = new JLabel();
         icon.setIcon(OurPictures.getPicture("src/ressources/rendredvd.png"));
         icon.setOpaque(false);
 
         instructions = new JTextArea("Veuillez insérer les Blu-ray dans la fente prévue à cet effet.");
+        instructions.setFont(instructions.getFont().deriveFont(70f));
         instructions.setOpaque(false);
         instructions.setLineWrap(true);
         instructions.setWrapStyleWord(true);
@@ -87,5 +67,32 @@ public class RendreBluray extends JPanel {
 
     private void threadInterrupt(){
         backgroundThreadRun.interrupt();
+    }
+
+    public void activer(){
+        backgroundThread = new Runnable() {
+            @Override
+            public void run() {
+                iu.getMediateur().abonner("Entrer Blu-Ray", new Handler() {
+                    @Override
+                    public void handle(DonneesEvenement e) {
+                        try {
+                            iu.getLogiciel().simulerInsertionBluRay((String) e.getDonnees());
+                            System.out.println("Blu-Ray correctement rendu.");
+                        } catch (BluRayInvalide ex) {
+                            System.out.println("Blu-Ray Invalide !");
+                        } catch (BluRayNonLoue eb) {
+                            System.out.println("Blu-Ray Actuellement en magasin !");
+                        }
+                    }
+                });
+            }
+        };
+        backgroundThreadRun = new Thread(backgroundThread);
+        backgroundThreadRun.start();
+    }
+    public void desactiver(){
+        iu.getMediateur().desabonner("Entrer Blu-Ray");
+        threadInterrupt();
     }
 }
