@@ -17,6 +17,7 @@ Attention : Session permet une connexion à la base par l'utilisateur davidge (m
 * Pour le générer faire ensuite "Build" -> "Build Artifacts..."
 Le .JAR est alors généré dans le dossier du projet
 ### Etape 4 : exécuter le programme
+* Avoir une version de java supérieure à 17
 * Lancer la commande *java -jar AL2000.jar* dans le répertoire contenant le fichier
 
 ## Liste des tests des parties fonctionnelles
