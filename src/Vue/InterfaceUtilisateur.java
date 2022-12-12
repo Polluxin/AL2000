@@ -215,11 +215,11 @@ public class InterfaceUtilisateur {
     }
 
     /**
-     * Incrémente le panier et renvoie vrai si l'incrémentation a eu lieu, pour limiter le panier à 10 films
+     * Incrémente le panier et renvoie vrai si l'incrémentation a eu lieu, pour limiter le panier à 5 films, nombre limite de locations qu'un individu peut avoir en simultané
      * @return vrai si le panier a pu être incrémenté
      */
     public Boolean incrementerPanier(){
-        if(nombreDelementsDansLePanier == 10){
+        if(nombreDelementsDansLePanier == 5){
             return false;
         } else {
             nombreDelementsDansLePanier++;

@@ -1,7 +1,5 @@
 package Vue;
-/**
- * @(#)StretchIcon.java	1.0 03/27/12
- */
+
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Graphics;

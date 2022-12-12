@@ -33,17 +33,13 @@ public class Test2 {
        System.out.println("Veuillez entrer votre adresse mail");
        String prenom=cs.next();
         System.out.println("Veuillez entrer votre adresse mail");
-        String mail="1";
-       mail=cs.next();
+        String mail=cs.next();
         System.out.println("Veuillez entrer votre adresse");
-        String adr="1";
-        adr=cs.next();
+        String adr=cs.next();
         System.out.println("Veuillez entrer votre mot de passe ");
-        String md1="CHARLESbogoss2002";
-        md1=cs.next();
+        String md1=cs.next();
         System.out.println("Veuillez confirmer votre mot de passe  ");
-        String md2="CHARLESbogoss2002";
-        md2=cs.next();
+        String md2=cs.next();
         Genre[] inter=new Genre[3];
             
             inter[0]=Genre.ACTION;

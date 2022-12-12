@@ -13,7 +13,6 @@ import Metier.GestionMachine.FormulaireInscription;
 /**
  * Classe permettant d'authentifier un client, c'est depuis cette classe que toutes les opérations relatives au compte s'effectuent.
  *
- *
  * @author Geoffrey DAVID
  * @author Armand GRENIER
  * @version 0
