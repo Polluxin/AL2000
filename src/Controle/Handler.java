@@ -5,5 +5,5 @@ package Controle;
  * @author Geoffrey DAVID
  */
 public interface Handler {
-    public void handle(DonneesEvenement e);
+    void handle(DonneesEvenement e);
 }

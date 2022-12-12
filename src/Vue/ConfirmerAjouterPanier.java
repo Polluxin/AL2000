@@ -9,12 +9,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Panneau de confirmation d'ajout au panier permettant de choisir un format pour le film
+ */
 public class ConfirmerAjouterPanier extends Panneau {
-    InterfaceUtilisateur interfaceUtilisateur;
-    JButton qrCode;
-    JButton physique;
-    Thread backgroundThreadRun;
-    Runnable backgroundThread;
+    private final JButton qrCode;
+    private final JButton physique;
+    private Thread backgroundThreadRun;
+
+    /**
+     * Constructeur du panneau
+     * @param interfaceUtilisateur l'interface utilsiateur
+     */
     public ConfirmerAjouterPanier(InterfaceUtilisateur interfaceUtilisateur){
         this.interfaceUtilisateur = interfaceUtilisateur;
         this.setLayout(new BorderLayout());
@@ -72,14 +78,14 @@ public class ConfirmerAjouterPanier extends Panneau {
 
     @Override
     public void activer() {
-        backgroundThread = new Runnable() {
+        Runnable backgroundThread = new Runnable() {
             @Override
             public void run() {
                 interfaceUtilisateur.getMediateur().abonner("ajouterPanier", new Handler() {
                     @Override
                     public void handle(DonneesEvenement e) {
                         Support sup = (Support) e.getDonnees();
-                        if(interfaceUtilisateur.incrementerPanier()){
+                        if (interfaceUtilisateur.incrementerPanier()) {
                             interfaceUtilisateur.getLogiciel().ajouterPanier(sup);
                             System.out.println("Film ajouté !");
                         } else {

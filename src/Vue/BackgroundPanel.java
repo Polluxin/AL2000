@@ -5,10 +5,9 @@ import java.awt.*;
 import java.io.File;
 
 public class BackgroundPanel extends Panneau {
-    File f;
-    StretchIcon background;
+    private final StretchIcon background;
     public BackgroundPanel(){
-        f = new File("res/ressources/Background.png");
+        File f = new File("res/ressources/Background.png");
         background = new StretchIcon(f.getAbsolutePath());
         this.setLayout(new BorderLayout());
     }

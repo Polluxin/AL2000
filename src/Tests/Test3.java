@@ -14,7 +14,7 @@ public class Test3 {
         String scChar;
 boolean b =true;
 System.out.println("rendre dvd");
-       while (b==true){
+       while (b){
         AL2000 aL2000=new AL2000(new Session());
         System.out.println("donner le numero du dvd");
         Scanner cs=new Scanner(System.in);

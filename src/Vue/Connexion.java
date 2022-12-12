@@ -10,30 +10,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Connexion extends Panneau {
-    JPanel centrePanneau;
-    JPanel motDePassePanneau;
-    JButton connexion;
-    JPasswordField motDePasse;
-    JTextField motDePasseTxt;
-    Runnable backgroundThread;
-    Thread backgroundThreadRun;
+    private final JPasswordField motDePasse;
+    private Thread backgroundThreadRun;
     public Connexion(InterfaceUtilisateur iu){
         this.interfaceUtilisateur = iu;
 
         this.setLayout(new BorderLayout());
-        centrePanneau = new JPanel(new BorderLayout());
+        JPanel centrePanneau = new JPanel(new BorderLayout());
         centrePanneau.setOpaque(false);
 
-        motDePassePanneau = new JPanel(new BorderLayout());
+        JPanel motDePassePanneau = new JPanel(new BorderLayout());
 
-        motDePasseTxt = new JTextField("Veuillez entrer votre mot de passe :");
+        JTextField motDePasseTxt = new JTextField("Veuillez entrer votre mot de passe :");
         motDePasseTxt.setEditable(false);
         motDePasseTxt.setOpaque(false);
 
         motDePasse = new JPasswordField("CHARLESbogoss2002");
         motDePasse.setOpaque(true);
 
-        connexion = OurTools.transparentButtonWithIcon("res/ressources/connexion.png");
+        JButton connexion = OurTools.transparentButtonWithIcon("res/ressources/connexion.png");
         connexion.setOpaque(false);
         connexion.setMaximumSize(new Dimension(500,500));
         connexion.addActionListener(new ActionListener() {
@@ -76,7 +71,7 @@ public class Connexion extends Panneau {
 
     @Override
     public void activer() {
-        backgroundThread = new Runnable() {
+        Runnable backgroundThread = new Runnable() {
             @Override
             public void run() {
                 interfaceUtilisateur.getMediateur().abonner("Connexion", new Handler() {

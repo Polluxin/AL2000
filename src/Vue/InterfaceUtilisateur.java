@@ -229,14 +229,10 @@ public class InterfaceUtilisateur {
 
     /**
      * Décremente le panier pour connaitre le nombre d'éléments actuellement
-     * @return vrai si le panier a pu être décrementé
      */
-    public Boolean decrementerPanier(){
-        if(nombreDelementsDansLePanier == 0){
-            return false;
-        } else {
+    public void decrementerPanier(){
+        if(nombreDelementsDansLePanier != 0){
             nombreDelementsDansLePanier--;
-            return true;
         }
     }
 

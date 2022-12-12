@@ -4,7 +4,6 @@ import Controle.DonneesEvenement;
 import Controle.Handler;
 import Metier.Exception.CarteIllisible;
 import Metier.Exception.FondsInsuffisants;
-import Metier.Exception.PaiementRefuse;
 import Metier.GestionClient.CB;
 
 import javax.swing.*;
@@ -16,13 +15,12 @@ import java.awt.event.ActionListener;
  * @author Matvei Pavlov
  */
 public class ReglerPanierCB extends Panneau{
-    JTextArea instructions;
-    JLabel icon;
-    JButton simulation;
+    private final JTextArea instructions;
+
     public ReglerPanierCB(InterfaceUtilisateur iu){
         this.interfaceUtilisateur = iu;
         this.setLayout(new GridLayout(4, 0));
-        icon = new JLabel();
+        JLabel icon = new JLabel();
         icon.setIcon(OurPictures.getPicture("res/ressources/insertion.png"));
         icon.setOpaque(false);
 
@@ -32,7 +30,7 @@ public class ReglerPanierCB extends Panneau{
         instructions.setWrapStyleWord(true);
         instructions.setEditable(false);
 
-        simulation = new JButton("Simuler insertion Carte Banquaire");
+        JButton simulation = new JButton("Simuler insertion Carte Banquaire");
         simulation.setPreferredSize(new Dimension(100, 100));
         simulation.setBackground(Color.CYAN);
 

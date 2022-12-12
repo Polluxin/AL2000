@@ -10,25 +10,27 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Panneau d'insertion de la carte abonné afin de se connecter
+ */
 public class PreConnexion extends Panneau {
-    JTextArea instructions;
-    JLabel icon;
-    JButton simulation;
-    NavigationBar navbar;
-    InterfaceUtilisateur iu;
+
+    /**
+     * Constructeur
+     * @param iu l'interface utilisateur courante
+     */
     public PreConnexion(InterfaceUtilisateur iu){
-        this.iu = iu;
-        navbar = iu.getNavBar();
-        icon = new JLabel();
+        this.interfaceUtilisateur = iu;
+        JLabel icon = new JLabel();
         icon.setIcon(OurPictures.getPicture("res/ressources/insertion.png"));
         icon.setOpaque(false);
 
-        instructions = new JTextArea("Veuillez insérer votre Carte d'abonné dans la fente prévue à cet effet.");
+        JTextArea instructions = new JTextArea("Veuillez insérer votre Carte d'abonné dans la fente prévue à cet effet.");
         instructions.setOpaque(false);
         instructions.setLineWrap(true);
         instructions.setWrapStyleWord(true);
 
-        simulation = new JButton("Simuler entrée Carte");
+        JButton simulation = new JButton("Simuler entrée Carte");
         simulation.setPreferredSize(new Dimension(100, 100));
         simulation.setBackground(Color.CYAN);
 
@@ -40,19 +42,19 @@ public class PreConnexion extends Panneau {
                 dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                 dialog.setModal(false);
                 dialog.setVisible(true);
-                iu.getMediateur().abonner("InsertionCA", new Handler() {
+                interfaceUtilisateur.getMediateur().abonner("InsertionCA", new Handler() {
                     @Override
                     public void handle(DonneesEvenement e) {
                         String id = (String) e.getDonnees();
                         try {
-                            iu.setCarteAbonne(iu.getLogiciel().simulerInsertionCA(id));
+                            interfaceUtilisateur.setCarteAbonne(interfaceUtilisateur.getLogiciel().simulerInsertionCA(id));
                             System.out.println("Connexion réussie avec la carte "+id);
-                            iu.getMediateur().desabonner("InsertionCA");
-                            iu.changerEtat(ETAT_IU.CONNEXION);
+                            interfaceUtilisateur.getMediateur().desabonner("InsertionCA");
+                            interfaceUtilisateur.changerEtat(ETAT_IU.CONNEXION);
                         } catch (CarteIllisible ex) {
-                            iu.errorDialog("ERREUR : Carte Illisible");
+                            interfaceUtilisateur.errorDialog("ERREUR : Carte Illisible");
                         } catch (ConnexionImpossible ex) {
-                            iu.errorDialog("ERREUR : Carte Invalide");
+                            interfaceUtilisateur.errorDialog("ERREUR : Carte Invalide");
                         }
 
                     }
@@ -68,16 +70,17 @@ public class PreConnexion extends Panneau {
         this.add(simulation, BorderLayout.SOUTH);
     }
 
+    /**
+     * Action effecutée lors de l'insertion de la carte
+     * @param numero le numero de la carte
+     */
     public void testerPaneGetter(String numero){
-        iu.getMediateur().publier("InsertionCA", new DonneesEvenement() {
+        interfaceUtilisateur.getMediateur().publier("InsertionCA", new DonneesEvenement() {
             @Override
             public String getDonnees() {
                 return numero;
             }
         });
-
-
-//        System.out.println("Carte numero "+iu.numeroDeCarte+" à été entré.");
 
     }
 }

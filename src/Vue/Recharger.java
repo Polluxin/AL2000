@@ -11,20 +11,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Attente de l'entrée d'un DVD par l'utilisateur
+ * Recharger le solde de la carte abonné à l'aide d'une carte bancaire
  * @author Matvei Pavlov
  */
 public class Recharger extends Panneau {
-    JTextArea instructions;
-    JLabel icon;
-    JButton simulation;
-    NavigationBar navbar;
-    JTextField montantAAjouter;
+    private final JTextArea instructions;
+    private final JTextField montantAAjouter;
     public Recharger(InterfaceUtilisateur iu){
         this.interfaceUtilisateur = iu;
         this.setLayout(new GridLayout(3, 0));
-        navbar = interfaceUtilisateur.getNavBar();
-        icon = new JLabel();
+        JLabel icon = new JLabel();
         icon.setIcon(OurPictures.getPicture("res/ressources/insertion.png"));
         icon.setOpaque(false);
 
@@ -38,7 +34,7 @@ public class Recharger extends Panneau {
         montantAAjouter.setFont(montantAAjouter.getFont().deriveFont(100f));
         montantAAjouter.setBorder(BorderFactory.createMatteBorder(10,10,10,10,OurColors.border()));
 
-        simulation = new JButton("Simuler insertion Carte Banquaire");
+        JButton simulation = new JButton("Simuler insertion Carte Banquaire");
         simulation.setPreferredSize(new Dimension(100, 100));
         simulation.setBackground(Color.CYAN);
 
@@ -61,6 +57,10 @@ public class Recharger extends Panneau {
         this.add(simulation);
     }
 
+    /**
+     * Action a effectuer sur insertion d'une carte bancaire
+     * @param numero numero de carte
+     */
     public void testerPaneGetter(String numero){
         interfaceUtilisateur.getMediateur().publier("InsertionCB", new DonneesEvenement() {
             @Override
@@ -70,6 +70,9 @@ public class Recharger extends Panneau {
         });
     }
 
+    /**
+     * Action effectuée chaque fois que ce panneau devient le panneau courant
+     */
     public void activer(){
         interfaceUtilisateur.getMediateur().abonner("InsertionCB", new Handler() {
             @Override
@@ -95,6 +98,9 @@ public class Recharger extends Panneau {
 
     }
 
+    /**
+     * Action effectuée lorsque ce panneau n'est plus panneau courant.
+     */
     public void desactiver(){
         interfaceUtilisateur.getMediateur().desabonner("InsertionCB");
     }

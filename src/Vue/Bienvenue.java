@@ -7,9 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class Bienvenue extends Panneau{
-    JPanel panneauPrincipal;
-    JPanel boutons;
-    JButton[] listeBoutons;
+    private final JButton[] listeBoutons;
 
     public Bienvenue(InterfaceUtilisateur iu){
         this.interfaceUtilisateur= iu;
@@ -17,12 +15,12 @@ public class Bienvenue extends Panneau{
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
 
-        panneauPrincipal = new JPanel();
+        JPanel panneauPrincipal = new JPanel();
         panneauPrincipal.setOpaque(false);
         panneauPrincipal.setLayout(new BorderLayout());
 
         // Panneau contenant tous les boutons
-        boutons = new JPanel(); // Panel containing all the buttons
+        JPanel boutons = new JPanel(); // Panel containing all the buttons
         boutons.setLayout(new GridLayout(4,3));
 
         boutons.setOpaque(false); // make it transparent to see the background

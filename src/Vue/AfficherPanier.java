@@ -16,22 +16,18 @@ import java.util.List;
  * @author Matvei Pavlov
  */
 public class AfficherPanier extends Panneau {
-    float prix;
-    float prixGeneral;
-    InterfaceUtilisateur interfaceUtilisateur;
-    JButton validerPanier;
-    JPanel affichage;
-    JPanel grilleDesFilms;
-    JPanel panneauBas;
-    JPanel panneauBasGauche;
-    JScrollPane listeDeFilms;
-    JTextField montantValeur;
-    Runnable backgroundThread;
-    Thread backgroundThreadRun;
+    private float prix;
+    private float prixGeneral;
+    private final InterfaceUtilisateur interfaceUtilisateur;
+    private final JButton validerPanier;
+    private final JPanel grilleDesFilms;
+    private final JScrollPane listeDeFilms;
+    private final JTextField montantValeur;
+    private Thread backgroundThreadRun;
 
     /**
      * Constructeur de l'affichage de panier
-     * @param interfaceUtilisateur
+     * @param interfaceUtilisateur l'interface utilisateur
      */
     public AfficherPanier(InterfaceUtilisateur interfaceUtilisateur){
         // Parametrage de this
@@ -44,7 +40,7 @@ public class AfficherPanier extends Panneau {
         initValider();
 
         // JPanel principal
-        affichage = new JPanel(new BorderLayout());
+        JPanel affichage = new JPanel(new BorderLayout());
         affichage.setOpaque(false);
 
         // Informations sur le solde
@@ -54,11 +50,11 @@ public class AfficherPanier extends Panneau {
         montantValeur.setOpaque(false);
         montant.setOpaque(false);
         montant.setEditable(false);
-        panneauBasGauche = new JPanel(new FlowLayout());
+        JPanel panneauBasGauche = new JPanel(new FlowLayout());
         panneauBasGauche.setOpaque(false);
         panneauBasGauche.add(montant);
         panneauBasGauche.add(montantValeur);
-        panneauBas = new JPanel(new GridLayout(0,2));
+        JPanel panneauBas = new JPanel(new GridLayout(0, 2));
         panneauBas.add(panneauBasGauche);
         panneauBas.add(validerPanier);
         panneauBas.setBackground(OurColors.fond2());
@@ -93,18 +89,19 @@ public class AfficherPanier extends Panneau {
      */
     public void activer(){
         build(interfaceUtilisateur.getLogiciel().consulterPanier());
-        backgroundThread = new Runnable() {
+        // Cas Carte abonné
+        Runnable backgroundThread = new Runnable() {
             @Override
             public void run() {
                 interfaceUtilisateur.getMediateur().abonner("Paiement", new Handler() {
                     @Override
                     public void handle(DonneesEvenement e) {
                         // Cas Carte abonné
-                        if(interfaceUtilisateur.estConnecte()){
+                        if (interfaceUtilisateur.estConnecte()) {
                             try {
                                 interfaceUtilisateur.getLogiciel().louerFilms();
                             } catch (FondsInsuffisants ex) {
-                                interfaceUtilisateur.errorDialog("Fonds insuffisant : "+prix+" > "+interfaceUtilisateur.getCarteAbonne().getSolde());
+                                interfaceUtilisateur.errorDialog("Fonds insuffisant : " + prix + " > " + interfaceUtilisateur.getCarteAbonne().getSolde());
                                 interfaceUtilisateur.changerEtat(ETAT_IU.RECHARGER);
                             }
                         } else {
@@ -134,7 +131,7 @@ public class AfficherPanier extends Panneau {
     private void build(List<Location> locations){
         supprimerGrille();
         prix = 0;
-        if(interfaceUtilisateur.getNavBar().estConnecte){
+        if(interfaceUtilisateur.getNavBar().estConnecte()){
             prixGeneral = 4;
         } else {
             prixGeneral = 5;

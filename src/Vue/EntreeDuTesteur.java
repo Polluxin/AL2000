@@ -6,14 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EntreeDuTesteur extends Panneau {
-    JPanel form;
-    JPanel buttonsLayout;
-    JTextField numero;
-    JTextField instructions;
-    JButton[] btn_nombre;
-    JPanel tousLesBoutonsNumeriques;
-    JPanel entreeNumero;
-    String text;
+    private JPanel form;
+    private JTextField numero;
+    private JPanel tousLesBoutonsNumeriques;
+    private final String text;
     public EntreeDuTesteur(String text){
         this.text = text;
         initPanneau();
@@ -27,7 +23,7 @@ public class EntreeDuTesteur extends Panneau {
         form.setBorder(BorderFactory.createMatteBorder(3,3,3,3,Color.BLACK));
         form.setBackground(OurColors.fond2());
 
-        instructions = new JTextField(text);
+        JTextField instructions = new JTextField(text);
         instructions.setOpaque(false);
         instructions.setEditable(false);
         instructions.setPreferredSize(new Dimension(500, 100));
@@ -35,7 +31,7 @@ public class EntreeDuTesteur extends Panneau {
         instructions.setAlignmentX(CENTER_ALIGNMENT);
         instructions.setAlignmentY(CENTER_ALIGNMENT);
 
-        entreeNumero = new JPanel(new BorderLayout());
+        JPanel entreeNumero = new JPanel(new BorderLayout());
         numero = new JTextField();
 
         nombresInit();
@@ -44,7 +40,7 @@ public class EntreeDuTesteur extends Panneau {
         entreeNumero.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         entreeNumero.setOpaque(false);
 
-        buttonsLayout = new JPanel(new GridLayout(1,2));
+        JPanel buttonsLayout = new JPanel(new GridLayout(1, 2));
         buttonsLayout.setOpaque(false);
 
         buttonsLayout.setPreferredSize(new Dimension(5, 100));
@@ -56,7 +52,7 @@ public class EntreeDuTesteur extends Panneau {
     }
 
     private void nombresInit() {
-        btn_nombre = new JButton[10];
+        JButton[] btn_nombre = new JButton[10];
         tousLesBoutonsNumeriques = new JPanel(new GridLayout(1, 10));
         for (int i = 0; i < 10; i++) {
             btn_nombre[i] = new JButton("" + i);

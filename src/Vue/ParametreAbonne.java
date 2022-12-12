@@ -2,15 +2,13 @@ package Vue;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ParametreAbonne extends Panneau {
-    JButton recharger;
-    JButton retirer;
-    JButton historique;
-    JTextField solde;
-    InterfaceUtilisateur interfaceUtilisateur;
+    private final JButton recharger;
+    private final JButton retirer;
+    private final JButton historique;
+    private final JTextField solde;
+    private final InterfaceUtilisateur interfaceUtilisateur;
     public ParametreAbonne(InterfaceUtilisateur interfaceUtilisateur){
         this.interfaceUtilisateur = interfaceUtilisateur;
         this.setOpaque(false);
@@ -29,12 +27,7 @@ public class ParametreAbonne extends Panneau {
     }
 
     private void initButtons(){
-        recharger.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                interfaceUtilisateur.changerEtat(ETAT_IU.RECHARGER);
-            }
-        });
+        recharger.addActionListener(e -> interfaceUtilisateur.changerEtat(ETAT_IU.RECHARGER));
         retirer.addActionListener(e -> interfaceUtilisateur.errorDialog("Cette fonctionnalité sera disponible dans la prochaine version !"));
         historique.addActionListener(e -> interfaceUtilisateur.errorDialog("Cette fonctionnalité sera disponible dans la prochaine version !"));
     }

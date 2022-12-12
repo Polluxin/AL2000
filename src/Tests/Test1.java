@@ -37,7 +37,7 @@ public class Test1 {
 //afficher le catalogue :  
             boolean b =true;
         List<FilmEtFormat> catalogue=aL2000.donnerCatalogue(new FiltreTri(Tri.TITRE,""));
-        while(b==true){
+        while(b){
         System.out.println("le catalogue :");
         for (FilmEtFormat f :catalogue ){
             System.out.println(i+" "+f);

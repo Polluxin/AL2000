@@ -16,36 +16,22 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class Inscription extends Panneau {
-    JPanel nom;
-    JPanel prenom;
-    JPanel adresseMail;
-    JPanel adressePostale;
-    JPanel motDePasse;
-    JPanel confirmation;
-    JPanel interdiction;
-    JCheckBox western;
-    JCheckBox action;
-    JCheckBox fantaisie;
-    JCheckBox anime;
-    JCheckBox horreur;
-    JCheckBox sf;
-    JCheckBox suspense;
-    JCheckBox romance;
+    private final JPanel nom;
+    private final JPanel prenom;
+    private final JPanel adresseMail;
+    private final JPanel adressePostale;
+    private final JPanel motDePasse;
+    private final JPanel confirmation;
+    private final JPanel interdiction;
 
-    JButton inscriptionPayer;
-
-    JScrollPane affichage;
-    JPanel dansScrollPane;
-
-    Runnable backgroundThread;
-    Thread backgroundThreadRun;
+    private final Thread backgroundThreadRun;
 
 
     public Inscription(InterfaceUtilisateur iu){
         this.interfaceUtilisateur = iu;
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
-        dansScrollPane = new JPanel(new GridLayout(8,0));
+        JPanel dansScrollPane = new JPanel(new GridLayout(8, 0));
         nom = nouvelEnsemble("Generique", "Veuillez entrer votre nom");
         prenom = nouvelEnsemble("Eric", "Veuillez entrer votre prénom");
         adresseMail = nouvelEnsemble("genial@ge.nial.com", "Veuillez entrer votre adresse mail");
@@ -61,14 +47,14 @@ public class Inscription extends Panneau {
 
         interdiction = new JPanel(new FlowLayout());
         interdiction.setOpaque(false);
-        western = nouvelleCheckBox("WESTERN");
-        action = nouvelleCheckBox("ACTION");
-        fantaisie = nouvelleCheckBox("FANTAISIE");
-        anime = nouvelleCheckBox("ANIME");
-        horreur = nouvelleCheckBox("HORREUR");
-        sf = nouvelleCheckBox("SF");
-        suspense = nouvelleCheckBox("SUSPENSE");
-        romance = nouvelleCheckBox("ROMANCE");
+        JCheckBox western = nouvelleCheckBox("WESTERN");
+        JCheckBox action = nouvelleCheckBox("ACTION");
+        JCheckBox fantaisie = nouvelleCheckBox("FANTAISIE");
+        JCheckBox anime = nouvelleCheckBox("ANIME");
+        JCheckBox horreur = nouvelleCheckBox("HORREUR");
+        JCheckBox sf = nouvelleCheckBox("SF");
+        JCheckBox suspense = nouvelleCheckBox("SUSPENSE");
+        JCheckBox romance = nouvelleCheckBox("ROMANCE");
         interdiction.add(western);
         interdiction.add(action);
         interdiction.add(fantaisie);
@@ -80,7 +66,7 @@ public class Inscription extends Panneau {
 
         dansScrollPane.add(interdiction);
 
-        inscriptionPayer = OurTools.transparentButtonWithIcon("res/ressources/inscriptionpayer.png");
+        JButton inscriptionPayer = OurTools.transparentButtonWithIcon("res/ressources/inscriptionpayer.png");
         inscriptionPayer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -90,11 +76,11 @@ public class Inscription extends Panneau {
         });
         dansScrollPane.add(inscriptionPayer);
 
-        affichage = new JScrollPane(dansScrollPane);
+        JScrollPane affichage = new JScrollPane(dansScrollPane);
         affichage.getVerticalScrollBar().setUnitIncrement(14);
         this.add(affichage);
 
-        backgroundThread = new Runnable() {
+        Runnable backgroundThread = new Runnable() {
             @Override
             public void run() {
                 iu.getMediateur().abonner("Inscription", new Handler() {
@@ -124,7 +110,7 @@ public class Inscription extends Panneau {
         JPanel out = new JPanel(new BorderLayout());
         JTextField jtxt;
         out.setOpaque(false);
-        if(text == "mot de passe"){
+        if(Objects.equals(text, "mot de passe")){
             jtxt = new JPasswordField("mot de passe");
         } else {
             jtxt = new JTextField(text);

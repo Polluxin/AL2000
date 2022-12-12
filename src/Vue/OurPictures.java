@@ -148,13 +148,11 @@ public final class OurPictures {
         String[] dims = s.getDescription().split(" ");
         return new Dimension(Integer.parseInt(dims[0]), Integer.parseInt(dims[1]));
     }
-
+    /**
+     *  Get in a dimension and an expected width and outputs a dimension with the expected width and the new height.
+     */
     public static Dimension scaleDimensionByHeight(Dimension in, double maxHeight){
-        /**
-         *  Get in a dimension and an expected width and outputs a dimension with the expected width and the new height.
-         */
-        Dimension out = new Dimension((int)((maxHeight*in.getWidth())/in.getHeight()), (int)maxHeight);
-        return out;
+        return new Dimension((int)((maxHeight*in.getWidth())/in.getHeight()), (int)maxHeight);
     }
 
     public static StretchIcon getBluray() {
