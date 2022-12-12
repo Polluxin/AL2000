@@ -141,7 +141,6 @@ public class AfficherPanier extends Panneau {
         }
         // Pour chaque locations dans le panier
         for (Location location : locations) {
-            System.out.println(location);
             JPanel current = new JPanel(new GridLayout(3,0));
             current.setBackground(new Color(100 + (int)(Math.random() * 151), 100 + (int)(Math.random() * 151), 100 + (int)(Math.random() * 151))); //couleur aleatoire
             current.setBorder(BorderFactory.createEmptyBorder(40,10,40,10));

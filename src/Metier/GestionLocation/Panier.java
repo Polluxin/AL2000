@@ -41,6 +41,7 @@ public class Panier {
         Date sqlDate = new Date(System.currentTimeMillis());
         // création de la location
         Location loc = new Location(sqlDate, Etat.ENCOURS, s, c);
+        System.out.println(loc+" ajouté au panier" );
         locations.add(loc);
 
     }

@@ -2,7 +2,6 @@ package Vue;
 
 import Controle.DonneesEvenement;
 import Controle.Handler;
-import Metier.GestionLocation.QrCode;
 import Metier.GestionLocation.Support;
 
 import javax.swing.*;
@@ -45,7 +44,7 @@ public class ConfirmerAjouterPanier extends Panneau {
         qrCode.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Support qrc = interfaceUtilisateur.getLogiciel().getSupport(interfaceUtilisateur.getFilmActuel().getFilm(), true);
+                Support qrc = interfaceUtilisateur.getLogiciel().getSupport(interfaceUtilisateur.getFilmActuel().getFilm(), false);
                 interfaceUtilisateur.getMediateur().publier("ajouterPanier", new DonneesEvenement() {
                     @Override
                     public Object getDonnees() {
@@ -57,7 +56,7 @@ public class ConfirmerAjouterPanier extends Panneau {
         physique.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Support phy = interfaceUtilisateur.getLogiciel().getSupport(interfaceUtilisateur.getFilmActuel().getFilm(), false);
+                Support phy = interfaceUtilisateur.getLogiciel().getSupport(interfaceUtilisateur.getFilmActuel().getFilm(), true);
                 interfaceUtilisateur.getMediateur().publier("ajouterPanier", new DonneesEvenement() {
                     @Override
                     public Object getDonnees() {
