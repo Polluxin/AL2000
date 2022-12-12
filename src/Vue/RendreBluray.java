@@ -3,6 +3,7 @@ package Vue;
 import Controle.DonneesEvenement;
 import Controle.Handler;
 import Metier.Exception.BluRayInvalide;
+import Metier.Exception.BluRayNonLoue;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,6 +34,8 @@ public class RendreBluray extends JPanel {
                             System.out.println("Blu-Ray correctement rendu.");
                         } catch (BluRayInvalide ex) {
                             System.out.println("Blu-Ray Invalide !");
+                        } catch (BluRayNonLoue eb) {
+                            System.out.println("Blu-Ray Actuellement en magasin !");
                         }
                     }
                 });
