@@ -18,6 +18,7 @@ package GestionClient {
     class Anonyme
     class Carte
     class Compte
+    class FabriqueSupport
 }
 
 package GestionLocation {
