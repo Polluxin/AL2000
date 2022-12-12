@@ -15,6 +15,7 @@ import java.util.List;
 public class Location {
     Date date;
     Etat etat;
+    int id = -1;
     Support support;
     Client client;
 
@@ -25,8 +26,15 @@ public class Location {
         this.client = client;
     }
 
-
     //<editor-fold desc="getter/setter">
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Support getSupport() {
         return support;
     }

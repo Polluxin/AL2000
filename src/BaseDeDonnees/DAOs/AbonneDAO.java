@@ -20,7 +20,7 @@ public class AbonneDAO extends DAO<Abonne> {
         // TODO A TESTER
         try {
             ResultSet res = connect.createStatement().executeQuery("" +
-                    "SELECT MAX(idabo) " +
+                    "SELECT MAX(IDCARTE) as idabo " +
                     "FROM LESCARTES");
             if (!res.next()) return false;
             int id = res.getInt("idabo") + 1;
@@ -83,5 +83,16 @@ public class AbonneDAO extends DAO<Abonne> {
             return null;
         }
         return a;
+    }
+
+    public void modifierSolde(int id, float nouveau_solde){
+        try {
+            connect.createStatement().executeUpdate("" +
+                    "UPDATE LESCA " +
+                    "SET SOLDE="+nouveau_solde+" " +
+                    "where IDCARTE="+id);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }
