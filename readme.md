@@ -1,10 +1,10 @@
 # Projet AL2000 - *Novembre 2022*
 ## Description globale de l'état du code
-Lien du git : https://github.com/Polluxin/AL2000.git
+Lien du git : *https://github.com/Polluxin/AL2000.git*
 ### Cahier des charges
 * Le cahier des charges de départ se situe dans la [SRS rédigée](res/Documents/SRS_GL_Projet_M1_Info.pdf).
 * Le diagramme UML du projet se situe dans le fichier [diagramme_plantUML](res/Documents/diagramme_plantUML) (format plantUML) et [diagramme_UML](res/Documents/diagramme_UML.png).
-* La spécification de la BD se trouve dans le fichier [Spec_BD.pdf].
+* La spécification de la BD se trouve dans le fichier [Spec_BD.pdf](res/Documents/Spec_BD.pdf).
 * Toutes les fonctionnalités ne sont pas présentes, et certaines ont été modifiées.
 * Une fonctionnalité est dite présente si elle est complète et a été testée.
 * Certaines fonctionnalités absentes sur le produit final ont été implémentés dans le noyau fonctionnel (non testées).
