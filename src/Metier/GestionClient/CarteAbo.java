@@ -1,5 +1,7 @@
 package Metier.GestionClient;
 
+import Metier.Exception.PaiementRefuse;
+
 /**
  *
  * @author Armand GRENIER
@@ -28,12 +30,11 @@ public class CarteAbo extends Carte {
      * expliquer exception
      */
     @Override
-    void payer(float montant) {
-        this.solde -= montant;
-        if (solde < 0) {
-            //TODO
-            throw new IllegalStateException("le Solde est négatif");
+    void payer(float montant) throws PaiementRefuse{
+        if (solde - montant < 0) {
+            throw new PaiementRefuse();
         }
+        this.solde -= montant;
     }
 
     @Override

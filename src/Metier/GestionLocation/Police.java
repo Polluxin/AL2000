@@ -3,7 +3,6 @@ package Metier.GestionLocation;
 import Metier.Exception.PaiementRefuse;
 
 import java.sql.Date;
-import java.util.Timer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -25,8 +24,8 @@ public class Police implements Runnable {
     public static int daysApart(Date time1, Date time2){
         // TODO A TESTER
         // vérifier comment bien utiliser cette fonction pour compter les jours depuis la date de location
-        //return (int)((time2.getTime() - time1.getTime()) / (1000*60*60* 24L));
-        return (int)((time2.getTime() - time1.getTime()));
+        return (int)((time2.getTime() - time1.getTime()) / (1000*60*60* 24L));
+        //return (int)((time2.getTime() - time1.getTime()));
     }
     private void CheckPaiements(){
         for (Location l :histo.voirHistorique()){
@@ -36,7 +35,8 @@ public class Police implements Runnable {
                 // effectuer le paiement
                 try {
                     l.payer();
-                    l.setEtat(Etat.TERMINEE);
+                    histo.updateLocBDD(l);
+                    System.out.println("update de " + l);
                 } catch (PaiementRefuse e) {
                     // rien faire puis réessayer la prochaine fois
                     System.out.println("Paiement refusé pour location APAYER");
@@ -49,7 +49,8 @@ public class Police implements Runnable {
                 // location en retard
                 try {
                     l.payerRetard();
-                    l.setEtat(Etat.TERMINEE);
+                    histo.updateLocBDD(l);
+                    System.out.println("update de " + l);
                 } catch (PaiementRefuse e) {
                     // paiement échoué
                     System.out.println("Paiement refusé pour location en retard");

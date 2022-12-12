@@ -82,7 +82,7 @@ public class LocationDAO extends DAO<Location>{
         // TODO A TESTER
         try{
             // Changement de l'état de la location
-            connect.createStatement().executeQuery(
+            connect.createStatement().executeUpdate(
                     "UPDATE LESLOCATIONS " +
                             "set etat ='"+obj.getEtat()+
                             "' where IDLOCATION ="+obj.getId());

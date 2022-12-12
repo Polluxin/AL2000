@@ -115,13 +115,15 @@ public class Location {
         int joursAPayer;
         // TODO
         Date sqlDate = new Date(System.currentTimeMillis());
-        joursAPayer = 2;
+        joursAPayer = Police.daysApart(date, sqlDate);
+        joursAPayer = Math.min(joursAPayer, 3);
         client.payer(support, joursAPayer);
-
+        setEtat(Etat.TERMINEE);
     }
 
     public void payerRetard() throws PaiementRefuse {
         client.payerRetard(support);
+        setEtat(Etat.TERMINEE);
     }
 
 
