@@ -35,3 +35,4 @@ out/
 *.ipr
 *.iws
 misc.xml
+*.MF

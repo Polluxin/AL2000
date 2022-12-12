@@ -10,6 +10,7 @@ public enum Genre {
     WESTERN,
     ACTION,
     FANTAISIE,
+    COMEDIE,
     ANIME,
     HORREUR,
     SF,
@@ -34,6 +35,8 @@ public enum Genre {
                 return Genre.SUSPENSE;
             case "ROMANCE":
                 return Genre.ROMANCE;
+            case "COMEDIE":
+                return Genre.COMEDIE;
             default:
                 return null;
         }

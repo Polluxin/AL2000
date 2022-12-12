@@ -1,8 +1,6 @@
 package BaseDeDonnees.DAOs;
 
-import Metier.GestionClient.Anonyme;
-import Metier.GestionClient.CB;
-import Metier.GestionClient.Client;
+import Metier.GestionClient.*;
 import Metier.GestionLocation.*;
 
 import java.sql.Connection;
@@ -74,10 +72,8 @@ public class LocationDAO extends DAO<Location>{
     }
 
     /**
-     * Utilisé pour modifier l'état d'une location de BluRay.
-     * Comme Location ne contient pas de numéro, la location est retrouvée
-     * grâce au numéro de carte associé et la date de location.
-     * Pré-condition : c'est une location de BluRay
+     * Utilisé lors paiement d'une location. La location sera, à l'issue, dans l'état TERMINEE dans la BD.
+     * Si la location est une location d'abonné, alors le solde abonné est mis à jour.
      * @param obj la location
      * @return vrai si la modification est bien effectuée en BD
      */
@@ -85,10 +81,20 @@ public class LocationDAO extends DAO<Location>{
     public boolean modifier(Location obj) {
         // TODO A TESTER
         try{
+            // Changement de l'état de la location
             connect.createStatement().executeQuery(
                     "UPDATE LESLOCATIONS " +
                             "set etat ='"+obj.getEtat()+
-                            "' where IDCARTE ="+obj.getClient().getCarte().getId()+" and DATELOCATION='"+obj.getDate()+"'");
+                            "' where IDLOCATION ="+obj.getId());
+            // Est-ce que la location est faite par une CA ? Si oui, maj du solde
+            ResultSet res = connect.createStatement().executeQuery("" +
+                    "select IDCARTE from LESCA " +
+                    "where IDCARTE="+obj.getId());
+            if (res.next()) {// Si j'ai un résulat, alors c'est bien une CA
+                Abonne a = (Abonne) obj.getClient();
+                float nouveau_solde = ((CarteAbo) a.getCarte()).getSolde();
+                new AbonneDAO(connect).modifierSolde(a.getCarte().getId(),nouveau_solde); // Maj du solde
+            }
         } catch (SQLException e){
             e.printStackTrace();
             return false;

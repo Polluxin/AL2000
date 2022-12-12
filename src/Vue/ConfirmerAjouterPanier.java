@@ -36,27 +36,6 @@ public class ConfirmerAjouterPanier extends Panneau {
 
         this.add(conteneurBoutons);
         this.add(text, BorderLayout.NORTH);
-        backgroundThread = new Runnable() {
-            @Override
-            public void run() {
-                interfaceUtilisateur.getMediateur().abonner("ajouterPanier", new Handler() {
-                    @Override
-                    public void handle(DonneesEvenement e) {
-                        Support sup = (Support) e.getDonnees();
-                        if(interfaceUtilisateur.incrementerPanier()){
-                            interfaceUtilisateur.getLogiciel().ajouterPanier(sup);
-                            System.out.println("Film ajouté !");
-                        } else {
-                            System.out.println("Panier Plein !");
-                        }
-                        interfaceUtilisateur.changerEtat(ETAT_IU.VOIR_FILMS);
-                    }
-                });
-            }
-        };
-        actionsBoutons();
-        backgroundThreadRun = new Thread(backgroundThread);
-        backgroundThreadRun.start();
 
         this.setVisible(true);
     }
@@ -90,5 +69,37 @@ public class ConfirmerAjouterPanier extends Panneau {
 
     private void threadInterrupt(){
         backgroundThreadRun.interrupt();
+    }
+
+    @Override
+    public void activer() {
+        backgroundThread = new Runnable() {
+            @Override
+            public void run() {
+                interfaceUtilisateur.getMediateur().abonner("ajouterPanier", new Handler() {
+                    @Override
+                    public void handle(DonneesEvenement e) {
+                        Support sup = (Support) e.getDonnees();
+                        if(interfaceUtilisateur.incrementerPanier()){
+                            interfaceUtilisateur.getLogiciel().ajouterPanier(sup);
+                            System.out.println("Film ajouté !");
+                        } else {
+                            System.out.println("Panier Plein !");
+                        }
+                        interfaceUtilisateur.changerEtat(ETAT_IU.VOIR_FILMS);
+                    }
+                });
+            }
+        };
+        actionsBoutons();
+        backgroundThreadRun = new Thread(backgroundThread);
+        backgroundThreadRun.start();
+    }
+
+    @Override
+    public void desactiver() {
+        threadInterrupt();
+        interfaceUtilisateur.getMediateur().desabonner("ajouterPanier");
+
     }
 }

@@ -15,11 +15,10 @@ public class Connexion extends Panneau {
     JButton connexion;
     JPasswordField motDePasse;
     JTextField motDePasseTxt;
-    InterfaceUtilisateur iu;
     Runnable backgroundThread;
     Thread backgroundThreadRun;
     public Connexion(InterfaceUtilisateur iu){
-        this.iu = iu;
+        this.interfaceUtilisateur = iu;
 
         this.setLayout(new BorderLayout());
         centrePanneau = new JPanel(new BorderLayout());
@@ -40,10 +39,10 @@ public class Connexion extends Panneau {
         connexion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(iu.getNavBar().estConnecte()){
+                if(interfaceUtilisateur.getNavBar().estConnecte()){
                     System.out.println("Utilisateur déja connecté ! ");
                 } else {
-                    iu.getMediateur().publier("Connexion", new DonneesEvenement() {
+                    interfaceUtilisateur.getMediateur().publier("Connexion", new DonneesEvenement() {
                         @Override
                         public Object getDonnees() {
                             return String.valueOf(motDePasse.getPassword());
@@ -71,7 +70,7 @@ public class Connexion extends Panneau {
 
     @Override
     public void desactiver() {
-        iu.getMediateur().desabonner("Connexion");
+        interfaceUtilisateur.getMediateur().desabonner("Connexion");
         threadInterrupt();
     }
 
@@ -80,16 +79,16 @@ public class Connexion extends Panneau {
         backgroundThread = new Runnable() {
             @Override
             public void run() {
-                iu.getMediateur().abonner("Connexion", new Handler() {
+                interfaceUtilisateur.getMediateur().abonner("Connexion", new Handler() {
                     @Override
                     public void handle(DonneesEvenement e) {
                         String donnes = (String) e.getDonnees();
                         try {
-                            iu.getLogiciel().connexion(iu.getCarteAbonne(), donnes);
-                            iu.getNavBar().setConnecte(true);
-                            iu.changerEtat(ETAT_IU.VOIR_FILMS);
+                            interfaceUtilisateur.getLogiciel().connexion(interfaceUtilisateur.getCarteAbonne(), donnes);
+                            interfaceUtilisateur.getNavBar().setConnecte(true);
+                            interfaceUtilisateur.changerEtat(ETAT_IU.VOIR_FILMS);
                         } catch (MauvaisMotDePasse ex) {
-                            System.out.println("ERREUR : Mauvais Mot de Passe");
+                            interfaceUtilisateur.errorDialog("ERREUR : Mauvais Mot de Passe");
                         }
                     }
                 });

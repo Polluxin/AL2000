@@ -243,6 +243,13 @@ public class InterfaceUtilisateur {
         return filmActuel;
     }
 
+    public void errorDialog(String text){
+        JOptionPane.showMessageDialog(ecran,
+                text,
+                "ERREUR",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
     public static void main(String[] args) {
         InterfaceUtilisateur UI = new InterfaceUtilisateur();
     }
