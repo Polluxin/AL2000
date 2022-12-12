@@ -102,7 +102,7 @@ public class AL2000 {
      * @param filtreTri le filtre utilisé
      */
     public List<FilmEtFormat> donnerCatalogue(FiltreTri filtreTri) {
-        return catalogue.donnerFilms(compte.getClient().getInterdits(), filtreTri);
+        return catalogue.donnerFilms(compte.getInterdits(), filtreTri);
     }
 
     /**
