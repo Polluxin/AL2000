@@ -43,6 +43,7 @@ AL2000 "1" --> "1" Catalogue : consulte
 AL2000 "1" --> "1" Signalement: interagit
 AL2000 "1" -r-> "1" Distributeur : opère
 AL2000 "1" -r-> "0..1" Technicien : authentifie
+AL2000 "1" -r-> "1" FabriqueSupport : possède
 
 Technicien "1" --> "1" Maintenance : opère
 
@@ -132,15 +133,16 @@ class Abonné {
 class Panier {
 + ajouter(s: Support, c: Client)
 + supprimer(s: Support)
-+ changerSupport(l:Location)
-+ verifier() : bool
++ setSupportBluRay(l:Location)
++ setSupportQrCode(l:Location)
 + viderPanier()
 + evaluerPrix()
 }
 
 class Catalogue {
-liste_films : List<Films>
-inv : Inventaire
+- liste_films : List<Films>
+- interdits : Liste<Genre>
+- inv : Inventaire
 + donnerFilms(a:Abonné, f:FiltreTri) : Liste<Films,bool>
 - récupérerPréférences(a:Abonné) : Préférences
 - récupérerFilmsBD() : Liste<Films>
@@ -207,6 +209,7 @@ nbOuvertures : int
 }
 
 class Location {
+- id : Int
 - dateLocatin: Date
 - etatLocation: Etat
 + payer()
@@ -240,6 +243,11 @@ abstract class Support {
 + sortirFilm(d:Distributeur)
 }
 
+class FabriqueSupport {
+- dist : Distributeur
++ Bluray(f: Film)
++ QrCode(f: Film)
+}
 class "QR Code" {
 
 }
@@ -257,9 +265,10 @@ class Film {
 }
 
 class Police {
-- t:Timer
+- {static} police :Police
 + CheckPaiements()
-##TODO
++ {Static} activerPolice(h: HistoLoc, delaisSeconde: Int)
++ run()
 }
 
 note "Vérifie périodiquement s'il y a des locations\non rendues depuis plus de 3 jours" as A1
