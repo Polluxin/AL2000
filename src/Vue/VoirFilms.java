@@ -40,25 +40,6 @@ public class VoirFilms extends Panneau {
         this.iu = iu;
         grilleDesFilms_initialise = Boolean.FALSE;
 
-        backgroundThread = new Runnable() {
-            @Override
-            public void run() {
-                iu.getMediateur().abonner("recupererListeFilms", new Handler() {
-                    @Override
-                    public void handle(DonneesEvenement e) {
-                        creerListefilms(iu.getLogiciel().donnerCatalogue((FiltreTri) e.getDonnees()));
-                        iu.getMediateur().desabonner("recupererListeFilms");
-                        threadInterrupt();
-                        grilleDesFilms_initialise = true;
-                        System.out.println("Recuperer liste films handled ..");
-                    }
-                });
-            }
-        };
-
-        backgroundThreadRun = new Thread(backgroundThread);
-        backgroundThreadRun.start();
-
         int nombreFilms = 14;
         tousLesFilmsBoutons = new JButton[nombreFilms];
         tousLesFilms = new Film[nombreFilms];
@@ -177,4 +158,29 @@ public class VoirFilms extends Panneau {
 
     }
 
+    @Override
+    public void activer() {
+        backgroundThread = new Runnable() {
+            @Override
+            public void run() {
+                iu.getMediateur().abonner("recupererListeFilms", new Handler() {
+                    @Override
+                    public void handle(DonneesEvenement e) {
+                        creerListefilms(iu.getLogiciel().donnerCatalogue((FiltreTri) e.getDonnees()));
+                        grilleDesFilms_initialise = true;
+                        System.out.println("Recuperer liste films handled ..");
+                    }
+                });
+            }
+        };
+
+        backgroundThreadRun = new Thread(backgroundThread);
+        backgroundThreadRun.start();
+    }
+
+    @Override
+    public void desactiver() {
+        iu.getMediateur().desabonner("recupererListeFilms");
+        threadInterrupt();
+    }
 }

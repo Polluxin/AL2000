@@ -21,9 +21,6 @@ public class Inscription extends Panneau {
     JPanel motDePasse;
     JPanel confirmation;
     JPanel interdiction;
-    InterfaceUtilisateur interfaceUtilisateur;
-
-
     JCheckBox western;
     JCheckBox action;
     JCheckBox fantaisie;
