@@ -23,13 +23,14 @@ public class ReglerPanierCB extends Panneau{
         this.interfaceUtilisateur = iu;
         this.setLayout(new GridLayout(4, 0));
         icon = new JLabel();
-        icon.setIcon(OurPictures.getPicture("src/ressources/insertion.png"));
+        icon.setIcon(OurPictures.getPicture("res/ressources/insertion.png"));
         icon.setOpaque(false);
 
         instructions = new JTextArea("");
         instructions.setOpaque(false);
         instructions.setLineWrap(true);
         instructions.setWrapStyleWord(true);
+        instructions.setEditable(false);
 
         simulation = new JButton("Simuler insertion Carte Banquaire");
         simulation.setPreferredSize(new Dimension(100, 100));

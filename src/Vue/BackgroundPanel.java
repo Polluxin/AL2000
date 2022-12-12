@@ -8,7 +8,7 @@ public class BackgroundPanel extends Panneau {
     File f;
     StretchIcon background;
     public BackgroundPanel(){
-        f = new File("src/ressources/Background.png");
+        f = new File("res/ressources/Background.png");
         background = new StretchIcon(f.getAbsolutePath());
         this.setLayout(new BorderLayout());
     }

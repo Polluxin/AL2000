@@ -23,7 +23,7 @@ public class RendreBluray extends Panneau {
         this.iu = iu;
 
         icon = new JLabel();
-        icon.setIcon(OurPictures.getPicture("src/ressources/rendredvd.png"));
+        icon.setIcon(OurPictures.getPicture("res/ressources/rendredvd.png"));
         icon.setOpaque(false);
 
         instructions = new JTextArea("Veuillez insérer les Blu-ray dans la fente prévue à cet effet.");

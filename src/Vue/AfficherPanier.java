@@ -40,7 +40,7 @@ public class AfficherPanier extends Panneau {
         this.interfaceUtilisateur = interfaceUtilisateur;
 
         // bouton de validation du panier
-        validerPanier = OurTools.transparentButtonWithIcon("src/ressources/valider.png");
+        validerPanier = OurTools.transparentButtonWithIcon("res/ressources/valider.png");
         initValider();
 
         // JPanel principal
@@ -146,14 +146,14 @@ public class AfficherPanier extends Panneau {
             current.setBorder(BorderFactory.createEmptyBorder(40,10,40,10));
             current.add(new JLabel(location.getSupport().getFilm().getTitre()));
             current.add(new JLabel(location.getSupport().getFilm().getRealisateur()));
-            JButton suppr = OurTools.transparentButtonWithIcon("src/ressources/annuler.png");
+            JButton suppr = OurTools.transparentButtonWithIcon("res/ressources/annuler.png");
             // Suppression d'un élément de la liste et du panier si appuie sur Annuler
             suppr.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     grilleDesFilms.remove(current);
                     interfaceUtilisateur.getLogiciel().supprimerPanier(location.getSupport());
-                    interfaceUtilisateur.décrementerPanier();
+                    interfaceUtilisateur.decrementerPanier();
                     prix -= prixGeneral;
                     montantValeur.setText("" + prix);
                     repaint();

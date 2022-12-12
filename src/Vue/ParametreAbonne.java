@@ -15,9 +15,9 @@ public class ParametreAbonne extends Panneau {
         this.interfaceUtilisateur = interfaceUtilisateur;
         this.setOpaque(false);
         this.setLayout(new GridLayout(4, 0));
-        recharger = OurTools.transparentButtonWithIcon("src/ressources/recharger.png");
-        retirer = OurTools.transparentButtonWithIcon("src/ressources/retirer.png");
-        historique = OurTools.transparentButtonWithIcon("src/ressources/afficherHistorique.png");
+        recharger = OurTools.transparentButtonWithIcon("res/ressources/recharger.png");
+        retirer = OurTools.transparentButtonWithIcon("res/ressources/retirer.png");
+        historique = OurTools.transparentButtonWithIcon("res/ressources/afficherHistorique.png");
         solde = new JTextField("solde : XX €");
         solde.setOpaque(false);
         this.add(recharger);

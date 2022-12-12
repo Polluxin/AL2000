@@ -80,7 +80,7 @@ public class Inscription extends Panneau {
 
         dansScrollPane.add(interdiction);
 
-        inscriptionPayer = OurTools.transparentButtonWithIcon("src/ressources/inscriptionpayer.png");
+        inscriptionPayer = OurTools.transparentButtonWithIcon("res/ressources/inscriptionpayer.png");
         inscriptionPayer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

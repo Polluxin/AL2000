@@ -52,15 +52,15 @@ public class NavigationBar extends JPanel {
 
 
         // Initialisation des boutons de la barre de navigation
-        retour = bouton("src/ressources/retour.png");
+        retour = bouton("res/ressources/retour.png");
         this.setRetour();
-        aide = bouton("src/ressources/signalerProbleme.png");
-        connexion = bouton("src/ressources/connexion.png");
-        compte = bouton("src/ressources/compte.png");
-        parametres = bouton("src/ressources/parametres.png");
-        parametreAdmin = bouton("src/ressources/admin.png");
-        deconnexion = bouton("src/ressources/disconnect.png");
-        panier = bouton("src/ressources/panier.png");
+        aide = bouton("res/ressources/signalerProbleme.png");
+        connexion = bouton("res/ressources/connexion.png");
+        compte = bouton("res/ressources/compte.png");
+        parametres = bouton("res/ressources/parametres.png");
+        parametreAdmin = bouton("res/ressources/admin.png");
+        deconnexion = bouton("res/ressources/disconnect.png");
+        panier = bouton("res/ressources/panier.png");
 
         // Initialisation des actions des boutons
         boutonsInit();
@@ -148,7 +148,7 @@ public class NavigationBar extends JPanel {
                     "Message:",signal
             };
 
-            int option = JOptionPane.showConfirmDialog(null, message, "Login", JOptionPane.OK_CANCEL_OPTION);
+            int option = JOptionPane.showConfirmDialog(null, message, "Signaler Problème", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
                 iu.getLogiciel().signalerProbleme(new FormulaireSignalement(nom.getText(), prenom.getText(), mail.getText(), signal.getText()));
             }

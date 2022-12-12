@@ -1,13 +1,9 @@
 package Vue;
 
-import Controle.DonneesEvenement;
-import Controle.Handler;
-import Metier.Exception.FormulaireInvalide;
 import Metier.GestionLocation.Film;
 import Metier.GestionLocation.FilmEtFormat;
 import Metier.GestionLocation.FiltreTri;
 import Metier.GestionLocation.Tri;
-import Metier.GestionMachine.FormulaireInscription;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,17 +30,16 @@ public class VoirFilms extends Panneau {
     JButton[] tousLesFilmsBoutons;
     Film[] tousLesFilms;
     JTextArea[] tousLesTitres;
-    InterfaceUtilisateur iu;
 
     List<FilmEtFormat> listeFilms;
     Boolean grilleDesFilms_initialise;
 
     /**
      * Constructeur de VoirFilms permettant de créer les structures qui ne changent pas dans voirFilms
-     * @param iu
+     * @param iu l'interface utilisateur
      */
     public VoirFilms(InterfaceUtilisateur iu){
-        this.iu = iu;
+        this.interfaceUtilisateur = iu;
         grilleDesFilms_initialise = Boolean.FALSE;
 
         int nombreFilms = 14;
@@ -65,7 +60,7 @@ public class VoirFilms extends Panneau {
         barreDeRecherche.setOpaque(false);
         barreDeRecherche.setEditable(true);
 
-        btnRecherche = OurTools.transparentButtonWithIcon("src/ressources/search.png");
+        btnRecherche = OurTools.transparentButtonWithIcon("res/ressources/search.png");
         //System.out.println("Dimensions of textfield : "+barreDeRecherche.getPreferredSize());
         btnRecherche.setPreferredSize(new Dimension(75,75));
         btnRecherche.addActionListener(e -> iu.errorDialog("Cette fonctionnalité sera disponible dans la prochaine version !"));
@@ -113,7 +108,7 @@ public class VoirFilms extends Panneau {
         this.listeFilms = listeFilms;
         int i = 0;
         for (FilmEtFormat fef : listeFilms) {
-            JButton b1 = OurTools.transparentButtonWithIcon("src/ressources/ajouterPanier.png");
+            JButton b1 = OurTools.transparentButtonWithIcon("res/ressources/ajouterPanier.png");
             b1.setMinimumSize(new Dimension(300,60));
             b1.setPreferredSize(new Dimension(300,60));
             //b1.setOpaque(false);
@@ -129,14 +124,14 @@ public class VoirFilms extends Panneau {
             b1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    iu.setFilmActuel(fef);
+                    interfaceUtilisateur.setFilmActuel(fef);
                     System.out.println("fef : --> "+fef.estDispoEnPhysique());
-                    iu.changerEtat(ETAT_IU.AJOUTER_AU_PANIER);
+                    interfaceUtilisateur.changerEtat(ETAT_IU.AJOUTER_AU_PANIER);
 
                 }
             });
 
-            StretchIcon imageFilm = OurPictures.getPicture("src/ressources/couverture.png");
+            StretchIcon imageFilm = OurPictures.getPicture("res/ressources/couverture.png");
             JLabel jl1 = new JLabel(imageFilm);
             jl1.setPreferredSize(new Dimension(300,300));
             jl1.setMinimumSize(new Dimension(300,300));
@@ -170,7 +165,7 @@ public class VoirFilms extends Panneau {
      */
     @Override
     public void activer() {
-        creerListefilms(iu.getLogiciel().donnerCatalogue(new FiltreTri(Tri.TITRE, null)));
+        creerListefilms(interfaceUtilisateur.getLogiciel().donnerCatalogue(new FiltreTri(Tri.TITRE, null)));
     }
 
     /**
@@ -178,7 +173,7 @@ public class VoirFilms extends Panneau {
      */
     @Override
     public void desactiver() {
-        iu.getMediateur().desabonner("recupererListeFilms");
+        interfaceUtilisateur.getMediateur().desabonner("recupererListeFilms");
         viderListeFilm();
     }
 }
