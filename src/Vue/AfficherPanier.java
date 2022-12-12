@@ -118,6 +118,9 @@ public class AfficherPanier extends Panneau {
         backgroundThreadRun.start();
     }
 
+    /**
+     * desactive le panneau courant, interromps les threads et se désabonne
+     */
     public void desactiver(){
         backgroundThreadRun.interrupt();
         interfaceUtilisateur.getMediateur().desabonner("Paiement");
@@ -151,6 +154,7 @@ public class AfficherPanier extends Panneau {
                 public void actionPerformed(ActionEvent e) {
                     grilleDesFilms.remove(current);
                     interfaceUtilisateur.getLogiciel().supprimerPanier(location.getSupport());
+                    interfaceUtilisateur.décrementerPanier();
                     prix -= prixGeneral;
                     montantValeur.setText("" + prix);
                     repaint();
@@ -173,6 +177,9 @@ public class AfficherPanier extends Panneau {
         }
     }
 
+    /**
+     * Initialisation du vouton de validation
+     */
     private void initValider(){
         validerPanier.addActionListener(new ActionListener() {
             @Override

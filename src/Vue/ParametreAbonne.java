@@ -35,6 +35,8 @@ public class ParametreAbonne extends Panneau {
                 interfaceUtilisateur.changerEtat(ETAT_IU.RECHARGER);
             }
         });
+        retirer.addActionListener(e -> interfaceUtilisateur.errorDialog("Cette fonctionnalité sera disponible dans la prochaine version !"));
+        historique.addActionListener(e -> interfaceUtilisateur.errorDialog("Cette fonctionnalité sera disponible dans la prochaine version !"));
     }
 
     public void activer(){

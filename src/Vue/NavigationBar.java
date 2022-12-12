@@ -134,6 +134,7 @@ public class NavigationBar extends JPanel {
                 iu.changerEtat(ETAT_IU.AFFICHER_PANIER);
             }
         });
+        aide.addActionListener(e -> iu.errorDialog("Cette fonction sera disponible dans la prochaine version !"));
     }
 
 
