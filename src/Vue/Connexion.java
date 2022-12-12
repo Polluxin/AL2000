@@ -33,7 +33,7 @@ public class Connexion extends Panneau {
         motDePasse = new JPasswordField("CHARLESbogoss2002");
         motDePasse.setOpaque(true);
 
-        connexion = OurTools.transparentButtonWithIcon("src/ressources/connexion.png");
+        connexion = OurTools.transparentButtonWithIcon("res/ressources/connexion.png");
         connexion.setOpaque(false);
         connexion.setMaximumSize(new Dimension(500,500));
         connexion.addActionListener(new ActionListener() {

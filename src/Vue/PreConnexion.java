@@ -20,7 +20,7 @@ public class PreConnexion extends Panneau {
         this.iu = iu;
         navbar = iu.getNavBar();
         icon = new JLabel();
-        icon.setIcon(OurPictures.getPicture("src/ressources/insertion.png"));
+        icon.setIcon(OurPictures.getPicture("res/ressources/insertion.png"));
         icon.setOpaque(false);
 
         instructions = new JTextArea("Veuillez insérer votre Carte d'abonné dans la fente prévue à cet effet.");

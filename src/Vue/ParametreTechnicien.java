@@ -11,8 +11,8 @@ public class ParametreTechnicien extends Panneau {
         this.interfaceUtilisateur = interfaceUtilisateur;
         this.setOpaque(false);
         this.setLayout(new GridLayout(2, 0));
-        afficherStat = OurTools.transparentButtonWithIcon("src/ressources/afficherStatistiques.png");
-        ouvrirMachine = OurTools.transparentButtonWithIcon("src/ressources/afficherStatistiques.png");
+        afficherStat = OurTools.transparentButtonWithIcon("res/ressources/afficherStatistiques.png");
+        ouvrirMachine = OurTools.transparentButtonWithIcon("res/ressources/afficherStatistiques.png");
         this.add(afficherStat);
         this.add(ouvrirMachine);
 

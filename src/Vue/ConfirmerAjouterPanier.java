@@ -19,8 +19,8 @@ public class ConfirmerAjouterPanier extends Panneau {
         this.interfaceUtilisateur = interfaceUtilisateur;
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
-        qrCode = OurTools.transparentButtonWithIcon("src/ressources/QRCode.png");
-        physique = OurTools.transparentButtonWithIcon("src/ressources/bluray.png");
+        qrCode = OurTools.transparentButtonWithIcon("res/ressources/QRCode.png");
+        physique = OurTools.transparentButtonWithIcon("res/ressources/bluray.png");
 
         JTextArea text = new JTextArea("Sous quel format souhaitez-vous retirer votre film ?");
         text.setLineWrap(true);

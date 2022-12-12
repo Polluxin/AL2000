@@ -25,7 +25,7 @@ public class Recharger extends Panneau {
         this.setLayout(new GridLayout(3, 0));
         navbar = interfaceUtilisateur.getNavBar();
         icon = new JLabel();
-        icon.setIcon(OurPictures.getPicture("src/ressources/insertion.png"));
+        icon.setIcon(OurPictures.getPicture("res/ressources/insertion.png"));
         icon.setOpaque(false);
 
         instructions = new JTextArea("");

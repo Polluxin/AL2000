@@ -30,7 +30,7 @@ public class Bienvenue extends Panneau{
         // Liste de tous les boutons
         listeBoutons = new JButton[4];
 
-        String[] refs = {"src/ressources/connexion.png","src/ressources/inscription.png", "src/ressources/rendrefilms.png", "src/ressources/voirfilms.png"};
+        String[] refs = {"res/ressources/connexion.png","res/ressources/inscription.png", "res/ressources/rendrefilms.png", "res/ressources/voirfilms.png"};
         // Ajouter tous les boutons dans leur panneau
         for(int i=0; i<4;i++){
             listeBoutons[i] = OurTools.transparentButtonWithIcon(refs[i]);

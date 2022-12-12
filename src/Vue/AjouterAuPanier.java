@@ -62,14 +62,14 @@ public class AjouterAuPanier extends Panneau {
 
         //Initialisation du panneau de gauche
         panneauGauche = new JPanel(new BorderLayout());
-        panneauGauche.add(new JLabel(OurPictures.getPicture("src/ressources/couverture.png")));
+        panneauGauche.add(new JLabel(OurPictures.getPicture("res/ressources/couverture.png")));
         // Solde
         soldePayer = new JPanel(new GridLayout(2,0));
         solde = new JLabel("Solde : XXX");
         soldePayer.add(solde);
 
         // Ajout au panier
-        boutonAjouter = OurTools.transparentButtonWithIcon("src/ressources/ajouterPanier.png");
+        boutonAjouter = OurTools.transparentButtonWithIcon("res/ressources/ajouterPanier.png");
         boutonAjouter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
