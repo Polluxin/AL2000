@@ -153,7 +153,7 @@ public class AfficherPanier extends Panneau {
                 public void actionPerformed(ActionEvent e) {
                     grilleDesFilms.remove(current);
                     interfaceUtilisateur.getLogiciel().supprimerPanier(location.getSupport());
-                    interfaceUtilisateur.décrementerPanier();
+                    interfaceUtilisateur.decrementerPanier();
                     prix -= prixGeneral;
                     montantValeur.setText("" + prix);
                     repaint();

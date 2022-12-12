@@ -116,11 +116,8 @@ public class InterfaceUtilisateur {
                 case CONNEXION -> {
                     navBar.retourSeulement(true);
                     panneauCourant = connexion;
-                } case PARAMETRES_ABONNE -> {
-                    panneauCourant = parametreAbonne;
-                } case PARAMETRES_TECHNICIEN -> {
-                    panneauCourant = parametreTechnicien;
-                }
+                } case PARAMETRES_ABONNE -> panneauCourant = parametreAbonne;
+                case PARAMETRES_TECHNICIEN -> panneauCourant = parametreTechnicien;
                 case PRE_CONNEXION -> {
                     navBar.retourSeulement(true);
                     panneauCourant = preConnexion;
@@ -130,21 +127,15 @@ public class InterfaceUtilisateur {
                     panneauCourant = rendrebluray;
                 }
                 case VOIR_FILMS -> panneauCourant = voir_films;
-                case RECHARGER -> {
-                    panneauCourant = recharger;
-                }
-                case REGLER_PANIER_CB -> {
-                    panneauCourant = reglerPanierCB;
-                }
+                case RECHARGER -> panneauCourant = recharger;
+                case REGLER_PANIER_CB -> panneauCourant = reglerPanierCB;
                 case AJOUTER_AU_PANIER -> panneauCourant = ajouterAuPanier;
                 case AFFICHER_PANIER -> panneauCourant = afficherPanier;
                 case CONFIRMER_AJOUTER_AU_PANIER -> {
                     navBar.retourSeulement(true);
                     panneauCourant = confirmerAjouterPanier;
                 }
-                default -> {
-                    System.out.println("ERROR -- Unknown new state !");
-                }
+                default -> System.out.println("ERROR -- Unknown new state !");
             }
             // parametrage de l'ecran courant
             panneauCourant.activer();
@@ -240,7 +231,7 @@ public class InterfaceUtilisateur {
      * Décremente le panier pour connaitre le nombre d'éléments actuellement
      * @return vrai si le panier a pu être décrementé
      */
-    public Boolean décrementerPanier(){
+    public Boolean decrementerPanier(){
         if(nombreDelementsDansLePanier == 0){
             return false;
         } else {

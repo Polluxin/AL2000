@@ -32,6 +32,7 @@ public class Recharger extends Panneau {
         instructions.setOpaque(false);
         instructions.setLineWrap(true);
         instructions.setWrapStyleWord(true);
+        instructions.setEditable(false);
 
         montantAAjouter = new JTextField("");
         montantAAjouter.setFont(montantAAjouter.getFont().deriveFont(100f));

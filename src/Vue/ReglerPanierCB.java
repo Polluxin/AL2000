@@ -30,6 +30,7 @@ public class ReglerPanierCB extends Panneau{
         instructions.setOpaque(false);
         instructions.setLineWrap(true);
         instructions.setWrapStyleWord(true);
+        instructions.setEditable(false);
 
         simulation = new JButton("Simuler insertion Carte Banquaire");
         simulation.setPreferredSize(new Dimension(100, 100));

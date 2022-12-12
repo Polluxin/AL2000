@@ -148,7 +148,7 @@ public class NavigationBar extends JPanel {
                     "Message:",signal
             };
 
-            int option = JOptionPane.showConfirmDialog(null, message, "Login", JOptionPane.OK_CANCEL_OPTION);
+            int option = JOptionPane.showConfirmDialog(null, message, "Signaler Problème", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
                 iu.getLogiciel().signalerProbleme(new FormulaireSignalement(nom.getText(), prenom.getText(), mail.getText(), signal.getText()));
             }
