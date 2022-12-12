@@ -4,14 +4,10 @@ import BaseDeDonnees.Session;
 import Controle.AL2000;
 import Controle.Mediateur;
 import Metier.GestionClient.CarteAbo;
-import Metier.GestionLocation.Film;
 import Metier.GestionLocation.FilmEtFormat;
-import Metier.GestionLocation.FiltreTri;
-import Metier.GestionLocation.Tri;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class InterfaceUtilisateur {
     private final AL2000 logiciel;
@@ -50,7 +46,6 @@ public class InterfaceUtilisateur {
         // Initialisations des variables
         ecran = new JFrame();
         BackgroundPanel fondDEcran = new BackgroundPanel();
-        Dimension tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
         etatCourant = ETAT_IU.AUCUN;
 
         // Initialisation des panneaux
@@ -69,7 +64,6 @@ public class InterfaceUtilisateur {
         reglerPanierCB = new ReglerPanierCB(this);
         rendrebluray = new RendreBluray(this);
         voir_films = new VoirFilms(this);
-
 
         // panneau de départ
         panneauCourant = ecranDeBienvenue;
@@ -97,7 +91,7 @@ public class InterfaceUtilisateur {
 
     /**
      * Changer l'état courant et donc le panneau affiché. Modifie egalement la barre de navigation en fonction des cas.
-     * @param nouvelEtat
+     * @param nouvelEtat etat suivant
      */
     public void changerEtat(ETAT_IU nouvelEtat) {
         // enlever l'ecran precedent
