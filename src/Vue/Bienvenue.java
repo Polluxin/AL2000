@@ -10,10 +10,9 @@ public class Bienvenue extends Panneau{
     JPanel panneauPrincipal;
     JPanel boutons;
     JButton[] listeBoutons;
-    InterfaceUtilisateur iu;
 
     public Bienvenue(InterfaceUtilisateur iu){
-        this.iu = iu;
+        this.interfaceUtilisateur= iu;
 
         this.setLayout(new BorderLayout());
         this.setOpaque(false);
@@ -63,41 +62,17 @@ public class Bienvenue extends Panneau{
     }
 
     private void setActions(){
-        listeBoutons[0].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                iu.changerEtat(ETAT_IU.PRE_CONNEXION);
+        listeBoutons[0].addActionListener(e -> {
+            if(!interfaceUtilisateur.estConnecte()) {
+                interfaceUtilisateur.changerEtat(ETAT_IU.PRE_CONNEXION);
             }
         });
-
-        listeBoutons[1].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                iu.changerEtat(ETAT_IU.INSCRIPTION);
+        listeBoutons[1].addActionListener(e -> {
+            if(!interfaceUtilisateur.estConnecte()) {
+                interfaceUtilisateur.changerEtat(ETAT_IU.INSCRIPTION);
             }
         });
-
-        listeBoutons[2].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                iu.changerEtat(ETAT_IU.RENDRE_DVD);
-            }
-        });
-
-        listeBoutons[3].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                iu.changerEtat(ETAT_IU.VOIR_FILMS);
-            }
-        });
-    }
-
-    @Override
-    public void activer() {
-        if(interfaceUtilisateur.estConnecte()){
-            listeBoutons[0].setEnabled(false);
-        } else {
-            listeBoutons[0].setEnabled(true);
-        }
+        listeBoutons[2].addActionListener(e -> interfaceUtilisateur.changerEtat(ETAT_IU.RENDRE_DVD));
+        listeBoutons[3].addActionListener(e -> interfaceUtilisateur.changerEtat(ETAT_IU.VOIR_FILMS));
     }
 }

@@ -31,7 +31,7 @@ public class Connexion extends Panneau {
         motDePasseTxt.setEditable(false);
         motDePasseTxt.setOpaque(false);
 
-        motDePasse = new JPasswordField("");
+        motDePasse = new JPasswordField("CHARLESbogoss2002");
         motDePasse.setOpaque(true);
 
         connexion = OurTools.transparentButtonWithIcon("src/ressources/connexion.png");
