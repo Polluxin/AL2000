@@ -23,7 +23,7 @@ public class ReglerPanierCB extends Panneau{
         this.interfaceUtilisateur = iu;
         this.setLayout(new GridLayout(4, 0));
         icon = new JLabel();
-        icon.setIcon(OurPictures.getPicture("src/ressources/rendredvd.png"));
+        icon.setIcon(OurPictures.getPicture("src/ressources/insertion.png"));
         icon.setOpaque(false);
 
         instructions = new JTextArea("");

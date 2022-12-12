@@ -12,6 +12,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Inscription extends Panneau {
     JPanel nom;
@@ -44,10 +46,10 @@ public class Inscription extends Panneau {
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
         dansScrollPane = new JPanel(new GridLayout(8,0));
-        nom = nouvelEnsemble("nom", "Veuillez entrer votre nom");
-        prenom = nouvelEnsemble("prénom", "Veuillez entrer votre prénom");
-        adresseMail = nouvelEnsemble("adresse mail", "Veuillez entrer votre adresse mail");
-        adressePostale = nouvelEnsemble("adresse", "Veuillez entrer votre adresse");
+        nom = nouvelEnsemble("Generique", "Veuillez entrer votre nom");
+        prenom = nouvelEnsemble("Eric", "Veuillez entrer votre prénom");
+        adresseMail = nouvelEnsemble("genial@ge.nial.com", "Veuillez entrer votre adresse mail");
+        adressePostale = nouvelEnsemble("34 rue du genie", "Veuillez entrer votre adresse");
         motDePasse = nouvelEnsemble("mot de passe", "Veuillez entrer votre mot de passe");
         confirmation = nouvelEnsemble("mot de passe", "Veuillez confirmer votre mot de passe");
         dansScrollPane.add(prenom);
@@ -156,18 +158,25 @@ public class Inscription extends Panneau {
     }
 
     private void effectuerInscription(){
-        Genre[] genres = new Genre[8];
-        int i =0;
-        for (Component c : interdiction.getComponents()) {
-            JCheckBox current = (JCheckBox) c;
-            if(current.isSelected()){
-                String text = current.getText().split("color='red'>")[1].split("</font>")[0];
-                System.out.println(text+" is selected");
-                genres[i] = Genre.valueOf(text);
-                System.out.println(genres[i]);
+        if(!Objects.equals(getNouvelEnsembleValeur(motDePasse), getNouvelEnsembleValeur(confirmation))){
+            interfaceUtilisateur.errorDialog("Les deux mots de passes sont différents !");
+        } else {
+            Genre[] tempgenres = new Genre[8];
+            int i = 0;
+            for (Component c : interdiction.getComponents()) {
+                JCheckBox current = (JCheckBox) c;
+                if (current.isSelected()) {
+                    String text = current.getText().split("color='red'>")[1].split("</font>")[0];
+                    System.out.println(text + " is selected");
+                    tempgenres[i] = Genre.valueOf(text);
+                    System.out.println(tempgenres[i]);
+                    i++;
+                }
             }
-        }
-
+            Genre[] genres = new Genre[i];
+            for(int j=0; j<i; j++){
+                genres[j] = tempgenres[j];
+            }
 
             FormulaireInscription fi = new FormulaireInscription(
                     getNouvelEnsembleValeur(nom),
@@ -178,13 +187,14 @@ public class Inscription extends Panneau {
                     getNouvelEnsembleValeur(motDePasse)
 
             );
-        interfaceUtilisateur.getMediateur().publier("Inscription", new DonneesEvenement() {
-            @Override
-            public Object getDonnees() {
-                return fi;
-            }
-        });
 
+            interfaceUtilisateur.getMediateur().publier("Inscription", new DonneesEvenement() {
+                @Override
+                public Object getDonnees() {
+                    return fi;
+                }
+            });
+        }
     }
 
     private String getNouvelEnsembleValeur(JPanel j ){

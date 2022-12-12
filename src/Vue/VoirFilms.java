@@ -16,6 +16,11 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Panneau affichant la liste des films disponibles
+ * @author Matvei Pavlov
+ */
+
 public class VoirFilms extends Panneau {
     JPanel panneauGauche;
     JPanel rechercher;
@@ -31,12 +36,13 @@ public class VoirFilms extends Panneau {
     JTextArea[] tousLesTitres;
     InterfaceUtilisateur iu;
 
-    Runnable backgroundThread;
-    Thread backgroundThreadRun;
-
     List<FilmEtFormat> listeFilms;
     Boolean grilleDesFilms_initialise;
 
+    /**
+     * Constructeur de VoirFilms permettant de créer les structures qui ne changent pas dans voirFilms
+     * @param iu
+     */
     public VoirFilms(InterfaceUtilisateur iu){
         this.iu = iu;
         grilleDesFilms_initialise = Boolean.FALSE;
@@ -62,6 +68,7 @@ public class VoirFilms extends Panneau {
         btnRecherche = OurTools.transparentButtonWithIcon("src/ressources/search.png");
         //System.out.println("Dimensions of textfield : "+barreDeRecherche.getPreferredSize());
         btnRecherche.setPreferredSize(new Dimension(75,75));
+        btnRecherche.addActionListener(e -> iu.errorDialog("Cette fonctionnalité sera disponible dans la prochaine version !"));
 
         rechercher.add(barreDeRecherche, BorderLayout.CENTER);
         rechercher.add(btnRecherche, BorderLayout.EAST);
@@ -97,10 +104,11 @@ public class VoirFilms extends Panneau {
         this.add(panneauDroite, BorderLayout.EAST);
     }
 
-    private void threadInterrupt(){
-        backgroundThreadRun.interrupt();
-    }
 
+    /**
+     * Ajouter une liste de films en FilmEtFormat dans la grille
+     * @param listeFilms la liste des FilmEtFormat
+     */
     private void creerListefilms(List<FilmEtFormat> listeFilms){
         this.listeFilms = listeFilms;
         int i = 0;
@@ -145,6 +153,9 @@ public class VoirFilms extends Panneau {
 
     }
 
+    /**
+     * Vider les tableaux utilisés et le GridLayout
+     */
     private void viderListeFilm() {
         Arrays.fill(tousLesFilmsBoutons, null);
         Arrays.fill(tousLesFilms, null);
@@ -154,16 +165,19 @@ public class VoirFilms extends Panneau {
         }
     }
 
+    /**
+     * Remplir la liste des films dans l'UI
+     */
     @Override
     public void activer() {
         creerListefilms(iu.getLogiciel().donnerCatalogue(new FiltreTri(Tri.TITRE, null)));
     }
 
+    /**
+     * Desactiver le panneau, vider la liste des films pour mettre une version mise à jour au prochain appel, desabonner du mediateur
+     */
     @Override
     public void desactiver() {
-        if(backgroundThreadRun != null) {
-            backgroundThreadRun.interrupt();
-        }
         iu.getMediateur().desabonner("recupererListeFilms");
         viderListeFilm();
     }

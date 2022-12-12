@@ -58,7 +58,6 @@ public class Compte {
         AbonneDAO dao = new AbonneDAO(bd.getSession());
         // Cette fonction crée la carte d'abonnée en BD et la lie à l'abonné A
         dao.creer(a);
-        bd.commit();
         bd.close();
         assert(a.getCarte() != null);
         // Connexion de l'abonné nouvellement inscrit

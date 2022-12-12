@@ -25,15 +25,15 @@ public class AbonneDAO extends DAO<Abonne> {
             if (!res.next()) return false;
             int id = res.getInt("idabo") + 1;
             this.connect.createStatement().executeUpdate(
-                    "INSERT INTO LESCARTES VALUES("+id+", "+obj.getNom()+", "+obj.getPrenom()+")");
+                    "INSERT INTO LESCARTES VALUES("+id+", '"+obj.getNom()+"', '"+obj.getPrenom()+"')");
             this.connect.createStatement().executeUpdate(
-                    "INSERT INTO LESCA VALUES("+id+", "+
-                    obj.getAddresseMail()+", "+ obj.getAdressePostale()+", 0, "+obj.getMotDePasse()+")");
+                    "INSERT INTO LESCA VALUES("+id+", '"+ obj.getAddresseMail()+"', '"+ obj.getAdressePostale()+"', 0, '"+obj.getMotDePasse()+"')");
             CarteAbo c = new CarteAbo(id, 0);
             obj.setCarte(c);
             // Insertion des genres dans la table LesInterdits
             //    Conversion des genres en string
             Genre[] genres = obj.getInterdits();
+            if (genres == null) return true;
             StringBuilder genresS = new StringBuilder();
             for (int i=0; i< genres.length; i++){
                 genresS.append(genres[i].toString());
@@ -41,7 +41,7 @@ public class AbonneDAO extends DAO<Abonne> {
             }
             //    Ajout en BD
             connect.createStatement().executeUpdate(
-                    "INSERT INTO LESINTERDITS VALUES("+id+", "+genresS+")");
+                    "INSERT INTO LESINTERDITS VALUES("+id+", '"+genresS+"')");
             return true;
 
         } catch (SQLException e) {

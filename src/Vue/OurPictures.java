@@ -30,6 +30,7 @@ public final class OurPictures {
     private static final StretchIcon QRCode = loadPicture("src/ressources/QRCode.png");
     private static final StretchIcon recharger = loadPicture("src/ressources/recharger.png");
     private static final StretchIcon rendredvd = loadPicture("src/ressources/rendredvd.png");
+    private static final StretchIcon insertion = loadPicture("src/ressources/insertion.png");
     private static final StretchIcon rendrefilms = loadPicture("src/ressources/rendrefilms.png");
     private static final StretchIcon retirer = loadPicture("src/ressources/retirer.png");
     private static final StretchIcon retour = loadPicture("src/ressources/retour.png");
@@ -119,6 +120,7 @@ public final class OurPictures {
         out.put("src/ressources/couverture.png", couverture);
         out.put("src/ressources/couverture.png_pressed.png", couverture_pressed);
         out.put("src/ressources/Spinner-2.gif", chargementGif);
+        out.put("src/ressources/insertion.png", insertion);
         return out;
     }
     public static StretchIcon loadPicture(String path){

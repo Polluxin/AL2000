@@ -1,5 +1,7 @@
 package Vue;
 
+import Metier.GestionMachine.FormulaireSignalement;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
@@ -132,6 +134,23 @@ public class NavigationBar extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 iu.changerEtat(ETAT_IU.AFFICHER_PANIER);
+            }
+        });
+        aide.addActionListener(e -> {
+            JTextField nom = new JTextField();
+            JTextField prenom = new JTextField();
+            JTextField mail = new JTextField();
+            JTextField signal = new JTextField();
+            Object[] message = {
+                    "Nom:", nom,
+                    "Prenom:", prenom,
+                    "Adresse Mail:", mail,
+                    "Message:",signal
+            };
+
+            int option = JOptionPane.showConfirmDialog(null, message, "Login", JOptionPane.OK_CANCEL_OPTION);
+            if (option == JOptionPane.OK_OPTION) {
+                iu.getLogiciel().signalerProbleme(new FormulaireSignalement(nom.getText(), prenom.getText(), mail.getText(), signal.getText()));
             }
         });
     }

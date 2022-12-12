@@ -118,6 +118,9 @@ public class AfficherPanier extends Panneau {
         backgroundThreadRun.start();
     }
 
+    /**
+     * desactive le panneau courant, interromps les threads et se désabonne
+     */
     public void desactiver(){
         backgroundThreadRun.interrupt();
         interfaceUtilisateur.getMediateur().desabonner("Paiement");
@@ -138,7 +141,6 @@ public class AfficherPanier extends Panneau {
         }
         // Pour chaque locations dans le panier
         for (Location location : locations) {
-            System.out.println(location);
             JPanel current = new JPanel(new GridLayout(3,0));
             current.setBackground(new Color(100 + (int)(Math.random() * 151), 100 + (int)(Math.random() * 151), 100 + (int)(Math.random() * 151))); //couleur aleatoire
             current.setBorder(BorderFactory.createEmptyBorder(40,10,40,10));
@@ -151,6 +153,7 @@ public class AfficherPanier extends Panneau {
                 public void actionPerformed(ActionEvent e) {
                     grilleDesFilms.remove(current);
                     interfaceUtilisateur.getLogiciel().supprimerPanier(location.getSupport());
+                    interfaceUtilisateur.décrementerPanier();
                     prix -= prixGeneral;
                     montantValeur.setText("" + prix);
                     repaint();
@@ -173,6 +176,9 @@ public class AfficherPanier extends Panneau {
         }
     }
 
+    /**
+     * Initialisation du vouton de validation
+     */
     private void initValider(){
         validerPanier.addActionListener(new ActionListener() {
             @Override
