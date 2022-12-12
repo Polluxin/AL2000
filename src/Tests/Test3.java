@@ -5,9 +5,10 @@ import java.util.Scanner;
 import BaseDeDonnees.Session;
 import Controle.AL2000;
 import Metier.Exception.BluRayInvalide;
+import Metier.Exception.BluRayNonLoue;
 
 public class Test3 {
-    public static void main(String[] arg) throws BluRayInvalide {
+    public static void main(String[] arg) throws BluRayInvalide, BluRayNonLoue {
         int i=0;
         int  idfilm;
         String scChar;

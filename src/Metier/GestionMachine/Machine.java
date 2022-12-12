@@ -5,15 +5,15 @@ import BaseDeDonnees.DAOs.CarteAboDAO;
 import BaseDeDonnees.DAOs.TechnicienDAO;
 import BaseDeDonnees.Session;
 import Metier.Exception.BluRayInvalide;
+import Metier.Exception.BluRayNonLoue;
 import Metier.Exception.CarteIllisible;
 import Metier.Exception.ConnexionImpossible;
 import Metier.GestionClient.CB;
 import Metier.GestionClient.CarteAbo;
-import Metier.GestionLocation.BluRay;
-import Metier.GestionLocation.Film;
-import Metier.GestionLocation.QrCode;
-import Metier.GestionLocation.Support;
+import Metier.GestionLocation.*;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -111,21 +111,38 @@ public class Machine implements Distributeur, Maintenance {
     }
 
     @Override
-    public void avalerBluRay(String id) throws BluRayInvalide {
+    public BluRay avalerBluRay(String id) throws BluRayInvalide, BluRayNonLoue {
         // TODO A TESTER
-        System.out.print("-> Authentification du BluRay ");
+        System.out.print("Authentification du BluRay : ");
+        int lu = Integer.parseInt(id);
+        if (lu<=0) throw new BluRayInvalide();
+        System.out.println("numéro "+lu+": OK");
+        // Ajout du BluRay dans l'inventaire
+        bd.open();
+        if (!estBluRayEnLocation(lu)) throw new BluRayNonLoue();
+        BluRayDAO dao = new BluRayDAO(bd.getSession());
+        BluRay b = dao.lire(lu);
+        bd.close();
+        inventaire.ajouterBluRay(b);
+        return b;
+    }
+
+    /**
+     * Fonction utilisé par avalerBluRay pour vérifier dans la bd si le BluRay est bien en pleine location.
+     * @param id l'id du BluRay
+     * @return vrai si le BluRay est dans une location ENCOURS
+     */
+    private boolean estBluRayEnLocation(int id) {
         try {
-            int lu = Integer.parseInt(id);
-            if (lu == 0) throw new BluRayInvalide();
-            System.out.println("numéro "+lu+": OK");
-            // Ajout du BluRay dans l'inventaire
-            bd.open();
-            BluRayDAO dao = new BluRayDAO(bd.getSession());
-            BluRay b = dao.lire(lu);
-            bd.close();
-            inventaire.ajouterBluRay(b);
-        } catch (BluRayInvalide e) {
-            throw new BluRayInvalide();
+            ResultSet res = bd.getSession().createStatement().executeQuery("" +
+                    "SELECT count(B.IDLOCATION) as nb FROM LESLOCATIONSBLURAY B, LESLOCATIONS L " +
+                    "WHERE B.IDLOCATION=L.IDLOCATION AND B.IDBLURAY="+id+" AND L.ETAT='"+ Etat.ENCOURS+"'");
+            res.next();
+            int i = res.getInt("nb");
+            return i != 0;
+        } catch (SQLException e){
+            e.printStackTrace();
+            return false;
         }
     }
 

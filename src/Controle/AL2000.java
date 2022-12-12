@@ -120,7 +120,7 @@ public class AL2000 {
      */
     public void connexion(CarteAbo c, String mdp) throws MauvaisMotDePasse {
         compte.connexion(c, mdp);
-        if (compte.getClient() != null)  System.out.println("Bonjour " + ((Abonne) compte.getClient()).getPrenom() + " " + ((Abonne) compte.getClient()).getNom());
+        if (compte.getClient() != null)  System.out.println("Bonjour " + (compte.getClient()).getPrenom() + " " + (compte.getClient()).getNom());
     }
 
     public void inscription(FormulaireInscription form) throws FormulaireInvalide {
@@ -164,8 +164,9 @@ public class AL2000 {
      * @param id le numéro du BluRay (unique)
      * @throws BluRayInvalide si le numéro n'est pas reconnu
      */
-    public void simulerInsertionBluRay(String id) throws BluRayInvalide {
-         machine.avalerBluRay(id);
+    public void simulerInsertionBluRay(String id) throws BluRayInvalide, BluRayNonLoue {
+         BluRay b = machine.avalerBluRay(id);
+         histo.rendreBLuRay(b); // maj de la location associée
     }
 
     /**
@@ -173,6 +174,7 @@ public class AL2000 {
      */
     public void deconnexion() {
         compte.deconnexion();
+        panier = new Panier();
     }
 
     /**

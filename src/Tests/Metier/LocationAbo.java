@@ -26,6 +26,7 @@ public class LocationAbo {
         // init AL200
         AL2000 al2000 = new AL2000(new Session());
         CarteAbo c = al2000.simulerInsertionCA("1");
+        // connexion
         al2000.connexion(c, "CHARLESbogoss2002");
 
         //récupérer les films
