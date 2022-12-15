@@ -38,6 +38,7 @@ public class ConfirmerAjouterPanier extends Panneau {
 
         conteneurBoutons.add(qrCode);
         conteneurBoutons.add(physique);
+        actionsBoutons();
 
         this.add(conteneurBoutons);
         this.add(text, BorderLayout.NORTH);
@@ -96,7 +97,6 @@ public class ConfirmerAjouterPanier extends Panneau {
                 });
             }
         };
-        actionsBoutons();
         backgroundThreadRun = new Thread(backgroundThread);
         backgroundThreadRun.start();
         physique.setEnabled(interfaceUtilisateur.getFilmActuel().estDispoEnPhysique());
